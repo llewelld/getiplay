@@ -1,0 +1,79 @@
+get_iplayer 2.94-ppa23, Copyright (C) 2008-2010 Phil Lewis
+  This program comes with ABSOLUTELY NO WARRANTY; for details use --warranty.
+  This is free software, and you are welcome to redistribute it under certain
+  conditions; use --conditions for details.
+
+Usage ( Also see https://github.com/get-iplayer/get_iplayer/wiki/documentation ):
+ List All Programmes:            get_iplayer [--type=<TYPE>]
+ Search Programmes:              get_iplayer <REGEX>
+ Record Programmes by Search:    get_iplayer <REGEX> --get
+ Record Programmes by Index:     get_iplayer <INDEX> --get
+ Record Programmes by URL:       get_iplayer [--type=<TYPE>] "<URL>"
+ Record Programmes by PID:       get_iplayer [--type=<TYPE>] --pid=<PID>
+ Stream BBC Embedded Media URL:  get_iplayer --stream --type=<TYPE> "<URL>" | mplayer -cache 128 -
+ Stream Live iPlayer Programme:  get_iplayer --stream --type=livetv,liveradio <REGEX|INDEX> --player="mplayer -cache 128 -"
+
+ Update get_iplayer cache:       get_iplayer --refresh [--force]
+
+ Basic Help:                     get_iplayer --basic-help
+ Advanced Help:                  get_iplayer --long-help
+
+Search Options:
+ --category <string>              Narrow search to matched categories (regex or comma separated values). Supported only for podcasts (not tv or radio programmes).
+ --channel <string>               Narrow search to matched channel(s) (regex or comma separated values)
+ --exclude <string>               Narrow search to exclude matched programme names (regex or comma separated values)
+ --exclude-category <string>      Narrow search to exclude matched categories (regex or comma separated values). Supported only for podcasts (not tv or radio programmes).
+ --exclude-channel <string>       Narrow search to exclude matched channel(s) (regex or comma separated values)
+ --fields <field1>,<field2>,..    Searches only in the specified comma separated fields
+ --long, -l                       Additionally search in programme descriptions and episode names (same as --fields=name,episode,desc )
+ --since                          Limit search to programmes added to the cache in the last N hours
+ --type <type>                    Only search in these types of programmes: liveradio,livetv,radio,tv,all (tv is default)
+
+Display Options:
+ --help, -h                       Intermediate help text
+ --helpbasic, --usage             Basic help text
+ --helplong                       Advanced help text
+ --info, -i                       Show full programme metadata and availability of modes and subtitles (max 50 matches)
+ --long, -l                       Show long programme info
+ --terse                          Only show terse programme info (does not affect searching)
+ --tree                           Display Programme listings in a tree view
+
+Recording Options:
+ --get, -g                        Start recording matching programmes. Search terms required unless --pid specified. Use  --search=.* to force download of all available programmes.
+ --modes <mode>,<mode>,...        Recording modes.  See --tvmode and --radiomode for available modes and defaults. Shortcuts: default,good,better(=default),best. Use --modes=best to select highest quality available (incl. HD TV).
+ --pid <pid>                      Record an arbitrary pid that does not necessarily appear in the index.
+ --proxy, -p <url>                Web proxy URL e.g. 'http://USERNAME:PASSWORD@SERVER:PORT' or 'http://SERVER:PORT'. Sets http_proxy environment variable for child processes (e.g., ffmpeg) unless --partial-proxy is specified.
+ --raw                            Don't transcode or change the recording/stream in any way (i.e. radio/realaudio, rtmp/flv)
+ --subtitles                      Download subtitles into srt/SubRip format if available and supported
+ --swfurl <URL>                   URL of Flash player used by rtmpdump for verification.  Only use if default Flash player URL is not working.
+ --url "<url>"                    Record the embedded media player in the specified URL. Use with --type=<type>.
+
+Output Options:
+ --output, -o <dir>               Recording output directory
+ --player '<command> <options>'   Use specified command to directly play the stream
+ --stream                         Stream to STDOUT (so you can pipe output to a player)
+
+PVR Options:
+ --pvr [pvr search name]          Runs the PVR using all saved PVR searches (intended to be run every hour from cron etc). The list can be limited by adding a regex to the command. Synonyms: --pvrrun, --pvr-run
+ --pvr-add <search name>          Save the named PVR search with the specified search terms.  Search terms required. Use --search=.* to force download of all available programmes. Synonyms: --pvradd
+ --pvr-del <search name>          Remove the named search from the PVR searches. Synonyms: --pvrdel
+ --pvr-exclude <string>           Exclude the PVR searches to run by search name (regex or comma separated values). Synonyms: --pvrexclude
+ --pvr-list                       Show the PVR search list. Synonyms: --pvrlist
+ --pvr-queue                      Add currently matched programmes to queue for later one-off recording using the --pvr option. Search terms required unless --pid specified. Use --search=.* to force download of all available programmes. Synonyms: --pvrqueue
+ --pvr-scheduler <seconds>        Runs the PVR using all saved PVR searches every <seconds>. Synonyms: --pvrscheduler
+ --pvr-single <search name>       Runs a named PVR search. Synonyms: --pvrsingle
+
+Config Options:
+ --localfilesdirs <dir>[,dir,]    Directories/Folders to scan for new files
+ --prefs-add                      Add/Change specified saved user or preset options
+ --prefs-clear                    Remove *ALL* saved user or preset options
+ --prefs-del                      Remove specified saved user or preset options
+ --prefs-show                     Show saved user or preset options
+ --refresh, --flush, -f           Refresh cache
+ --update, -u                     Update get_iplayer if a newer version is available. If so, plugins also will be updated if newer versions available.
+
+External Program Options:
+ --ffmpeg <path>                  Location of ffmpeg or avconv binary. Synonyms: --avconv
+ --lame <path>                    Location of lame binary
+ --rtmpdump <path>                Location of rtmpdump binary. Synonyms: --flvstreamer
+
