@@ -9,20 +9,20 @@
     </message>
 </context>
 <context>
-    <name>FirstPage</name>
+    <name>ProfInfo</name>
+    <message>
+        <source>Programme Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ProgList</name>
     <message>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SecondPage</name>
-    <message>
-        <source>Programme Info</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

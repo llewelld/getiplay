@@ -26,6 +26,16 @@
         <source>Item</source>
         <translation type="obsolete">Element</translation>
     </message>
+</context>
+<context>
+    <name>ProfInfo</name>
+    <message>
+        <source>Programme Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ProgList</name>
     <message>
         <source>About</source>
         <translation type="unfinished"></translation>
@@ -52,10 +62,6 @@
     <message>
         <source>Hello Sailors</source>
         <translation type="obsolete">Hallo Matrosen</translation>
-    </message>
-    <message>
-        <source>Programme Info</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -20,7 +20,6 @@ Page {
             progress.value = 1.0
             progress.label = "Waiting"
             programmes.clear()
-            //resetModel = true
             pageStack.pop()
             break;
         default:
