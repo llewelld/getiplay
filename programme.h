@@ -33,7 +33,7 @@ class ProgModel : public QAbstractListModel
     Q_OBJECT
 public:
     enum ProgRoles {
-        ProIdRole = Qt::UserRole + 1,
+        ProgIdRole = Qt::UserRole + 1,
         NameRole,
         LengthRole
     };
@@ -47,6 +47,12 @@ public:
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
 
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
+
+    void clear();
+
+signals:
+    // General signals
+    void programmesChanged();
 
 private:
     QHash<int, QByteArray> roles;

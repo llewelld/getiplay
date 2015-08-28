@@ -1,10 +1,11 @@
 #include "refresh.h"
 #include "stdio.h"
 
-Refresh::Refresh(QObject *parent) :
+Refresh::Refresh(ProgModel &model, QObject *parent) :
     QObject(parent),
     process(NULL),
-    status(REFRESHSTATUS_INVALID)
+    status(REFRESHSTATUS_INVALID),
+    model(model)
 {
     arguments.clear();
 }
@@ -128,14 +129,15 @@ void Refresh::interpretLine(const QString &text) {
             unsigned int progId = progInfo.cap(1).toUInt();
             QString title = progInfo.cap(2);
 
-            printf ("Programme: %u, %s\n", progId, title.toStdString().c_str());
-            //model.addProgramme(Programme(progId, title, 0.0));
+            //printf ("Programme: %u, %s\n", progId, title.toStdString().c_str());
+            model.addProgramme(Programme(progId, title, 0.0));
         }
     }
 }
 
 void Refresh::started() {
     setStatus(REFRESHSTATUS_REFRESHING);
+    model.clear();
 }
 
 void Refresh::finished(int code) {

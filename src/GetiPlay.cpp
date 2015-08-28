@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
             if (foundPos > -1) {
                 unsigned int progId = progInfo.cap(1).toUInt();
                 QString title = progInfo.cap(2);
-                model.addProgramme(Programme(progId, title, 0.0));
+                //model.addProgramme(Programme(progId, title, 0.0));
             }
         }
         file.close();
@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
     QQmlContext *ctxt = view->rootContext();
     ctxt->setContextProperty("programmes", proxyModel);
 
-    Refresh * refresh = new Refresh ();
+    Refresh * refresh = new Refresh (model);
     view->rootContext()->setContextProperty("Refresh", refresh);
     refresh->initialise();
 

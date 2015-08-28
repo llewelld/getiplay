@@ -36,6 +36,11 @@ Page {
     property string searchString
     property bool keepSearchFieldFocus: true
 
+    Refresh {
+        id: refreshLoad
+        visible: false
+    }
+
     onSearchStringChanged: {
         programmes.setFilterFixedString(searchString)
     }
@@ -77,7 +82,9 @@ Page {
             }
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: pageStack.push(Qt.resolvedUrl("Refresh.qml"))
+                onClicked: {
+                    pageStack.push(refreshLoad)
+                }
             }
         }
 
@@ -106,7 +113,6 @@ Page {
                 color: searchString.length > 0 ? (highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor)
                                                : (highlighted ? Theme.highlightColor : Theme.primaryColor)
                 textFormat: Text.StyledText
-                //text: name
                 text: Theme.highlightText(name, searchString, Theme.highlightColor)
                 clip: true
                 width: parent.width - (2 * Theme.paddingLarge)
@@ -115,13 +121,6 @@ Page {
             onClicked: {
                 console.log("Clicked " + name)
                 pageStack.push(Qt.resolvedUrl("SecondPage.qml"), { name: name, progId: progId })
-            }
-        }
-
-
-        onCountChanged: {
-            if (count === 0) {
-               // Do nothing
             }
         }
     }

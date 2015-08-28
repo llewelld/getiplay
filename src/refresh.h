@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QProcess>
+#include "programme.h"
 
 enum REFRESHSTATUS {
     REFRESHSTATUS_INVALID = -1,
@@ -28,6 +29,8 @@ private:
     REFRESHSTATUS status;
     QStringList arguments;
 
+    ProgModel &model;
+
     // Internal methods
     void collectArguments ();
     void setStatus (REFRESHSTATUS newStatus);
@@ -43,7 +46,7 @@ private:
 
 public:
     // General methods
-    explicit Refresh(QObject *parent = 0);
+    explicit Refresh(ProgModel &model, QObject *parent = 0);
     void initialise();
     void refresh ();
 

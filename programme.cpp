@@ -41,7 +41,7 @@ void Programme::setProgId (unsigned int value) {
 //////////////// ProgModel ////////////////
 
 ProgModel::ProgModel(QObject *parent) : QAbstractListModel(parent) {
-    roles[ProIdRole] = "progId";
+    roles[ProgIdRole] = "progId";
     roles[NameRole] = "name";
     roles[LengthRole] = "size";
 }
@@ -67,7 +67,7 @@ QVariant ProgModel::data(const QModelIndex & index, int role) const {
         return QVariant();
 
     const Programme &programme = programmes[index.row()];
-    if (role == ProIdRole)
+    if (role == ProgIdRole)
         return programme.getProgId();
     else if (role == NameRole)
         return programme.getName();
@@ -76,3 +76,6 @@ QVariant ProgModel::data(const QModelIndex & index, int role) const {
     return QVariant();
 }
 
+void ProgModel::clear() {
+    programmes.clear();
+}
