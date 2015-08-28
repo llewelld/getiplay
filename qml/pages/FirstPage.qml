@@ -77,6 +77,7 @@ Page {
             }
             MenuItem {
                 text: qsTr("Refresh")
+                onClicked: pageStack.push(Qt.resolvedUrl("Refresh.qml"))
             }
         }
 

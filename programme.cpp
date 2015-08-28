@@ -1,6 +1,7 @@
 #include "programme.h"
 
-Programme::Programme(QObject *parent) {
+Programme::Programme()
+{
     name = "";
     length = 0.0f;
     progId = 0u;

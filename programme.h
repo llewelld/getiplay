@@ -8,7 +8,7 @@
 class Programme
 {
 public:
-    Programme(QObject *parent = 0);
+    Programme();
     Programme(unsigned int progId, QString name, float length);
 
     QString getName () const;

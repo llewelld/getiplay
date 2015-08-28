@@ -34,6 +34,7 @@
 
 #include <sailfishapp.h>
 #include "programme.h"
+#include "refresh.h"
 
 int main(int argc, char *argv[])
 {
@@ -81,6 +82,10 @@ int main(int argc, char *argv[])
 
     QQmlContext *ctxt = view->rootContext();
     ctxt->setContextProperty("programmes", proxyModel);
+
+    Refresh * refresh = new Refresh ();
+    view->rootContext()->setContextProperty("Refresh", refresh);
+    refresh->initialise();
 
     view->show();
     result = app->exec();
