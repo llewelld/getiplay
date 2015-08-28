@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QProcess>
-#include "programme.h"
+#include "progmodel.h"
 
 enum REFRESHSTATUS {
     REFRESHSTATUS_INVALID = -1,

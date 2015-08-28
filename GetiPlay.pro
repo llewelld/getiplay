@@ -16,7 +16,8 @@ CONFIG += sailfishapp
 
 SOURCES += src/GetiPlay.cpp \
     src/refresh.cpp \
-    src/programme.cpp
+    src/programme.cpp \
+    src/progmodel.cpp
 
 OTHER_FILES += qml/GetiPlay.qml \
     qml/cover/CoverPage.qml \
@@ -42,7 +43,8 @@ TRANSLATIONS += translations/GetiPlay-de.ts
 
 HEADERS += \
     src/refresh.h \
-    src/programme.h
+    src/programme.h \
+    src/progmodel.h
 
 output.files = output01.txt
 output.path = /usr/share/$${TARGET}
