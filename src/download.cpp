@@ -1,21 +1,20 @@
-#include "refresh.h"
+#include "download.h"
 #include "stdio.h"
 
-Refresh::Refresh(ProgModel &model, QObject *parent) :
+Download::Download(QObject *parent) :
     QObject(parent),
     process(NULL),
-    status(REFRESHSTATUS_INVALID),
-    model(model)
+    status(DOWNLOADSTATUS_INVALID)
 {
     arguments.clear();
 }
 
-void Refresh::initialise()
+void Download::initialise()
 {
-    setStatus(REFRESHSTATUS_UNINITIALISED);
+    setStatus(DOWNLOADSTATUS_UNINITIALISED);
 }
 
-void Refresh::setStatus(REFRESHSTATUS newStatus)
+void Download::setStatus(DOWNLOADSTATUS newStatus)
 {
     if (status != newStatus) {
         status = newStatus;
@@ -23,7 +22,7 @@ void Refresh::setStatus(REFRESHSTATUS newStatus)
     }
 }
 
-void Refresh::startRefresh() {
+void Download::startDownload() {
     if (process != NULL) {
         printf ("Process already running.\n");
     }
@@ -39,19 +38,18 @@ void Refresh::startRefresh() {
 
         process->start(program, arguments);
         process->closeWriteChannel();
-        setStatus(REFRESHSTATUS_INITIALISING);
+        setStatus(DOWNLOADSTATUS_INITIALISING);
         arguments.clear();
     }
 }
 
-void Refresh::collectArguments () {
+void Download::collectArguments () {
     arguments.clear();
 
-    //addOption("type", "radio");
     addValue("/opt/sdk/GetiPlay/usr/share/GetiPlay/output01.txt");
 }
 
-void Refresh::addArgument (QString key, QString value) {
+void Download::addArgument (QString key, QString value) {
     QString argument;
 
     argument = "--" + key;
@@ -61,7 +59,7 @@ void Refresh::addArgument (QString key, QString value) {
     }
 }
 
-void Refresh::addArgumentNonempty (QString key, QString value) {
+void Download::addArgumentNonempty (QString key, QString value) {
     QString argument;
 
     if (!value.isEmpty()) {
@@ -71,32 +69,32 @@ void Refresh::addArgumentNonempty (QString key, QString value) {
     }
 }
 
-void Refresh::addArgument (QString key) {
+void Download::addArgument (QString key) {
     QString argument;
 
     argument = "--" + key;
     arguments.append(argument);
 }
 
-void Refresh::addOption (QString key, bool add) {
+void Download::addOption (QString key, bool add) {
     if (add) {
         addArgument (key);
     }
 }
 
-void Refresh::addValue (QString key) {
+void Download::addValue (QString key) {
     arguments.append(key);
 }
 
-void Refresh::cancel() {
+void Download::cancel() {
     if (process != NULL) {
 
         process->terminate();
-        setStatus(REFRESHSTATUS_CANCEL);
+        setStatus(DOWNLOADSTATUS_CANCEL);
     }
 }
 
-void Refresh::readData() {
+void Download::readData() {
     while (process->canReadLine()) {
         QByteArray read = process->readLine();
         //printf ("Output: %s", read.data());
@@ -104,12 +102,12 @@ void Refresh::readData() {
         interpretData(read);
 
         if (read.endsWith("Matching Programmes\n")) {
-            setStatus(REFRESHSTATUS_DONE);
+            setStatus(DOWNLOADSTATUS_DONE);
         }
     }
 }
 
-void Refresh::interpretData(const QString &text) {
+void Download::interpretData(const QString &text) {
     if (!text.isEmpty()) {
         QStringList lines = text.split('\n', QString::SkipEmptyParts);
         for (QStringList::iterator iter = lines.begin(); iter != lines.end(); ++iter) {
@@ -118,9 +116,9 @@ void Refresh::interpretData(const QString &text) {
     }
 }
 
-void Refresh::interpretLine(const QString &text) {
+void Download::interpretLine(const QString &text) {
     if (text.endsWith("Matching Programmes\n")) {
-        setStatus(REFRESHSTATUS_DONE);
+        setStatus(DOWNLOADSTATUS_DONE);
     }
     else {
         QRegExp progInfo("^(\\d+):\\t(.*)$");
@@ -130,25 +128,25 @@ void Refresh::interpretLine(const QString &text) {
             QString title = progInfo.cap(2);
 
             //printf ("Programme: %u, %s\n", progId, title.toStdString().c_str());
-            model.addProgramme(Programme(progId, title, 0.0));
+            //model.addProgramme(Programme(progId, title, 0.0));
         }
     }
 }
 
-void Refresh::started() {
-    setStatus(REFRESHSTATUS_REFRESHING);
-    model.clear();
+void Download::started() {
+    setStatus(DOWNLOADSTATUS_DOWNLOADING);
+    //model.clear();
 }
 
-void Refresh::finished(int code) {
+void Download::finished(int code) {
     if (process != NULL) {
         //delete process;
         process = NULL;
     }
-    setStatus(REFRESHSTATUS_DONE);
+    setStatus(DOWNLOADSTATUS_DONE);
 }
 
-void Refresh::readError(QProcess::ProcessError error)
+void Download::readError(QProcess::ProcessError error)
 {
     printf ("Error: %d\n", error);
     if (process != NULL) {

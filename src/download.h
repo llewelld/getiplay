@@ -1,39 +1,33 @@
-#ifndef REFRESH_H
-#define REFRESH_H
+#ifndef DOWNLOAD_H
+#define DOWNLOAD_H
 
 #include <QObject>
 #include <QProcess>
-#include "progmodel.h"
 
-enum REFRESHSTATUS {
-    REFRESHSTATUS_INVALID = -1,
+enum DOWNLOADSTATUS {
+    DOWNLOADSTATUS_INVALID = -1,
 
-    REFRESHSTATUS_UNINITIALISED,
-    REFRESHSTATUS_INITIALISING,
-    REFRESHSTATUS_REFRESHING,
-    REFRESHSTATUS_CANCEL,
-    REFRESHSTATUS_DONE,
+    DOWNLOADSTATUS_UNINITIALISED,
+    DOWNLOADSTATUS_INITIALISING,
+    DOWNLOADSTATUS_DOWNLOADING,
+    DOWNLOADSTATUS_CANCEL,
+    DOWNLOADSTATUS_DONE,
 
-    REFRESHSTATUS_NUM
+    DOWNLOADSTATUS_NUM
 };
 
 
-class Refresh : public QObject
+class Download : public QObject
 {
     Q_OBJECT
-
-    // General properties
-
 private:
     QProcess * process;
-    REFRESHSTATUS status;
+    DOWNLOADSTATUS status;
     QStringList arguments;
-
-    ProgModel &model;
 
     // Internal methods
     void collectArguments ();
-    void setStatus (REFRESHSTATUS newStatus);
+    void setStatus (DOWNLOADSTATUS newStatus);
     void addArgument (QString key, QString value);
     void addArgument (QString key);
     void addArgumentNonempty (QString key, QString value);
@@ -43,8 +37,7 @@ private:
     void interpretLine(const QString &text);
 
 public:
-    // General methods
-    explicit Refresh(ProgModel &model, QObject *parent = 0);
+    explicit Download(QObject *parent = 0);
     void initialise();
 
 signals:
@@ -53,7 +46,7 @@ signals:
 
 public slots:
     // General methods
-    void startRefresh ();
+    void startDownload ();
     void cancel ();
     void readData ();
     void started ();
@@ -61,4 +54,4 @@ public slots:
     void readError (QProcess::ProcessError error);
 };
 
-#endif // REFRESH_H
+#endif // DOWNLOAD_H

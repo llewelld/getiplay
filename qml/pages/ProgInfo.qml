@@ -37,6 +37,30 @@ Page {
     property string name: ""
     property int progId: 0
 
+    Connections {
+        target:Download
+        onStatusChanged: {
+            updateStatus(status)
+        }
+    }
+
+    function updateStatus(status) {
+        switch (status) {
+        case 0:
+            break;
+        case 4:
+            progress.indeterminate = false
+            progress.value = 1.0
+            progress.label = "Waiting"
+            programmes.clear()
+            pageStack.pop()
+            break;
+        default:
+            break;
+        }
+        console.log("Status: " + status)
+    }
+
     // To enable PullDownMenu, place our content in a SilicaFlickable
     SilicaFlickable {
         anchors.fill: parent
@@ -63,6 +87,27 @@ Page {
             Label {
                 x: Theme.paddingLarge
                 text: "ID: " + progId
+            }
+            Button {
+                id: doDownload
+                text: "Download"
+                anchors.horizontalCenter: parent.horizontalCenter
+                enabled: true
+                onClicked: {
+                    Download.startDownload()
+                    progress.value = 0.0
+                    progress.indeterminate = true
+                    progress.label = "Working"
+                }
+            }
+
+            ProgressBar {
+                id: progress
+                width: parent.width
+                indeterminate: false
+                value: 0.0
+                label: "Doin' nothin'"
+                enabled: false
             }
         }
     }

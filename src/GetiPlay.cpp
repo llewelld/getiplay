@@ -35,6 +35,7 @@
 #include <sailfishapp.h>
 #include "programme.h"
 #include "refresh.h"
+#include "download.h"
 
 int main(int argc, char *argv[])
 {
@@ -53,6 +54,7 @@ int main(int argc, char *argv[])
 
     ProgModel model;
 
+    /*
     QFile file("/opt/sdk/GetiPlay/usr/share/GetiPlay/output01.txt");
     if (file.open(QIODevice::ReadOnly)) {
         QRegExp progInfo("^(\\d+):\\t(.*)$");
@@ -63,11 +65,12 @@ int main(int argc, char *argv[])
             if (foundPos > -1) {
                 unsigned int progId = progInfo.cap(1).toUInt();
                 QString title = progInfo.cap(2);
-                //model.addProgramme(Programme(progId, title, 0.0));
+                model.addProgramme(Programme(progId, title, 0.0));
             }
         }
         file.close();
     }
+    */
 
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
@@ -86,6 +89,10 @@ int main(int argc, char *argv[])
     Refresh * refresh = new Refresh (model);
     view->rootContext()->setContextProperty("Refresh", refresh);
     refresh->initialise();
+
+    Download * download = new Download ();
+    view->rootContext()->setContextProperty("Download", download);
+    download->initialise();
 
     view->show();
     result = app->exec();

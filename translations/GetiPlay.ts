@@ -9,7 +9,7 @@
     </message>
 </context>
 <context>
-    <name>ProfInfo</name>
+    <name>ProgInfo</name>
     <message>
         <source>Programme Info</source>
         <translation type="unfinished"></translation>

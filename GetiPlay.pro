@@ -17,7 +17,8 @@ CONFIG += sailfishapp
 SOURCES += src/GetiPlay.cpp \
     src/refresh.cpp \
     src/programme.cpp \
-    src/progmodel.cpp
+    src/progmodel.cpp \
+    src/download.cpp
 
 OTHER_FILES += qml/GetiPlay.qml \
     qml/cover/CoverPage.qml \
@@ -29,7 +30,7 @@ OTHER_FILES += qml/GetiPlay.qml \
     output01.txt \
     qml/pages/Refresh.qml \
     qml/pages/ProgList.qml \
-    qml/pages/ProfInfo.qml
+    qml/pages/ProgInfo.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line
@@ -44,7 +45,8 @@ TRANSLATIONS += translations/GetiPlay-de.ts
 HEADERS += \
     src/refresh.h \
     src/programme.h \
-    src/progmodel.h
+    src/progmodel.h \
+    src/download.h
 
 output.files = output01.txt
 output.path = /usr/share/$${TARGET}

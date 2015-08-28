@@ -120,7 +120,7 @@ Page {
             }
             onClicked: {
                 console.log("Clicked " + name)
-                pageStack.push(Qt.resolvedUrl("SecondPage.qml"), { name: name, progId: progId })
+                pageStack.push(Qt.resolvedUrl("ProgInfo.qml"), { name: name, progId: progId })
             }
         }
     }

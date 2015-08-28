@@ -46,7 +46,6 @@ Page {
                 progress.indeterminate = true
                 progress.label = "Working"
             }
-
         }
 
         ProgressBar {
