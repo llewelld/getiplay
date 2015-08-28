@@ -20,15 +20,15 @@ SOURCES += src/GetiPlay.cpp \
 
 OTHER_FILES += qml/GetiPlay.qml \
     qml/cover/CoverPage.qml \
-    qml/pages/FirstPage.qml \
-    qml/pages/SecondPage.qml \
     rpm/GetiPlay.changes.in \
     rpm/GetiPlay.spec \
     rpm/GetiPlay.yaml \
     translations/*.ts \
     GetiPlay.desktop \
     output01.txt \
-    qml/pages/Refresh.qml
+    qml/pages/Refresh.qml \
+    qml/pages/ProgList.qml \
+    qml/pages/ProfInfo.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line
