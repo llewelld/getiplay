@@ -1,4 +1,5 @@
 #include "progmodel.h"
+#include <QDebug>
 
 ProgModel::ProgModel(QObject *parent) : QAbstractListModel(parent) {
     roles[ProgIdRole] = "progId";

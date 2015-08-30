@@ -1,10 +1,12 @@
 #include "download.h"
 #include "stdio.h"
+#include <QDebug>
 
 Download::Download(QObject *parent) :
     QObject(parent),
     process(NULL),
-    status(DOWNLOADSTATUS_INVALID)
+    status(DOWNLOADSTATUS_INVALID),
+    progId(0)
 {
     arguments.clear();
 }
@@ -22,13 +24,15 @@ void Download::setStatus(DOWNLOADSTATUS newStatus)
     }
 }
 
-void Download::startDownload() {
+void Download::startDownload(int progId) {
+    this->progId = progId;
+
     if (process != NULL) {
-        printf ("Process already running.\n");
+        qDebug() << "Process already running." << endl;
     }
     else {
         process = new QProcess();
-        QString program = "cat";
+        QString program = "/home/nemo/Documents/Development/Projects/get_iplayer/get_iplayer";
         collectArguments ();
         process->setReadChannel(QProcess::StandardOutput);
         connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(readError(QProcess::ProcessError)));
@@ -46,7 +50,10 @@ void Download::startDownload() {
 void Download::collectArguments () {
     arguments.clear();
 
-    addValue("/opt/sdk/GetiPlay/usr/share/GetiPlay/output01.txt");
+    addArgument("type=radio");
+    addArgument("get", QString("%1").arg(progId));
+    addArgument("force");
+    addArgument("output", "/home/nemo/Music/iplayer");
 }
 
 void Download::addArgument (QString key, QString value) {
@@ -100,10 +107,6 @@ void Download::readData() {
         //printf ("Output: %s", read.data());
 
         interpretData(read);
-
-        if (read.endsWith("Matching Programmes\n")) {
-            setStatus(DOWNLOADSTATUS_DONE);
-        }
     }
 }
 
@@ -117,19 +120,9 @@ void Download::interpretData(const QString &text) {
 }
 
 void Download::interpretLine(const QString &text) {
-    if (text.endsWith("Matching Programmes\n")) {
+    qDebug() << "Line: " << text;
+    if (text.startsWith("INFO: Recorded ")) {
         setStatus(DOWNLOADSTATUS_DONE);
-    }
-    else {
-        QRegExp progInfo("^(\\d+):\\t(.*)$");
-        int foundPos = progInfo.indexIn(text);
-        if (foundPos > -1) {
-            unsigned int progId = progInfo.cap(1).toUInt();
-            QString title = progInfo.cap(2);
-
-            //printf ("Programme: %u, %s\n", progId, title.toStdString().c_str());
-            //model.addProgramme(Programme(progId, title, 0.0));
-        }
     }
 }
 
@@ -148,13 +141,13 @@ void Download::finished(int code) {
 
 void Download::readError(QProcess::ProcessError error)
 {
-    printf ("Error: %d\n", error);
+    qDebug() << "Error: " << error << endl;
     if (process != NULL) {
         QByteArray dataOut = process->readAllStandardOutput();
         QByteArray errorOut = process->readAllStandardError();
 
-        printf ("Output text: %s\n", dataOut.data());
-        printf ("Error text: %s\n", errorOut.data());
+        qDebug() << "Output text: " << dataOut.data() << endl;
+        qDebug() << "Error text: " << errorOut.data() << endl;
     }
 
     // Disconnect

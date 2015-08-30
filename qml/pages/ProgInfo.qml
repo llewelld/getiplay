@@ -94,7 +94,7 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 enabled: true
                 onClicked: {
-                    Download.startDownload()
+                    Download.startDownload(progId)
                     progress.value = 0.0
                     progress.indeterminate = true
                     progress.label = "Working"

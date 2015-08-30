@@ -36,6 +36,7 @@
 #include "programme.h"
 #include "refresh.h"
 #include "download.h"
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {

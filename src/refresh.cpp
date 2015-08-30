@@ -1,5 +1,6 @@
 #include "refresh.h"
 #include "stdio.h"
+#include <QDebug>
 
 Refresh::Refresh(ProgModel &model, QObject *parent) :
     QObject(parent),
@@ -24,12 +25,14 @@ void Refresh::setStatus(REFRESHSTATUS newStatus)
 }
 
 void Refresh::startRefresh() {
+    qDebug() << "Process" << endl;
+
     if (process != NULL) {
-        printf ("Process already running.\n");
+        qDebug() << "Process already running." << endl;
     }
     else {
         process = new QProcess();
-        QString program = "cat";
+        QString program = "/home/nemo/Documents/Development/Projects/get_iplayer/get_iplayer";
         collectArguments ();
         process->setReadChannel(QProcess::StandardOutput);
         connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(readError(QProcess::ProcessError)));
@@ -47,8 +50,10 @@ void Refresh::startRefresh() {
 void Refresh::collectArguments () {
     arguments.clear();
 
-    //addOption("type", "radio");
-    addValue("/opt/sdk/GetiPlay/usr/share/GetiPlay/output01.txt");
+    addArgument("type=radio");
+    addArgument("refresh");
+    addArgument("force");
+    //addValue("/opt/sdk/GetiPlay/usr/share/GetiPlay/output01.txt");
 }
 
 void Refresh::addArgument (QString key, QString value) {
@@ -102,10 +107,6 @@ void Refresh::readData() {
         //printf ("Output: %s", read.data());
 
         interpretData(read);
-
-        if (read.endsWith("Matching Programmes\n")) {
-            setStatus(REFRESHSTATUS_DONE);
-        }
     }
 }
 
@@ -119,6 +120,7 @@ void Refresh::interpretData(const QString &text) {
 }
 
 void Refresh::interpretLine(const QString &text) {
+    qDebug() << "Line: " << text;
     if (text.endsWith("Matching Programmes\n")) {
         setStatus(REFRESHSTATUS_DONE);
     }
@@ -129,7 +131,7 @@ void Refresh::interpretLine(const QString &text) {
             unsigned int progId = progInfo.cap(1).toUInt();
             QString title = progInfo.cap(2);
 
-            //printf ("Programme: %u, %s\n", progId, title.toStdString().c_str());
+            //qDebug() << "Programme: " << progId << ", " << title << endl;
             model.addProgramme(Programme(progId, title, 0.0));
         }
     }
@@ -150,13 +152,13 @@ void Refresh::finished(int code) {
 
 void Refresh::readError(QProcess::ProcessError error)
 {
-    printf ("Error: %d\n", error);
+    qDebug() << "Error: " << error << endl;
     if (process != NULL) {
         QByteArray dataOut = process->readAllStandardOutput();
         QByteArray errorOut = process->readAllStandardError();
 
-        printf ("Output text: %s\n", dataOut.data());
-        printf ("Error text: %s\n", errorOut.data());
+        qDebug() << "Output text: " << dataOut.data() << endl;
+        qDebug() << "Error text: " << errorOut.data() << endl;
     }
 
     // Disconnect

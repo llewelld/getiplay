@@ -24,6 +24,7 @@ private:
     QProcess * process;
     DOWNLOADSTATUS status;
     QStringList arguments;
+    int progId;
 
     // Internal methods
     void collectArguments ();
@@ -46,7 +47,7 @@ signals:
 
 public slots:
     // General methods
-    void startDownload ();
+    void startDownload (int progId);
     void cancel ();
     void readData ();
     void started ();
