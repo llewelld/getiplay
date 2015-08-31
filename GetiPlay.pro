@@ -30,7 +30,8 @@ OTHER_FILES += qml/GetiPlay.qml \
     output01.txt \
     qml/pages/Refresh.qml \
     qml/pages/ProgList.qml \
-    qml/pages/ProgInfo.qml
+    qml/pages/ProgInfo.qml \
+    output02.txt
 
 # to disable building translations every time, comment out the
 # following CONFIG line
@@ -48,7 +49,8 @@ HEADERS += \
     src/progmodel.h \
     src/download.h
 
-output.files = output01.txt
+output.files = output01.txt \
+    output02.txt
 output.path = /usr/share/$${TARGET}
 
 INSTALLS += output

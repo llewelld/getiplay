@@ -25,6 +25,7 @@ private:
     DOWNLOADSTATUS status;
     QStringList arguments;
     int progId;
+    float percentRead;
 
     // Internal methods
     void collectArguments ();
@@ -53,6 +54,7 @@ public slots:
     void started ();
     void finished (int code);
     void readError (QProcess::ProcessError error);
+    float progress() const;
 };
 
 #endif // DOWNLOAD_H

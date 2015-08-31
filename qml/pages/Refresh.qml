@@ -51,8 +51,8 @@ Page {
         ProgressBar {
             id: progress
             width: parent.width
-            indeterminate: false
-            value: 0.0
+            indeterminate: (Refresh.progress() >= 0.0)
+            value: Refresh.progress()
             label: "Waiting"
             enabled: false
         }

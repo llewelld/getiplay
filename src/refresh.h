@@ -30,6 +30,8 @@ private:
     QStringList arguments;
 
     ProgModel &model;
+    bool periodCheck;
+    int periodCount;
 
     // Internal methods
     void collectArguments ();
@@ -59,6 +61,7 @@ public slots:
     void started ();
     void finished (int code);
     void readError (QProcess::ProcessError error);
+    float progress() const;
 };
 
 #endif // REFRESH_H

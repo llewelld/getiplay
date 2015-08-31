@@ -2,11 +2,15 @@
 #include "stdio.h"
 #include <QDebug>
 
+#define FAKE_GETIPLAYER (1)
+
 Refresh::Refresh(ProgModel &model, QObject *parent) :
     QObject(parent),
     process(NULL),
     status(REFRESHSTATUS_INVALID),
-    model(model)
+    model(model),
+    periodCheck(false),
+    periodCount(0)
 {
     arguments.clear();
 }
@@ -14,6 +18,7 @@ Refresh::Refresh(ProgModel &model, QObject *parent) :
 void Refresh::initialise()
 {
     setStatus(REFRESHSTATUS_UNINITIALISED);
+    periodCount = 0;
 }
 
 void Refresh::setStatus(REFRESHSTATUS newStatus)
@@ -32,7 +37,11 @@ void Refresh::startRefresh() {
     }
     else {
         process = new QProcess();
+#ifndef FAKE_GETIPLAYER
         QString program = "/home/nemo/Documents/Development/Projects/get_iplayer/get_iplayer";
+#else // !FAKE_GETIPLAYER
+        QString program = "cat";
+#endif // !FAKE_GETIPLAYER
         collectArguments ();
         process->setReadChannel(QProcess::StandardOutput);
         connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(readError(QProcess::ProcessError)));
@@ -43,6 +52,7 @@ void Refresh::startRefresh() {
         process->start(program, arguments);
         process->closeWriteChannel();
         setStatus(REFRESHSTATUS_INITIALISING);
+        periodCount = 0;
         arguments.clear();
     }
 }
@@ -50,10 +60,13 @@ void Refresh::startRefresh() {
 void Refresh::collectArguments () {
     arguments.clear();
 
+#ifndef FAKE_GETIPLAYER
     addArgument("type=radio");
     addArgument("refresh");
     addArgument("force");
-    //addValue("/opt/sdk/GetiPlay/usr/share/GetiPlay/output01.txt");
+#else // !FAKE_GETIPLAYER
+    addValue("/opt/sdk/GetiPlay/usr/share/GetiPlay/output01.txt");
+#endif // !FAKE_GETIPLAYER
 }
 
 void Refresh::addArgument (QString key, QString value) {
@@ -102,7 +115,23 @@ void Refresh::cancel() {
 }
 
 void Refresh::readData() {
-    while (process->canReadLine()) {
+    char data[1];
+    while ((periodCheck == true) && (process->bytesAvailable() > 0)) {
+        int read = process->peek(data, 1);
+        if (read > 0) {
+            if (data[0] == '.') {
+                // Remove the character
+                process->read(data, 1);
+                periodCount++;
+                qDebug() << "Progress " << (progress() * 100.0) << "%" << endl;
+            }
+            else {
+                qDebug() << "Switching to line check." << endl;
+                periodCheck = false;
+            }
+        }
+    }
+    while ((periodCheck == false) && (process->canReadLine())) {
         QByteArray read = process->readLine();
         //printf ("Output: %s", read.data());
 
@@ -120,9 +149,13 @@ void Refresh::interpretData(const QString &text) {
 }
 
 void Refresh::interpretLine(const QString &text) {
-    qDebug() << "Line: " << text;
+    //qDebug() << "Line: " << text;
     if (text.endsWith("Matching Programmes\n")) {
         setStatus(REFRESHSTATUS_DONE);
+    }
+    else if (text.endsWith("(this may take a few minutes)")) {
+        qDebug() << "Switching to period check." << endl;
+        periodCheck = true;
     }
     else {
         QRegExp progInfo("^(\\d+):\\t(.*)$");
@@ -163,4 +196,14 @@ void Refresh::readError(QProcess::ProcessError error)
 
     // Disconnect
     cancel();
+}
+
+float Refresh::progress() const {
+    float progress = -1.0f;
+
+    if (periodCheck) {
+        progress = ((float)periodCount / 34.0);
+    }
+
+    return progress;
 }

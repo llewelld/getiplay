@@ -2,11 +2,14 @@
 #include "stdio.h"
 #include <QDebug>
 
+#define FAKE_GETIPLAYER (1)
+
 Download::Download(QObject *parent) :
     QObject(parent),
     process(NULL),
     status(DOWNLOADSTATUS_INVALID),
-    progId(0)
+    progId(0),
+    percentRead(0.0f)
 {
     arguments.clear();
 }
@@ -14,6 +17,7 @@ Download::Download(QObject *parent) :
 void Download::initialise()
 {
     setStatus(DOWNLOADSTATUS_UNINITIALISED);
+    percentRead = -1.0f;
 }
 
 void Download::setStatus(DOWNLOADSTATUS newStatus)
@@ -32,7 +36,11 @@ void Download::startDownload(int progId) {
     }
     else {
         process = new QProcess();
+#ifndef FAKE_GETIPLAYER
         QString program = "/home/nemo/Documents/Development/Projects/get_iplayer/get_iplayer";
+#else // !FAKE_GETIPLAYER
+        QString program = "cat";
+#endif // !FAKE_GETIPLAYER
         collectArguments ();
         process->setReadChannel(QProcess::StandardOutput);
         connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(readError(QProcess::ProcessError)));
@@ -43,6 +51,7 @@ void Download::startDownload(int progId) {
         process->start(program, arguments);
         process->closeWriteChannel();
         setStatus(DOWNLOADSTATUS_INITIALISING);
+        percentRead = -1.0f;
         arguments.clear();
     }
 }
@@ -50,10 +59,14 @@ void Download::startDownload(int progId) {
 void Download::collectArguments () {
     arguments.clear();
 
+#ifndef FAKE_GETIPLAYER
     addArgument("type=radio");
     addArgument("get", QString("%1").arg(progId));
     addArgument("force");
     addArgument("output", "/home/nemo/Music/iplayer");
+#else // !FAKE_GETIPLAYER
+    addValue("/opt/sdk/GetiPlay/usr/share/GetiPlay/output02.txt");
+#endif // !FAKE_GETIPLAYER
 }
 
 void Download::addArgument (QString key, QString value) {
@@ -124,6 +137,14 @@ void Download::interpretLine(const QString &text) {
     if (text.startsWith("INFO: Recorded ")) {
         setStatus(DOWNLOADSTATUS_DONE);
     }
+    else {
+        QRegExp percent("^.*\\((\\d+\\.\\d+)%\\)$");
+        int foundPos = percent.indexIn(text);
+        if (foundPos > -1) {
+            percentRead = percent.cap(1).toFloat() / 100.0f;
+            qDebug() << "Progress " << (progress() * 100.0) << "%" << endl;
+        }
+    }
 }
 
 void Download::started() {
@@ -152,4 +173,8 @@ void Download::readError(QProcess::ProcessError error)
 
     // Disconnect
     cancel();
+}
+
+float Download::progress() const {
+    return percentRead;
 }
