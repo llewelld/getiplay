@@ -32,10 +32,10 @@ void Refresh::setStatus(REFRESHSTATUS newStatus)
 }
 
 void Refresh::startRefresh() {
-    qDebug() << "Process" << endl;
+    qDebug() << "Process";
 
     if (process != NULL) {
-        qDebug() << "Process already running." << endl;
+        qDebug() << "Process already running.";
     }
     else {
         process = new QProcess();
@@ -127,10 +127,10 @@ void Refresh::readData() {
                 process->read(data, 1);
                 periodCount++;
                 setProgress(((float)periodCount / ((float)periodCount + 10.0)) + ((float)periodCount * 0.002f));
-                qDebug() << "Progress " << (getProgress() * 100.0) << "%" << endl;
+                qDebug() << "Progress " << (getProgress() * 100.0) << "%";
             }
             else {
-                qDebug() << "Switching to line check." << endl;
+                qDebug() << "Switching to line check.";
                 periodCheck = false;
             }
         }
@@ -159,7 +159,7 @@ void Refresh::interpretLine(const QString &text) {
     }
     else if (text.endsWith("(this may take a few minutes)")) {
         setStatus(REFRESHSTATUS_REFRESHING);
-        qDebug() << "Switching to period check." << endl;
+        qDebug() << "Switching to period check.";
         periodCheck = true;
     }
     else {
@@ -169,7 +169,7 @@ void Refresh::interpretLine(const QString &text) {
             unsigned int progId = progInfo.cap(1).toUInt();
             QString title = progInfo.cap(2);
 
-            //qDebug() << "Programme: " << progId << ", " << title << endl;
+            //qDebug() << "Programme: " << progId << ", " << title;
             model.addProgramme(Programme(progId, title, 0.0));
         }
     }
@@ -190,13 +190,13 @@ void Refresh::finished(int code) {
 
 void Refresh::readError(QProcess::ProcessError error)
 {
-    qDebug() << "Error: " << error << endl;
+    qDebug() << "Error: " << error;
     if (process != NULL) {
         QByteArray dataOut = process->readAllStandardOutput();
         QByteArray errorOut = process->readAllStandardError();
 
-        qDebug() << "Output text: " << dataOut.data() << endl;
-        qDebug() << "Error text: " << errorOut.data() << endl;
+        qDebug() << "Output text: " << dataOut.data();
+        qDebug() << "Error text: " << errorOut.data();
     }
 
     // Disconnect
