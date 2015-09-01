@@ -126,7 +126,7 @@ void Refresh::readData() {
                 // Remove the character
                 process->read(data, 1);
                 periodCount++;
-                setProgress(((float)periodCount / ((float)periodCount + 10.0)) + ((float)periodCount * 0.004f));
+                setProgress(((float)periodCount / ((float)periodCount + 10.0)) + ((float)periodCount * 0.002f));
                 qDebug() << "Progress " << (getProgress() * 100.0) << "%" << endl;
             }
             else {

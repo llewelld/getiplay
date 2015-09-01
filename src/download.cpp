@@ -3,6 +3,7 @@
 #include <QDebug>
 
 //#define FAKE_GETIPLAYER (1)
+#define MAX_LINE_LENGTH (255)
 
 Download::Download(QObject *parent) :
     QObject(parent),
@@ -118,21 +119,27 @@ void Download::cancel() {
 }
 
 void Download::readData() {
-    qint64 available = process->bytesAvailable();
-    if (available > 0) {
-        QByteArray read = process->readAll();
-
-        interpretData(read);
-    }
-
-    /*
+    // Read any full lines if they're available
     while (process->canReadLine()) {
         QByteArray read = process->readLine();
         //printf ("Output: %s", read.data());
 
         interpretData(read);
     }
-    */
+
+    // Read any lines that full lines but don't register
+    qint64 available = process->bytesAvailable();
+    while (available > 0) {
+        QByteArray read = process->peek(MAX_LINE_LENGTH);
+        available = read.indexOf('\n');
+        if (available < 0) {
+            available = read.indexOf('\r');
+        }
+        if (available >= 0) {
+            process->read(available + 1);
+            interpretData(read.left(available));
+        }
+    }
 }
 
 void Download::interpretData(const QString &text) {
@@ -157,7 +164,7 @@ void Download::interpretLine(const QString &text) {
         foundPos = percent.indexIn(text);
         if (foundPos > -1) {
             setStatus(DOWNLOADSTATUS_DOWNLOADING);
-            percentRead = percent.cap(1).toFloat() / 200.0f;
+            percentRead = percent.cap(1).toFloat() / 100.0f;
             setProgress(percentRead);
             qDebug() << "Progress " << (getProgress() * 100.0) << "%";
         }
@@ -171,7 +178,7 @@ void Download::interpretLine(const QString &text) {
                 float durationRead = (hours * 60 * 60) + (mins * 60) + secs;
                 if (durationRead > 0.0) {
                     setStatus(DOWNLOADSTATUS_CONVERTING);
-                    percentRead = 0.5 + (0.5 * (durationRead / duration));
+                    percentRead = (durationRead / duration);
                     setProgress(percentRead);
                     qDebug() << "Progress " << (getProgress() * 100.0) << "%";
                 }
