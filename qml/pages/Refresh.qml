@@ -14,11 +14,23 @@ Page {
     function updateStatus(status) {
         switch (status) {
         case 0:
+            // Uninitialised
             break;
+        case 1:
+            // Initialising
+            progressBar.label = "Initialising"
+            progressBar.enabled = true
+            break;
+        case 2:
+            // Refreshing
+            progressBar.label = "Refreshing"
+            break;
+        case 3:
+            // Cancel
         case 4:
-            progress.indeterminate = false
-            progress.value = 1.0
-            progress.label = "Waiting"
+            // Done
+            progressBar.label = "Waiting"
+            progressBar.enabled = false
             programmes.clear()
             pageStack.pop()
             break;
@@ -42,19 +54,18 @@ Page {
             enabled: true
             onClicked: {
                 Refresh.startRefresh()
-                progress.value = 0.0
-                progress.indeterminate = true
-                progress.label = "Working"
+                progressBar.enabled = true
+                progressBar.label = "Initialising"
             }
         }
 
         ProgressBar {
-            id: progress
+            id: progressBar
             width: parent.width
-            indeterminate: (Refresh.progress() >= 0.0)
-            value: Refresh.progress()
-            label: "Waiting"
             enabled: false
+            indeterminate: enabled && (((Refresh.progress < 0.0) || (Refresh.progress >= 100.0)))
+            value: Refresh.progress
+            label: "Waiting"
         }
     }
 }

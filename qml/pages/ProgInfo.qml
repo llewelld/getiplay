@@ -47,11 +47,28 @@ Page {
     function updateStatus(status) {
         switch (status) {
         case 0:
+            // Uninitialised
+            break;
+        case 1:
+            // Initialising
+            progressBar.label = "Initialising"
+            progressBar.enabled = true
+            break;
+        case 2:
+            // Downloading
+            progressBar.label = "Downloading"
+            break;
+        case 3:
+            // Converting
+            progressBar.label = "Converting"
             break;
         case 4:
-            progress.indeterminate = false
-            progress.value = 1.0
-            progress.label = "Waiting"
+            // Cancel
+            break;
+        case 5:
+            // Done
+            progressBar.label = "Waiting"
+            progressBar.enabled  = false
             programmes.clear()
             pageStack.pop()
             break;
@@ -95,19 +112,18 @@ Page {
                 enabled: true
                 onClicked: {
                     Download.startDownload(progId)
-                    progress.value = 0.0
-                    progress.indeterminate = true
-                    progress.label = "Working"
+                    progressBar.enabled = true
+                    progress.label = "Initialising"
                 }
             }
 
             ProgressBar {
-                id: progress
+                id: progressBar
                 width: parent.width
-                indeterminate: false
-                value: 0.0
-                label: "Doin' nothin'"
                 enabled: false
+                indeterminate: enabled && (((Download.progress < 0.0) || (Download.progress >= 100.0)))
+                value: Download.progress
+                label: "Waiting"
             }
         }
     }

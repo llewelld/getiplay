@@ -23,6 +23,7 @@ class Refresh : public QObject
     Q_OBJECT
 
     // General properties
+    Q_PROPERTY (float progress READ getProgress WRITE setProgress NOTIFY progressChanged)
 
 private:
     QProcess * process;
@@ -32,6 +33,7 @@ private:
     ProgModel &model;
     bool periodCheck;
     int periodCount;
+    float progress;
 
     // Internal methods
     void collectArguments ();
@@ -48,10 +50,12 @@ public:
     // General methods
     explicit Refresh(ProgModel &model, QObject *parent = 0);
     void initialise();
+    float getProgress() const;
 
 signals:
     // General signals
     void statusChanged(int status);
+    void progressChanged(float progress);
 
 public slots:
     // General methods
@@ -61,7 +65,7 @@ public slots:
     void started ();
     void finished (int code);
     void readError (QProcess::ProcessError error);
-    float progress() const;
+    void setProgress(float value);
 };
 
 #endif // REFRESH_H

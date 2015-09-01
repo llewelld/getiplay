@@ -10,6 +10,7 @@ enum DOWNLOADSTATUS {
     DOWNLOADSTATUS_UNINITIALISED,
     DOWNLOADSTATUS_INITIALISING,
     DOWNLOADSTATUS_DOWNLOADING,
+    DOWNLOADSTATUS_CONVERTING,
     DOWNLOADSTATUS_CANCEL,
     DOWNLOADSTATUS_DONE,
 
@@ -20,12 +21,16 @@ enum DOWNLOADSTATUS {
 class Download : public QObject
 {
     Q_OBJECT
+
+    // General properties
+    Q_PROPERTY (float progress READ getProgress WRITE setProgress NOTIFY progressChanged)
 private:
     QProcess * process;
     DOWNLOADSTATUS status;
     QStringList arguments;
     int progId;
-    float percentRead;
+    double duration;
+    float progress;
 
     // Internal methods
     void collectArguments ();
@@ -41,10 +46,12 @@ private:
 public:
     explicit Download(QObject *parent = 0);
     void initialise();
+    float getProgress() const;
 
 signals:
     // General signals
     void statusChanged(int status);
+    void progressChanged(float progress);
 
 public slots:
     // General methods
@@ -54,7 +61,7 @@ public slots:
     void started ();
     void finished (int code);
     void readError (QProcess::ProcessError error);
-    float progress() const;
+    void setProgress(float value);
 };
 
 #endif // DOWNLOAD_H

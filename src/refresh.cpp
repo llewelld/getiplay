@@ -2,7 +2,7 @@
 #include "stdio.h"
 #include <QDebug>
 
-#define FAKE_GETIPLAYER (1)
+//#define FAKE_GETIPLAYER (1)
 
 Refresh::Refresh(ProgModel &model, QObject *parent) :
     QObject(parent),
@@ -10,7 +10,8 @@ Refresh::Refresh(ProgModel &model, QObject *parent) :
     status(REFRESHSTATUS_INVALID),
     model(model),
     periodCheck(false),
-    periodCount(0)
+    periodCount(0),
+    progress(0.0)
 {
     arguments.clear();
 }
@@ -19,6 +20,7 @@ void Refresh::initialise()
 {
     setStatus(REFRESHSTATUS_UNINITIALISED);
     periodCount = 0;
+    setProgress(-1.0f);
 }
 
 void Refresh::setStatus(REFRESHSTATUS newStatus)
@@ -52,6 +54,7 @@ void Refresh::startRefresh() {
         process->start(program, arguments);
         process->closeWriteChannel();
         setStatus(REFRESHSTATUS_INITIALISING);
+        setProgress(-1.0);
         periodCount = 0;
         arguments.clear();
     }
@@ -123,7 +126,8 @@ void Refresh::readData() {
                 // Remove the character
                 process->read(data, 1);
                 periodCount++;
-                qDebug() << "Progress " << (progress() * 100.0) << "%" << endl;
+                setProgress(((float)periodCount / ((float)periodCount + 10.0)) + ((float)periodCount * 0.004f));
+                qDebug() << "Progress " << (getProgress() * 100.0) << "%" << endl;
             }
             else {
                 qDebug() << "Switching to line check." << endl;
@@ -154,6 +158,7 @@ void Refresh::interpretLine(const QString &text) {
         setStatus(REFRESHSTATUS_DONE);
     }
     else if (text.endsWith("(this may take a few minutes)")) {
+        setStatus(REFRESHSTATUS_REFRESHING);
         qDebug() << "Switching to period check." << endl;
         periodCheck = true;
     }
@@ -171,7 +176,7 @@ void Refresh::interpretLine(const QString &text) {
 }
 
 void Refresh::started() {
-    setStatus(REFRESHSTATUS_REFRESHING);
+    setStatus(REFRESHSTATUS_INITIALISING);
     model.clear();
 }
 
@@ -198,12 +203,12 @@ void Refresh::readError(QProcess::ProcessError error)
     cancel();
 }
 
-float Refresh::progress() const {
-    float progress = -1.0f;
-
-    if (periodCheck) {
-        progress = ((float)periodCount / 34.0);
-    }
-
+float Refresh::getProgress() const {
     return progress;
 }
+
+void Refresh::setProgress(float value) {
+    progress = value;
+    emit progressChanged(value);
+}
+
