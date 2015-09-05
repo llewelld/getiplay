@@ -68,7 +68,7 @@ Page {
         case 5:
             // Done
             progressBar.label = "Waiting"
-            progressBar.enabled  = false
+            progressBar.enabled = false
             programmes.clear()
             pageStack.pop()
             break;

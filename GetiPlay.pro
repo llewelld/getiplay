@@ -31,7 +31,9 @@ OTHER_FILES += qml/GetiPlay.qml \
     qml/pages/Refresh.qml \
     qml/pages/ProgList.qml \
     qml/pages/ProgInfo.qml \
-    output02.txt
+    output02.txt \
+    qml/pages/AboutPage.qml \
+    qml/images/getiplay-title.png
 
 # to disable building translations every time, comment out the
 # following CONFIG line
