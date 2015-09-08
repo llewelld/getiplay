@@ -53,7 +53,8 @@ int main(int argc, char *argv[])
 
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
 
-    ProgModel model;
+    ProgModel modeltv;
+    ProgModel modelradio;
 
     /*
     QFile file("/opt/sdk/GetiPlay/usr/share/GetiPlay/output01.txt");
@@ -77,17 +78,27 @@ int main(int argc, char *argv[])
 
     view->setSource(SailfishApp::pathTo("qml/GetiPlay.qml"));
 
-    QSortFilterProxyModel * proxyModel = new QSortFilterProxyModel ();
-    proxyModel->setSourceModel(&model);
-
-    proxyModel->setDynamicSortFilter(true);
-    proxyModel->setFilterRole(ProgModel::NameRole);
-    proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    QSortFilterProxyModel * proxyModelRadio = new QSortFilterProxyModel ();
+    proxyModelRadio->setSourceModel(&modelradio);
+    proxyModelRadio->setDynamicSortFilter(true);
+    proxyModelRadio->setFilterRole(ProgModel::NameRole);
+    proxyModelRadio->setFilterCaseSensitivity(Qt::CaseInsensitive);
 
     QQmlContext *ctxt = view->rootContext();
-    ctxt->setContextProperty("programmes", proxyModel);
+    ctxt->setContextProperty("programmesradio", proxyModelRadio);
 
-    Refresh * refresh = new Refresh (model);
+
+    QSortFilterProxyModel * proxyModelTV = new QSortFilterProxyModel ();
+    proxyModelTV->setSourceModel(&modeltv);
+    proxyModelTV->setDynamicSortFilter(true);
+    proxyModelTV->setFilterRole(ProgModel::NameRole);
+    proxyModelTV->setFilterCaseSensitivity(Qt::CaseInsensitive);
+
+    ctxt->setContextProperty("programmestv", proxyModelTV);
+
+
+
+    Refresh * refresh = new Refresh (modelradio);
     view->rootContext()->setContextProperty("Refresh", refresh);
     refresh->initialise();
 
@@ -98,7 +109,8 @@ int main(int argc, char *argv[])
     view->show();
     result = app->exec();
 
-    delete proxyModel;
+    delete proxyModelRadio;
+    delete proxyModelTV;
 
     return result;
     /*

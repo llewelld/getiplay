@@ -35,6 +35,8 @@ Page {
     id: page
     property string searchString
     property bool keepSearchFieldFocus: true
+    property bool tv: true
+    property bool tvmenu: tv
 
     Refresh {
         id: refreshLoad
@@ -42,12 +44,13 @@ Page {
     }
 
     onSearchStringChanged: {
-        programmes.setFilterFixedString(searchString)
+        programmestv.setFilterFixedString(searchString)
+        programmesradio.setFilterFixedString(searchString)
     }
 
     SilicaListView {
         id: listView
-        model: programmes
+        model: tvmenu ? programmestv : programmesradio
         anchors.fill: parent
         currentIndex: -1 // otherwise currentItem will steal focus
 
@@ -58,7 +61,7 @@ Page {
             width: page.width
             height: 200
             PageHeader {
-                title: "BBC Programmes"
+                title: tv ? "BBC TV Programmes" : "BBC Radio Programmes"
             }
 
             SearchField {
@@ -82,10 +85,20 @@ Page {
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
             }
             MenuItem {
+                id: listType
+                text: tvmenu ? qsTr("Switch to Radio") : qsTr("Switch to TV")
+                onClicked: {
+                    tv = !tv
+                }
+            }
+            MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
                     pageStack.push(refreshLoad)
                 }
+            }
+            onActiveChanged: {
+                tvmenu = tv
             }
         }
 

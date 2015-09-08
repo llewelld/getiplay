@@ -25,5 +25,13 @@
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Switch to Radio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switch to TV</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>
