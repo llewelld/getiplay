@@ -9,9 +9,16 @@
     </message>
 </context>
 <context>
-    <name>ProgInfo</name>
+    <name>ProgInfoRadio</name>
     <message>
-        <source>Programme Info</source>
+        <source>Radio Programme Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ProgInfoTV</name>
+    <message>
+        <source>TV Programme Info</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

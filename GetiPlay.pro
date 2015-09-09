@@ -30,10 +30,11 @@ OTHER_FILES += qml/GetiPlay.qml \
     output01.txt \
     qml/pages/Refresh.qml \
     qml/pages/ProgList.qml \
-    qml/pages/ProgInfo.qml \
     output02.txt \
     qml/pages/AboutPage.qml \
-    qml/images/getiplay-title.png
+    qml/images/getiplay-title.png \
+    qml/pages/ProgInfoTV.qml \
+    qml/pages/ProgInfoRadio.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line

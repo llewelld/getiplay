@@ -134,7 +134,12 @@ Page {
             }
             onClicked: {
                 console.log("Clicked " + name)
-                pageStack.push(Qt.resolvedUrl("ProgInfo.qml"), { name: name, progId: progId })
+                if (tv) {
+                    pageStack.push(Qt.resolvedUrl("ProgInfoTV.qml"), { name: name, progId: progId })
+                }
+                else {
+                    pageStack.push(Qt.resolvedUrl("ProgInfoRadio.qml"), { name: name, progId: progId })
+                }
             }
         }
     }
