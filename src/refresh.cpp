@@ -4,14 +4,17 @@
 
 //#define FAKE_GETIPLAYER (1)
 
-Refresh::Refresh(ProgModel &model, QObject *parent) :
+static const QString typeString[] = {"radio", "tv"};
+
+Refresh::Refresh(QList<ProgModel*> model, QObject *parent) :
     QObject(parent),
     process(NULL),
     status(REFRESHSTATUS_INVALID),
     model(model),
     periodCheck(false),
     periodCount(0),
-    progress(0.0)
+    progress(0.0),
+    currentRefresh(REFRESHTYPE_INVALID)
 {
     arguments.clear();
 }
@@ -31,32 +34,35 @@ void Refresh::setStatus(REFRESHSTATUS newStatus)
     }
 }
 
-void Refresh::startRefresh() {
+void Refresh::startRefresh(REFRESHTYPE type) {
     qDebug() << "Process";
 
-    if (process != NULL) {
+    if ((process != NULL) || (currentRefresh != REFRESHTYPE_INVALID)) {
         qDebug() << "Process already running.";
     }
     else {
-        process = new QProcess();
-#ifndef FAKE_GETIPLAYER
-        QString program = "/home/nemo/Documents/Development/Projects/get_iplayer/get_iplayer";
-#else // !FAKE_GETIPLAYER
-        QString program = "cat";
-#endif // !FAKE_GETIPLAYER
-        collectArguments ();
-        process->setReadChannel(QProcess::StandardOutput);
-        connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(readError(QProcess::ProcessError)));
-        connect(process, SIGNAL(readyRead()), this, SLOT(readData()));
-        connect(process, SIGNAL(started()), this, SLOT(started()));
-        connect(process, SIGNAL(finished(int)), this, SLOT(finished(int)));
+        if ((type > REFRESHTYPE_INVALID) && (type < REFRESHTYPE_NUM)) {
+            currentRefresh = type;
+            process = new QProcess();
+    #ifndef FAKE_GETIPLAYER
+            QString program = "/home/nemo/Documents/Development/Projects/get_iplayer/get_iplayer";
+    #else // !FAKE_GETIPLAYER
+            QString program = "cat";
+    #endif // !FAKE_GETIPLAYER
+            collectArguments ();
+            process->setReadChannel(QProcess::StandardOutput);
+            connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(readError(QProcess::ProcessError)));
+            connect(process, SIGNAL(readyRead()), this, SLOT(readData()));
+            connect(process, SIGNAL(started()), this, SLOT(started()));
+            connect(process, SIGNAL(finished(int)), this, SLOT(finished(int)));
 
-        process->start(program, arguments);
-        process->closeWriteChannel();
-        setStatus(REFRESHSTATUS_INITIALISING);
-        setProgress(-1.0);
-        periodCount = 0;
-        arguments.clear();
+            process->start(program, arguments);
+            process->closeWriteChannel();
+            setStatus(REFRESHSTATUS_INITIALISING);
+            setProgress(-1.0);
+            periodCount = 0;
+            arguments.clear();
+        }
     }
 }
 
@@ -64,7 +70,7 @@ void Refresh::collectArguments () {
     arguments.clear();
 
 #ifndef FAKE_GETIPLAYER
-    addArgument("type=radio");
+    addArgument("type=" + typeString[currentRefresh]);
     addArgument("refresh");
     addArgument("force");
 #else // !FAKE_GETIPLAYER
@@ -110,11 +116,12 @@ void Refresh::addValue (QString key) {
 }
 
 void Refresh::cancel() {
+    currentRefresh = REFRESHTYPE_INVALID;
     if (process != NULL) {
 
         process->terminate();
-        setStatus(REFRESHSTATUS_CANCEL);
     }
+    setStatus(REFRESHSTATUS_CANCEL);
 }
 
 void Refresh::readData() {
@@ -170,14 +177,14 @@ void Refresh::interpretLine(const QString &text) {
             QString title = progInfo.cap(2);
 
             //qDebug() << "Programme: " << progId << ", " << title;
-            model.addProgramme(Programme(progId, title, 0.0));
+            model[currentRefresh]->addProgramme(Programme(progId, title, 0.0));
         }
     }
 }
 
 void Refresh::started() {
     setStatus(REFRESHSTATUS_INITIALISING);
-    model.clear();
+    model[currentRefresh]->clear();
 }
 
 void Refresh::finished(int code) {
@@ -185,6 +192,7 @@ void Refresh::finished(int code) {
         //delete process;
         process = NULL;
     }
+    currentRefresh = REFRESHTYPE_INVALID;
     setStatus(REFRESHSTATUS_DONE);
 }
 

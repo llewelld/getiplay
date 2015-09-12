@@ -38,11 +38,15 @@ Page {
     property bool tv: true
     property bool tvmenu: tv
 
-    Refresh {
-        id: refreshLoad
+    RefreshTV {
+        id: refreshTVLoad
         visible: false
     }
 
+    RefreshRadio {
+        id: refreshRadioLoad
+        visible: false
+    }
     onSearchStringChanged: {
         programmestv.setFilterFixedString(searchString)
         programmesradio.setFilterFixedString(searchString)
@@ -94,7 +98,12 @@ Page {
             MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
-                    pageStack.push(refreshLoad)
+                    if (tv) {
+                        pageStack.push(refreshTVLoad)
+                    }
+                    else {
+                        pageStack.push(refreshRadioLoad)
+                    }
                 }
             }
             onActiveChanged: {

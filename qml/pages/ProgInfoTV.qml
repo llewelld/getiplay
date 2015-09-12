@@ -39,6 +39,7 @@ Page {
             // Done
             progressBar.label = "Waiting"
             progressBar.enabled = false
+            // TODO: Check whether the next line is really needed
             programmestv.clear()
             pageStack.pop()
             break;

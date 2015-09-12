@@ -3,20 +3,8 @@
 
 #include <QObject>
 #include <QProcess>
+#include <QList>
 #include "progmodel.h"
-
-enum REFRESHSTATUS {
-    REFRESHSTATUS_INVALID = -1,
-
-    REFRESHSTATUS_UNINITIALISED,
-    REFRESHSTATUS_INITIALISING,
-    REFRESHSTATUS_REFRESHING,
-    REFRESHSTATUS_CANCEL,
-    REFRESHSTATUS_DONE,
-
-    REFRESHSTATUS_NUM
-};
-
 
 class Refresh : public QObject
 {
@@ -24,16 +12,41 @@ class Refresh : public QObject
 
     // General properties
     Q_PROPERTY (float progress READ getProgress WRITE setProgress NOTIFY progressChanged)
+    Q_ENUMS(REFRESHSTATUS REFRESHTYPE)
+
+public:
+    enum REFRESHSTATUS {
+        REFRESHSTATUS_INVALID = -1,
+
+        REFRESHSTATUS_UNINITIALISED,
+        REFRESHSTATUS_INITIALISING,
+        REFRESHSTATUS_REFRESHING,
+        REFRESHSTATUS_CANCEL,
+        REFRESHSTATUS_DONE,
+
+        REFRESHSTATUS_NUM
+    };
+
+    enum REFRESHTYPE {
+        REFRESHTYPE_INVALID = -1,
+
+        REFRESHTYPE_RADIO = 0,
+        REFRESHTYPE_TV = 1,
+
+        REFRESHTYPE_NUM
+    };
 
 private:
     QProcess * process;
     REFRESHSTATUS status;
     QStringList arguments;
 
-    ProgModel &model;
+    QList<ProgModel*> model;
     bool periodCheck;
     int periodCount;
     float progress;
+
+    REFRESHTYPE currentRefresh;
 
     // Internal methods
     void collectArguments ();
@@ -48,7 +61,7 @@ private:
 
 public:
     // General methods
-    explicit Refresh(ProgModel &model, QObject *parent = 0);
+    explicit Refresh(QList<ProgModel*> model, QObject *parent = 0);
     void initialise();
     float getProgress() const;
 
@@ -59,7 +72,7 @@ signals:
 
 public slots:
     // General methods
-    void startRefresh ();
+    void startRefresh (REFRESHTYPE type);
     void cancel ();
     void readData ();
     void started ();

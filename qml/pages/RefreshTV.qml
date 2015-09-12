@@ -31,7 +31,7 @@ Page {
             // Done
             progressBar.label = "Waiting"
             progressBar.enabled = false
-            programmes.clear()
+            programmestv.clear()
             pageStack.pop()
             break;
         default:
@@ -45,7 +45,7 @@ Page {
         spacing: Theme.paddingLarge
         width: parent.width
 
-        PageHeader { title: "Refreshing Programmes" }
+        PageHeader { title: "Refreshing TV Programmes" }
 
         Button {
             id: doRefresh
@@ -53,7 +53,7 @@ Page {
             anchors.horizontalCenter: parent.horizontalCenter
             enabled: true
             onClicked: {
-                Refresh.startRefresh()
+                Refresh.startRefresh(1) // 0 = radio; 1 = tv
                 progressBar.enabled = true
                 progressBar.label = "Initialising"
             }

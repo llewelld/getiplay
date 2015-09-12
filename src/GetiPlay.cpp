@@ -53,8 +53,11 @@ int main(int argc, char *argv[])
 
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
 
-    ProgModel modeltv;
+    QList<ProgModel*> models;
     ProgModel modelradio;
+    ProgModel modeltv;
+    models.append(&modelradio);
+    models.append(&modeltv);
 
     /*
     QFile file("/opt/sdk/GetiPlay/usr/share/GetiPlay/output01.txt");
@@ -98,7 +101,7 @@ int main(int argc, char *argv[])
 
 
 
-    Refresh * refresh = new Refresh (modelradio);
+    Refresh * refresh = new Refresh (models);
     view->rootContext()->setContextProperty("Refresh", refresh);
     refresh->initialise();
 

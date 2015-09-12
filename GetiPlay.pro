@@ -28,13 +28,14 @@ OTHER_FILES += qml/GetiPlay.qml \
     translations/*.ts \
     GetiPlay.desktop \
     output01.txt \
-    qml/pages/Refresh.qml \
     qml/pages/ProgList.qml \
     output02.txt \
     qml/pages/AboutPage.qml \
     qml/images/getiplay-title.png \
     qml/pages/ProgInfoTV.qml \
-    qml/pages/ProgInfoRadio.qml
+    qml/pages/ProgInfoRadio.qml \
+    qml/pages/RefreshTV.qml \
+    qml/pages/RefreshRadio.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line
