@@ -73,6 +73,7 @@ Page {
                 width: parent.width
                 placeholderText: "Search programmes"
                 inputMethodHints: Qt.ImhNoAutoUppercase
+                focus: true
 
                 Binding {
                     target: page
@@ -140,6 +141,7 @@ Page {
                 clip: true
                 width: parent.width - (2 * Theme.paddingLarge)
                 elide: Text.ElideRight
+                focus: false
             }
             onClicked: {
                 console.log("Clicked " + name)

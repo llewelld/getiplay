@@ -19,18 +19,18 @@ Page {
         case 1:
             // Initialising
             progressBar.label = "Initialising"
-            progressBar.enabled = true
+            progressBar.visible = true
             break;
         case 2:
             // Refreshing
-            progressBar.label = "Refreshing"
+            progressBar.label = "Downloading"
             break;
         case 3:
             // Cancel
         case 4:
             // Done
             progressBar.label = "Waiting"
-            progressBar.enabled = false
+            progressBar.visible = false
             programmestv.clear()
             pageStack.pop()
             break;
@@ -45,13 +45,13 @@ Page {
         spacing: Theme.paddingLarge
         width: parent.width
 
-        PageHeader { title: "Refreshing TV Programmes" }
+        PageHeader { title: "Refresh TV Programmes" }
 
         Button {
             id: doRefresh
             text: "Go"
             anchors.horizontalCenter: parent.horizontalCenter
-            enabled: true
+            visible: !progressBar.visible
             onClicked: {
                 Refresh.startRefresh(1) // 0 = radio; 1 = tv
                 progressBar.enabled = true
@@ -62,8 +62,8 @@ Page {
         ProgressBar {
             id: progressBar
             width: parent.width
-            enabled: false
-            indeterminate: enabled && (((Refresh.progress < 0.0) || (Refresh.progress >= 100.0)))
+            visible: false
+            indeterminate: ((Refresh.progress < 0.0) || (Refresh.progress >= 100.0))
             value: Refresh.progress
             label: "Waiting"
         }

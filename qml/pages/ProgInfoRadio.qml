@@ -22,7 +22,7 @@ Page {
         case 1:
             // Initialising
             progressBar.label = "Initialising"
-            progressBar.enabled = true
+            progressBar.visible = true
             break;
         case 2:
             // Downloading
@@ -38,7 +38,7 @@ Page {
         case 5:
             // Done
             progressBar.label = "Waiting"
-            progressBar.enabled = false
+            progressBar.visible = false
             // TODO: Check whether the next line is really needed
             programmesradio.clear()
             pageStack.pop()
@@ -80,7 +80,7 @@ Page {
                 id: doDownload
                 text: "Download"
                 anchors.horizontalCenter: parent.horizontalCenter
-                enabled: true
+                visible: !progressBar.visible
                 onClicked: {
                     Download.startDownload(progId)
                     progressBar.enabled = true
@@ -91,8 +91,8 @@ Page {
             ProgressBar {
                 id: progressBar
                 width: parent.width
-                enabled: false
-                indeterminate: enabled && (((Download.progress < 0.0) || (Download.progress >= 100.0)))
+                visible: false
+                indeterminate: ((Download.progress < 0.0) || (Download.progress >= 100.0))
                 value: Download.progress
                 label: "Waiting"
             }
