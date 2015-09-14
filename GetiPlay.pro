@@ -18,7 +18,8 @@ SOURCES += src/GetiPlay.cpp \
     src/refresh.cpp \
     src/programme.cpp \
     src/progmodel.cpp \
-    src/download.cpp
+    src/download.cpp \
+    src/control.cpp
 
 OTHER_FILES += qml/GetiPlay.qml \
     qml/cover/CoverPage.qml \
@@ -51,7 +52,8 @@ HEADERS += \
     src/refresh.h \
     src/programme.h \
     src/progmodel.h \
-    src/download.h
+    src/download.h \
+    src/control.h
 
 output.files = output01.txt \
     output02.txt

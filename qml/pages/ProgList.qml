@@ -35,7 +35,7 @@ Page {
     id: page
     property string searchString
     property bool keepSearchFieldFocus: true
-    property bool tv: true
+    property bool tv: control.viewTv
     property bool tvmenu: tv
 
     RefreshTV {
@@ -105,6 +105,7 @@ Page {
                 text: tvmenu ? qsTr("Switch to Radio") : qsTr("Switch to TV")
                 onClicked: {
                     tv = !tv
+                    control.setViewTv(tv)
                 }
             }
             onActiveChanged: {

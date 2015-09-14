@@ -36,6 +36,7 @@
 #include "programme.h"
 #include "refresh.h"
 #include "download.h"
+#include "control.h"
 #include <QDebug>
 
 int main(int argc, char *argv[])
@@ -53,6 +54,14 @@ int main(int argc, char *argv[])
     // To display the view, call "show()" (will show fullscreen on device).
 
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+
+    // These values are used by QSettings to access the config file in
+    // /home/nemo/.local/share/flypig/GetiPlay.conf
+    QCoreApplication::setOrganizationName("flypig");
+    QCoreApplication::setOrganizationDomain("www.flypig.co.uk");
+    QCoreApplication::setApplicationName("GetiPlay");
+
+    Control * control = new Control();
 
     QList<ProgModel*> models;
     ProgModel modelradio;
@@ -87,6 +96,9 @@ int main(int argc, char *argv[])
 
     view->setSource(SailfishApp::pathTo("qml/GetiPlay.qml"));
 
+    QQmlContext *ctxt = view->rootContext();
+    ctxt->setContextProperty("control", control);
+
     QSortFilterProxyModel * proxyModelRadio = new QSortFilterProxyModel ();
     proxyModelRadio->setSourceModel(&modelradio);
     proxyModelRadio->setDynamicSortFilter(true);
@@ -99,7 +111,6 @@ int main(int argc, char *argv[])
     proxyModelTV->setFilterRole(ProgModel::NameRole);
     proxyModelTV->setFilterCaseSensitivity(Qt::CaseInsensitive);
 
-    QQmlContext *ctxt = view->rootContext();
     ctxt->setContextProperty("programmesradio", proxyModelRadio);
     ctxt->setContextProperty("programmestv", proxyModelTV);
 
@@ -125,6 +136,7 @@ int main(int argc, char *argv[])
 
     delete proxyModelRadio;
     delete proxyModelTV;
+    delete control;
 
     return result;
     /*
