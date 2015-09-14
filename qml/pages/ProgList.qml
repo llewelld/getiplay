@@ -90,13 +90,6 @@ Page {
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
             }
             MenuItem {
-                id: listType
-                text: tvmenu ? qsTr("Switch to Radio") : qsTr("Switch to TV")
-                onClicked: {
-                    tv = !tv
-                }
-            }
-            MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
                     if (tv) {
@@ -105,6 +98,13 @@ Page {
                     else {
                         pageStack.push(refreshRadioLoad)
                     }
+                }
+            }
+            MenuItem {
+                id: listType
+                text: tvmenu ? qsTr("Switch to Radio") : qsTr("Switch to TV")
+                onClicked: {
+                    tv = !tv
                 }
             }
             onActiveChanged: {

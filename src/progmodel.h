@@ -3,6 +3,7 @@
 
 #include <QAbstractListModel>
 #include <QStringList>
+#include <QFile>
 
 #include "programme.h"
 
@@ -27,6 +28,9 @@ public:
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
 
     void clear();
+
+    void exportToFile(QFile & file);
+    void importFromFile(QFile & file);
 
 signals:
     // General signals

@@ -41,6 +41,7 @@
 int main(int argc, char *argv[])
 {
     int result;
+    QFile file;
 
     // SailfishApp::main() will display "qml/template.qml", if you need more
     // control over initialization, you can use:
@@ -58,6 +59,11 @@ int main(int argc, char *argv[])
     ProgModel modeltv;
     models.append(&modelradio);
     models.append(&modeltv);
+
+    file.setFileName(".getiplay/radio.txt");
+    modelradio.importFromFile(file);
+    file.setFileName(".getiplay/tv.txt");
+    modeltv.importFromFile(file);
 
     /*
     QFile file("/opt/sdk/GetiPlay/usr/share/GetiPlay/output01.txt");
@@ -87,19 +93,15 @@ int main(int argc, char *argv[])
     proxyModelRadio->setFilterRole(ProgModel::NameRole);
     proxyModelRadio->setFilterCaseSensitivity(Qt::CaseInsensitive);
 
-    QQmlContext *ctxt = view->rootContext();
-    ctxt->setContextProperty("programmesradio", proxyModelRadio);
-
-
     QSortFilterProxyModel * proxyModelTV = new QSortFilterProxyModel ();
     proxyModelTV->setSourceModel(&modeltv);
     proxyModelTV->setDynamicSortFilter(true);
     proxyModelTV->setFilterRole(ProgModel::NameRole);
     proxyModelTV->setFilterCaseSensitivity(Qt::CaseInsensitive);
 
+    QQmlContext *ctxt = view->rootContext();
+    ctxt->setContextProperty("programmesradio", proxyModelRadio);
     ctxt->setContextProperty("programmestv", proxyModelTV);
-
-
 
     Refresh * refresh = new Refresh (models);
     view->rootContext()->setContextProperty("Refresh", refresh);
@@ -111,6 +113,15 @@ int main(int argc, char *argv[])
 
     view->show();
     result = app->exec();
+
+    // Write out the programme lists
+
+    QDir dir;
+    dir.mkdir(".getiplay");
+    file.setFileName(".getiplay/radio.txt");
+    modelradio.exportToFile(file);
+    file.setFileName(".getiplay/tv.txt");
+    modeltv.exportToFile(file);
 
     delete proxyModelRadio;
     delete proxyModelTV;
