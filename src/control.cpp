@@ -6,7 +6,7 @@ Control::Control(QObject *parent) :
     viewTv(false)
 {
     QSettings settings;
-    viewTv = settings.value("vewTv", true).toBool();
+    viewTv = settings.value("viewTv", true).toBool();
 }
 
 bool Control::getViewTv() const {
@@ -16,7 +16,7 @@ bool Control::getViewTv() const {
 void Control::setViewTv(bool value) {
     if (value != viewTv) {
         viewTv = value;
-        settingsSetValue("vewTv", value);
+        settingsSetValue("viewTv", value);
         emit viewTvChanged(value);
     }
 }

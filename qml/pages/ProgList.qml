@@ -80,7 +80,7 @@ Page {
                     property: "searchString"
                     value: searchField.text.toLowerCase().trim()
                 }
-                onActiveFocusChanged: searchField.forceActiveFocus()
+                //onActiveFocusChanged: searchField.forceActiveFocus()
             }
         }
 
@@ -120,7 +120,7 @@ Page {
 
         delegate: BackgroundItem {
             id: delegate
-
+            focus: false
             /*
             ListView.onAdd: AddAnimation {
                 target: delegate

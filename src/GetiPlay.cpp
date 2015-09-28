@@ -39,6 +39,8 @@
 #include "control.h"
 #include <QDebug>
 
+#include "GetiPlay.h"
+
 int main(int argc, char *argv[])
 {
     int result;
@@ -59,7 +61,7 @@ int main(int argc, char *argv[])
     // /home/nemo/.local/share/flypig/GetiPlay.conf
     QCoreApplication::setOrganizationName("flypig");
     QCoreApplication::setOrganizationDomain("www.flypig.co.uk");
-    QCoreApplication::setApplicationName("GetiPlay");
+    QCoreApplication::setApplicationName(APP_NAME);
 
     Control * control = new Control();
 
@@ -69,9 +71,9 @@ int main(int argc, char *argv[])
     models.append(&modelradio);
     models.append(&modeltv);
 
-    file.setFileName(".getiplay/radio.txt");
+    file.setFileName(DIR_CONFIG "/radio.txt");
     modelradio.importFromFile(file);
-    file.setFileName(".getiplay/tv.txt");
+    file.setFileName(DIR_CONFIG "/tv.txt");
     modeltv.importFromFile(file);
 
     /*
@@ -128,10 +130,10 @@ int main(int argc, char *argv[])
     // Write out the programme lists
 
     QDir dir;
-    dir.mkdir(".getiplay");
-    file.setFileName(".getiplay/radio.txt");
+    dir.mkdir(DIR_CONFIG);
+    file.setFileName(DIR_CONFIG "/radio.txt");
     modelradio.exportToFile(file);
-    file.setFileName(".getiplay/tv.txt");
+    file.setFileName(DIR_CONFIG "/tv.txt");
     modeltv.exportToFile(file);
 
     delete proxyModelRadio;

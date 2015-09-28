@@ -1,8 +1,8 @@
 #include "download.h"
 #include "stdio.h"
 #include <QDebug>
+#include "GetiPlay.h"
 
-//#define FAKE_GETIPLAYER (1)
 #define MAX_LINE_LENGTH (255)
 
 Download::Download(QObject *parent) :
@@ -39,7 +39,7 @@ void Download::startDownload(int progId) {
     else {
         process = new QProcess();
 #ifndef FAKE_GETIPLAYER
-        QString program = "/home/nemo/Documents/Development/Projects/get_iplayer/get_iplayer";
+        QString program = DIR_BIN "/get_iplayer";
 #else // !FAKE_GETIPLAYER
         QString program = "cat";
 #endif // !FAKE_GETIPLAYER
@@ -67,9 +67,9 @@ void Download::collectArguments () {
     addArgument("type=radio");
     addArgument("get", QString("%1").arg(progId));
     addArgument("force");
-    addArgument("output", "/home/nemo/Music/iplayer");
+    addArgument("output", "$HOME/Music/" APP_NAME);
 #else // !FAKE_GETIPLAYER
-    addValue("/opt/sdk/GetiPlay/usr/share/GetiPlay/output02.txt");
+    addValue("../share/" APP_NAME "/output02.txt");
 #endif // !FAKE_GETIPLAYER
 }
 
@@ -204,6 +204,7 @@ void Download::started() {
 }
 
 void Download::finished(int code) {
+    qDebug() << "Finished with code " << code;
     if (process != NULL) {
         //delete process;
         process = NULL;

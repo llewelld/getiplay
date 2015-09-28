@@ -1,6 +1,7 @@
 #include "refresh.h"
 #include "stdio.h"
 #include <QDebug>
+#include "GetiPlay.h"
 
 //#define FAKE_GETIPLAYER (1)
 
@@ -45,10 +46,11 @@ void Refresh::startRefresh(REFRESHTYPE type) {
             currentRefresh = type;
             process = new QProcess();
     #ifndef FAKE_GETIPLAYER
-            QString program = "/home/nemo/Documents/Development/Projects/get_iplayer/get_iplayer";
+            QString program = DIR_BIN "/get_iplayer";
     #else // !FAKE_GETIPLAYER
             QString program = "cat";
     #endif // !FAKE_GETIPLAYER
+            qDebug() << program;
             collectArguments ();
             process->setReadChannel(QProcess::StandardOutput);
             connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(readError(QProcess::ProcessError)));
@@ -74,7 +76,7 @@ void Refresh::collectArguments () {
     addArgument("refresh");
     addArgument("force");
 #else // !FAKE_GETIPLAYER
-    addValue("/opt/sdk/GetiPlay/usr/share/GetiPlay/output01.txt");
+    addValue("../share/" APP_NAME "/output01.txt");
 #endif // !FAKE_GETIPLAYER
 }
 
@@ -144,7 +146,6 @@ void Refresh::readData() {
     }
     while ((periodCheck == false) && (process->canReadLine())) {
         QByteArray read = process->readLine();
-        //printf ("Output: %s", read.data());
 
         interpretData(read);
     }
@@ -188,6 +189,7 @@ void Refresh::started() {
 }
 
 void Refresh::finished(int code) {
+    qDebug() << "Finished with code " << code;
     if (process != NULL) {
         //delete process;
         process = NULL;
