@@ -19,7 +19,8 @@ SOURCES += src/GetiPlay.cpp \
     src/programme.cpp \
     src/progmodel.cpp \
     src/download.cpp \
-    src/control.cpp
+    src/control.cpp \
+    src/logfile.cpp
 
 OTHER_FILES += qml/GetiPlay.qml \
     qml/cover/CoverPage.qml \
@@ -56,7 +57,8 @@ HEADERS += \
     src/progmodel.h \
     src/download.h \
     src/control.h \
-    src/GetiPlay.h
+    src/GetiPlay.h \
+    src/logfile.h
 
 bin.files = bin\ffmpeg \
     bin\rtmpdump \

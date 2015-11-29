@@ -41,4 +41,11 @@
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>RefreshRadio</name>
+    <message>
+        <source>Refresh Radio Programmes</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

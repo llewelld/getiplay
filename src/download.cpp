@@ -11,7 +11,8 @@ Download::Download(QObject *parent) :
     status(DOWNLOADSTATUS_INVALID),
     progId(0),
     duration(0.0),
-    progress(0.0)
+    progress(0.0),
+    logText("")
 {
     arguments.clear();
 }
@@ -31,10 +32,14 @@ void Download::setStatus(DOWNLOADSTATUS newStatus)
 }
 
 void Download::startDownload(int progId) {
+    setLogText("");
+    logToFile.openLog();
+    logToFile.logLine("Process");
+
     this->progId = progId;
 
     if (process != NULL) {
-        qDebug() << "Process already running.";
+        logToFile.logLine("Process already running.");
     }
     else {
         process = new QProcess();
@@ -43,6 +48,7 @@ void Download::startDownload(int progId) {
 #else // !FAKE_GETIPLAYER
         QString program = "cat";
 #endif // !FAKE_GETIPLAYER
+        logToFile.logLine(program);
         collectArguments ();
         process->setProcessChannelMode(QProcess::MergedChannels);
         process->setReadChannel(QProcess::StandardOutput);
@@ -67,7 +73,7 @@ void Download::collectArguments () {
     addArgument("type=radio");
     addArgument("get", QString("%1").arg(progId));
     addArgument("force");
-    addArgument("output", "$HOME/Music/" APP_NAME);
+    addArgument("output", DIR_MUSIC);
 #else // !FAKE_GETIPLAYER
     addValue("../share/" APP_NAME "/output02.txt");
 #endif // !FAKE_GETIPLAYER
@@ -112,10 +118,10 @@ void Download::addValue (QString key) {
 
 void Download::cancel() {
     if (process != NULL) {
-
         process->terminate();
-        setStatus(DOWNLOADSTATUS_CANCEL);
+        logAppend("Terminate signal sent");
     }
+    setStatus(DOWNLOADSTATUS_CANCEL);
 }
 
 void Download::readData() {
@@ -157,7 +163,8 @@ void Download::interpretLine(const QString &text) {
 
     qDebug() << "Line: " << text;
     if (text.startsWith("INFO: Recorded ")) {
-        setStatus(DOWNLOADSTATUS_DONE);
+        logAppend(text);
+        //setStatus(DOWNLOADSTATUS_DONE);
     }
     else {
         QRegExp percent("^.*\\((\\d+\\.\\d+)%\\)$");
@@ -184,6 +191,7 @@ void Download::interpretLine(const QString &text) {
                 }
             }
             else {
+                logAppend(text);
                 QRegExp findDuration("^.*Duration: (\\d+):(\\d\\d):(\\d\\d\\.\\d+), .*$");
                 foundPos = findDuration.indexIn(text);
                 if (foundPos > -1) {
@@ -204,7 +212,9 @@ void Download::started() {
 }
 
 void Download::finished(int code) {
-    qDebug() << "Finished with code " << code;
+    logToFile.logLine("Finished with code " + QString::number(code));
+    logAppend("Finished with code " + QString::number(code));
+    logToFile.closeLog();
     if (process != NULL) {
         //delete process;
         process = NULL;
@@ -214,17 +224,14 @@ void Download::finished(int code) {
 
 void Download::readError(QProcess::ProcessError error)
 {
-    qDebug() << "Error: " << error;
+    logToFile.logLine("Error: " + error);
     if (process != NULL) {
         QByteArray dataOut = process->readAllStandardOutput();
         QByteArray errorOut = process->readAllStandardError();
 
-        qDebug() << "Output text: " << dataOut.data();
-        qDebug() << "Error text: " << errorOut.data();
+        logToFile.logLine(QString("Output text: ") + dataOut.data());
+        logToFile.logLine(QString("Error text: ") + errorOut.data());
     }
-
-    // Disconnect
-    cancel();
 }
 
 float Download::getProgress() const {
@@ -235,3 +242,44 @@ void Download::setProgress(float value) {
     progress = value;
     emit progressChanged(value);
 }
+
+QString Download::getLogText() const
+{
+    return logText;
+}
+
+void Download::setLogText(const QString &value)
+{
+    logText = value;
+    emit logTextChanged(logText);
+}
+
+void Download::logAppend(const QString &text)
+{
+    if (!text.isEmpty()) {
+        QString append = text;
+        logToFile.logLine(append);
+        // Ensure we end with a newline
+        if (!append.endsWith('\n')) {
+            append += '\n';
+        }
+        // How many lines to add
+        int newLines = append.count('\n');
+        int currentLines = logText.count('\n');
+        int removeLines = currentLines + newLines - LOG_LINES;
+
+        // Remove excess lines from the top
+        while (removeLines > 0) {
+            int nextLine = logText.indexOf('\n');
+            if (nextLine > 0) {
+                logText = logText.mid(nextLine + 1);
+            }
+            removeLines--;
+        }
+
+        // Add new lines
+        logText.append(append);
+        emit logTextChanged(logText);
+    }
+}
+

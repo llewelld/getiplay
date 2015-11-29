@@ -47,6 +47,7 @@ Page {
         id: refreshRadioLoad
         visible: false
     }
+
     onSearchStringChanged: {
         programmestv.setFilterFixedString(searchString)
         programmesradio.setFilterFixedString(searchString)

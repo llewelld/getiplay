@@ -3,7 +3,7 @@ import Sailfish.Silica 1.0
 
 Page {
     id: aboutPage
-    property string version: "0.0.1"
+    property string version: "0.1-3"
 
     SilicaFlickable {
         width: parent.width
@@ -68,7 +68,7 @@ Page {
                 }
             }
             Label {
-                text: "Licence:\tBSD"
+                text: "Licence:\tMIT"
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
                 horizontalAlignment: Text.AlignLeft

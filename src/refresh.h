@@ -5,6 +5,7 @@
 #include <QProcess>
 #include <QList>
 #include "progmodel.h"
+#include "logfile.h"
 
 class Refresh : public QObject
 {
@@ -12,6 +13,7 @@ class Refresh : public QObject
 
     // General properties
     Q_PROPERTY (float progress READ getProgress WRITE setProgress NOTIFY progressChanged)
+    Q_PROPERTY (QString logText READ getLogText WRITE setLogText NOTIFY logTextChanged)
     Q_ENUMS(REFRESHSTATUS REFRESHTYPE)
 
 public:
@@ -40,6 +42,8 @@ private:
     QProcess * process;
     REFRESHSTATUS status;
     QStringList arguments;
+    QString logText;
+    logfile logToFile;
 
     QList<ProgModel*> model;
     bool periodCheck;
@@ -64,11 +68,13 @@ public:
     explicit Refresh(QList<ProgModel*> model, QObject *parent = 0);
     void initialise();
     float getProgress() const;
+    QString getLogText() const;
 
 signals:
     // General signals
     void statusChanged(int status);
     void progressChanged(float progress);
+    void logTextChanged (QString &logText);
 
 public slots:
     // General methods
@@ -79,6 +85,8 @@ public slots:
     void finished (int code);
     void readError (QProcess::ProcessError error);
     void setProgress(float value);
+    void setLogText(const QString &value);
+    void logAppend(const QString &text);
 };
 
 #endif // REFRESH_H

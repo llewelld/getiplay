@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QProcess>
+#include "logfile.h"
 
 enum DOWNLOADSTATUS {
     DOWNLOADSTATUS_INVALID = -1,
@@ -24,6 +25,9 @@ class Download : public QObject
 
     // General properties
     Q_PROPERTY (float progress READ getProgress WRITE setProgress NOTIFY progressChanged)
+    Q_PROPERTY (QString logText READ getLogText WRITE setLogText NOTIFY logTextChanged)
+    Q_ENUMS(DOWNLOADSTATUS)
+
 private:
     QProcess * process;
     DOWNLOADSTATUS status;
@@ -31,6 +35,8 @@ private:
     int progId;
     double duration;
     float progress;
+    QString logText;
+    logfile logToFile;
 
     // Internal methods
     void collectArguments ();
@@ -47,11 +53,13 @@ public:
     explicit Download(QObject *parent = 0);
     void initialise();
     float getProgress() const;
+    QString getLogText() const;
 
 signals:
     // General signals
     void statusChanged(int status);
     void progressChanged(float progress);
+    void logTextChanged (QString &logText);
 
 public slots:
     // General methods
@@ -62,6 +70,8 @@ public slots:
     void finished (int code);
     void readError (QProcess::ProcessError error);
     void setProgress(float value);
+    void setLogText(const QString &value);
+    void logAppend(const QString &text);
 };
 
 #endif // DOWNLOAD_H

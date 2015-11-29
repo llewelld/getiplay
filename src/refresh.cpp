@@ -3,14 +3,13 @@
 #include <QDebug>
 #include "GetiPlay.h"
 
-//#define FAKE_GETIPLAYER (1)
-
 static const QString typeString[] = {"radio", "tv"};
 
 Refresh::Refresh(QList<ProgModel*> model, QObject *parent) :
     QObject(parent),
     process(NULL),
     status(REFRESHSTATUS_INVALID),
+    logText(""),
     model(model),
     periodCheck(false),
     periodCount(0),
@@ -36,10 +35,12 @@ void Refresh::setStatus(REFRESHSTATUS newStatus)
 }
 
 void Refresh::startRefresh(REFRESHTYPE type) {
-    qDebug() << "Process";
+    setLogText("");
+    logToFile.openLog();
+    logToFile.logLine("Process");
 
     if ((process != NULL) || (currentRefresh != REFRESHTYPE_INVALID)) {
-        qDebug() << "Process already running.";
+        logToFile.logLine("Process already running.");
     }
     else {
         if ((type > REFRESHTYPE_INVALID) && (type < REFRESHTYPE_NUM)) {
@@ -50,7 +51,7 @@ void Refresh::startRefresh(REFRESHTYPE type) {
     #else // !FAKE_GETIPLAYER
             QString program = "cat";
     #endif // !FAKE_GETIPLAYER
-            qDebug() << program;
+            logToFile.logLine(program);
             collectArguments ();
             process->setReadChannel(QProcess::StandardOutput);
             connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(readError(QProcess::ProcessError)));
@@ -120,8 +121,8 @@ void Refresh::addValue (QString key) {
 void Refresh::cancel() {
     currentRefresh = REFRESHTYPE_INVALID;
     if (process != NULL) {
-
         process->terminate();
+        logAppend("Terminate signal sent");
     }
     setStatus(REFRESHSTATUS_CANCEL);
 }
@@ -163,12 +164,17 @@ void Refresh::interpretData(const QString &text) {
 void Refresh::interpretLine(const QString &text) {
     //qDebug() << "Line: " << text;
     if (text.endsWith("Matching Programmes\n")) {
-        setStatus(REFRESHSTATUS_DONE);
+        logAppend(text);
+        //setStatus(REFRESHSTATUS_DONE);
     }
     else if (text.endsWith("(this may take a few minutes)")) {
+        logAppend(text);
         setStatus(REFRESHSTATUS_REFRESHING);
         qDebug() << "Switching to period check.";
         periodCheck = true;
+    }
+    else if (text.startsWith("Added: ")) {
+        // Do nothing
     }
     else {
         QRegExp progInfo("^(\\d+):\\t(.*)$");
@@ -180,6 +186,9 @@ void Refresh::interpretLine(const QString &text) {
             //qDebug() << "Programme: " << progId << ", " << title;
             model[currentRefresh]->addProgramme(Programme(progId, title, 0.0));
         }
+        else {
+            logAppend(text);
+        }
     }
 }
 
@@ -189,7 +198,9 @@ void Refresh::started() {
 }
 
 void Refresh::finished(int code) {
-    qDebug() << "Finished with code " << code;
+    logToFile.logLine("Finished with code " + QString::number(code));
+    logAppend("Finished with code " + QString::number(code));
+    logToFile.closeLog();
     if (process != NULL) {
         //delete process;
         process = NULL;
@@ -200,17 +211,14 @@ void Refresh::finished(int code) {
 
 void Refresh::readError(QProcess::ProcessError error)
 {
-    qDebug() << "Error: " << error;
+    logToFile.logLine("Error: " + error);
     if (process != NULL) {
         QByteArray dataOut = process->readAllStandardOutput();
         QByteArray errorOut = process->readAllStandardError();
 
-        qDebug() << "Output text: " << dataOut.data();
-        qDebug() << "Error text: " << errorOut.data();
+        logToFile.logLine(QString("Output text: ") + dataOut.data());
+        logToFile.logLine(QString("Error text: ") + errorOut.data());
     }
-
-    // Disconnect
-    cancel();
 }
 
 float Refresh::getProgress() const {
@@ -220,5 +228,45 @@ float Refresh::getProgress() const {
 void Refresh::setProgress(float value) {
     progress = value;
     emit progressChanged(value);
+}
+
+QString Refresh::getLogText() const
+{
+    return logText;
+}
+
+void Refresh::setLogText(const QString &value)
+{
+    logText = value;
+    emit logTextChanged(logText);
+}
+
+void Refresh::logAppend(const QString &text)
+{
+    if (!text.isEmpty()) {
+        QString append = text;
+        logToFile.logLine(append);
+        // Ensure we end with a newline
+        if (!append.endsWith('\n')) {
+            append += '\n';
+        }
+        // How many lines to add
+        int newLines = append.count('\n');
+        int currentLines = logText.count('\n');
+        int removeLines = currentLines + newLines - LOG_LINES;
+
+        // Remove excess lines from the top
+        while (removeLines > 0) {
+            int nextLine = logText.indexOf('\n');
+            if (nextLine > 0) {
+                logText = logText.mid(nextLine + 1);
+            }
+            removeLines--;
+        }
+
+        // Add new lines
+        logText.append(append);
+        emit logTextChanged(logText);
+    }
 }
 

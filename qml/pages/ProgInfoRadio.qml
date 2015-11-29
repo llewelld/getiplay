@@ -3,7 +3,7 @@ import Sailfish.Silica 1.0
 
 
 Page {
-    id: page
+    id: infoPage
     property string name: ""
     property int progId: 0
 
@@ -12,6 +12,10 @@ Page {
         onStatusChanged: {
             updateStatus(status)
         }
+    }
+
+    onCanceled: {
+        Download.cancel()
     }
 
     function updateStatus(status) {
@@ -34,6 +38,7 @@ Page {
             break;
         case 4:
             // Cancel
+            progressBar.label = "Cancelled"
             break;
         case 5:
             // Done
@@ -41,7 +46,9 @@ Page {
             progressBar.visible = false
             // TODO: Check whether the next line is really needed
             programmesradio.clear()
-            pageStack.pop()
+            if (infoPage.status === PageStatus.Active) {
+                pageStack.pop()
+            }
             break;
         default:
             break;
@@ -49,23 +56,23 @@ Page {
         console.log("Status: " + status)
     }
 
-    // To enable PullDownMenu, place our content in a SilicaFlickable
-    SilicaFlickable {
-        anchors.fill: parent
+    // Place our content in a Column.  The PageHeader is always placed at the top
+    // of the page, followed by our content.
+    Column {
+        id: column
+        width: infoPage.width
+        spacing: Theme.paddingLarge
 
-        // Tell SilicaFlickable the height of its content.
-        contentHeight: column.height
+        PageHeader {
+            id: header
+            title: qsTr("Radio Programme Info")
+        }
 
-        // Place our content in a Column.  The PageHeader is always placed at the top
-        // of the page, followed by our content.
         Column {
-            id: column
+            id: infopane
+            width: parent.width
+            height: 240
 
-            width: page.width
-            spacing: Theme.paddingLarge
-            PageHeader {
-                title: qsTr("Radio Programme Info")
-            }
             Label {
                 x: Theme.paddingLarge
                 text: name
@@ -84,7 +91,7 @@ Page {
                 onClicked: {
                     Download.startDownload(progId)
                     progressBar.enabled = true
-                    progress.label = "Initialising"
+                    progressBar.label = "Initialising"
                 }
             }
 
@@ -95,6 +102,40 @@ Page {
                 indeterminate: ((Download.progress < 0.0) || (Download.progress >= 100.0))
                 value: Download.progress
                 label: "Waiting"
+            }
+        }
+
+        // The log output box
+        Rectangle {
+            color: "transparent"
+            border {
+                color: Theme.highlightBackgroundColor
+                width: 1
+            }
+            //radius: Theme.paddingSmall
+            anchors.horizontalCenter: parent.horizontalCenter
+            //height: (24 * Theme.fontSizeTiny) + (2 * Theme.paddingLarge)
+            height: infoPage.height - infopane.height - header.height - (3 * Theme.paddingLarge)
+            width: parent.width - 2 * Theme.paddingLarge
+            x: Theme.paddingLarge
+
+            //TextEdit {
+            Label {
+                id: logOutput
+                textFormat: Text.PlainText
+                width: parent.width - 2 * Theme.paddingSmall
+                height: parent.height - 0 * Theme.paddingSmall
+                wrapMode: Text.WrapAnywhere
+                font.pixelSize: Theme.fontSizeTiny * 0.6
+                font.family: "Monospace"
+                color: Theme.highlightColor
+                visible: true
+                text: Download.logText
+                verticalAlignment: Text.AlignBottom
+                x: Theme.paddingSmall
+                y: Theme.paddingSmall
+                //readOnly: true
+                clip: true
             }
         }
     }
