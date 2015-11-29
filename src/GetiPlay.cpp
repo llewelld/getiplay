@@ -103,12 +103,14 @@ int main(int argc, char *argv[])
     proxyModelRadio->setDynamicSortFilter(true);
     proxyModelRadio->setFilterRole(ProgModel::NameRole);
     proxyModelRadio->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    proxyModelRadio->setSortCaseSensitivity(Qt::CaseInsensitive);
 
     QSortFilterProxyModel * proxyModelTV = new QSortFilterProxyModel ();
     proxyModelTV->setSourceModel(&modeltv);
     proxyModelTV->setDynamicSortFilter(true);
     proxyModelTV->setFilterRole(ProgModel::NameRole);
     proxyModelTV->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    proxyModelTV->setSortCaseSensitivity(Qt::CaseInsensitive);
 
     ctxt->setContextProperty("programmesradio", proxyModelRadio);
     ctxt->setContextProperty("programmestv", proxyModelTV);

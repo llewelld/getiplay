@@ -34,7 +34,6 @@ import Sailfish.Silica 1.0
 Page {
     id: page
     property string searchString
-    property bool keepSearchFieldFocus: true
     property bool tv: control.viewTv
     property bool tvmenu: tv
 
@@ -59,12 +58,22 @@ Page {
         anchors.fill: parent
         currentIndex: -1 // otherwise currentItem will steal focus
 
+        onCurrentIndexChanged: {
+            // This nasty hack prevents the currentIndex being set
+            // away from -1
+            // This avoids the virtual keyboard disappearing when the
+            // search filter is changed
+            listView.currentIndex = -1
+            //console.log("CurrentIndex: " + currentIndex)
+        }
+
         VerticalScrollDecorator {}
 
         header: Column {
             id: headerColumn
             width: page.width
             height: 200
+
             PageHeader {
                 title: tv ? "BBC TV Programmes" : "BBC Radio Programmes"
             }
@@ -73,15 +82,17 @@ Page {
                 id: searchField
                 width: parent.width
                 placeholderText: "Search programmes"
+                // Predictive text actually messes up the clear button so it only
+                // works if there's more than one word (weird!), but predictive
+                // is likely to be the more useful of the two, so I've left it on
+                //inputMethodHints: Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
                 inputMethodHints: Qt.ImhNoAutoUppercase
-                focus: true
 
                 Binding {
                     target: page
                     property: "searchString"
                     value: searchField.text.toLowerCase().trim()
                 }
-                //onActiveFocusChanged: searchField.forceActiveFocus()
             }
         }
 
@@ -122,16 +133,19 @@ Page {
         delegate: BackgroundItem {
             id: delegate
             focus: false
-            /*
-            ListView.onAdd: AddAnimation {
-                target: delegate
-            }
-            ListView.onRemove: RemoveAnimation {
-                id: animremove
-                target: delegate
-            }
-            */
 
+            // The ListView animations interfere with the menu animation when
+            // switching between radio and TV. The also cause the vertical
+            // position of the title to jump around.
+            // So sadly it's easiest to disable them.
+//            ListView.onAdd: AddAnimation {
+//                id: animadd
+//                target: delegate
+//            }
+//            ListView.onRemove: RemoveAnimation {
+//                id: animremove
+//                target: delegate
+//            }
 
             Label {
                 x: Theme.paddingLarge
