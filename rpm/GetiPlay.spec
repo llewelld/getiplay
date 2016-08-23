@@ -14,7 +14,7 @@ Name:       GetiPlay
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    User interface for get_iplayer
 Version:    0.2
-Release:    4
+Release:    5
 Group:      Qt/Qt
 License:    LICENSE
 URL:        http://example.org/
