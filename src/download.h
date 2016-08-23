@@ -39,6 +39,7 @@ private:
     logfile logToFile;
 
     // Internal methods
+    void setupEnvironment ();
     void collectArguments ();
     void setStatus (DOWNLOADSTATUS newStatus);
     void addArgument (QString key, QString value);

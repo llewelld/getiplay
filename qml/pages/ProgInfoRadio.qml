@@ -71,7 +71,6 @@ Page {
         Column {
             id: infopane
             width: parent.width
-            height: 240
 
             Label {
                 x: Theme.paddingLarge

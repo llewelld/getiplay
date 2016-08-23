@@ -72,7 +72,6 @@ Page {
         header: Column {
             id: headerColumn
             width: page.width
-            height: 200
 
             PageHeader {
                 title: tv ? "BBC TV Programmes" : "BBC Radio Programmes"

@@ -52,6 +52,7 @@ void Refresh::startRefresh(REFRESHTYPE type) {
             QString program = "cat";
     #endif // !FAKE_GETIPLAYER
             logToFile.logLine(program);
+            process->setWorkingDirectory(DIR_BIN);
             collectArguments ();
             process->setReadChannel(QProcess::StandardOutput);
             connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(readError(QProcess::ProcessError)));
@@ -73,6 +74,7 @@ void Refresh::collectArguments () {
     arguments.clear();
 
 #ifndef FAKE_GETIPLAYER
+    addArgument("packagemanager=rpm");
     addArgument("type=" + typeString[currentRefresh]);
     addArgument("refresh");
     addArgument("force");

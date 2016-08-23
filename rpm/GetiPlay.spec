@@ -13,17 +13,19 @@ Name:       GetiPlay
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    User interface for get_iplayer
-Version:    0.1
-Release:    3
+Version:    0.2
+Release:    4
 Group:      Qt/Qt
 License:    LICENSE
 URL:        http://example.org/
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  GetiPlay.yaml
 Requires:   sailfishsilica-qt5 >= 0.10.9
-Requires:   perl-libwww-perl
-Requires:   perl-XML-Parser
-
+Requires:   perl >= 5.8.8
+Requires:   perl-libwww-perl >= 5.837
+Requires:   perl-XML-Parser >= 2.41
+Requires:   perl-XML-Simple >= 2.22
+Requires:   perl-XML-SAX-Expat >= 0.51
 BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
@@ -70,5 +72,8 @@ desktop-file-install --delete-original       \
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/86x86/apps/%{name}.png
+%attr(755,root,root) %{_datadir}/%{name}/bin/get_iplayer
+%attr(755,root,root) %{_datadir}/%{name}/bin/ffmpeg
+%attr(755,root,root) %{_datadir}/%{name}/bin/rtmpdump
 # >> files
 # << files

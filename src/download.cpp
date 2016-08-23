@@ -49,6 +49,8 @@ void Download::startDownload(int progId) {
         QString program = "cat";
 #endif // !FAKE_GETIPLAYER
         logToFile.logLine(program);
+        process->setWorkingDirectory(DIR_BIN);
+        setupEnvironment();
         collectArguments ();
         process->setProcessChannelMode(QProcess::MergedChannels);
         process->setReadChannel(QProcess::StandardOutput);
@@ -66,13 +68,24 @@ void Download::startDownload(int progId) {
     }
 }
 
+void Download::setupEnvironment() {
+    // Set up appropriate environment variables to ensure get_iplayer can see
+    // the installed binaries and libraries
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    env.insert("LD_LIBRARY_PATH", "/usr/share/GetiPlay/lib:" + env.value("LD_LIBRARY_PATH"));
+    env.insert("PATH", "/usr/share/GetiPlay/bin:" + env.value("PATH"));
+    process->setProcessEnvironment(env);
+}
+
 void Download::collectArguments () {
     arguments.clear();
 
 #ifndef FAKE_GETIPLAYER
+    addArgument("packagemanager=rpm");
     addArgument("type=radio");
     addArgument("get", QString("%1").arg(progId));
     addArgument("force");
+    addArgument("modes=default");
     addArgument("output", DIR_MUSIC);
 #else // !FAKE_GETIPLAYER
     addValue("../share/" APP_NAME "/output02.txt");

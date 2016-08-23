@@ -3,7 +3,7 @@ import Sailfish.Silica 1.0
 
 Page {
     id: aboutPage
-    property string version: "0.1-3"
+    property string version: "0.2-4"
 
     SilicaFlickable {
         width: parent.width

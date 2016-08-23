@@ -1,7 +1,7 @@
 Name: GetiPlay
 Summary: User interface for get_iplayer
-Version: 0.1
-Release: 2
+Version: 0.2
+Release: 4
 # The contents of the Group field should be one of the groups listed here:
 # http://gitorious.org/meego-developer-tools/spectacle/blobs/master/data/GROUPS
 Group: Qt/Qt
@@ -33,6 +33,11 @@ PkgConfigBR:
 # Runtime dependencies which are not automatically detected
 Requires:
   - sailfishsilica-qt5 >= 0.10.9 
+  - perl >= 5.8.8
+  - perl-libwww-perl >= 5.837
+  - perl-XML-Parser >= 2.41
+  - perl-XML-Simple >= 2.22
+  - perl-XML-SAX-Expat >= 0.51
 
 # All installed files
 Files:
@@ -40,7 +45,9 @@ Files:
   - '%{_datadir}/%{name}'
   - '%{_datadir}/applications/%{name}.desktop'
   - '%{_datadir}/icons/hicolor/86x86/apps/%{name}.png'
-
+  - '%attr(755,root,root) %{_datadir}/%{name}/bin/get_iplayer'
+  - '%attr(755,root,root) %{_datadir}/%{name}/bin/ffmpeg'
+  - '%attr(755,root,root) %{_datadir}/%{name}/bin/rtmpdump'
 # For more information about yaml and what's supported in Sailfish OS
 # build system, please see https://wiki.merproject.org/wiki/Spectacle
 

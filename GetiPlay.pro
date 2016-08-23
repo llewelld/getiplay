@@ -38,8 +38,9 @@ OTHER_FILES += qml/GetiPlay.qml \
     qml/pages/RefreshRadio.qml \
     bin/ffmpeg \
     bin/rtmpdump \
-    bin/librtmp.so \
-    bin/get_iplayer
+    bin/get_iplayer \
+    lib/librtmp.a \
+    lib/librtmp.so.1
 
 # to disable building translations every time, comment out the
 # following CONFIG line
@@ -60,10 +61,17 @@ HEADERS += \
     src/GetiPlay.h \
     src/logfile.h
 
-bin.files = bin\ffmpeg \
-    bin\rtmpdump \
-    bin\librtmp.so \
-    bin\get_iplayer
-bin.path = /usr/share/$${TARGET}/bin
+bin.files = bin
+bin.path = /usr/share/$${TARGET}
 
 INSTALLS += bin
+
+lib.files = lib
+lib.path = /usr/share/$${TARGET}
+
+INSTALLS += lib
+
+DISTFILES += \
+    lib/librtmp.a \
+    lib/librtmp.so.1
+

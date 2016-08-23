@@ -13,3 +13,6 @@
 - Hoisted the sails
 
 
+* Mon Aug 01 2016 David Llewellyn-Jones <david@flypig.co.uk> 0.2.0-1
+- Attempted to fix perl dependencies
+- Set working directory
