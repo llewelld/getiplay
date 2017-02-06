@@ -58,7 +58,7 @@ void Download::startDownload(int progId) {
         connect(process, SIGNAL(readyRead()), this, SLOT(readData()));
         connect(process, SIGNAL(started()), this, SLOT(started()));
         connect(process, SIGNAL(finished(int)), this, SLOT(finished(int)));
-
+        logAppend(program + arguments.join(" ")); // write the get_iplayer command to the log window
         process->start(program, arguments);
         process->closeWriteChannel();
         setStatus(DOWNLOADSTATUS_INITIALISING);
@@ -81,11 +81,11 @@ void Download::collectArguments () {
     arguments.clear();
 
 #ifndef FAKE_GETIPLAYER
-    addArgument("packagemanager=rpm");
-    addArgument("type=radio");
+    addArgument("packagemanager=rpm"); // required to prevent get_iplayer from trying to update itself
+//    addArgument("type=radio");
     addArgument("get", QString("%1").arg(progId));
     addArgument("force");
-    addArgument("modes=default");
+//    addArgument("modes=default");
     addArgument("output", DIR_MUSIC);
 #else // !FAKE_GETIPLAYER
     addValue("../share/" APP_NAME "/output02.txt");
