@@ -50,6 +50,11 @@ Page {
                 pageStack.pop()
             }
             break;
+        case 6:
+            // Error
+            progressBar.label = "Error"
+            progressBar.visible = false
+            break;
         default:
             break;
         }
@@ -82,13 +87,28 @@ Page {
                 x: Theme.paddingLarge
                 text: "ID: " + progId
             }
+
+            Image {
+                id: warningTriangle
+                source: "image://theme/icon-lock-warning"
+                asynchronous: true
+                visible: (progressBar.label === "Error")
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Item {
+                width: 1
+                height: Theme.paddingLarge
+                visible: warningTriangle.visible
+            }
+
             Button {
                 id: doDownload
                 text: "Download"
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: !progressBar.visible
                 onClicked: {
-                    Download.startDownload(progId)
+                    Download.startDownload(progId,"radio")
                     progressBar.enabled = true
                     progressBar.label = "Initialising"
                 }

@@ -31,12 +31,13 @@ void Download::setStatus(DOWNLOADSTATUS newStatus)
     }
 }
 
-void Download::startDownload(int progId) {
+void Download::startDownload(int progId, QString progType) {
     setLogText("");
     logToFile.openLog();
     logToFile.logLine("Process");
 
     this->progId = progId;
+    this->progType = progType;
 
     if (process != NULL) {
         logToFile.logLine("Process already running.");
@@ -82,11 +83,25 @@ void Download::collectArguments () {
 
 #ifndef FAKE_GETIPLAYER
     addArgument("packagemanager=rpm"); // required to prevent get_iplayer from trying to update itself
-//    addArgument("type=radio");
+
+    if (progType == QString("radio")) {
+        addArgument("type=radio");
+    } else if (progType == QString("tv")) {
+        addArgument("type=tv");
+    }
+
     addArgument("get", QString("%1").arg(progId));
     addArgument("force");
 //    addArgument("modes=default");
-    addArgument("output", DIR_MUSIC);
+
+    if (progType == QString("radio")) {
+        addArgument("output", DIR_MUSIC);
+    } else if (progType == QString("tv")) {
+        addArgument("output", DIR_VIDEO);
+    } else {
+        addArgument("output", DIR_DOWNLOAD);
+    }
+
 #else // !FAKE_GETIPLAYER
     addValue("../share/" APP_NAME "/output02.txt");
 #endif // !FAKE_GETIPLAYER
@@ -232,7 +247,13 @@ void Download::finished(int code) {
         //delete process;
         process = NULL;
     }
-    setStatus(DOWNLOADSTATUS_DONE);
+
+    // anything but a zero exit status is an error
+    if (!code) {
+        setStatus(DOWNLOADSTATUS_DONE);
+    } else {
+        setStatus(DOWNLOADSTATUS_ERROR);
+    }
 }
 
 void Download::readError(QProcess::ProcessError error)

@@ -14,6 +14,7 @@ enum DOWNLOADSTATUS {
     DOWNLOADSTATUS_CONVERTING,
     DOWNLOADSTATUS_CANCEL,
     DOWNLOADSTATUS_DONE,
+    DOWNLOADSTATUS_ERROR,
 
     DOWNLOADSTATUS_NUM
 };
@@ -33,6 +34,7 @@ private:
     DOWNLOADSTATUS status;
     QStringList arguments;
     int progId;
+    QString progType;
     double duration;
     float progress;
     QString logText;
@@ -64,7 +66,7 @@ signals:
 
 public slots:
     // General methods
-    void startDownload (int progId);
+    void startDownload (int progId,QString progType);
     void cancel ();
     void readData ();
     void started ();
