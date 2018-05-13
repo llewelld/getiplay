@@ -46,19 +46,27 @@ void Refresh::startRefresh(REFRESHTYPE type) {
         if ((type > REFRESHTYPE_INVALID) && (type < REFRESHTYPE_NUM)) {
             currentRefresh = type;
             process = new QProcess();
-    #ifndef FAKE_GETIPLAYER
-            QString program = DIR_BIN "/get_iplayer";
-    #else // !FAKE_GETIPLAYER
-            QString program = "cat";
-    #endif // !FAKE_GETIPLAYER
-            logToFile.logLine(program);
+            process->setProcessChannelMode(QProcess::MergedChannels);
             process->setWorkingDirectory(DIR_BIN);
-            collectArguments ();
             process->setReadChannel(QProcess::StandardOutput);
+
+            setupEnvironment();
+
+#ifndef FAKE_GETIPLAYER
+            QString program = DIR_BIN "/get_iplayer";
+#else // !FAKE_GETIPLAYER
+            QString program = "cat";
+#endif // !FAKE_GETIPLAYER
+            logToFile.logLine(program);
+
+            collectArguments ();
             connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(readError(QProcess::ProcessError)));
             connect(process, SIGNAL(readyRead()), this, SLOT(readData()));
             connect(process, SIGNAL(started()), this, SLOT(started()));
             connect(process, SIGNAL(finished(int)), this, SLOT(finished(int)));
+            foreach (QString argument, arguments) {
+                logToFile.logLine(argument);
+            }
 
             process->start(program, arguments);
             process->closeWriteChannel();
@@ -70,14 +78,35 @@ void Refresh::startRefresh(REFRESHTYPE type) {
     }
 }
 
+void Refresh::setupEnvironment() {
+    // Set up appropriate environment variables to ensure get_iplayer can see
+    // the installed binaries and libraries
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    env.insert("LD_LIBRARY_PATH", DIR_LIB ":" + env.value("LD_LIBRARY_PATH"));
+    env.insert("PERL_MB_OPT", "--install_base \"" DIR_PERLLOCAL "\"");
+    env.insert("PERL_MM_OPT", "INSTALL_BASE=" DIR_PERLLOCAL);
+    env.insert("PERL5LIB", DIR_PERLLOCAL "/lib/perl5");
+    env.insert("PERL_LOCAL_LIB_ROOT", DIR_PERLLOCAL);
+    env.insert("PATH", DIR_PERLLOCAL "/bin:" DIR_BIN ":" + env.value("PATH", ""));
+    process->setProcessEnvironment(env);
+    foreach (QString var, env.toStringList()) {
+        qDebug() << var;
+    }
+}
+
 void Refresh::collectArguments () {
     arguments.clear();
 
 #ifndef FAKE_GETIPLAYER
-    addArgument("packagemanager=rpm");
     addArgument("type=" + typeString[currentRefresh]);
     addArgument("refresh");
     addArgument("force");
+    addArgument("nocopyright");
+    addArgument("atomicparsley", "/usr/share/GetiPlay/bin/AtomicParsley");
+    addArgument("ffmpeg", "/usr/share/GetiPlay/bin/ffmpeg");
+    addArgument("ffmpeg-loglevel", "info");
+    addArgument("log-progress");
+    addValue(".*");
 #else // !FAKE_GETIPLAYER
     addValue("../share/" APP_NAME "/output01.txt");
 #endif // !FAKE_GETIPLAYER
@@ -138,7 +167,7 @@ void Refresh::readData() {
                 // Remove the character
                 process->read(data, 1);
                 periodCount++;
-                setProgress(((float)periodCount / ((float)periodCount + 10.0)) + ((float)periodCount * 0.002f));
+                setProgress(((float)periodCount / ((float)periodCount + 20.0)) + ((float)periodCount * 0.0005f));
                 qDebug() << "Progress " << (getProgress() * 100.0) << "%";
             }
             else {
@@ -169,7 +198,7 @@ void Refresh::interpretLine(const QString &text) {
         logAppend(text);
         //setStatus(REFRESHSTATUS_DONE);
     }
-    else if (text.endsWith("(this may take a few minutes)")) {
+    else if (text.startsWith("INFO: Indexing")) {
         logAppend(text);
         setStatus(REFRESHSTATUS_REFRESHING);
         qDebug() << "Switching to period check.";

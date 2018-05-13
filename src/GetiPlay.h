@@ -4,6 +4,8 @@
 #define APP_NAME "GetiPlay"
 #define DIR_CONFIG "/home/nemo/.config/" APP_NAME
 #define DIR_BIN "/usr/share/" APP_NAME "/bin"
+#define DIR_LIB "/usr/share/" APP_NAME "/lib"
+#define DIR_PERLLOCAL "/usr/share/" APP_NAME "/perl5"
 
 #define DIR_MUSIC "/home/nemo/Music/" APP_NAME
 #define DIR_VIDEO "/home/nemo/Videos/" APP_NAME

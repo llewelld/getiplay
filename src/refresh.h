@@ -53,6 +53,7 @@ private:
     REFRESHTYPE currentRefresh;
 
     // Internal methods
+    void setupEnvironment();
     void collectArguments ();
     void setStatus (REFRESHSTATUS newStatus);
     void addArgument (QString key, QString value);

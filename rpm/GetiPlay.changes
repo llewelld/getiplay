@@ -8,11 +8,10 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
-* Sun Apr 13 2014 Jack Tar <jack.tar@example.com> 0.0.1-1
-- Scrubbed the deck
-- Hoisted the sails
-
-
 * Mon Aug 01 2016 David Llewellyn-Jones <david@flypig.co.uk> 0.2.0-1
 - Attempted to fix perl dependencies
 - Set working directory
+
+* Sun Apr 13 2014 Jack Tar <jack.tar@example.com> 0.0.1-1
+- Scrubbed the deck
+- Hoisted the sails

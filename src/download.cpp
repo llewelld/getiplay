@@ -73,17 +73,22 @@ void Download::setupEnvironment() {
     // Set up appropriate environment variables to ensure get_iplayer can see
     // the installed binaries and libraries
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-    env.insert("LD_LIBRARY_PATH", "/usr/share/GetiPlay/lib:" + env.value("LD_LIBRARY_PATH"));
-    env.insert("PATH", "/usr/share/GetiPlay/bin:" + env.value("PATH"));
+    env.insert("LD_LIBRARY_PATH", DIR_LIB ":" + env.value("LD_LIBRARY_PATH"));
+    env.insert("PERL_MB_OPT", "--install_base \"" DIR_PERLLOCAL "\"");
+    env.insert("PERL_MM_OPT", "INSTALL_BASE=" DIR_PERLLOCAL);
+    env.insert("PERL5LIB", DIR_PERLLOCAL "/lib/perl5");
+    env.insert("PERL_LOCAL_LIB_ROOT", DIR_PERLLOCAL);
+    env.insert("PATH", DIR_PERLLOCAL "/bin:" DIR_BIN ":" + env.value("PATH", ""));
     process->setProcessEnvironment(env);
+    foreach (QString var, env.toStringList()) {
+        qDebug() << var;
+    }
 }
 
 void Download::collectArguments () {
     arguments.clear();
 
 #ifndef FAKE_GETIPLAYER
-    addArgument("packagemanager=rpm"); // required to prevent get_iplayer from trying to update itself
-
     if (progType == QString("radio")) {
         addArgument("type=radio");
     } else if (progType == QString("tv")) {
@@ -92,7 +97,11 @@ void Download::collectArguments () {
 
     addArgument("get", QString("%1").arg(progId));
     addArgument("force");
-//    addArgument("modes=default");
+    addArgument("nocopyright");
+    addArgument("atomicparsley", "/usr/share/GetiPlay/bin/AtomicParsley");
+    addArgument("ffmpeg", "/usr/share/GetiPlay/bin/ffmpeg");
+    addArgument("ffmpeg-loglevel", "info");
+    addArgument("log-progress");
 
     if (progType == QString("radio")) {
         addArgument("output", DIR_MUSIC);
@@ -161,7 +170,7 @@ void Download::readData() {
         interpretData(read);
     }
 
-    // Read any lines that full lines but don't register
+    // Read any lines that are full lines but don't register
     qint64 available = process->bytesAvailable();
     while (available > 0) {
         QByteArray read = process->peek(MAX_LINE_LENGTH);
@@ -195,7 +204,7 @@ void Download::interpretLine(const QString &text) {
         //setStatus(DOWNLOADSTATUS_DONE);
     }
     else {
-        QRegExp percent("^.*\\((\\d+\\.\\d+)%\\)$");
+        QRegExp percent("^\\s+(\\d+\\.\\d+)%\\s.*$");
         foundPos = percent.indexIn(text);
         if (foundPos > -1) {
             setStatus(DOWNLOADSTATUS_DOWNLOADING);
