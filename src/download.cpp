@@ -31,12 +31,13 @@ void Download::setStatus(DOWNLOADSTATUS newStatus)
     }
 }
 
-void Download::startDownload(int progId) {
+void Download::startDownload(int progId, QString progType) {
     setLogText("");
     logToFile.openLog();
     logToFile.logLine("Process");
 
     this->progId = progId;
+    this->progType = progType;
 
     if (process != NULL) {
         logToFile.logLine("Process already running.");
@@ -58,7 +59,7 @@ void Download::startDownload(int progId) {
         connect(process, SIGNAL(readyRead()), this, SLOT(readData()));
         connect(process, SIGNAL(started()), this, SLOT(started()));
         connect(process, SIGNAL(finished(int)), this, SLOT(finished(int)));
-
+        logAppend(program + arguments.join(" ")); // write the get_iplayer command to the log window
         process->start(program, arguments);
         process->closeWriteChannel();
         setStatus(DOWNLOADSTATUS_INITIALISING);
@@ -72,21 +73,44 @@ void Download::setupEnvironment() {
     // Set up appropriate environment variables to ensure get_iplayer can see
     // the installed binaries and libraries
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-    env.insert("LD_LIBRARY_PATH", "/usr/share/GetiPlay/lib:" + env.value("LD_LIBRARY_PATH"));
-    env.insert("PATH", "/usr/share/GetiPlay/bin:" + env.value("PATH"));
+    env.insert("LD_LIBRARY_PATH", DIR_LIB ":" + env.value("LD_LIBRARY_PATH"));
+    env.insert("PERL_MB_OPT", "--install_base \"" DIR_PERLLOCAL "\"");
+    env.insert("PERL_MM_OPT", "INSTALL_BASE=" DIR_PERLLOCAL);
+    env.insert("PERL5LIB", DIR_PERLLOCAL "/lib/perl5");
+    env.insert("PERL_LOCAL_LIB_ROOT", DIR_PERLLOCAL);
+    env.insert("PATH", DIR_PERLLOCAL "/bin:" DIR_BIN ":" + env.value("PATH", ""));
     process->setProcessEnvironment(env);
+    foreach (QString var, env.toStringList()) {
+        qDebug() << var;
+    }
 }
 
 void Download::collectArguments () {
     arguments.clear();
 
 #ifndef FAKE_GETIPLAYER
-    addArgument("packagemanager=rpm");
-    addArgument("type=radio");
+    if (progType == QString("radio")) {
+        addArgument("type=radio");
+    } else if (progType == QString("tv")) {
+        addArgument("type=tv");
+    }
+
     addArgument("get", QString("%1").arg(progId));
     addArgument("force");
-    addArgument("modes=default");
-    addArgument("output", DIR_MUSIC);
+    addArgument("nocopyright");
+    addArgument("atomicparsley", "/usr/share/GetiPlay/bin/AtomicParsley");
+    addArgument("ffmpeg", "/usr/share/GetiPlay/bin/ffmpeg");
+    addArgument("ffmpeg-loglevel", "info");
+    addArgument("log-progress");
+
+    if (progType == QString("radio")) {
+        addArgument("output", DIR_MUSIC);
+    } else if (progType == QString("tv")) {
+        addArgument("output", DIR_VIDEO);
+    } else {
+        addArgument("output", DIR_DOWNLOAD);
+    }
+
 #else // !FAKE_GETIPLAYER
     addValue("../share/" APP_NAME "/output02.txt");
 #endif // !FAKE_GETIPLAYER
@@ -146,7 +170,7 @@ void Download::readData() {
         interpretData(read);
     }
 
-    // Read any lines that full lines but don't register
+    // Read any lines that are full lines but don't register
     qint64 available = process->bytesAvailable();
     while (available > 0) {
         QByteArray read = process->peek(MAX_LINE_LENGTH);
@@ -180,7 +204,7 @@ void Download::interpretLine(const QString &text) {
         //setStatus(DOWNLOADSTATUS_DONE);
     }
     else {
-        QRegExp percent("^.*\\((\\d+\\.\\d+)%\\)$");
+        QRegExp percent("^\\s+(\\d+\\.\\d+)%\\s.*$");
         foundPos = percent.indexIn(text);
         if (foundPos > -1) {
             setStatus(DOWNLOADSTATUS_DOWNLOADING);
@@ -232,7 +256,13 @@ void Download::finished(int code) {
         //delete process;
         process = NULL;
     }
-    setStatus(DOWNLOADSTATUS_DONE);
+
+    // anything but a zero exit status is an error
+    if (!code) {
+        setStatus(DOWNLOADSTATUS_DONE);
+    } else {
+        setStatus(DOWNLOADSTATUS_ERROR);
+    }
 }
 
 void Download::readError(QProcess::ProcessError error)

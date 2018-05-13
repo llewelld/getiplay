@@ -18,6 +18,13 @@ Configure: none
 # control over qmake/make execution
 Builder: qtc5
 
+# If true, add 'AutoReq: 0' to the spec to prevent auto generation of Requires
+# This is needed to prevent processing of the Perl library installs
+NoAutoReq: True
+# If true, add 'AutoProv: 0' to the spec to prevent auto generation of Provides
+# This is needed to prevent processing of the Perl library installs
+NoAutoProv: True
+
 # This section specifies build dependencies that are resolved using pkgconfig.
 # This is the preferred way of specifying build dependencies for your package.
 PkgConfigBR:
@@ -34,20 +41,22 @@ PkgConfigBR:
 Requires:
   - sailfishsilica-qt5 >= 0.10.9 
   - perl >= 5.8.8
-  - perl-libwww-perl >= 5.837
-  - perl-XML-Parser >= 2.41
-  - perl-XML-Simple >= 2.22
-  - perl-XML-SAX-Expat >= 0.51
+#  - perl-libwww-perl >= 5.837
+#  - perl-XML-Parser >= 2.41
+#  - perl-XML-Simple >= 2.22
+#  - perl-XML-SAX-Expat >= 0.51
 
 # All installed files
 Files:
   - '%{_bindir}'
   - '%{_datadir}/%{name}'
+  - '%exclude %{_datadir}/%{name}/bin'
   - '%{_datadir}/applications/%{name}.desktop'
   - '%{_datadir}/icons/hicolor/86x86/apps/%{name}.png'
   - '%attr(755,root,root) %{_datadir}/%{name}/bin/get_iplayer'
   - '%attr(755,root,root) %{_datadir}/%{name}/bin/ffmpeg'
   - '%attr(755,root,root) %{_datadir}/%{name}/bin/rtmpdump'
+  - '%attr(755,root,root) %{_datadir}/%{name}/bin/AtomicParsley'
 # For more information about yaml and what's supported in Sailfish OS
 # build system, please see https://wiki.merproject.org/wiki/Spectacle
 
