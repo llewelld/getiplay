@@ -1,7 +1,7 @@
 #include "refresh.h"
-#include "stdio.h"
 #include <QDebug>
-#include "GetiPlay.h"
+#include "harbour-getiplay.h"
+#include "settings.h"
 
 static const QString typeString[] = {"radio", "tv"};
 
@@ -64,10 +64,7 @@ void Refresh::startRefresh(REFRESHTYPE type) {
             connect(process, SIGNAL(readyRead()), this, SLOT(readData()));
             connect(process, SIGNAL(started()), this, SLOT(started()));
             connect(process, SIGNAL(finished(int)), this, SLOT(finished(int)));
-            foreach (QString argument, arguments) {
-                logToFile.logLine(argument);
-            }
-
+            logAppend(program + " " + arguments.join(" ")); // write the get_iplayer command to the log window
             process->start(program, arguments);
             process->closeWriteChannel();
             setStatus(REFRESHSTATUS_INITIALISING);
@@ -89,9 +86,6 @@ void Refresh::setupEnvironment() {
     env.insert("PERL_LOCAL_LIB_ROOT", DIR_PERLLOCAL);
     env.insert("PATH", DIR_PERLLOCAL "/bin:" DIR_BIN ":" + env.value("PATH", ""));
     process->setProcessEnvironment(env);
-    foreach (QString var, env.toStringList()) {
-        qDebug() << var;
-    }
 }
 
 void Refresh::collectArguments () {
@@ -106,6 +100,7 @@ void Refresh::collectArguments () {
     addArgument("ffmpeg", "/usr/share/GetiPlay/bin/ffmpeg");
     addArgument("ffmpeg-loglevel", "info");
     addArgument("log-progress");
+    addArgument("profile-dir", Settings::getProfileDir());
     addValue(".*");
 #else // !FAKE_GETIPLAYER
     addValue("../share/" APP_NAME "/output01.txt");

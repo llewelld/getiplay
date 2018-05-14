@@ -1,7 +1,7 @@
 #include "download.h"
-#include "stdio.h"
 #include <QDebug>
-#include "GetiPlay.h"
+#include "harbour-getiplay.h"
+#include "settings.h"
 
 #define MAX_LINE_LENGTH (255)
 
@@ -59,7 +59,7 @@ void Download::startDownload(int progId, QString progType) {
         connect(process, SIGNAL(readyRead()), this, SLOT(readData()));
         connect(process, SIGNAL(started()), this, SLOT(started()));
         connect(process, SIGNAL(finished(int)), this, SLOT(finished(int)));
-        logAppend(program + arguments.join(" ")); // write the get_iplayer command to the log window
+        logAppend(program + " " + arguments.join(" ")); // write the get_iplayer command to the log window
         process->start(program, arguments);
         process->closeWriteChannel();
         setStatus(DOWNLOADSTATUS_INITIALISING);
@@ -80,9 +80,6 @@ void Download::setupEnvironment() {
     env.insert("PERL_LOCAL_LIB_ROOT", DIR_PERLLOCAL);
     env.insert("PATH", DIR_PERLLOCAL "/bin:" DIR_BIN ":" + env.value("PATH", ""));
     process->setProcessEnvironment(env);
-    foreach (QString var, env.toStringList()) {
-        qDebug() << var;
-    }
 }
 
 void Download::collectArguments () {
@@ -102,13 +99,14 @@ void Download::collectArguments () {
     addArgument("ffmpeg", "/usr/share/GetiPlay/bin/ffmpeg");
     addArgument("ffmpeg-loglevel", "info");
     addArgument("log-progress");
+    addArgument("profile-dir", Settings::getProfileDir());
 
     if (progType == QString("radio")) {
-        addArgument("output", DIR_MUSIC);
+        addArgument("output", Settings::getMusicDir());
     } else if (progType == QString("tv")) {
-        addArgument("output", DIR_VIDEO);
+        addArgument("output", Settings::getVideoDir());
     } else {
-        addArgument("output", DIR_DOWNLOAD);
+        addArgument("output", Settings::getDownloadsDir());
     }
 
 #else // !FAKE_GETIPLAYER

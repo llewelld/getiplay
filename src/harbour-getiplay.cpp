@@ -34,9 +34,10 @@
 #include "refresh.h"
 #include "download.h"
 #include "control.h"
+#include "settings.h"
 #include <QDebug>
 
-#include "GetiPlay.h"
+#include "harbour-getiplay.h"
 
 int main(int argc, char *argv[])
 {
@@ -56,9 +57,14 @@ int main(int argc, char *argv[])
 
     // These values are used by QSettings to access the config file in
     // /home/nemo/.local/share/flypig/GetiPlay.conf
-    QCoreApplication::setOrganizationName("flypig");
+    //QCoreApplication::setOrganizationName("flypig");
     QCoreApplication::setOrganizationDomain("www.flypig.co.uk");
     QCoreApplication::setApplicationName(APP_NAME);
+
+    logfile logs;
+    logs.openLog();
+    logs.status();
+    logs.closeLog();
 
     Control * control = new Control();
 
@@ -68,9 +74,9 @@ int main(int argc, char *argv[])
     models.append(&modelradio);
     models.append(&modeltv);
 
-    file.setFileName(DIR_CONFIG "/radio.txt");
+    file.setFileName(Settings::getConfigDir() + "/radio.txt");
     modelradio.importFromFile(file);
-    file.setFileName(DIR_CONFIG "/tv.txt");
+    file.setFileName(Settings::getConfigDir() + "/tv.txt");
     modeltv.importFromFile(file);
 
     /*
@@ -128,12 +134,19 @@ int main(int argc, char *argv[])
 
     // Write out the programme lists
 
+    qDebug() << "Before create";
+    qDebug() << "Define: " << Settings::getConfigDir();
     QDir dir;
-    dir.mkdir(DIR_CONFIG);
-    file.setFileName(DIR_CONFIG "/radio.txt");
+    result = dir.mkpath(Settings::getConfigDir());
+    qDebug() << "Result: " << result;
+
+    file.setFileName(Settings::getConfigDir() + "/radio.txt");
     modelradio.exportToFile(file);
-    file.setFileName(DIR_CONFIG "/tv.txt");
+    file.setFileName(Settings::getConfigDir() + "/tv.txt");
     modeltv.exportToFile(file);
+    qDebug() << "After create";
+    qDebug() << "Dirname:  " << dir.absolutePath();
+    qDebug() << "Filename: " << file.fileName();
 
     delete proxyModelRadio;
     delete proxyModelTV;

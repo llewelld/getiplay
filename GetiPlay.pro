@@ -10,25 +10,26 @@
 #   - translation filenames have to be changed
 
 # The name of your application
-TARGET = GetiPlay
+TARGET = harbour-getiplay
 
 CONFIG += sailfishapp
 
 SOURCES += src/control.cpp \
     src/download.cpp \
-    src/GetiPlay.cpp \
     src/logfile.cpp \
     src/progmodel.cpp \
     src/programme.cpp \
-    src/refresh.cpp
+    src/refresh.cpp \
+    src/harbour-getiplay.cpp \
+    src/settings.cpp
 
 OTHER_FILES += qml/GetiPlay.qml \
     qml/cover/CoverPage.qml \
-    rpm/GetiPlay.changes.in \
-    rpm/GetiPlay.spec \
-    rpm/GetiPlay.yaml \
+    rpm/harbour-getiplay.changes.in \
+    rpm/harbour-getiplay.spec \
+    rpm/harbour-getiplay.yaml \
     translations/*.ts \
-    GetiPlay.desktop \
+    harbour-getiplay.desktop \
     qml/pages/ProgList.qml \
     qml/pages/AboutPage.qml \
     qml/images/getiplay-title.png \
@@ -45,6 +46,8 @@ OTHER_FILES += qml/GetiPlay.qml \
     lib/librtmp.so.1 \
     lib/perl5/*
 
+SAILFISHAPP_ICONS = 86x86 108x108 128x128 256x256
+
 # to disable building translations every time, comment out the
 # following CONFIG line
 CONFIG += sailfishapp_i18n
@@ -58,11 +61,12 @@ TRANSLATIONS += translations/GetiPlay-de.ts
 HEADERS += \
     src/control.h \
     src/download.h \
-    src/GetiPlay.h \
     src/logfile.h \
     src/progmodel.h \
     src/programme.h \
-    src/refresh.h
+    src/refresh.h \
+    src/harbour-getiplay.h \
+    src/settings.h
 
 bin.files = bin
 bin.path = /usr/share/$${TARGET}
@@ -77,4 +81,8 @@ INSTALLS += lib
 DISTFILES += \
     lib/librtmp.a \
     lib/librtmp.so.1 \
+    icons/108x108/harbour-getiplay.png \
+    icons/128x128/harbour-getiplay.png \
+    icons/256x256/harbour-getiplay.png \
+    icons/86x86/harbour-getiplay.png \
     rpm/GetiPlay.changes

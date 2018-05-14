@@ -1,11 +1,14 @@
 #include "logfile.h"
 #include <QDebug>
 #include <QDir>
+#include "settings.h"
+
+#define LEAF_LOG "/log.txt"
 
 logfile::logfile()
 {
     fileOpen = false;
-    file.setFileName(FILE_LOG);
+    file.setFileName(Settings::getLogDir() + LEAF_LOG);
 }
 
 logfile::~logfile()
@@ -18,10 +21,13 @@ logfile::~logfile()
 
 void logfile::openLog() {
     QDir dir;
-    dir.mkdir(DIR_LOG);
+    dir.mkpath(Settings::getLogDir());
 
     if (file.open(QIODevice::WriteOnly)) {
         fileOpen = true;
+    }
+    else {
+        qDebug() << "WARNING: Failed to open log file: " << file.errorString();
     }
 }
 
@@ -38,4 +44,20 @@ void logfile::closeLog() {
         file.close();
         fileOpen = false;
     }
+}
+
+void logfile::status() {
+    logLine("----------------------------------");
+    logLine(APP_NAME " Configuration Status");
+    logLine("Log dir: " + Settings::getLogDir());
+    logLine("Log file: " + Settings::getLogDir() + LEAF_LOG);
+    logLine("Config dir: " + Settings::getConfigDir());
+    logLine("Music dir: " + Settings::getMusicDir());
+    logLine("Video dir: " + Settings::getVideoDir());
+    logLine("Downloads dir: " + Settings::getDownloadsDir());
+    logLine("Profile dir: " + Settings::getProfileDir());
+    logLine("Bin: " DIR_BIN);
+    logLine("Lib: " DIR_LIB);
+    logLine("Perl lib: " DIR_PERLLOCAL);
+    logLine("----------------------------------");
 }

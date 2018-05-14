@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
 X-Nemo-Application-Type=silica-qt5
-Icon=GetiPlay
-Exec=GetiPlay
+Icon=harbour-getiplay
+Exec=harbour-getiplay
 Name=GetiPlay
 # translation example:
 # your app name in German locale (de)
@@ -10,4 +10,3 @@ Name=GetiPlay
 # Remember to comment out the following line, if you do not want to use
 # a different app name in German locale (de).
 Name[de]=GetiPlay
-
