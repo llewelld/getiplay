@@ -43,7 +43,7 @@ OTHER_FILES += qml/GetiPlay.qml \
     bin/get_iplayer \
     lib/librtmp.a \
     lib/librtmp.so.1 \
-    perl5/*
+    lib/perl5/*
 
 # to disable building translations every time, comment out the
 # following CONFIG line
@@ -72,11 +72,7 @@ INSTALLS += bin
 lib.files = lib
 lib.path = /usr/share/$${TARGET}
 
-perl.files = perl5
-perl.path = /usr/share/$${TARGET}
-
-INSTALLS += lib \
-    perl
+INSTALLS += lib
 
 DISTFILES += \
     lib/librtmp.a \

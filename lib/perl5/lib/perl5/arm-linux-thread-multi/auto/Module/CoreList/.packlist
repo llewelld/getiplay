@@ -1,0 +1,7 @@
+$HOME/perl5/bin/corelist
+$HOME/perl5/lib/perl5/Module/CoreList.pm
+$HOME/perl5/lib/perl5/Module/CoreList.pod
+$HOME/perl5/lib/perl5/Module/CoreList/Utils.pm
+$HOME/perl5/man/man1/corelist.1
+$HOME/perl5/man/man3/Module::CoreList.3pm
+$HOME/perl5/man/man3/Module::CoreList::Utils.3pm

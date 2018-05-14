@@ -1,0 +1,9 @@
+$HOME/perl5/lib/perl5/IO/Socket/SSL.pm
+$HOME/perl5/lib/perl5/IO/Socket/SSL.pod
+$HOME/perl5/lib/perl5/IO/Socket/SSL/Intercept.pm
+$HOME/perl5/lib/perl5/IO/Socket/SSL/PublicSuffix.pm
+$HOME/perl5/lib/perl5/IO/Socket/SSL/Utils.pm
+$HOME/perl5/man/man3/IO::Socket::SSL.3pm
+$HOME/perl5/man/man3/IO::Socket::SSL::Intercept.3pm
+$HOME/perl5/man/man3/IO::Socket::SSL::PublicSuffix.3pm
+$HOME/perl5/man/man3/IO::Socket::SSL::Utils.3pm

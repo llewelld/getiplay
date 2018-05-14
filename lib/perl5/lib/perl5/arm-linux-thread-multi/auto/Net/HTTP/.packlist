@@ -1,0 +1,8 @@
+$HOME/perl5/lib/perl5/Net/HTTP.pm
+$HOME/perl5/lib/perl5/Net/HTTP/Methods.pm
+$HOME/perl5/lib/perl5/Net/HTTP/NB.pm
+$HOME/perl5/lib/perl5/Net/HTTPS.pm
+$HOME/perl5/man/man3/Net::HTTP.3pm
+$HOME/perl5/man/man3/Net::HTTP::Methods.3pm
+$HOME/perl5/man/man3/Net::HTTP::NB.3pm
+$HOME/perl5/man/man3/Net::HTTPS.3pm

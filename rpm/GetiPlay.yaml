@@ -40,7 +40,8 @@ PkgConfigBR:
 # Runtime dependencies which are not automatically detected
 Requires:
   - sailfishsilica-qt5 >= 0.10.9 
-  - perl >= 5.8.8
+# Perl is a required dependency, but it's installed by default. I think.
+#  - perl >= 5.8.8
 #  - perl-libwww-perl >= 5.837
 #  - perl-XML-Parser >= 2.41
 #  - perl-XML-Simple >= 2.22
@@ -50,7 +51,6 @@ Requires:
 Files:
   - '%{_bindir}'
   - '%{_datadir}/%{name}'
-  - '%exclude %{_datadir}/%{name}/bin'
   - '%{_datadir}/applications/%{name}.desktop'
   - '%{_datadir}/icons/hicolor/86x86/apps/%{name}.png'
   - '%attr(755,root,root) %{_datadir}/%{name}/bin/get_iplayer'

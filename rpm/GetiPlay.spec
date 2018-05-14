@@ -22,7 +22,6 @@ Source0:    %{name}-%{version}.tar.bz2
 Source100:  GetiPlay.yaml
 AutoReq:    0
 Requires:   sailfishsilica-qt5 >= 0.10.9
-Requires:   perl >= 5.8.8
 BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
@@ -68,7 +67,6 @@ desktop-file-install --delete-original       \
 %defattr(-,root,root,-)
 %{_bindir}
 %{_datadir}/%{name}
-%exclude %{_datadir}/%{name}/bin
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/86x86/apps/%{name}.png
 %attr(755,root,root) %{_datadir}/%{name}/bin/get_iplayer
