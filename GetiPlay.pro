@@ -25,7 +25,7 @@ SOURCES += src/control.cpp \
 
 OTHER_FILES += qml/GetiPlay.qml \
     qml/cover/CoverPage.qml \
-    rpm/harbour-getiplay.changes.in \
+    rpm/harbour-getiplay.changes \
     rpm/harbour-getiplay.spec \
     rpm/harbour-getiplay.yaml \
     translations/*.ts \
