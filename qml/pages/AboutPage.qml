@@ -3,7 +3,9 @@ import Sailfish.Silica 1.0
 
 Page {
     id: aboutPage
-    property string version: "0.2-5"
+    // The version property is now set in the application
+    // initialisation code in harbour-getiplay.cpp
+    //property string version: "?.?-?"
 
     SilicaFlickable {
         width: parent.width

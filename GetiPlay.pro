@@ -12,6 +12,18 @@
 # The name of your application
 TARGET = harbour-getiplay
 
+VERSION_MAJOR = 0
+VERSION_MINOR = 2
+VERSION_BUILD = 5
+
+#Target version
+VERSION = $${VERSION_MAJOR}.$${VERSION_MINOR}-$${VERSION_BUILD}
+
+DEFINES += "VERSION_MAJOR=$$VERSION_MAJOR" \
+    "VERSION_MINOR=$$VERSION_MINOR" \
+    "VERSION_BUILD=$$VERSION_BUILD" \
+    "VERSION=\\\"$$VERSION\\\""
+
 CONFIG += sailfishapp
 
 SOURCES += src/control.cpp \

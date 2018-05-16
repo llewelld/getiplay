@@ -13,9 +13,9 @@ Name:       harbour-getiplay
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    User interface for get_iplayer
-Version:    0.2
-Release:    5
-Group:      Qt/Qt
+Version:    0.3.0
+Release:    1
+Group:      Applications/Multimedia
 License:    LICENSE
 URL:        http://example.org/
 Source0:    %{name}-%{version}.tar.bz2

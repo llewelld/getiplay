@@ -1,10 +1,10 @@
 Name: harbour-getiplay
 Summary: User interface for get_iplayer
-Version: 0.2
-Release: 5
+Version: 0.3.0
+Release: 1
 # The contents of the Group field should be one of the groups listed here:
 # http://gitorious.org/meego-developer-tools/spectacle/blobs/master/data/GROUPS
-Group: Qt/Qt
+Group: Applications/Multimedia
 URL: http://example.org/
 License: LICENSE
 # This must be generated before uploading a package to a remote build service.

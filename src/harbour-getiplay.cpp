@@ -103,6 +103,11 @@ int main(int argc, char *argv[])
 
     QQmlContext *ctxt = view->rootContext();
     ctxt->setContextProperty("control", control);
+    ctxt->setContextProperty("version", VERSION);
+    qDebug() << "harbour-getiplay VERSION string: " << VERSION;
+    qDebug() << "VERSION_MAJOR: " << VERSION_MAJOR;
+    qDebug() << "VERSION_MINOR: " << VERSION_MINOR;
+    qDebug() << "VERSION_BUILD: " << VERSION_BUILD;
 
     QSortFilterProxyModel * proxyModelRadio = new QSortFilterProxyModel ();
     proxyModelRadio->setSourceModel(&modelradio);
@@ -133,20 +138,12 @@ int main(int argc, char *argv[])
     result = app->exec();
 
     // Write out the programme lists
-
-    qDebug() << "Before create";
-    qDebug() << "Define: " << Settings::getConfigDir();
     QDir dir;
     result = dir.mkpath(Settings::getConfigDir());
-    qDebug() << "Result: " << result;
-
     file.setFileName(Settings::getConfigDir() + "/radio.txt");
     modelradio.exportToFile(file);
     file.setFileName(Settings::getConfigDir() + "/tv.txt");
     modeltv.exportToFile(file);
-    qDebug() << "After create";
-    qDebug() << "Dirname:  " << dir.absolutePath();
-    qDebug() << "Filename: " << file.fileName();
 
     delete proxyModelRadio;
     delete proxyModelTV;
