@@ -8,6 +8,16 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Wed May 16 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.3.0-1
+- Update to get-iplayer 3.14
+- Store downloaded files in Music/Video directories as appropriate
+- Output full get-iplayer command in log window
+- Perl dependencies packaged with application
+- Include AtomicParsley runtime dependency for get-iplayer
+- Improve version number macros
+- Ensure data storage follows Harbour guidelines
+- Include additional program icon sizes
+
 * Mon Aug 01 2016 David Llewellyn-Jones <david@flypig.co.uk> 0.2.0-1
 - Attempted to fix perl dependencies
 - Set working directory
