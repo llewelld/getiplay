@@ -8,7 +8,7 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
-* Wed May 16 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.3.0-1
+* Wed May 16 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.2-6
 - Update to get-iplayer 3.14
 - Store downloaded files in Music/Video directories as appropriate
 - Output full get-iplayer command in log window
@@ -18,10 +18,10 @@
 - Ensure data storage follows Harbour guidelines
 - Include additional program icon sizes
 
-* Mon Aug 01 2016 David Llewellyn-Jones <david@flypig.co.uk> 0.2.0-1
+* Mon Aug 01 2016 David Llewellyn-Jones <david@flypig.co.uk> 0.2-1
 - Attempted to fix perl dependencies
 - Set working directory
 
-* Sun Apr 13 2014 Jack Tar <jack.tar@example.com> 0.0.1-1
+* Sun Apr 13 2014 Jack Tar <jack.tar@example.com> 0.1-1
 - Scrubbed the deck
 - Hoisted the sails
