@@ -50,9 +50,7 @@ OTHER_FILES += qml/GetiPlay.qml \
     qml/pages/RefreshTV.qml \
     qml/pages/RefreshRadio.qml \
     bin/ffmpeg \
-    bin/rtmpdump \
     bin/AtomicParsley \
-    bin/rtmpdump \
     bin/get_iplayer \
     lib/librtmp.a \
     lib/librtmp.so.1 \

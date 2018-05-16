@@ -74,7 +74,6 @@ desktop-file-install --delete-original       \
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %attr(755,root,root) %{_datadir}/%{name}/bin/get_iplayer
 %attr(755,root,root) %{_datadir}/%{name}/bin/ffmpeg
-%attr(755,root,root) %{_datadir}/%{name}/bin/rtmpdump
 %attr(755,root,root) %{_datadir}/%{name}/bin/AtomicParsley
 # >> files
 # << files
