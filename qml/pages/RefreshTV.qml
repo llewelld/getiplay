@@ -26,14 +26,22 @@ Page {
             progressBar.visible = true
             break;
         case 2:
-            // Refreshing
+            // Downloading
             progressBar.label = "Downloading"
             break;
         case 3:
+            // Processing
+            progressBar.label = "Processing"
+            break;
+        case 4:
+            // Overflow processing
+            progressBar.label = "Processing"
+            break;
+        case 5:
             // Cancel
             progressBar.label = "Cancelled"
             break;
-        case 4:
+        case 6:
             // Done
             progressBar.label = "Waiting"
             progressBar.visible = false
@@ -45,7 +53,7 @@ Page {
         default:
             break;
         }
-        console.log("Status: " + status)
+        console.log("Refresh TV status: " + status)
     }
 
     Column {

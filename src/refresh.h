@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QProcess>
 #include <QList>
+#include <QTimer>
 #include "progmodel.h"
 #include "logfile.h"
 
@@ -22,7 +23,9 @@ public:
 
         REFRESHSTATUS_UNINITIALISED,
         REFRESHSTATUS_INITIALISING,
-        REFRESHSTATUS_REFRESHING,
+        REFRESHSTATUS_DOWNLOADING,
+        REFRESHSTATUS_PROCESSING,
+        REFRESHSTATUS_OVERFLOW,
         REFRESHSTATUS_CANCEL,
         REFRESHSTATUS_DONE,
 
@@ -48,7 +51,12 @@ private:
     QList<ProgModel*> model;
     bool periodCheck;
     int periodCount;
+    int addingCount;
+    int addingTotal;
+    int lineProcessCount;
     float progress;
+    QTimer * overflowpoll;
+    int finishedcode;
 
     REFRESHTYPE currentRefresh;
 
@@ -63,6 +71,7 @@ private:
     void addValue (QString key);
     void interpretData(const QString &text);
     void interpretLine(const QString &text);
+    void setProgressCount(int periodCount, int addingCount);
 
 public:
     // General methods
@@ -88,6 +97,7 @@ public slots:
     void setProgress(float value);
     void setLogText(const QString &value);
     void logAppend(const QString &text);
+    void overflow();
 };
 
 #endif // REFRESH_H

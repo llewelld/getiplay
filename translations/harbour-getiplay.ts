@@ -51,7 +51,7 @@
 <context>
     <name>RefreshRadio</name>
     <message>
-        <location filename="../qml/pages/RefreshRadio.qml" line="58"/>
+        <location filename="../qml/pages/RefreshRadio.qml" line="66"/>
         <source>Refresh Radio Programmes</source>
         <translation type="unfinished"></translation>
     </message>

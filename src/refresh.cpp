@@ -3,6 +3,9 @@
 #include "harbour-getiplay.h"
 #include "settings.h"
 
+#define LINIEPROCESS_MAX (300)
+#define OVERFLOWPOLL_TIMEOUT (10)
+
 static const QString typeString[] = {"radio", "tv"};
 
 Refresh::Refresh(QList<ProgModel*> model, QObject *parent) :
@@ -13,7 +16,12 @@ Refresh::Refresh(QList<ProgModel*> model, QObject *parent) :
     model(model),
     periodCheck(false),
     periodCount(0),
+    addingCount(0),
+    addingTotal(1),
+    lineProcessCount(0),
     progress(0.0),
+    overflowpoll(nullptr),
+    finishedcode(0),
     currentRefresh(REFRESHTYPE_INVALID)
 {
     arguments.clear();
@@ -22,13 +30,13 @@ Refresh::Refresh(QList<ProgModel*> model, QObject *parent) :
 void Refresh::initialise()
 {
     setStatus(REFRESHSTATUS_UNINITIALISED);
-    periodCount = 0;
     setProgress(-1.0f);
 }
 
 void Refresh::setStatus(REFRESHSTATUS newStatus)
 {
     if (status != newStatus) {
+        qDebug() << "Status changed from " << status << " to: " << newStatus;
         status = newStatus;
         emit statusChanged(newStatus);
     }
@@ -68,9 +76,16 @@ void Refresh::startRefresh(REFRESHTYPE type) {
             process->start(program, arguments);
             process->closeWriteChannel();
             setStatus(REFRESHSTATUS_INITIALISING);
-            setProgress(-1.0);
             periodCount = 0;
+            addingCount = 0;
+            addingTotal = model[currentRefresh]->rowCount();
+            if (addingTotal == 0) {
+                addingTotal = (currentRefresh == REFRESHTYPE_RADIO ? 13000 : 7500);
+            }
+            lineProcessCount = 0;
+            setProgress(-1.0);
             arguments.clear();
+            finishedcode = 0;
         }
     }
 }
@@ -162,8 +177,7 @@ void Refresh::readData() {
                 // Remove the character
                 process->read(data, 1);
                 periodCount++;
-                setProgress(((float)periodCount / ((float)periodCount + 20.0)) + ((float)periodCount * 0.0005f));
-                qDebug() << "Progress " << (getProgress() * 100.0) << "%";
+                setProgressCount(periodCount, addingCount);
             }
             else {
                 qDebug() << "Switching to line check.";
@@ -171,11 +185,14 @@ void Refresh::readData() {
             }
         }
     }
-    while ((periodCheck == false) && (process->canReadLine())) {
+    lineProcessCount = 0;
+    while ((periodCheck == false) && (process->canReadLine()) && (lineProcessCount < LINIEPROCESS_MAX)) {
         QByteArray read = process->readLine();
 
         interpretData(read);
+        lineProcessCount++;
     }
+    //qDebug() << "Progress " << (getProgress() * 100.0) << "%";
 }
 
 void Refresh::interpretData(const QString &text) {
@@ -191,16 +208,16 @@ void Refresh::interpretLine(const QString &text) {
     //qDebug() << "Line: " << text;
     if (text.endsWith("Matching Programmes\n")) {
         logAppend(text);
-        //setStatus(REFRESHSTATUS_DONE);
     }
     else if (text.startsWith("INFO: Indexing")) {
         logAppend(text);
-        setStatus(REFRESHSTATUS_REFRESHING);
+        setStatus(REFRESHSTATUS_DOWNLOADING);
         qDebug() << "Switching to period check.";
         periodCheck = true;
     }
-    else if (text.startsWith("Added: ")) {
-        // Do nothing
+    else if (text.startsWith("INFO: Added ")) {
+        setStatus(REFRESHSTATUS_PROCESSING);
+        logAppend(text);
     }
     else {
         QRegExp progInfo("^(\\d+):\\t(.*)$");
@@ -211,6 +228,8 @@ void Refresh::interpretLine(const QString &text) {
 
             //qDebug() << "Programme: " << progId << ", " << title;
             model[currentRefresh]->addProgramme(Programme(progId, title, 0.0));
+            addingCount++;
+            setProgressCount(periodCount, addingCount);
         }
         else {
             logAppend(text);
@@ -224,15 +243,37 @@ void Refresh::started() {
 }
 
 void Refresh::finished(int code) {
-    logToFile.logLine("Finished with code " + QString::number(code));
-    logAppend("Finished with code " + QString::number(code));
-    logToFile.closeLog();
-    if (process != NULL) {
-        //delete process;
-        process = NULL;
+    finishedcode = code;
+    setStatus(REFRESHSTATUS_OVERFLOW);
+
+    overflowpoll = new QTimer(this);
+    overflowpoll->setSingleShot(true);
+    overflowpoll->setInterval(OVERFLOWPOLL_TIMEOUT);
+    connect(overflowpoll, SIGNAL(timeout()), this, SLOT(overflow()));
+    overflowpoll->start();
+}
+
+void Refresh::overflow() {
+    if (process->bytesAvailable()) {
+        readData();
+        overflowpoll->start();
     }
-    currentRefresh = REFRESHTYPE_INVALID;
-    setStatus(REFRESHSTATUS_DONE);
+    else {
+        logAppend("Download periods: " + QString::number(periodCount));
+        logAppend("Processed entries: " + QString::number(addingCount));
+        logAppend("Finished with code " + QString::number(finishedcode));
+        logToFile.closeLog();
+        if (process != NULL) {
+            //delete process;
+            process = NULL;
+        }
+        currentRefresh = REFRESHTYPE_INVALID;
+        setStatus(REFRESHSTATUS_DONE);
+        disconnect(overflowpoll, SIGNAL(timeout()), this, SLOT(overflow()));
+        overflowpoll->stop();
+        delete overflowpoll;
+        overflowpoll = nullptr;
+    }
 }
 
 void Refresh::readError(QProcess::ProcessError error)
@@ -253,7 +294,25 @@ float Refresh::getProgress() const {
 
 void Refresh::setProgress(float value) {
     progress = value;
-    emit progressChanged(value);
+    emit progressChanged(progress);
+}
+
+void Refresh::setProgressCount(int periodCount, int addingCount) {
+    float progress;
+    float periodProgress;
+    float addingProgress;
+
+    if (status > REFRESHSTATUS_INITIALISING) {
+        periodProgress = 0.75 * (((float)periodCount / ((float)periodCount + 30.0)) + ((float)periodCount * 0.003f));
+        addingProgress = ((float)addingCount / (float)(addingTotal));
+
+        progress = periodProgress + qMax((1.0 - periodProgress), 0.0) * addingProgress;
+
+        if (progress > this->progress) {
+            this->progress = progress;
+            emit progressChanged(progress);
+        }
+    }
 }
 
 QString Refresh::getLogText() const
