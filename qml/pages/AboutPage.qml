@@ -58,7 +58,7 @@ Page {
                 }
             }
             Label {
-                text: "Author:\tDavid Llewellyn-Jones"
+                text: "Author:\t\tDavid Llewellyn-Jones"
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
                 horizontalAlignment: Text.AlignLeft
