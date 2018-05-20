@@ -95,7 +95,7 @@ void Refresh::setupEnvironment() {
     // the installed binaries and libraries
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     env.insert("PERL5LIB", DIR_PERLLOCAL "/lib/perl5");
-    env.insert("PATH", DIR_PERLLOCAL "/bin:" DIR_BIN ":" + env.value("PATH", ""));
+    env.insert("PATH", DIR_BIN ":" + env.value("PATH", ""));
     env.insert("PERL_UNICODE", "AS");
     process->setProcessEnvironment(env);
 }
