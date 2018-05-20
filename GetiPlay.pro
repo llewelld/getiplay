@@ -37,6 +37,7 @@ SOURCES += src/control.cpp \
 
 OTHER_FILES += qml/GetiPlay.qml \
     qml/cover/CoverPage.qml \
+    qml/components/TabPageHeader.qml \
     rpm/harbour-getiplay.changes \
     rpm/harbour-getiplay.spec \
     rpm/harbour-getiplay.yaml \
@@ -91,4 +92,5 @@ DISTFILES += \
     icons/128x128/harbour-getiplay.png \
     icons/256x256/harbour-getiplay.png \
     icons/86x86/harbour-getiplay.png \
-    rpm/GetiPlay.changes
+    rpm/GetiPlay.changes \
+    qml/pages/MainPage.qml

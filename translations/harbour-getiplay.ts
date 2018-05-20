@@ -28,22 +28,22 @@
 <context>
     <name>ProgList</name>
     <message>
-        <location filename="../qml/pages/ProgList.qml" line="100"/>
+        <location filename="../qml/pages/ProgList.qml" line="104"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProgList.qml" line="104"/>
+        <location filename="../qml/pages/ProgList.qml" line="108"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProgList.qml" line="116"/>
+        <location filename="../qml/pages/ProgList.qml" line="120"/>
         <source>Switch to Radio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProgList.qml" line="116"/>
+        <location filename="../qml/pages/ProgList.qml" line="120"/>
         <source>Switch to TV</source>
         <translation type="unfinished"></translation>
     </message>
@@ -51,7 +51,7 @@
 <context>
     <name>RefreshRadio</name>
     <message>
-        <location filename="../qml/pages/RefreshRadio.qml" line="66"/>
+        <location filename="../qml/pages/RefreshRadio.qml" line="70"/>
         <source>Refresh Radio Programmes</source>
         <translation type="unfinished"></translation>
     </message>

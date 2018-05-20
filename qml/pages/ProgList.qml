@@ -31,11 +31,15 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
-Page {
+Item {
     id: page
+
+    implicitHeight: mainView.height; implicitWidth: mainView.width
+
     property string searchString
     property bool tv: control.viewTv
     property bool tvmenu: tv
+    property string screenName
 
     RefreshTV {
         id: refreshTVLoad
