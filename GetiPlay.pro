@@ -52,8 +52,6 @@ OTHER_FILES += qml/GetiPlay.qml \
     bin/ffmpeg \
     bin/AtomicParsley \
     bin/get_iplayer \
-    lib/librtmp.a \
-    lib/librtmp.so.1 \
     lib/perl5/*
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 256x256
@@ -89,8 +87,6 @@ lib.path = /usr/share/$${TARGET}
 INSTALLS += lib
 
 DISTFILES += \
-    lib/librtmp.a \
-    lib/librtmp.so.1 \
     icons/108x108/harbour-getiplay.png \
     icons/128x128/harbour-getiplay.png \
     icons/256x256/harbour-getiplay.png \

@@ -94,12 +94,9 @@ void Refresh::setupEnvironment() {
     // Set up appropriate environment variables to ensure get_iplayer can see
     // the installed binaries and libraries
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-    env.insert("LD_LIBRARY_PATH", DIR_LIB ":" + env.value("LD_LIBRARY_PATH"));
-    env.insert("PERL_MB_OPT", "--install_base \"" DIR_PERLLOCAL "\"");
-    env.insert("PERL_MM_OPT", "INSTALL_BASE=" DIR_PERLLOCAL);
     env.insert("PERL5LIB", DIR_PERLLOCAL "/lib/perl5");
-    env.insert("PERL_LOCAL_LIB_ROOT", DIR_PERLLOCAL);
     env.insert("PATH", DIR_PERLLOCAL "/bin:" DIR_BIN ":" + env.value("PATH", ""));
+    env.insert("PERL_UNICODE", "AS");
     process->setProcessEnvironment(env);
 }
 
