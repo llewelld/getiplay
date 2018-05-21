@@ -60,11 +60,7 @@ void Refresh::startRefresh(REFRESHTYPE type) {
 
             setupEnvironment();
 
-#ifndef FAKE_GETIPLAYER
             QString program = DIR_BIN "/get_iplayer";
-#else // !FAKE_GETIPLAYER
-            QString program = "cat";
-#endif // !FAKE_GETIPLAYER
             logToFile.logLine(program);
 
             collectArguments ();
@@ -102,7 +98,6 @@ void Refresh::setupEnvironment() {
 void Refresh::collectArguments () {
     arguments.clear();
 
-#ifndef FAKE_GETIPLAYER
     addArgument("type=" + typeString[currentRefresh]);
     addArgument("refresh");
     addArgument("force");
@@ -113,9 +108,6 @@ void Refresh::collectArguments () {
     addArgument("log-progress");
     addArgument("profile-dir", Settings::getProfileDir());
     addValue(".*");
-#else // !FAKE_GETIPLAYER
-    addValue("../share/" APP_NAME "/output01.txt");
-#endif // !FAKE_GETIPLAYER
 }
 
 void Refresh::addArgument (QString key, QString value) {

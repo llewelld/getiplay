@@ -44,11 +44,7 @@ void Download::startDownload(int progId, QString progType) {
     }
     else {
         process = new QProcess();
-#ifndef FAKE_GETIPLAYER
         QString program = DIR_BIN "/get_iplayer";
-#else // !FAKE_GETIPLAYER
-        QString program = "cat";
-#endif // !FAKE_GETIPLAYER
         logToFile.logLine(program);
         process->setWorkingDirectory(DIR_BIN);
         setupEnvironment();
@@ -81,7 +77,6 @@ void Download::setupEnvironment() {
 void Download::collectArguments () {
     arguments.clear();
 
-#ifndef FAKE_GETIPLAYER
     if (progType == QString("radio")) {
         addArgument("type=radio");
     } else if (progType == QString("tv")) {
@@ -104,10 +99,6 @@ void Download::collectArguments () {
     } else {
         addArgument("output", Settings::getDownloadsDir());
     }
-
-#else // !FAKE_GETIPLAYER
-    addValue("../share/" APP_NAME "/output02.txt");
-#endif // !FAKE_GETIPLAYER
 }
 
 void Download::addArgument (QString key, QString value) {
