@@ -103,16 +103,28 @@ Page {
             }
 
             Button {
+                id: addToQueue
+                text: "Add to Queue"
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: true
+                onClicked: {
+                    Queue.addToQueue(progId, name, 100.0)
+                }
+            }
+
+            /*
+            Button {
                 id: doDownload
                 text: "Download"
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: !progressBar.visible
                 onClicked: {
-                    Download.startDownload(progId,"tv")
+                    Download.startDownload(progId, "tv")
                     progressBar.enabled = true
                     progressBar.label = "Initialising"
                 }
             }
+            */
 
             ProgressBar {
                 id: progressBar

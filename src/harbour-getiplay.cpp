@@ -29,13 +29,14 @@
 */
 
 #include <QtQuick>
+#include <QDebug>
 #include <sailfishapp.h>
 #include "programme.h"
 #include "refresh.h"
 #include "download.h"
+#include "queue.h"
 #include "control.h"
 #include "settings.h"
-#include <QDebug>
 
 #include "harbour-getiplay.h"
 
@@ -71,6 +72,7 @@ int main(int argc, char *argv[])
     QList<ProgModel*> models;
     ProgModel modelradio;
     ProgModel modeltv;
+    ProgModel modelqueue;
     models.append(&modelradio);
     models.append(&modeltv);
 
@@ -123,8 +125,16 @@ int main(int argc, char *argv[])
     proxyModelTV->setFilterCaseSensitivity(Qt::CaseInsensitive);
     proxyModelTV->setSortCaseSensitivity(Qt::CaseInsensitive);
 
+    QSortFilterProxyModel * proxyModelQueue = new QSortFilterProxyModel ();
+    proxyModelQueue->setSourceModel(&modelqueue);
+    proxyModelQueue->setDynamicSortFilter(true);
+    proxyModelQueue->setFilterRole(ProgModel::NameRole);
+    proxyModelQueue->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    proxyModelQueue->setSortCaseSensitivity(Qt::CaseInsensitive);
+
     ctxt->setContextProperty("programmesradio", proxyModelRadio);
     ctxt->setContextProperty("programmestv", proxyModelTV);
+    ctxt->setContextProperty("programmesqueue", proxyModelQueue);
 
     Refresh * refresh = new Refresh (models);
     view->rootContext()->setContextProperty("Refresh", refresh);
@@ -133,6 +143,10 @@ int main(int argc, char *argv[])
     Download * download = new Download ();
     view->rootContext()->setContextProperty("Download", download);
     download->initialise();
+
+    Queue * queue = new Queue();
+    queue->setModel(&modelqueue);
+    view->rootContext()->setContextProperty("Queue", queue);
 
     view->show();
     result = app->exec();

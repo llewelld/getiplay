@@ -42,6 +42,13 @@
     </message>
 </context>
 <context>
+    <name>Queue</name>
+    <message>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RefreshRadio</name>
     <message>
         <source>Refresh Radio Programmes</source>

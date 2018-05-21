@@ -13,8 +13,8 @@ class Refresh : public QObject
     Q_OBJECT
 
     // General properties
-    Q_PROPERTY (float progress READ getProgress WRITE setProgress NOTIFY progressChanged)
-    Q_PROPERTY (QString logText READ getLogText WRITE setLogText NOTIFY logTextChanged)
+    Q_PROPERTY(float progress READ getProgress WRITE setProgress NOTIFY progressChanged)
+    Q_PROPERTY(QString logText READ getLogText WRITE setLogText NOTIFY logTextChanged)
     Q_ENUMS(REFRESHSTATUS REFRESHTYPE)
 
 public:

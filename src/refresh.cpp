@@ -22,7 +22,7 @@ Refresh::Refresh(QList<ProgModel*> model, QObject *parent) :
     progress(0.0),
     overflowpoll(nullptr),
     finishedcode(0),
-    currentRefresh(REFRESHTYPE_INVALID)
+    currentRefresh(Refresh::REFRESHTYPE_INVALID)
 {
     arguments.clear();
 }

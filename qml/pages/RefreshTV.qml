@@ -1,10 +1,8 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
-Item {
+Page {
     id: refreshPage
-
-    implicitHeight: mainView.height; implicitWidth: mainView.width
 
     Connections {
         target:Refresh
@@ -13,11 +11,9 @@ Item {
         }
     }
 
-    /*
     onCanceled: {
         Refresh.cancel()
     }
-    */
 
     function updateStatus(status) {
         switch (status) {
@@ -107,7 +103,7 @@ Item {
             //radius: Theme.paddingSmall
             anchors.horizontalCenter: parent.horizontalCenter
             //height: (24 * Theme.fontSizeTiny) + (2 * Theme.paddingLarge)
-            height: mainpage.height - infopane.height - header.height - (3 * Theme.paddingLarge) - mainPageHeader.visibleHeight
+            height: page.height - infopane.height - header.height - (3 * Theme.paddingLarge)
             width: parent.width - 2 * Theme.paddingLarge
             x: Theme.paddingLarge
 

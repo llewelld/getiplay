@@ -54,7 +54,7 @@ Page {
                 model: VisualItemModel {
                     ProgList { id: tab4; screenName: "BBC TV Programmes"; tv: true }
                     ProgList { id: tab3; screenName: "BBC Radio Programmes"; tv: false }
-                    RefreshTV { id: tab2}
+                    Queue { id: tab2; screenName: "Queue"}
                     RefreshRadio { id: tab1}
                 }
             }

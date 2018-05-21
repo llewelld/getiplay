@@ -28,23 +28,31 @@
 <context>
     <name>ProgList</name>
     <message>
-        <location filename="../qml/pages/ProgList.qml" line="104"/>
+        <location filename="../qml/pages/ProgList.qml" line="106"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProgList.qml" line="108"/>
+        <location filename="../qml/pages/ProgList.qml" line="110"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProgList.qml" line="120"/>
+        <location filename="../qml/pages/ProgList.qml" line="122"/>
         <source>Switch to Radio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProgList.qml" line="120"/>
+        <location filename="../qml/pages/ProgList.qml" line="122"/>
         <source>Switch to TV</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Queue</name>
+    <message>
+        <location filename="../qml/pages/Queue.qml" line="32"/>
+        <source>About</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

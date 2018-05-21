@@ -60,7 +60,7 @@ Item {
         id: listView
         model: tvmenu ? programmestv : programmesradio
         anchors.fill: parent
-        currentIndex: -1 // otherwise currentItem will steal focus
+        //currentIndex: -1 // otherwise currentItem will steal focus
 
         onCurrentIndexChanged: {
             // This nasty hack prevents the currentIndex being set
@@ -76,8 +76,10 @@ Item {
         header: Column {
             id: headerColumn
             width: page.width
+            height: header.height + searchField.height
 
             PageHeader {
+                id: header
                 title: tv ? "BBC TV Programmes" : "BBC Radio Programmes"
             }
 
@@ -157,7 +159,6 @@ Item {
                                                : (highlighted ? Theme.highlightColor : Theme.primaryColor)
                 textFormat: Text.StyledText
                 text: Theme.highlightText(name, searchString, Theme.highlightColor)
-                clip: true
                 width: parent.width - (2 * Theme.paddingLarge)
                 elide: Text.ElideRight
                 focus: false
