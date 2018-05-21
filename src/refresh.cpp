@@ -95,7 +95,6 @@ void Refresh::setupEnvironment() {
     // the installed binaries and libraries
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     env.insert("PERL5LIB", DIR_PERLLOCAL "/lib/perl5");
-    env.insert("PATH", DIR_BIN ":" + env.value("PATH", ""));
     env.insert("PERL_UNICODE", "AS");
     process->setProcessEnvironment(env);
 }
@@ -108,8 +107,8 @@ void Refresh::collectArguments () {
     addArgument("refresh");
     addArgument("force");
     addArgument("nocopyright");
-    addArgument("atomicparsley", "/usr/share/GetiPlay/bin/AtomicParsley");
-    addArgument("ffmpeg", "/usr/share/GetiPlay/bin/ffmpeg");
+    addArgument("atomicparsley", DIR_BIN "/AtomicParsley");
+    addArgument("ffmpeg", DIR_BIN "/ffmpeg");
     addArgument("ffmpeg-loglevel", "info");
     addArgument("log-progress");
     addArgument("profile-dir", Settings::getProfileDir());
