@@ -18,18 +18,10 @@
     </message>
 </context>
 <context>
-    <name>ProgInfoRadio</name>
+    <name>ProgInfo</name>
     <message>
-        <location filename="../qml/pages/ProgInfoRadio.qml" line="73"/>
-        <source>Radio Programme Info</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ProgInfoTV</name>
-    <message>
-        <location filename="../qml/pages/ProgInfoTV.qml" line="67"/>
-        <source>TV Programme Info</source>
+        <location filename="../qml/pages/ProgInfo.qml" line="118"/>
+        <source> Programme Info</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

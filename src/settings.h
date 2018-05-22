@@ -22,6 +22,7 @@ public:
     static QString getVideoDir();
     static QString getDownloadsDir();
     static QString getProfileDir();
+    static QString getTempDir();
 signals:
 
 public slots:

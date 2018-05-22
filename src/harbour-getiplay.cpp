@@ -34,6 +34,7 @@
 #include "programme.h"
 #include "refresh.h"
 #include "download.h"
+#include "metaget.h"
 #include "queue.h"
 #include "control.h"
 #include "settings.h"
@@ -155,6 +156,10 @@ int main(int argc, char *argv[])
     Queue * queue = new Queue(view.data(), download);
     view->rootContext()->setContextProperty("Queue", queue);
     queue->setModel(&modelqueue);
+
+    Metaget * metaget = new Metaget(view.data(), log);
+    view->rootContext()->setContextProperty("Metaget", metaget);
+    metaget->initialise();
 
     view->show();
     result = app->exec();

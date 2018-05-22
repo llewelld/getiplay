@@ -37,7 +37,8 @@ SOURCES += src/control.cpp \
     src/queue.cpp \
     src/queueitem.cpp \
     src/queuemodel.cpp \
-    src/log.cpp
+    src/log.cpp \
+    src/metaget.cpp
 
 OTHER_FILES += qml/GetiPlay.qml \
     qml/cover/CoverPage.qml \
@@ -50,8 +51,6 @@ OTHER_FILES += qml/GetiPlay.qml \
     qml/pages/ProgList.qml \
     qml/pages/AboutPage.qml \
     qml/images/getiplay-title.png \
-    qml/pages/ProgInfoTV.qml \
-    qml/pages/ProgInfoRadio.qml \
     qml/pages/RefreshTV.qml \
     qml/pages/RefreshRadio.qml \
     bin/ffmpeg \
@@ -83,7 +82,8 @@ HEADERS += \
     src/queue.h \
     src/queueitem.h \
     src/queuemodel.h \
-    src/log.h
+    src/log.h \
+    src/metaget.h
 
 bin.files = bin
 bin.path = /usr/share/$${TARGET}
@@ -103,4 +103,5 @@ DISTFILES += \
     rpm/GetiPlay.changes \
     qml/pages/MainPage.qml \
     qml/pages/Queue.qml \
-    qml/pages/Log.qml
+    qml/pages/Log.qml \
+    qml/pages/ProgInfo.qml

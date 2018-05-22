@@ -33,3 +33,6 @@ QString Settings::getProfileDir() {
     return getConfigDir() + DIR_GETIPLAYERCONFIG;
 }
 
+QString Settings::getTempDir() {
+    return QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+}
