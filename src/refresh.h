@@ -63,12 +63,12 @@ private:
     // Internal methods
     void setupEnvironment();
     void collectArguments ();
-    void setStatus (REFRESHSTATUS newStatus);
-    void addArgument (QString key, QString value);
-    void addArgument (QString key);
-    void addArgumentNonempty (QString key, QString value);
-    void addOption (QString key, bool add);
-    void addValue (QString key);
+    void setStatus(REFRESHSTATUS newStatus);
+    void addArgument(QString key, QString value);
+    void addArgument(QString key);
+    void addArgumentNonempty(QString key, QString value);
+    void addOption(QString key, bool add);
+    void addValue(QString key);
     void interpretData(const QString &text);
     void interpretLine(const QString &text);
     void setProgressCount(int periodCount, int addingCount);
@@ -84,16 +84,18 @@ signals:
     // General signals
     void statusChanged(int status);
     void progressChanged(float progress);
-    void logTextChanged (QString &logText);
+    void logTextChanged(QString &logText);
 
 public slots:
     // General methods
-    void startRefresh (REFRESHTYPE type);
-    void cancel ();
-    void readData ();
-    void started ();
-    void finished (int code);
-    void readError (QProcess::ProcessError error);
+    void startRefresh(REFRESHTYPE type);
+    void cancel();
+
+private slots:
+    void readData();
+    void started();
+    void finished(int code);
+    void readError(QProcess::ProcessError error);
     void setProgress(float value);
     void setLogText(const QString &value);
     void logAppend(const QString &text);

@@ -66,7 +66,7 @@ Item {
                     id: queueProgress
                     width: Theme.iconSizeLarge
                     height: parent.height
-                    value: 0.0
+                    value: progress
                     inAlternateCycle: true;
                 }
 

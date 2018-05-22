@@ -34,7 +34,10 @@ SOURCES += src/control.cpp \
     src/refresh.cpp \
     src/harbour-getiplay.cpp \
     src/settings.cpp \
-    src/queue.cpp
+    src/queue.cpp \
+    src/queueitem.cpp \
+    src/queuemodel.cpp \
+    src/log.cpp
 
 OTHER_FILES += qml/GetiPlay.qml \
     qml/cover/CoverPage.qml \
@@ -77,7 +80,10 @@ HEADERS += \
     src/refresh.h \
     src/harbour-getiplay.h \
     src/settings.h \
-    src/queue.h
+    src/queue.h \
+    src/queueitem.h \
+    src/queuemodel.h \
+    src/log.h
 
 bin.files = bin
 bin.path = /usr/share/$${TARGET}

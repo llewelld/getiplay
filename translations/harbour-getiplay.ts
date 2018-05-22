@@ -10,6 +10,14 @@
     </message>
 </context>
 <context>
+    <name>Log</name>
+    <message>
+        <location filename="../qml/pages/Log.qml" line="18"/>
+        <source>Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ProgInfoRadio</name>
     <message>
         <location filename="../qml/pages/ProgInfoRadio.qml" line="73"/>
@@ -20,7 +28,7 @@
 <context>
     <name>ProgInfoTV</name>
     <message>
-        <location filename="../qml/pages/ProgInfoTV.qml" line="73"/>
+        <location filename="../qml/pages/ProgInfoTV.qml" line="67"/>
         <source>TV Programme Info</source>
         <translation type="unfinished"></translation>
     </message>

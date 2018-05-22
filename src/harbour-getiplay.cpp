@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
     QList<ProgModel*> models;
     ProgModel modelradio;
     ProgModel modeltv;
-    ProgModel modelqueue;
+    QueueModel modelqueue;
     models.append(&modelradio);
     models.append(&modeltv);
 
@@ -80,6 +80,8 @@ int main(int argc, char *argv[])
     modelradio.importFromFile(file);
     file.setFileName(Settings::getConfigDir() + "/tv.txt");
     modeltv.importFromFile(file);
+    file.setFileName(Settings::getConfigDir() + "/queue.txt");
+    modelqueue.importFromFile(file);
 
     /*
     QFile file("/opt/sdk/GetiPlay/usr/share/GetiPlay/output01.txt");
@@ -136,17 +138,23 @@ int main(int argc, char *argv[])
     ctxt->setContextProperty("programmestv", proxyModelTV);
     ctxt->setContextProperty("programmesqueue", proxyModelQueue);
 
+    Log * log = new Log (view.data());
+    view->rootContext()->setContextProperty("Log", log);
+    log->initialise();
+    file.setFileName(Settings::getConfigDir() + "/logtail.txt");
+    log->importFromFile(file);
+
     Refresh * refresh = new Refresh (models);
     view->rootContext()->setContextProperty("Refresh", refresh);
     refresh->initialise();
 
-    Download * download = new Download ();
+    Download * download = new Download (view.data(), log);
     view->rootContext()->setContextProperty("Download", download);
     download->initialise();
 
-    Queue * queue = new Queue();
-    queue->setModel(&modelqueue);
+    Queue * queue = new Queue(view.data(), download);
     view->rootContext()->setContextProperty("Queue", queue);
+    queue->setModel(&modelqueue);
 
     view->show();
     result = app->exec();
@@ -158,10 +166,15 @@ int main(int argc, char *argv[])
     modelradio.exportToFile(file);
     file.setFileName(Settings::getConfigDir() + "/tv.txt");
     modeltv.exportToFile(file);
+    file.setFileName(Settings::getConfigDir() + "/queue.txt");
+    modelqueue.exportToFile(file);
+    file.setFileName(Settings::getConfigDir() + "/logtail.txt");
+    log->exportToFile(file);
 
     delete proxyModelRadio;
     delete proxyModelTV;
     delete control;
+    delete log;
 
     return result;
     /*

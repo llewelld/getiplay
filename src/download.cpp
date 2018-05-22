@@ -5,14 +5,14 @@
 
 #define MAX_LINE_LENGTH (255)
 
-Download::Download(QObject *parent) :
+Download::Download(QObject *parent, Log *log) :
     QObject(parent),
     process(NULL),
     status(DOWNLOADSTATUS_INVALID),
     progId(0),
     duration(0.0),
     progress(0.0),
-    logText("")
+    log(log)
 {
     arguments.clear();
 }
@@ -32,20 +32,17 @@ void Download::setStatus(DOWNLOADSTATUS newStatus)
 }
 
 void Download::startDownload(int progId, QString progType) {
-    setLogText("");
-    logToFile.openLog();
-    logToFile.logLine("Process");
+    LOGAPPEND("STARTING");
 
     this->progId = progId;
     this->progType = progType;
 
     if (process != NULL) {
-        logToFile.logLine("Process already running.");
+        LOGAPPEND("Process already running.");
     }
     else {
         process = new QProcess();
         QString program = DIR_BIN "/get_iplayer";
-        logToFile.logLine(program);
         process->setWorkingDirectory(DIR_BIN);
         setupEnvironment();
         collectArguments ();
@@ -55,7 +52,8 @@ void Download::startDownload(int progId, QString progType) {
         connect(process, SIGNAL(readyRead()), this, SLOT(readData()));
         connect(process, SIGNAL(started()), this, SLOT(started()));
         connect(process, SIGNAL(finished(int)), this, SLOT(finished(int)));
-        logAppend(program + " " + arguments.join(" ")); // write the get_iplayer command to the log window
+        // Write the get_iplayer command to the log window
+        LOGAPPEND(program + " " + arguments.join(" "));
         process->start(program, arguments);
         process->closeWriteChannel();
         setStatus(DOWNLOADSTATUS_INITIALISING);
@@ -141,7 +139,7 @@ void Download::addValue (QString key) {
 void Download::cancel() {
     if (process != NULL) {
         process->terminate();
-        logAppend("Terminate signal sent");
+        LOGAPPEND("Terminate signal sent");
     }
     setStatus(DOWNLOADSTATUS_CANCEL);
 }
@@ -185,7 +183,7 @@ void Download::interpretLine(const QString &text) {
 
     qDebug() << "Line: " << text;
     if (text.startsWith("INFO: Recorded ")) {
-        logAppend(text);
+        LOGAPPEND(text);
         //setStatus(DOWNLOADSTATUS_DONE);
     }
     else {
@@ -213,7 +211,7 @@ void Download::interpretLine(const QString &text) {
                 }
             }
             else {
-                logAppend(text);
+                LOGAPPEND(text);
                 QRegExp findDuration("^.*Duration: (\\d+):(\\d\\d):(\\d\\d\\.\\d+), .*$");
                 foundPos = findDuration.indexIn(text);
                 if (foundPos > -1) {
@@ -234,9 +232,7 @@ void Download::started() {
 }
 
 void Download::finished(int code) {
-    logToFile.logLine("Finished with code " + QString::number(code));
-    logAppend("Finished with code " + QString::number(code));
-    logToFile.closeLog();
+    LOGAPPEND("Finished with code " + QString::number(code));
     if (process != NULL) {
         //delete process;
         process = NULL;
@@ -252,13 +248,13 @@ void Download::finished(int code) {
 
 void Download::readError(QProcess::ProcessError error)
 {
-    logToFile.logLine("Error: " + error);
+    LOGAPPEND("Error: " + error);
     if (process != NULL) {
         QByteArray dataOut = process->readAllStandardOutput();
         QByteArray errorOut = process->readAllStandardError();
 
-        logToFile.logLine(QString("Output text: ") + dataOut.data());
-        logToFile.logLine(QString("Error text: ") + errorOut.data());
+        LOGAPPEND(QString("Output text: ") + dataOut.data());
+        LOGAPPEND(QString("Error text: ") + errorOut.data());
     }
 }
 
@@ -271,43 +267,7 @@ void Download::setProgress(float value) {
     emit progressChanged(value);
 }
 
-QString Download::getLogText() const
-{
-    return logText;
-}
-
-void Download::setLogText(const QString &value)
-{
-    logText = value;
-    emit logTextChanged(logText);
-}
-
-void Download::logAppend(const QString &text)
-{
-    if (!text.isEmpty()) {
-        QString append = text;
-        logToFile.logLine(append);
-        // Ensure we end with a newline
-        if (!append.endsWith('\n')) {
-            append += '\n';
-        }
-        // How many lines to add
-        int newLines = append.count('\n');
-        int currentLines = logText.count('\n');
-        int removeLines = currentLines + newLines - LOG_LINES;
-
-        // Remove excess lines from the top
-        while (removeLines > 0) {
-            int nextLine = logText.indexOf('\n');
-            if (nextLine > 0) {
-                logText = logText.mid(nextLine + 1);
-            }
-            removeLines--;
-        }
-
-        // Add new lines
-        logText.append(append);
-        emit logTextChanged(logText);
-    }
+DOWNLOADSTATUS Download::getStatus() {
+    return status;
 }
 

@@ -108,7 +108,7 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: true
                 onClicked: {
-                    Queue.addToQueue(progId, name, 100.0)
+                    Queue.addToQueue(progId, name, 100.0, 0)
                 }
             }
 

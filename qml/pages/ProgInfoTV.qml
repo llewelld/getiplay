@@ -6,56 +6,50 @@ Page {
     id: infoPage
     property string name: ""
     property int progId: 0
+    property string statustext: ""
 
     Connections {
-        target:Download
+        target:Queue
         onStatusChanged: {
-            updateStatus(status)
+            if (progidchanged == progId) {
+                updateStatus(status)
+            }
         }
     }
 
-    onCanceled: {
-        Download.cancel()
+    on_ExposedChanged: {
+        if (_exposed) {
+            console.log("Exposed changed: " + _exposed)
+            status = Queue.getStatusFromId(progId)
+            updateStatus(status);
+        }
     }
 
     function updateStatus(status) {
         switch (status) {
         case 0:
-            // Uninitialised
+            // Error
+            statustext = "Error"
+            addToQueue.enabled = true
             break;
         case 1:
-            // Initialising
-            progressBar.label = "Initialising"
-            progressBar.visible = true
+            // Remote
+            statustext = "Not yet downloaded"
+            addToQueue.enabled = true
             break;
         case 2:
             // Downloading
-            progressBar.label = "Downloading"
+            statustext = "Downloading"
+            addToQueue.enabled = false
             break;
         case 3:
-            // Converting
-            progressBar.label = "Converting"
-            break;
-        case 4:
-            // Cancel
-            progressBar.label = "Cancelled"
-            break;
-        case 5:
-            // Done
-            progressBar.label = "Waiting"
-            progressBar.visible = false
-            // TODO: Check whether the next line is really needed
-            programmestv.clear()
-            if (infoPage.status === PageStatus.Active) {
-                pageStack.pop()
-            }
-            break;
-        case 6:
-            // Error
-            progressBar.label = "Error"
-            progressBar.visible = false
+            // Local
+            statustext = "Downloaded"
+            addToQueue.enabled = false
             break;
         default:
+            statustext = "Error"
+            addToQueue.enabled = true
             break;
         }
         console.log("Status: " + status)
@@ -76,6 +70,7 @@ Page {
         Column {
             id: infopane
             width: parent.width
+            spacing: Theme.paddingLarge
 
             Label {
                 x: Theme.paddingLarge
@@ -85,88 +80,22 @@ Page {
             }
             Label {
                 x: Theme.paddingLarge
-                text: "ID: " + progId
+                text: "<b>ID:</b> \t" + progId
             }
-
-            Image {
-                id: warningTriangle
-                source: "image://theme/icon-lock-warning"
-                asynchronous: true
-                visible: (progressBar.label === "Error")
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
-
-            Item {
-                width: 1
-                height: Theme.paddingLarge
-                visible: warningTriangle.visible
+            Label {
+                id: statusindicator;
+                x: Theme.paddingLarge
+                text: "<b>Status:</b> \t" + statustext
             }
 
             Button {
                 id: addToQueue
-                text: "Add to Queue"
-                anchors.horizontalCenter: parent.horizontalCenter
-                visible: true
-                onClicked: {
-                    Queue.addToQueue(progId, name, 100.0)
-                }
-            }
-
-            /*
-            Button {
-                id: doDownload
                 text: "Download"
                 anchors.horizontalCenter: parent.horizontalCenter
-                visible: !progressBar.visible
-                onClicked: {
-                    Download.startDownload(progId, "tv")
-                    progressBar.enabled = true
-                    progressBar.label = "Initialising"
-                }
-            }
-            */
-
-            ProgressBar {
-                id: progressBar
-                width: parent.width
-                visible: false
-                indeterminate: ((Download.progress < 0.0) || (Download.progress >= 100.0))
-                value: Download.progress
-                label: "Waiting"
-            }
-        }
-
-        // The log output box
-        Rectangle {
-            color: "transparent"
-            border {
-                color: Theme.highlightBackgroundColor
-                width: 1
-            }
-            //radius: Theme.paddingSmall
-            anchors.horizontalCenter: parent.horizontalCenter
-            //height: (24 * Theme.fontSizeTiny) + (2 * Theme.paddingLarge)
-            height: infoPage.height - infopane.height - header.height - (3 * Theme.paddingLarge)
-            width: parent.width - 2 * Theme.paddingLarge
-            x: Theme.paddingLarge
-
-            //TextEdit {
-            Label {
-                id: logOutput
-                textFormat: Text.PlainText
-                width: parent.width - 2 * Theme.paddingSmall
-                height: parent.height - 0 * Theme.paddingSmall
-                wrapMode: Text.WrapAnywhere
-                font.pixelSize: Theme.fontSizeTiny * 0.6
-                font.family: "Monospace"
-                color: Theme.highlightColor
                 visible: true
-                text: Download.logText
-                verticalAlignment: Text.AlignBottom
-                x: Theme.paddingSmall
-                y: Theme.paddingSmall
-                //readOnly: true
-                clip: true
+                onClicked: {
+                    Queue.addToQueue(progId, name, 100.0, 1)
+                }
             }
         }
     }

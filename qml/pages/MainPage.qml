@@ -55,7 +55,7 @@ Page {
                     ProgList { id: tab4; screenName: "BBC TV Programmes"; tv: true }
                     ProgList { id: tab3; screenName: "BBC Radio Programmes"; tv: false }
                     Queue { id: tab2; screenName: "Queue"}
-                    RefreshRadio { id: tab1}
+                    Log { id: tab1; screenName: "Log"}
                 }
             }
         }
