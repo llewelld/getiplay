@@ -71,6 +71,7 @@ private:
     void addValue(QString key);
     void interpretData(const QString &text);
     void interpretLine(const QString &text);
+    bool interpretProgramme(const QString &text);
     void setProgressCount(int periodCount, int addingCount);
 
 public:

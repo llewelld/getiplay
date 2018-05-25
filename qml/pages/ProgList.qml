@@ -153,19 +153,20 @@ Item {
 //            }
 
             Label {
+                property string title: name + ", " + episode + ", " + channel
                 x: Theme.paddingLarge
                 anchors.verticalCenter: parent.verticalCenter
                 color: searchString.length > 0 ? (highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor)
                                                : (highlighted ? Theme.highlightColor : Theme.primaryColor)
                 textFormat: Text.StyledText
-                text: Theme.highlightText(name, searchString, Theme.highlightColor)
+                text: Theme.highlightText(title, searchString, Theme.highlightColor)
                 width: parent.width - (2 * Theme.paddingLarge)
                 elide: Text.ElideRight
                 focus: false
             }
             onClicked: {
                 console.log("Clicked " + name)
-                pageStack.push(Qt.resolvedUrl("ProgInfo.qml"), { name: name, progId: progId, type: (tv ? 1 : 0) })
+                pageStack.push(Qt.resolvedUrl("ProgInfo.qml"), { name: name, progId: progId, type: (tv ? 1 : 0), channel: channel, episode: episode, description: description, web: web })
             }
         }
     }

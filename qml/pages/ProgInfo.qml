@@ -5,7 +5,7 @@ import QtQuick.XmlListModel 2.0
 Page {
     id: infoPage
     property string name: ""
-    property int progId: 0
+    property string progId: ""
     property int type: 0
     property string statustext: ""
 
@@ -46,8 +46,7 @@ Page {
         XmlRole { name: "channel"; query: "channel/string()" }
         XmlRole { name: "firstbcastdate"; query: "firstbcastdate/string()" }
         XmlRole { name: "desclong"; query: "desclong/string()" }
-        XmlRole { name: "seriesnum"; query: "seriesnum/string()" }
-        XmlRole { name: "episodenum"; query: "episodenum/string()" }
+        XmlRole { name: "episode"; query: "episode/string()" }
         XmlRole { name: "web"; query: "web/string()" }
 
         onCountChanged: console.log("XML count:", count)
@@ -59,7 +58,7 @@ Page {
                 channel = metadata.get(0).channel
                 date = metadata.get(0).firstbcastdate
                 description = metadata.get(0).desclong
-                episode = "Series " + metadata.get(0).seriesnum + ", Episode " + metadata.get(0).episodenum
+                episode = metadata.get(0).episode
                 web = metadata.get(0).web
                 thumbnail.source = metadata.get(0).thumbnail
                 console.log("Thumbnail url: " + thumbnail.source);
@@ -133,11 +132,11 @@ Page {
             }
             Label {
                 x: Theme.paddingLarge
-                text: "<b>Channel:</b> \t" + channel
+                text: "<b>Episode:</b> \t" + episode
             }
             Label {
                 x: Theme.paddingLarge
-                text: "<b>Episode:</b> \t" + episode
+                text: "<b>Channel:</b> \t" + channel
             }
             Label {
                 x: Theme.paddingLarge

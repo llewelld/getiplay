@@ -8,6 +8,10 @@
 
 static const QString typeString[] = {"radio", "tv"};
 
+#define STRINGSEP ">"
+
+static const QStringList listformat = {"pid", "episode", "duration", "channel", "timeadded", "web", "name", "desc"};
+
 Refresh::Refresh(QList<ProgModel*> model, QObject *parent) :
     QObject(parent),
     process(NULL),
@@ -97,6 +101,7 @@ void Refresh::setupEnvironment() {
 
 void Refresh::collectArguments () {
     arguments.clear();
+    QString format;
 
     addArgument("type=" + typeString[currentRefresh]);
     addArgument("refresh");
@@ -107,6 +112,7 @@ void Refresh::collectArguments () {
     addArgument("ffmpeg-loglevel", "info");
     addArgument("log-progress");
     addArgument("profile-dir", Settings::getProfileDir());
+    addArgument("listformat", "<" + listformat.join(">" STRINGSEP "<") + ">");
     addValue(".*");
 }
 
@@ -193,6 +199,8 @@ void Refresh::interpretData(const QString &text) {
 }
 
 void Refresh::interpretLine(const QString &text) {
+    bool found;
+
     //qDebug() << "Line: " << text;
     if (text.endsWith("Matching Programmes\n")) {
         logAppend(text);
@@ -208,14 +216,8 @@ void Refresh::interpretLine(const QString &text) {
         logAppend(text);
     }
     else {
-        QRegExp progInfo("^(\\d+):\\t(.*)$");
-        int foundPos = progInfo.indexIn(text);
-        if (foundPos > -1) {
-            unsigned int progId = progInfo.cap(1).toUInt();
-            QString title = progInfo.cap(2);
-
-            //qDebug() << "Programme: " << progId << ", " << title;
-            model[currentRefresh]->addProgramme(Programme(progId, title, 0.0));
+        found = interpretProgramme(text);
+        if (found) {
             addingCount++;
             setProgressCount(periodCount, addingCount);
         }
@@ -223,6 +225,58 @@ void Refresh::interpretLine(const QString &text) {
             logAppend(text);
         }
     }
+}
+
+bool Refresh::interpretProgramme(const QString &text) {
+    QStringList split;
+    bool success;
+    QString pid = "";
+    QString episode = "";
+    qint32 duration = 0;
+    QString channel = "";
+    qint64 timeadded = 0;
+    QString web = "";
+    QString name = "";
+    QString desc = "";
+
+    split = text.split(STRINGSEP, QString::KeepEmptyParts, Qt::CaseSensitive);
+    success = (split.size() == listformat.size());
+
+    if (success) {
+        for (int property = 0; property < split.size(); property++) {
+            switch (property) {
+                case 0: // "pid"
+                pid = split[property];
+                break;
+                case 1: // "episode"
+                episode = split[property];
+                break;
+                case 2: // "duration"
+                duration = split[property].toLongLong();
+                break;
+                case 3: // "channel"
+                channel = split[property];
+                break;
+                case 4: // "timeadded"
+                timeadded = split[property].toLongLong();
+                break;
+                case 5: // "web"
+                web = split[property];
+                break;
+                case 6: // "name"
+                name = split[property];
+                break;
+                case 7: //"desc"
+                desc = split[property];
+                break;
+            }
+
+        }
+
+        model[currentRefresh]->addProgramme(Programme(pid, name, duration, timeadded, channel, episode, web, desc));
+    }
+
+    return success;
 }
 
 void Refresh::started() {

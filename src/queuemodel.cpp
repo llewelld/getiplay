@@ -4,7 +4,7 @@
 QueueModel::QueueModel(QObject *parent) : QAbstractListModel(parent) {
     roles[ProgIdRole] = "progId";
     roles[NameRole] = "name";
-    roles[LengthRole] = "size";
+    roles[DurationRole] = "duration";
     roles[StatusRole] = "status";
     roles[ProgressRole] = "progress";
     roles[TypeRole] = "type";
@@ -35,8 +35,8 @@ QVariant QueueModel::data(const QModelIndex & index, int role) const {
         return programme->getProgId();
     else if (role == NameRole)
         return programme->getName();
-    else if (role == LengthRole)
-        return programme->getLength();
+    else if (role == DurationRole)
+        return programme->getDuration();
     else if (role == StatusRole)
         return programme->getStatus();
     else if (role == ProgressRole)
@@ -56,7 +56,7 @@ void QueueModel::exportToFile(QFile & file) {
         for (QList<QueueItem *>::iterator progIter = programmes.begin(); progIter != programmes.end(); progIter++) {
             out << (*progIter)->getName() << endl;
             out << (*progIter)->getProgId() << endl;
-            out << (*progIter)->getLength() << endl;
+            out << (*progIter)->getDuration() << endl;
             out << (*progIter)->getStatus() << endl;
             out << (*progIter)->getType() << endl;
         }
@@ -69,12 +69,12 @@ void QueueModel::importFromFile(QFile & file) {
         QTextStream in(&file);
         while (!in.atEnd()) {
             QString title;
-            unsigned int progId;
+            QString progId;
             float length;
             QueueItem::STATUS status;
             QueueItem::TYPE type;
             title = in.readLine();
-            progId = in.readLine().toInt();
+            progId = in.readLine();
             length = in.readLine().toFloat();
             status = static_cast<QueueItem::STATUS>(in.readLine().toInt());
             if (status == QueueItem::STATUS_DOWNLOADING) {
@@ -101,13 +101,13 @@ QueueItem * QueueModel::findNextRemote() {
     return programme;
 }
 
-QueueItem * QueueModel::findFromId(unsigned int progid) {
+QueueItem * QueueModel::findFromId(QString progid) {
     QList<QueueItem* >::const_iterator iter;
     QueueItem * programme;
 
     programme = nullptr;
     for (iter = programmes.constBegin(); (programme == nullptr) && (iter != programmes.constEnd()); ++iter) {
-        if ((*iter)->getProgId() == progid) {
+        if (((*iter)->getProgId().compare(progid, Qt::CaseSensitive)) == 0) {
             programme = (*iter);
         }
     }

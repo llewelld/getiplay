@@ -14,7 +14,7 @@ public:
     enum QueueRoles {
         ProgIdRole = Qt::UserRole + 1,
         NameRole,
-        LengthRole,
+        DurationRole,
         StatusRole,
         ProgressRole,
         TypeRole
@@ -26,7 +26,7 @@ public:
 
     void addProgramme(QueueItem * programme);
     QueueItem * findNextRemote();
-    QueueItem * findFromId(unsigned int progid);
+    QueueItem * findFromId(QString progid);
     void refreshItem(int index);
     void refreshItem(QueueItem * programme);
 

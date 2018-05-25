@@ -6,7 +6,7 @@
 Queue::Queue(QObject *parent, Download *download) :
     QObject(parent),
     model(nullptr),
-    downloadingId(-1),
+    downloadingId(""),
     download(download),
     active(nullptr)
 {
@@ -19,7 +19,7 @@ void Queue::setModel(QueueModel * model) {
     takeAction();
 }
 
-void Queue::addToQueue(unsigned int progid, QString name, float duration, int type) {
+void Queue::addToQueue(QString progid, QString name, quint32 duration, int type) {
     model->addProgramme(new QueueItem(progid, name, duration, QueueItem::STATUS_REMOTE, static_cast<QueueItem::TYPE>(type)));
     takeAction();
 }
@@ -61,7 +61,7 @@ void Queue::statusChanged(int status) {
         }
         takeAction();
     }
-    if (downloadingId >= 0) {
+    if (downloadingId != "") {
         emit statusChanged(downloadingId, status);
     }
 }
@@ -73,7 +73,7 @@ void Queue::progressChanged(float progress) {
     }
 }
 
-int Queue::getStatusFromId(unsigned int progid) {
+int Queue::getStatusFromId(QString progid) {
     QueueItem * programme;
     QueueItem::STATUS status;
 
@@ -91,7 +91,7 @@ int Queue::getStatusFromId(unsigned int progid) {
 void Queue::setActiveStatus(QueueItem::STATUS status) {
     if (active != nullptr) {
         active->setStatus(status);
-        if (downloadingId >= 0) {
+        if (downloadingId != "") {
             emit statusChanged(downloadingId, status);
         }
     }

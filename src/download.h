@@ -32,9 +32,9 @@ private:
     QProcess * process;
     DOWNLOADSTATUS status;
     QStringList arguments;
-    int progId;
+    QString progId;
     QString progType;
-    double duration;
+    quint32 duration;
     float progress;
     Log * log;
 
@@ -63,7 +63,7 @@ signals:
 
 public slots:
     // General methods
-    void startDownload(int progId, QString progType);
+    void startDownload(QString progId, QString progType);
     void cancel();
 
 private slots:

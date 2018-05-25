@@ -17,7 +17,7 @@ private:
 
     // Internal attributes
     QueueModel * model;
-    int downloadingId;
+    QString downloadingId;
     Download * download;
     QueueItem * active;
 
@@ -26,12 +26,12 @@ public:
     void setModel(QueueModel * model);
 
 signals:
-    void statusChanged(unsigned int progidchanged, int status);
+    void statusChanged(QString progidchanged, int status);
 
 public slots:
     // General methods
-    void addToQueue(unsigned int progid, QString name, float duration, int type);
-    int getStatusFromId(unsigned int progid);
+    void addToQueue(QString progid, QString name, quint32 duration, int type);
+    int getStatusFromId(QString progid);
 
 private slots:
     void statusChanged(int status);

@@ -3,8 +3,13 @@
 
 ProgModel::ProgModel(QObject *parent) : QAbstractListModel(parent) {
     roles[ProgIdRole] = "progId";
+    roles[EpisodeRole] = "episode";
+    roles[DurationRole] = "duration";
+    roles[ChannelRole] = "channel";
+    roles[TimeaddedRole] = "timeadded";
+    roles[WebRole] = "web";
     roles[NameRole] = "name";
-    roles[LengthRole] = "size";
+    roles[DescRole] = "description";
 }
 
 QHash<int, QByteArray> ProgModel::roleNames() const {
@@ -31,10 +36,20 @@ QVariant ProgModel::data(const QModelIndex & index, int role) const {
     const Programme &programme = programmes[index.row()];
     if (role == ProgIdRole)
         return programme.getProgId();
+    else if (role == EpisodeRole)
+        return programme.getEpisode();
+    else if (role == DurationRole)
+        return programme.getDuration();
+    else if (role == ChannelRole)
+        return programme.getChannel();
+    else if (role == TimeaddedRole)
+        return programme.getTimeAdded();
+    else if (role == WebRole)
+        return programme.getWeb();
     else if (role == NameRole)
         return programme.getName();
-    else if (role == LengthRole)
-        return programme.getLength();
+    else if (role == DescRole)
+        return programme.getDescription();
     return QVariant();
 }
 
@@ -46,9 +61,14 @@ void ProgModel::exportToFile(QFile & file) {
     if (file.open(QIODevice::WriteOnly)) {
         QTextStream out(&file);
         for (QList<Programme>::iterator progIter = programmes.begin(); progIter != programmes.end(); progIter++) {
-            out << progIter->getName() << endl;
             out << progIter->getProgId() << endl;
-            out << progIter->getLength() << endl;
+            out << progIter->getEpisode() << endl;
+            out << progIter->getDuration() << endl;
+            out << progIter->getChannel() << endl;
+            out << progIter->getTimeAdded() << endl;
+            out << progIter->getWeb() << endl;
+            out << progIter->getName() << endl;
+            out << progIter->getDescription() << endl;
         }
         file.close();
     }
@@ -58,13 +78,25 @@ void ProgModel::importFromFile(QFile & file) {
     if (file.open(QIODevice::ReadOnly)) {
         QTextStream in(&file);
         while (!in.atEnd()) {
-            QString title;
-            unsigned int progId;
-            float length;
-            title = in.readLine();
-            progId = in.readLine().toInt();
-            length = in.readLine().toFloat();
-            addProgramme(Programme(progId, title, length));
+            QString pid = "";
+            QString episode = "";
+            qint32 duration = 0;
+            QString channel = "";
+            qint64 timeadded = 0;
+            QString web = "";
+            QString name = "";
+            QString desc = "";
+
+            pid = in.readLine();
+            episode = in.readLine();
+            duration = in.readLine().toLongLong();
+            channel = in.readLine();
+            timeadded = in.readLine().toLongLong();
+            web = in.readLine();
+            name = in.readLine();
+            desc = in.readLine();
+
+            addProgramme(Programme(pid, name, duration, timeadded, channel, episode, web, desc));
         }
         file.close();
     }

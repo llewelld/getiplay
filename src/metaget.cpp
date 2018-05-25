@@ -9,7 +9,7 @@ Metaget::Metaget(QObject *parent, Log *log) :
     QObject(parent),
     process(NULL),
     status(Metaget::STATUS_INVALID),
-    progId(0),
+    progId(""),
     log(log),
     metadata("")
 {
@@ -29,7 +29,7 @@ void Metaget::setStatus(Metaget::STATUS newStatus)
     }
 }
 
-void Metaget::startDownload(int progId, int progType) {
+void Metaget::startDownload(QString progId, int progType) {
     LOGAPPEND("STARTING");
 
     this->progId = progId;
@@ -89,7 +89,7 @@ void Metaget::collectArguments () {
     addArgument("metadata-only");
     addArgument("thumbnail-size", "640");
     addArgument("file-prefix", "metadata");
-    addValue(QString("%1").arg(progId));
+    addArgument("pid", progId);
 }
 
 void Metaget::addArgument (QString key, QString value) {

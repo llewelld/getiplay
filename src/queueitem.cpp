@@ -3,17 +3,17 @@
 
 QueueItem::QueueItem() :
     name(""),
-    length(0.0f),
-    progId(0u),
+    duration(0u),
+    progId(""),
     status(QueueItem::STATUS_REMOTE),
     progress(0.0f),
     type(QueueItem::TYPE_INVALID)
 {
 }
 
-QueueItem::QueueItem(unsigned int progId, QString name, float length, QueueItem::STATUS status, QueueItem::TYPE type) :
+QueueItem::QueueItem(QString progId, QString name, quint32 duration, QueueItem::STATUS status, QueueItem::TYPE type) :
     name(name),
-    length(length),
+    duration(duration),
     progId(progId),
     status(status),
     progress(0.0f),
@@ -25,11 +25,11 @@ QString QueueItem::getName () const {
     return name;
 }
 
-float QueueItem::getLength () const {
-    return length;
+quint32 QueueItem::getDuration () const {
+    return duration;
 }
 
-unsigned int QueueItem::getProgId () const {
+QString QueueItem::getProgId () const {
     return progId;
 }
 
@@ -72,11 +72,11 @@ void QueueItem::setName (const QString &value) {
 }
 
 
-void QueueItem::setLength (float value) {
-    length = value;
+void QueueItem::setDuration (quint32 value) {
+    duration = value;
 }
 
-void QueueItem::setProgId (unsigned int value) {
+void QueueItem::setProgId (QString value) {
     progId = value;
 }
 

@@ -27,27 +27,27 @@ public:
     };
 
     QueueItem();
-    QueueItem(unsigned int progId, QString name, float length, STATUS status, TYPE type);
+    QueueItem(QString progId, QString name, quint32 duration, STATUS status, TYPE type);
 
     QString getName () const;
-    float getLength () const;
-    unsigned int getProgId () const;
+    quint32 getDuration() const;
+    QString getProgId () const;
     STATUS getStatus () const;
     float getProgress () const;
     TYPE getType () const;
     QString getTypeString () const;
 
     void setName (const QString &value);
-    void setLength (float value);
-    void setProgId (unsigned int value);
+    void setDuration (quint32 value);
+    void setProgId (QString value);
     void setStatus (STATUS status);
     void setProgress (float progress);
     void setType (TYPE type);
 
 private:
     QString name;
-    float length;
-    unsigned int progId;
+    quint32 duration;
+    QString progId;
     STATUS status;
     float progress;
     TYPE type;

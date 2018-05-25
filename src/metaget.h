@@ -31,7 +31,7 @@ private:
     QProcess * process;
     STATUS status;
     QStringList arguments;
-    int progId;
+    QString progId;
     int progType;
     Log * log;
     QString metadata;
@@ -59,7 +59,7 @@ signals:
 
 public slots:
     // General methods
-    void startDownload(int progId, int progType);
+    void startDownload(QString progId, int progType);
     void cancel();
     QString metagot();
 

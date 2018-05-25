@@ -13,8 +13,13 @@ class ProgModel : public QAbstractListModel
 public:
     enum ProgRoles {
         ProgIdRole = Qt::UserRole + 1,
+        EpisodeRole,
+        DurationRole,
+        ChannelRole,
+        TimeaddedRole,
+        WebRole,
         NameRole,
-        LengthRole
+        DescRole
     };
 
     QHash<int, QByteArray> roleNames() const;

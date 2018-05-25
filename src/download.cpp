@@ -9,7 +9,7 @@ Download::Download(QObject *parent, Log *log) :
     QObject(parent),
     process(NULL),
     status(DOWNLOADSTATUS_INVALID),
-    progId(0),
+    progId(""),
     duration(0.0),
     progress(0.0),
     log(log)
@@ -31,7 +31,7 @@ void Download::setStatus(DOWNLOADSTATUS newStatus)
     }
 }
 
-void Download::startDownload(int progId, QString progType) {
+void Download::startDownload(QString progId, QString progType) {
     LOGAPPEND("STARTING");
 
     this->progId = progId;
@@ -81,7 +81,8 @@ void Download::collectArguments () {
         addArgument("type=tv");
     }
 
-    addArgument("get", QString("%1").arg(progId));
+    addArgument("get");
+    addArgument("pid", QString("%1").arg(progId));
     addArgument("force");
     addArgument("nocopyright");
     addArgument("atomicparsley", DIR_BIN "/AtomicParsley");
