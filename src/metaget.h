@@ -62,6 +62,7 @@ public slots:
     void startDownload(QString progId, int progType);
     void cancel();
     QString metagot();
+    QString epochToDate (quint64 epoch) const;
 
 private slots:
     void readData();

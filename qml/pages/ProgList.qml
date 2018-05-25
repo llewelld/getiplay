@@ -38,7 +38,6 @@ Item {
 
     property string searchString
     property bool tv: control.viewTv
-    property bool tvmenu: tv
     property string screenName
 
     RefreshTV {
@@ -58,7 +57,7 @@ Item {
 
     SilicaListView {
         id: listView
-        model: tvmenu ? programmestv : programmesradio
+        model: tv ? programmestv : programmesradio
         anchors.fill: parent
         //currentIndex: -1 // otherwise currentItem will steal focus
 
@@ -117,17 +116,6 @@ Item {
                     }
                 }
             }
-            MenuItem {
-                id: listType
-                text: tvmenu ? qsTr("Switch to Radio") : qsTr("Switch to TV")
-                onClicked: {
-                    tv = !tv
-                    control.setViewTv(tv)
-                }
-            }
-            onActiveChanged: {
-                tvmenu = tv
-            }
         }
 
         ViewPlaceholder {
@@ -166,7 +154,7 @@ Item {
             }
             onClicked: {
                 console.log("Clicked " + name)
-                pageStack.push(Qt.resolvedUrl("ProgInfo.qml"), { name: name, progId: progId, type: (tv ? 1 : 0), channel: channel, episode: episode, description: description, web: web })
+                pageStack.push(Qt.resolvedUrl("ProgInfo.qml"), { name: name, progId: progId, type: (tv ? 1 : 0), channel: channel, episode: episode, description: description, web: web, date: Metaget.epochToDate(timeadded) })
             }
         }
     }

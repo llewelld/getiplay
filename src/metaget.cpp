@@ -224,3 +224,9 @@ QString Metaget::metagot() {
     return metadata;
 }
 
+QString Metaget::epochToDate (quint64 epoch) const {
+    QDateTime date;
+
+    date.setTime_t(epoch);
+    return date.toString("yyyy-MM-dd");
+}
