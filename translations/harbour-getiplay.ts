@@ -20,7 +20,7 @@
 <context>
     <name>ProgInfo</name>
     <message>
-        <location filename="../qml/pages/ProgInfo.qml" line="117"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="122"/>
         <source> Programme Info</source>
         <translation type="unfinished"></translation>
     </message>

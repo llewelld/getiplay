@@ -75,6 +75,11 @@ Page {
         }
     }
 
+    onCanceled: {
+        console.log("Metadata cancelled");
+        Metaget.cancel()
+    }
+
     function updateStatus(status) {
         switch (status) {
         case 0:
