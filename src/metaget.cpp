@@ -86,6 +86,7 @@ void Metaget::collectArguments () {
     addArgument("ffmpeg-loglevel", "info");
     addArgument("profile-dir", Settings::getProfileDir());
     addArgument("output", Settings::getTempDir());
+    addArgument("expiry=99999999");
     addArgument("metadata-only");
     addArgument("thumbnail-size", "640");
     addArgument("file-prefix", "metadata");

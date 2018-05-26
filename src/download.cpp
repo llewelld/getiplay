@@ -88,6 +88,7 @@ void Download::collectArguments () {
     addArgument("atomicparsley", DIR_BIN "/AtomicParsley");
     addArgument("ffmpeg", DIR_BIN "/ffmpeg");
     addArgument("ffmpeg-loglevel", "info");
+    addArgument("expiry=99999999");
     addArgument("log-progress");
     addArgument("profile-dir", Settings::getProfileDir());
 
