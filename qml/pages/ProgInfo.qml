@@ -96,7 +96,7 @@ Page {
         case ProgQueue.STATUS_REMOTE:
             // Remote
             statustext = "Queued for download"
-            addToQueue.enabled = true
+            addToQueue.enabled = false
             break;
         case ProgQueue.STATUS_DOWNLOADING:
             // Downloading
@@ -220,6 +220,7 @@ Page {
                     onClicked: {
                         if (Queue.addToQueue(progId, name, 100.0, type)) {
                             enabled = false
+                            pageStack.pop()
                         }
                     }
                 }
