@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtQuick.XmlListModel 2.0
+import harbour.getiplay.progqueue 1.0
 
 Page {
     id: infoPage
@@ -82,27 +83,33 @@ Page {
 
     function updateStatus(status) {
         switch (status) {
-        case 0:
+        case ProgQueue.STATUS_UNQUEUED:
+            // Unqueued
+            statustext = "Not queued for download"
+            addToQueue.enabled = true
+            break;
+        case ProgQueue.STATUS_ERROR:
             // Error
             statustext = "Error"
-            addToQueue.enabled = true
+            addToQueue.enabled = false
             break;
-        case 1:
+        case ProgQueue.STATUS_REMOTE:
             // Remote
-            statustext = "Not yet downloaded"
+            statustext = "Queued for download"
             addToQueue.enabled = true
             break;
-        case 2:
+        case ProgQueue.STATUS_DOWNLOADING:
             // Downloading
             statustext = "Downloading"
             addToQueue.enabled = false
             break;
-        case 3:
+        case ProgQueue.STATUS_LOCAL:
             // Local
             statustext = "Downloaded"
             addToQueue.enabled = false
             break;
         default:
+            console.log("Status Error: " + status)
             statustext = "Error"
             addToQueue.enabled = true
             break;
@@ -211,12 +218,14 @@ Page {
                     text: "Download"
                     width: ((parent.width - Theme.paddingLarge) / 2)
                     onClicked: {
-                        Queue.addToQueue(progId, name, 100.0, type)
+                        if (Queue.addToQueue(progId, name, 100.0, type)) {
+                            enabled = false
+                        }
                     }
                 }
 
                 Button {
-                    id: connect
+                    id: visitWebsite
                     text: "Visit website"
                     width: ((parent.width - Theme.paddingLarge) / 2)
                     enabled: (web != "")

@@ -36,6 +36,7 @@
 #include "download.h"
 #include "metaget.h"
 #include "queue.h"
+#include "queuemodel.h"
 #include "control.h"
 #include "settings.h"
 
@@ -56,6 +57,7 @@ int main(int argc, char *argv[])
     // To display the view, call "show()" (will show fullscreen on device).
 
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+    qmlRegisterType<Queue>("harbour.getiplay.progqueue", 1, 0, "ProgQueue");
 
     // These values are used by QSettings to access the config file in
     // /home/nemo/.local/share/flypig/GetiPlay.conf
@@ -145,7 +147,7 @@ int main(int argc, char *argv[])
     file.setFileName(Settings::getConfigDir() + "/logtail.txt");
     log->importFromFile(file);
 
-    Refresh * refresh = new Refresh (models);
+    Refresh * refresh = new Refresh (view.data(), models, log);
     view->rootContext()->setContextProperty("Refresh", refresh);
     refresh->initialise();
 

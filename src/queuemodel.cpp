@@ -1,11 +1,12 @@
 #include "queuemodel.h"
+#include "queueitem.h"
 #include <QDebug>
 
 QueueModel::QueueModel(QObject *parent) : QAbstractListModel(parent) {
     roles[ProgIdRole] = "progId";
     roles[NameRole] = "name";
     roles[DurationRole] = "duration";
-    roles[StatusRole] = "status";
+    roles[StatusRole] = "qstatus";
     roles[ProgressRole] = "progress";
     roles[TypeRole] = "type";
 }
@@ -19,6 +20,27 @@ void QueueModel::addProgramme(QueueItem * programme)
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     programmes << programme;
     endInsertRows();
+}
+
+void QueueModel::removeFirstWithProgId(QString progid) {
+    QList<QueueItem* >::const_iterator iter;
+    int index;
+    int found;
+
+    index = 0;
+    found = -1;
+    for (iter = programmes.constBegin(); (found < 0) && (iter != programmes.constEnd()); ++iter) {
+        if (((*iter)->getProgId().compare(progid, Qt::CaseSensitive)) == 0) {
+            found = index;
+        }
+        index++;
+    }
+
+    if (found >= 0) {
+        beginRemoveRows(QModelIndex(), found, found);
+        programmes.removeAt(found);
+        endRemoveRows();
+    }
 }
 
 int QueueModel::rowCount(const QModelIndex & parent) const {
@@ -71,17 +93,19 @@ void QueueModel::importFromFile(QFile & file) {
             QString title;
             QString progId;
             float length;
-            QueueItem::STATUS status;
+            Queue::STATUS status;
             QueueItem::TYPE type;
             title = in.readLine();
             progId = in.readLine();
             length = in.readLine().toFloat();
-            status = static_cast<QueueItem::STATUS>(in.readLine().toInt());
-            if (status == QueueItem::STATUS_DOWNLOADING) {
-                status = QueueItem::STATUS_REMOTE;
+            status = static_cast<Queue::STATUS>(in.readLine().toInt());
+            if (status == Queue::STATUS_DOWNLOADING) {
+                status = Queue::STATUS_REMOTE;
             }
             type = static_cast<QueueItem::TYPE>(in.readLine().toInt());
-            addProgramme(new QueueItem(progId, title, length, status, type));
+            if (progId != nullptr) {
+                addProgramme(new QueueItem(progId, title, length, status, type));
+            }
         }
         file.close();
     }
@@ -93,7 +117,7 @@ QueueItem * QueueModel::findNextRemote() {
 
     programme = nullptr;
     for (iter = programmes.constBegin(); (programme == nullptr) && (iter != programmes.constEnd()); ++iter) {
-        if ((*iter)->getStatus() == QueueItem::STATUS_REMOTE) {
+        if ((*iter)->getStatus() == Queue::STATUS_REMOTE) {
             programme = (*iter);
         }
     }

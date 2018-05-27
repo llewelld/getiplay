@@ -27,6 +27,7 @@ public:
     ProgModel(QObject *parent = 0);
 
     void addProgramme(const Programme &programme);
+    void replaceAll(const ProgModel &model);
 
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
 

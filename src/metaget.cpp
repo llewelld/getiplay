@@ -30,7 +30,7 @@ void Metaget::setStatus(Metaget::STATUS newStatus)
 }
 
 void Metaget::startDownload(QString progId, int progType) {
-    LOGAPPEND("STARTING");
+    LOGAPPEND("\nStarting new process");
 
     this->progId = progId;
     this->progType = progType;

@@ -2,6 +2,8 @@
 #include "harbour-getiplay.h"
 #include "settings.h"
 #include "queue.h"
+#include "queueitem.h"
+#include "queuemodel.h"
 
 Queue::Queue(QObject *parent, Download *download) :
     QObject(parent),
@@ -19,9 +21,29 @@ void Queue::setModel(QueueModel * model) {
     takeAction();
 }
 
-void Queue::addToQueue(QString progid, QString name, quint32 duration, int type) {
-    model->addProgramme(new QueueItem(progid, name, duration, QueueItem::STATUS_REMOTE, static_cast<QueueItem::TYPE>(type)));
-    takeAction();
+bool Queue::addToQueue(QString progid, QString name, quint32 duration, int type) {
+    QueueItem * found;
+    bool added;
+
+    added = false;
+    qDebug() << "Adding " << progid << " to queue";
+
+    // Check whether it's already there
+    found = model->findFromId(progid);
+
+    if (found == nullptr) {
+        model->addProgramme(new QueueItem(progid, name, duration, Queue::STATUS_REMOTE, static_cast<QueueItem::TYPE>(type)));
+        emit statusChanged(progid, Queue::STATUS_REMOTE);
+        takeAction();
+        added = true;
+    }
+
+    return added;
+}
+
+void Queue::removeFromQueue(QString progid) {
+    qDebug() << "Remove " << progid << " from queue";
+    model->removeFirstWithProgId(progid);
 }
 
 void Queue::takeAction() {
@@ -44,25 +66,54 @@ void Queue::takeAction() {
         if (active != nullptr) {
             qDebug() << "Found remote programme in queue. Downloading.";
             // Start downloading the next item in the queue
-            setActiveStatus(QueueItem::STATUS_DOWNLOADING);
+            setActiveStatus(Queue::STATUS_DOWNLOADING);
             downloadingId = active->getProgId();
             download->startDownload(downloadingId, active->getTypeString().toLocal8Bit());
         }
     }
 }
 
+Queue::STATUS Queue::downloadStatusToQueueStatus(DOWNLOADSTATUS download) {
+    Queue::STATUS status;
+
+    switch (download) {
+    case DOWNLOADSTATUS_UNINITIALISED:
+        status = Queue::STATUS_REMOTE;
+        break;
+    case DOWNLOADSTATUS_INITIALISING:
+    case DOWNLOADSTATUS_DOWNLOADING:
+    case DOWNLOADSTATUS_CONVERTING:
+        status = Queue::STATUS_DOWNLOADING;
+        break;
+    case DOWNLOADSTATUS_DONE:
+        status = Queue::STATUS_LOCAL;
+        break;
+    default:
+    case DOWNLOADSTATUS_CANCEL:
+    case DOWNLOADSTATUS_ERROR:
+        status = Queue::STATUS_ERROR;
+        break;
+    }
+
+    return status;
+}
+
+
 void Queue::statusChanged(int status) {
     qDebug() << "Queue download status changed to: " << status;
     if (status >= DOWNLOADSTATUS_CANCEL) {
         if (active != nullptr) {
+            setActiveStatus(Queue::STATUS_LOCAL);
             model->refreshItem(active);
-            setActiveStatus(QueueItem::STATUS_LOCAL);
             active = nullptr;
         }
         takeAction();
     }
-    if (downloadingId != "") {
-        emit statusChanged(downloadingId, status);
+    else {
+        if (downloadingId != "") {
+            Queue::STATUS queuestatus = downloadStatusToQueueStatus(static_cast<DOWNLOADSTATUS>(status));
+            emit statusChanged(downloadingId, queuestatus);
+        }
     }
 }
 
@@ -75,24 +126,26 @@ void Queue::progressChanged(float progress) {
 
 int Queue::getStatusFromId(QString progid) {
     QueueItem * programme;
-    QueueItem::STATUS status;
+    Queue::STATUS status;
 
     programme = model->findFromId(progid);
     if (programme) {
         status = programme->getStatus();
     }
     else {
-        status = QueueItem::STATUS_REMOTE;
+        status = Queue::STATUS_UNQUEUED;
     }
 
     return status;
 }
 
-void Queue::setActiveStatus(QueueItem::STATUS status) {
+void Queue::setActiveStatus(Queue::STATUS status) {
     if (active != nullptr) {
-        active->setStatus(status);
-        if (downloadingId != "") {
-            emit statusChanged(downloadingId, status);
+        if (status != active->getStatus()) {
+            active->setStatus(status);
+            if (downloadingId != "") {
+                emit statusChanged(downloadingId, status);
+            }
         }
     }
 }

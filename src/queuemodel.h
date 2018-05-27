@@ -4,8 +4,9 @@
 #include <QAbstractListModel>
 #include <QStringList>
 #include <QFile>
+#include "queue.h"
 
-#include "queueitem.h"
+class QueueItem;
 
 class QueueModel : public QAbstractListModel
 {
@@ -25,6 +26,7 @@ public:
     QueueModel(QObject *parent = 0);
 
     void addProgramme(QueueItem * programme);
+    void removeFirstWithProgId(QString progid);
     QueueItem * findNextRemote();
     QueueItem * findFromId(QString progid);
     void refreshItem(int index);

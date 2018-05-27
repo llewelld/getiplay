@@ -5,13 +5,13 @@ QueueItem::QueueItem() :
     name(""),
     duration(0u),
     progId(""),
-    status(QueueItem::STATUS_REMOTE),
+    status(Queue::STATUS_REMOTE),
     progress(0.0f),
     type(QueueItem::TYPE_INVALID)
 {
 }
 
-QueueItem::QueueItem(QString progId, QString name, quint32 duration, QueueItem::STATUS status, QueueItem::TYPE type) :
+QueueItem::QueueItem(QString progId, QString name, quint32 duration, Queue::STATUS status, QueueItem::TYPE type) :
     name(name),
     duration(duration),
     progId(progId),
@@ -33,17 +33,17 @@ QString QueueItem::getProgId () const {
     return progId;
 }
 
-QueueItem::STATUS QueueItem::getStatus () const {
+Queue::STATUS QueueItem::getStatus () const {
     return status;
 }
 
 float QueueItem::getProgress () const {
     float progress;
     progress = qBound(0.0f, this->progress, 1.0f);
-    if (status <= QueueItem::STATUS_REMOTE) {
+    if (status <= Queue::STATUS_REMOTE) {
         progress = 0.0;
     }
-    if (status >= QueueItem::STATUS_LOCAL) {
+    if (status >= Queue::STATUS_LOCAL) {
         progress = 1.0;
     }
     return progress;
@@ -80,7 +80,7 @@ void QueueItem::setProgId (QString value) {
     progId = value;
 }
 
-void QueueItem::setStatus (QueueItem::STATUS value) {
+void QueueItem::setStatus (Queue::STATUS value) {
     status = value;
 }
 

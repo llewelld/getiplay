@@ -6,7 +6,7 @@
 #include <QList>
 #include <QTimer>
 #include "progmodel.h"
-#include "logfile.h"
+#include "log.h"
 
 class Refresh : public QObject
 {
@@ -14,7 +14,6 @@ class Refresh : public QObject
 
     // General properties
     Q_PROPERTY(float progress READ getProgress WRITE setProgress NOTIFY progressChanged)
-    Q_PROPERTY(QString logText READ getLogText WRITE setLogText NOTIFY logTextChanged)
     Q_ENUMS(REFRESHSTATUS REFRESHTYPE)
 
 public:
@@ -45,10 +44,8 @@ private:
     QProcess * process;
     REFRESHSTATUS status;
     QStringList arguments;
-    QString logText;
-    logfile logToFile;
-
     QList<ProgModel*> model;
+    ProgModel temp;
     bool periodCheck;
     int periodCount;
     int addingCount;
@@ -57,8 +54,8 @@ private:
     float progress;
     QTimer * overflowpoll;
     int finishedcode;
-
     REFRESHTYPE currentRefresh;
+    Log * log;
 
     // Internal methods
     void setupEnvironment();
@@ -76,7 +73,7 @@ private:
 
 public:
     // General methods
-    explicit Refresh(QList<ProgModel*> model, QObject *parent = 0);
+    explicit Refresh(QObject *parent = 0, QList<ProgModel*> model = QList<ProgModel *>(), Log *log = 0);
     void initialise();
     float getProgress() const;
     QString getLogText() const;
@@ -85,7 +82,6 @@ signals:
     // General signals
     void statusChanged(int status);
     void progressChanged(float progress);
-    void logTextChanged(QString &logText);
 
 public slots:
     // General methods
@@ -98,8 +94,6 @@ private slots:
     void finished(int code);
     void readError(QProcess::ProcessError error);
     void setProgress(float value);
-    void setLogText(const QString &value);
-    void logAppend(const QString &text);
     void overflow();
 };
 

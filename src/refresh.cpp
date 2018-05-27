@@ -2,21 +2,21 @@
 #include <QDebug>
 #include "harbour-getiplay.h"
 #include "settings.h"
+#include "log.h"
 
-#define LINIEPROCESS_MAX (300)
+#define LINIEPROCESS_MAX (20)
 #define OVERFLOWPOLL_TIMEOUT (10)
 
 static const QString typeString[] = {"radio", "tv"};
 
-#define STRINGSEP ">"
+#define STRINGSEP "|"
 
 static const QStringList listformat = {"pid", "episode", "duration", "channel", "timeadded", "web", "name", "desc"};
 
-Refresh::Refresh(QList<ProgModel*> model, QObject *parent) :
+Refresh::Refresh(QObject *parent, QList<ProgModel*> model, Log *log) :
     QObject(parent),
     process(NULL),
     status(REFRESHSTATUS_INVALID),
-    logText(""),
     model(model),
     periodCheck(false),
     periodCount(0),
@@ -26,9 +26,11 @@ Refresh::Refresh(QList<ProgModel*> model, QObject *parent) :
     progress(0.0),
     overflowpoll(nullptr),
     finishedcode(0),
-    currentRefresh(Refresh::REFRESHTYPE_INVALID)
+    currentRefresh(Refresh::REFRESHTYPE_INVALID),
+    log(log)
 {
     arguments.clear();
+    temp.clear();
 }
 
 void Refresh::initialise()
@@ -47,32 +49,27 @@ void Refresh::setStatus(REFRESHSTATUS newStatus)
 }
 
 void Refresh::startRefresh(REFRESHTYPE type) {
-    setLogText("");
-    logToFile.openLog();
-    logToFile.logLine("Process");
+    LOGAPPEND("\nStarting new process");
 
     if ((process != NULL) || (currentRefresh != REFRESHTYPE_INVALID)) {
-        logToFile.logLine("Process already running.");
+        LOGAPPEND("Process already running.");
     }
     else {
         if ((type > REFRESHTYPE_INVALID) && (type < REFRESHTYPE_NUM)) {
             currentRefresh = type;
             process = new QProcess();
-            process->setProcessChannelMode(QProcess::MergedChannels);
-            process->setWorkingDirectory(DIR_BIN);
-            process->setReadChannel(QProcess::StandardOutput);
-
-            setupEnvironment();
-
             QString program = DIR_BIN "/get_iplayer";
-            logToFile.logLine(program);
-
+            process->setWorkingDirectory(DIR_BIN);
+            setupEnvironment();
             collectArguments ();
+            process->setProcessChannelMode(QProcess::MergedChannels);
+            process->setReadChannel(QProcess::StandardOutput);
             connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(readError(QProcess::ProcessError)));
             connect(process, SIGNAL(readyRead()), this, SLOT(readData()));
             connect(process, SIGNAL(started()), this, SLOT(started()));
             connect(process, SIGNAL(finished(int)), this, SLOT(finished(int)));
-            logAppend(program + " " + arguments.join(" ")); // write the get_iplayer command to the log window
+            // Write the get_iplayer command to the log window
+            LOGAPPEND(program + " " + arguments.join(" "));
             process->start(program, arguments);
             process->closeWriteChannel();
             setStatus(REFRESHSTATUS_INITIALISING);
@@ -101,7 +98,6 @@ void Refresh::setupEnvironment() {
 
 void Refresh::collectArguments () {
     arguments.clear();
-    QString format;
 
     addArgument("type=" + typeString[currentRefresh]);
     addArgument("refresh");
@@ -157,7 +153,7 @@ void Refresh::cancel() {
     currentRefresh = REFRESHTYPE_INVALID;
     if (process != NULL) {
         process->terminate();
-        logAppend("Terminate signal sent");
+        LOGAPPEND("Terminate signal sent");
     }
     setStatus(REFRESHSTATUS_CANCEL);
 }
@@ -203,17 +199,17 @@ void Refresh::interpretLine(const QString &text) {
 
     //qDebug() << "Line: " << text;
     if (text.endsWith("Matching Programmes\n")) {
-        logAppend(text);
+        LOGAPPEND(text);
     }
     else if (text.startsWith("INFO: Indexing")) {
-        logAppend(text);
+        LOGAPPEND(text);
         setStatus(REFRESHSTATUS_DOWNLOADING);
         qDebug() << "Switching to period check.";
         periodCheck = true;
     }
     else if (text.startsWith("INFO: Added ")) {
         setStatus(REFRESHSTATUS_PROCESSING);
-        logAppend(text);
+        LOGAPPEND(text);
     }
     else {
         found = interpretProgramme(text);
@@ -222,7 +218,7 @@ void Refresh::interpretLine(const QString &text) {
             setProgressCount(periodCount, addingCount);
         }
         else {
-            logAppend(text);
+            LOGAPPEND(text);
         }
     }
 }
@@ -273,7 +269,7 @@ bool Refresh::interpretProgramme(const QString &text) {
 
         }
 
-        model[currentRefresh]->addProgramme(Programme(pid, name, duration, timeadded, channel, episode, web, desc));
+        temp.addProgramme(Programme(pid, name, duration, timeadded, channel, episode, web, desc));
     }
 
     return success;
@@ -281,7 +277,7 @@ bool Refresh::interpretProgramme(const QString &text) {
 
 void Refresh::started() {
     setStatus(REFRESHSTATUS_INITIALISING);
-    model[currentRefresh]->clear();
+    temp.clear();
 }
 
 void Refresh::finished(int code) {
@@ -301,32 +297,38 @@ void Refresh::overflow() {
         overflowpoll->start();
     }
     else {
-        logAppend("Download periods: " + QString::number(periodCount));
-        logAppend("Processed entries: " + QString::number(addingCount));
-        logAppend("Finished with code " + QString::number(finishedcode));
-        logToFile.closeLog();
+        LOGAPPEND("Download periods: " + QString::number(periodCount));
+        LOGAPPEND("Processed entries: " + QString::number(addingCount));
+        LOGAPPEND("Finished with code " + QString::number(finishedcode));
         if (process != NULL) {
             //delete process;
             process = NULL;
         }
+
+        // Transfer the model over
+        model[currentRefresh]->replaceAll(temp);
+        temp.clear();
+
+        // Clean up
         currentRefresh = REFRESHTYPE_INVALID;
         setStatus(REFRESHSTATUS_DONE);
         disconnect(overflowpoll, SIGNAL(timeout()), this, SLOT(overflow()));
         overflowpoll->stop();
         delete overflowpoll;
         overflowpoll = nullptr;
+
     }
 }
 
 void Refresh::readError(QProcess::ProcessError error)
 {
-    logToFile.logLine("Error: " + error);
+    LOGAPPEND("Error: " + error);
     if (process != NULL) {
         QByteArray dataOut = process->readAllStandardOutput();
         QByteArray errorOut = process->readAllStandardError();
 
-        logToFile.logLine(QString("Output text: ") + dataOut.data());
-        logToFile.logLine(QString("Error text: ") + errorOut.data());
+        LOGAPPEND(QString("Output text: ") + dataOut.data());
+        LOGAPPEND(QString("Error text: ") + errorOut.data());
     }
 }
 
@@ -356,44 +358,3 @@ void Refresh::setProgressCount(int periodCount, int addingCount) {
         }
     }
 }
-
-QString Refresh::getLogText() const
-{
-    return logText;
-}
-
-void Refresh::setLogText(const QString &value)
-{
-    logText = value;
-    emit logTextChanged(logText);
-}
-
-void Refresh::logAppend(const QString &text)
-{
-    if (!text.isEmpty()) {
-        QString append = text;
-        logToFile.logLine(append);
-        // Ensure we end with a newline
-        if (!append.endsWith('\n')) {
-            append += '\n';
-        }
-        // How many lines to add
-        int newLines = append.count('\n');
-        int currentLines = logText.count('\n');
-        int removeLines = currentLines + newLines - LOG_LINES;
-
-        // Remove excess lines from the top
-        while (removeLines > 0) {
-            int nextLine = logText.indexOf('\n');
-            if (nextLine > 0) {
-                logText = logText.mid(nextLine + 1);
-            }
-            removeLines--;
-        }
-
-        // Add new lines
-        logText.append(append);
-        emit logTextChanged(logText);
-    }
-}
-

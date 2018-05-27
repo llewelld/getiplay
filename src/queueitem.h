@@ -2,6 +2,7 @@
 #define QUEUEITEM_H
 
 #include <QObject>
+#include "queue.h"
 
 class QueueItem
 {
@@ -15,24 +16,13 @@ public:
         TYPE_NUM
     };
 
-    enum STATUS {
-        STATUS_INVALID = -1,
-
-        STATUS_ERROR,
-        STATUS_REMOTE,
-        STATUS_DOWNLOADING,
-        STATUS_LOCAL,
-
-        STATUS_NUM
-    };
-
     QueueItem();
-    QueueItem(QString progId, QString name, quint32 duration, STATUS status, TYPE type);
+    QueueItem(QString progId, QString name, quint32 duration, Queue::STATUS status, TYPE type);
 
     QString getName () const;
     quint32 getDuration() const;
     QString getProgId () const;
-    STATUS getStatus () const;
+    Queue::STATUS getStatus () const;
     float getProgress () const;
     TYPE getType () const;
     QString getTypeString () const;
@@ -40,7 +30,7 @@ public:
     void setName (const QString &value);
     void setDuration (quint32 value);
     void setProgId (QString value);
-    void setStatus (STATUS status);
+    void setStatus (Queue::STATUS status);
     void setProgress (float progress);
     void setType (TYPE type);
 
@@ -48,7 +38,7 @@ private:
     QString name;
     quint32 duration;
     QString progId;
-    STATUS status;
+    Queue::STATUS status;
     float progress;
     TYPE type;
 };

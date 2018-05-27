@@ -2,18 +2,35 @@
 #define QUEUE_H
 
 #include <QObject>
-#include "queuemodel.h"
 #include "download.h"
 #include "logfile.h"
+
+class QueueModel;
+class QueueItem;
 
 class Queue : public QObject
 {
     Q_OBJECT
+    Q_ENUMS(STATUS)
+
+public:
+    enum STATUS {
+        STATUS_INVALID = -1,
+
+        STATUS_UNQUEUED,
+        STATUS_ERROR,
+        STATUS_REMOTE,
+        STATUS_DOWNLOADING,
+        STATUS_LOCAL,
+
+        STATUS_NUM
+    };
 
 private:
     // Internal methods
     void takeAction();
-    void setActiveStatus(QueueItem::STATUS status);
+    void setActiveStatus(STATUS status);
+    STATUS downloadStatusToQueueStatus(DOWNLOADSTATUS download);
 
     // Internal attributes
     QueueModel * model;
@@ -30,8 +47,9 @@ signals:
 
 public slots:
     // General methods
-    void addToQueue(QString progid, QString name, quint32 duration, int type);
+    bool addToQueue(QString progid, QString name, quint32 duration, int type);
     int getStatusFromId(QString progid);
+    void removeFromQueue(QString progid);
 
 private slots:
     void statusChanged(int status);

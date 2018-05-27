@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import harbour.getiplay.progqueue 1.0
 
 Item {
     id: queue
@@ -39,14 +40,11 @@ Item {
             text: "Empty"
         }
 
-        delegate: BackgroundItem {
+        delegate: ListItem {
             id: delegate
             focus: false
+            menu: queueMenuComponent
 
-            // The ListView animations interfere with the menu animation when
-            // switching between radio and TV. The also cause the vertical
-            // position of the title to jump around.
-            // So sadly it's easiest to disable them.
 //            ListView.onAdd: AddAnimation {
 //                id: animadd
 //                target: delegate
@@ -62,12 +60,33 @@ Item {
                 width: parent.width - Theme.paddingLarge - Theme.paddingMedium
                 spacing: 0
 
-                ProgressCircle {
-                    id: queueProgress
+                Rectangle {
                     width: Theme.iconSizeLarge
                     height: parent.height
-                    value: progress
-                    inAlternateCycle: true;
+                    color: "transparent"
+
+                    ProgressCircle {
+                        id: queueProgress
+                        width: Theme.iconSizeLarge
+                        height: parent.height
+                        value: progress
+                        inAlternateCycle: true;
+                        visible: (qstatus == ProgQueue.STATUS_DOWNLOADING)
+                    }
+
+                    Image {
+                        id: queueIcon
+                        width: Theme.iconSizeLarge
+                        height: parent.height
+                        visible: (qstatus != ProgQueue.STATUS_DOWNLOADING)
+                        fillMode: Image.PreserveAspectFit
+                        source: [Qt.resolvedUrl("image://theme/icon-s-time"),
+                            Qt.resolvedUrl("image://theme/icon-s-high-importance"),
+                            Qt.resolvedUrl("image://theme/icon-s-time"),
+                            Qt.resolvedUrl("image://theme/icon-s-update"),
+                            Qt.resolvedUrl("image://theme/icon-s-installed")
+                        ][qstatus]
+                    }
                 }
 
                 Label {
@@ -84,6 +103,28 @@ Item {
             onClicked: {
                 console.log("Clicked " + name)
                 //pageStack.push(Qt.resolvedUrl("ProgInfoTV.qml"), { name: name, progId: progId })
+            }
+
+            Component {
+                id: queueMenuComponent
+                ContextMenu {
+                    MenuItem {
+                        text: "Remove from queue"
+                        enabled: (qstatus != ProgQueue.STATUS_DOWNLOADING)
+                        onClicked: Queue.removeFromQueue(progId)
+                    }
+                    MenuItem {
+                        text: "Delete"
+                        enabled: (qstatus == ProgQueue.STATUS_LOCAL)
+                        onClicked: remove(progId)
+                    }
+                }
+            }
+
+            function remove(progId) {
+                remorseAction("Deleting file", function() {
+                    onClicked: Queue.removeFromQueue(progId)
+                })
             }
         }
     }

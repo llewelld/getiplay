@@ -20,7 +20,7 @@
 <context>
     <name>ProgInfo</name>
     <message>
-        <location filename="../qml/pages/ProgInfo.qml" line="122"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="129"/>
         <source> Programme Info</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28,12 +28,12 @@
 <context>
     <name>ProgList</name>
     <message>
-        <location filename="../qml/pages/ProgList.qml" line="105"/>
+        <location filename="../qml/pages/ProgList.qml" line="136"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProgList.qml" line="109"/>
+        <location filename="../qml/pages/ProgList.qml" line="140"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
@@ -41,7 +41,7 @@
 <context>
     <name>Queue</name>
     <message>
-        <location filename="../qml/pages/Queue.qml" line="32"/>
+        <location filename="../qml/pages/Queue.qml" line="33"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>

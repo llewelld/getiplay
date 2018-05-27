@@ -32,7 +32,7 @@ void Download::setStatus(DOWNLOADSTATUS newStatus)
 }
 
 void Download::startDownload(QString progId, QString progType) {
-    LOGAPPEND("STARTING");
+    LOGAPPEND("\nStarting new process");
 
     this->progId = progId;
     this->progType = progType;

@@ -39,6 +39,7 @@ Item {
     property string searchString
     property bool tv: control.viewTv
     property string screenName
+    property bool refreshing: false
 
     RefreshTV {
         id: refreshTVLoad
@@ -48,6 +49,33 @@ Item {
     RefreshRadio {
         id: refreshRadioLoad
         visible: false
+    }
+
+    Connections {
+        target:Refresh
+        onStatusChanged: {
+            switch (status) {
+            case 0:
+                // Uninitialised
+                refreshing = false
+                break;
+            case 1:
+                // Initialising
+                refreshing = true
+                break;
+            case 5:
+                // Cancel
+                refreshing = false
+                break;
+            case 6:
+                // Done
+                refreshing = false
+                break;
+            default:
+                // Do nothing
+                break;
+            }
+        }
     }
 
     onSearchStringChanged: {
@@ -101,19 +129,18 @@ Item {
         }
 
         PullDownMenu {
+            id: proglistmenu
+            busy: refreshing
+
             MenuItem {
                 text: qsTr("About")
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
             }
             MenuItem {
                 text: qsTr("Refresh")
+                enabled: !refreshing
                 onClicked: {
-                    if (tv) {
-                        pageStack.push(refreshTVLoad)
-                    }
-                    else {
-                        pageStack.push(refreshRadioLoad)
-                    }
+                    Refresh.startRefresh((tv ? 1 : 0)) // 0 = radio; 1 = tv
                 }
             }
         }

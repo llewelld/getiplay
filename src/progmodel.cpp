@@ -16,6 +16,13 @@ QHash<int, QByteArray> ProgModel::roleNames() const {
     return roles;
 }
 
+void ProgModel::replaceAll(const ProgModel &model) {
+    beginResetModel();
+    programmes.clear();
+    programmes.append(model.programmes);
+    endResetModel();
+}
+
 void ProgModel::addProgramme(const Programme &programme)
 {
     //programmes.append(programme);
