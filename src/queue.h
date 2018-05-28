@@ -51,7 +51,7 @@ signals:
 
 public slots:
     // General methods
-    bool addToQueue(QString progid, QString name, quint32 duration, int type);
+    bool addToQueue(QString progid, QString name, quint32 duration, int type, QString episode, qint64 timeadded, QString channel, QString web, QString description);
     int getStatusFromId(QString progid);
     void removeFromQueue(QString progid);
     void deleteAndRemoveFromQueue(QString progid);

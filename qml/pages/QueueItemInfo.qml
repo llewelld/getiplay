@@ -4,18 +4,18 @@ import QtQuick.XmlListModel 2.0
 import harbour.getiplay.progqueue 1.0
 
 Page {
-    id: infoPage
+    id: queueInfoPage
     property string name: ""
     property string progId: ""
     property int type: 0
-    property int duration: 0
-    property int timeadded: 0
+    property int qstatus: 0
     property string statustext: ""
+    property int duration: 0
 
     property string channel: ""
     property string description: ""
     property string episode: ""
-    property string date: ""
+    property string timeadded: ""
     property string web: ""
 
     Connections {
@@ -27,60 +27,10 @@ Page {
         }
     }
 
-    Connections {
-        target:Metaget
-        onStatusChanged: {
-            console.log("Metadata status: " + status)
-            if (status == 4) {
-                metadata.xml = Metaget.metagot()
-                metadata.reload()
-            }
-        }
-    }
-
-    XmlListModel {
-        id: metadata
-        xml: ""
-        namespaceDeclarations: "declare default element namespace 'http://linuxcentre.net/xmlstuff/get_iplayer';"
-        query: "/program_meta_data"
-
-        XmlRole { name: "name"; query: "name/string()" }
-        XmlRole { name: "thumbnail"; query: "thumbnail/string()" }
-        XmlRole { name: "channel"; query: "channel/string()" }
-        XmlRole { name: "firstbcastdate"; query: "firstbcastdate/string()" }
-        XmlRole { name: "desclong"; query: "desclong/string()" }
-        XmlRole { name: "episode"; query: "episode/string()" }
-        XmlRole { name: "web"; query: "web/string()" }
-
-        onCountChanged: console.log("XML count:", count)
-
-        onStatusChanged: {
-            console.log("XML status = " + status)
-            if (status == XmlListModel.Ready) {
-                name = metadata.get(0).name
-                channel = metadata.get(0).channel
-                date = metadata.get(0).firstbcastdate
-                description = metadata.get(0).desclong
-                episode = metadata.get(0).episode
-                web = metadata.get(0).web
-                thumbnail.source = metadata.get(0).thumbnail
-                console.log("Thumbnail url: " + thumbnail.source);
-            }
-        }
-    }
-
     on_ExposedChanged: {
         if (_exposed) {
-            console.log("Exposed changed: " + _exposed)
-            status = Queue.getStatusFromId(progId)
-            updateStatus(status);
-            Metaget.startDownload(progId, type)
+            updateStatus(qstatus)
         }
-    }
-
-    onCanceled: {
-        console.log("Metadata cancelled");
-        Metaget.cancel()
     }
 
     function updateStatus(status) {
@@ -123,12 +73,12 @@ Page {
     // of the page, followed by our content.
     Column {
         id: column
-        width: infoPage.width
+        width: queueInfoPage.width
         spacing: Theme.paddingLarge
 
         PageHeader {
             id: header
-            title: (type == 0 ? "Radio" : "TV") + qsTr(" Programme Info")
+            title: qsTr("Queue Item")
         }
 
         Column {
@@ -154,7 +104,7 @@ Page {
             }
             Label {
                 x: Theme.paddingLarge
-                text: "<b>Date:</b> \t" + date
+                text: "<b>Date:</b> \t" + timeadded
             }
 
             Rectangle {
@@ -220,7 +170,7 @@ Page {
                     text: "Download"
                     width: ((parent.width - Theme.paddingLarge) / 2)
                     onClicked: {
-                        if (Queue.addToQueue(progId, name, duration, type, episode, timeadded, channel, web, description)) {
+                        if (Queue.addToQueue(progId, name, 100.0, type)) {
                             enabled = false
                             pageStack.pop()
                         }

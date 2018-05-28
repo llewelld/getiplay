@@ -1,6 +1,8 @@
-#include "queuemodel.h"
-#include "queueitem.h"
 #include <QDebug>
+
+#include "settings.h"
+#include "queueitem.h"
+#include "queuemodel.h"
 
 QueueModel::QueueModel(QObject *parent) : QAbstractListModel(parent) {
     roles[ProgIdRole] = "progId";
@@ -10,6 +12,11 @@ QueueModel::QueueModel(QObject *parent) : QAbstractListModel(parent) {
     roles[ProgressRole] = "progress";
     roles[TypeRole] = "type";
     roles[FilenameRole] = "filename";
+    roles[ChannelRole] = "channel";
+    roles[DescriptionRole] = "description";
+    roles[EpisodeRole] = "episode";
+    roles[TimeaddedRole] = "timeadded";
+    roles[WebRole] = "web";
 }
 
 QHash<int, QByteArray> QueueModel::roleNames() const {
@@ -68,6 +75,16 @@ QVariant QueueModel::data(const QModelIndex & index, int role) const {
         return programme->getType();
     else if (role == FilenameRole)
         return programme->getFilename();
+    else if (role == ChannelRole)
+        return programme->getChannel();
+    else if (role == DescriptionRole)
+        return programme->getDescription();
+    else if (role == EpisodeRole)
+        return programme->getEpisode();
+    else if (role == TimeaddedRole)
+        return programme->getTimeadded();
+    else if (role == WebRole)
+        return programme->getWeb();
 
     return QVariant();
 }
@@ -86,6 +103,12 @@ void QueueModel::exportToFile(QFile & file) {
             out << (*progIter)->getStatus() << endl;
             out << (*progIter)->getType() << endl;
             out << (*progIter)->getFilename() << endl;
+            out << (*progIter)->getEpisode() << endl;
+            out << (*progIter)->getTimeadded() << endl;
+            out << (*progIter)->getChannel() << endl;
+            out << (*progIter)->getWeb() << endl;
+            QString value = (*progIter)->getDescription();
+            out << Settings::escape(value) << endl;
         }
         file.close();
     }
@@ -101,6 +124,12 @@ void QueueModel::importFromFile(QFile & file) {
             Queue::STATUS status;
             QueueItem::TYPE type;
             QString filename;
+            QString episode;
+            qint64 timeadded;
+            QString channel;
+            QString web;
+            QString description;
+
             title = in.readLine();
             progId = in.readLine();
             length = in.readLine().toFloat();
@@ -110,8 +139,15 @@ void QueueModel::importFromFile(QFile & file) {
             }
             type = static_cast<QueueItem::TYPE>(in.readLine().toInt());
             filename = in.readLine();
+            episode = in.readLine();
+            timeadded = in.readLine().toULongLong();
+            channel = in.readLine();
+            web = in.readLine();
+            QString value = in.readLine();
+            description = Settings::unescape(value);
+
             if (progId != nullptr) {
-                addProgramme(new QueueItem(progId, title, length, status, type, filename));
+                addProgramme(new QueueItem(progId, title, length, status, type, filename, episode, timeadded, channel, web, description));
             }
         }
         file.close();

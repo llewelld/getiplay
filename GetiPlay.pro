@@ -102,4 +102,5 @@ DISTFILES += \
     qml/pages/MainPage.qml \
     qml/pages/Queue.qml \
     qml/pages/Log.qml \
-    qml/pages/ProgInfo.qml
+    qml/pages/ProgInfo.qml \
+    qml/pages/QueueItemInfo.qml

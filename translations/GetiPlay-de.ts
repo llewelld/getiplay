@@ -40,4 +40,11 @@
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>QueueItemInfo</name>
+    <message>
+        <source>Queue Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

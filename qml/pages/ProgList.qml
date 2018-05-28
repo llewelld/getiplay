@@ -170,7 +170,7 @@ Item {
             }
             onClicked: {
                 console.log("Clicked " + name)
-                pageStack.push(Qt.resolvedUrl("ProgInfo.qml"), { name: name, progId: progId, type: (tv ? 1 : 0), channel: channel, episode: episode, description: description, web: web, date: Metaget.epochToDate(timeadded) })
+                pageStack.push(Qt.resolvedUrl("ProgInfo.qml"), { name: name, progId: progId, duration: duration, type: (tv ? 1 : 0), episode: episode, timeadded: timeadded, channel: channel, web: web, description: description, date: Metaget.epochToDate(timeadded) })
             }
         }
     }

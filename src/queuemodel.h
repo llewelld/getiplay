@@ -19,7 +19,12 @@ public:
         StatusRole,
         ProgressRole,
         TypeRole,
-        FilenameRole
+        FilenameRole,
+        ChannelRole,
+        DescriptionRole,
+        EpisodeRole,
+        TimeaddedRole,
+        WebRole
     };
 
     QHash<int, QByteArray> roleNames() const;

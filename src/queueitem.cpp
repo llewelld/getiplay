@@ -11,18 +11,28 @@ QueueItem::QueueItem() :
     status(Queue::STATUS_REMOTE),
     progress(0.0f),
     type(QueueItem::TYPE_INVALID),
-    filename("")
+    filename(""),
+    episode(""),
+    timeadded(0u),
+    channel(""),
+    web(""),
+    description("")
 {
 }
 
-QueueItem::QueueItem(QString progId, QString name, quint32 duration, Queue::STATUS status, QueueItem::TYPE type, QString filename) :
+QueueItem::QueueItem(QString progId, QString name, quint32 duration, Queue::STATUS status, QueueItem::TYPE type, QString filename, QString episode, qint64 timeadded, QString channel, QString web, QString description) :
     name(name),
     duration(duration),
     progId(progId),
     status(status),
     progress(0.0f),
     type(type),
-    filename(filename)
+    filename(filename),
+    episode(episode),
+    timeadded(timeadded),
+    channel(channel),
+    web(web),
+    description(description)
 {
 }
 
@@ -72,16 +82,39 @@ QString QueueItem::getTypeString () const {
     return typestring;
 }
 
+QString QueueItem::getFilename () const {
+    return filename;
+}
+
+QString QueueItem::getEpisode () const {
+    return episode;
+}
+
+qint64 QueueItem::getTimeadded() const {
+    return timeadded;
+}
+
+QString QueueItem::getChannel() const {
+    return channel;
+}
+
+QString QueueItem::getWeb() const {
+    return web;
+}
+
+QString QueueItem::getDescription() const {
+    return description;;
+}
+
 void QueueItem::setName (const QString &value) {
     name = value;
 }
-
 
 void QueueItem::setDuration (quint32 value) {
     duration = value;
 }
 
-void QueueItem::setProgId (QString value) {
+void QueueItem::setProgId (QString &value) {
     progId = value;
 }
 
@@ -97,12 +130,28 @@ void QueueItem::setType (TYPE value) {
     type = value;
 }
 
-QString QueueItem::getFilename () const {
-    return filename;
+void QueueItem::setFilename (QString &value) {
+    filename = value;
 }
 
-void QueueItem::setFilename (QString value) {
-    filename = value;
+void QueueItem::setEpisode (QString &value) {
+    episode = value;
+}
+
+void QueueItem::setTimeadded (qint64 value) {
+    timeadded = value;
+}
+
+void QueueItem::setChannel (QString &value) {
+    channel = value;
+}
+
+void QueueItem::setWeb (QString &value) {
+    web = value;
+}
+
+void QueueItem::setDescription (QString &value) {
+    description = value;
 }
 
 bool QueueItem::fileExists() {

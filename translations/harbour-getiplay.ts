@@ -20,7 +20,7 @@
 <context>
     <name>ProgInfo</name>
     <message>
-        <location filename="../qml/pages/ProgInfo.qml" line="129"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="131"/>
         <source> Programme Info</source>
         <translation type="unfinished"></translation>
     </message>
@@ -43,6 +43,14 @@
     <message>
         <location filename="../qml/pages/Queue.qml" line="33"/>
         <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QueueItemInfo</name>
+    <message>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="81"/>
+        <source>Queue Item</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
