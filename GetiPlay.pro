@@ -51,8 +51,6 @@ OTHER_FILES += qml/GetiPlay.qml \
     qml/pages/ProgList.qml \
     qml/pages/AboutPage.qml \
     qml/images/getiplay-title.png \
-    qml/pages/RefreshTV.qml \
-    qml/pages/RefreshRadio.qml \
     bin/ffmpeg \
     bin/AtomicParsley \
     bin/get_iplayer \

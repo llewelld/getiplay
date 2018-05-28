@@ -41,16 +41,6 @@ Item {
     property string screenName
     property bool refreshing: false
 
-    RefreshTV {
-        id: refreshTVLoad
-        visible: false
-    }
-
-    RefreshRadio {
-        id: refreshRadioLoad
-        visible: false
-    }
-
     Connections {
         target:Refresh
         onStatusChanged: {
