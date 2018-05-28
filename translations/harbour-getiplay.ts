@@ -28,12 +28,12 @@
 <context>
     <name>ProgList</name>
     <message>
-        <location filename="../qml/pages/ProgList.qml" line="136"/>
+        <location filename="../qml/pages/ProgList.qml" line="135"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProgList.qml" line="140"/>
+        <location filename="../qml/pages/ProgList.qml" line="139"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>

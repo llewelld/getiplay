@@ -79,8 +79,7 @@ Item {
     }
 
     onSearchStringChanged: {
-        programmestv.setFilterFixedString(searchString)
-        programmesradio.setFilterFixedString(searchString)
+        (tv ? programmestv : programmesradio).setFilterFixedString(searchString)
     }
 
     SilicaListView {
