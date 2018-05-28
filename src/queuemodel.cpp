@@ -169,3 +169,35 @@ void QueueModel::pruneQueue() {
         }
     }
 }
+
+bool QueueModel::removePath(const QString &path) {
+    QList<QueueItem* >::iterator iter = programmes.begin();
+    bool found = false;
+    int index;
+
+    index = 0;
+    while (iter != programmes.end()) {
+        if (((*iter)->getStatus() == Queue::STATUS_LOCAL) && (path.compare((*iter)->getFilename()) == 0) && ((*iter)->fileExists() == false)) {
+            found = true;
+            beginRemoveRows(QModelIndex(), index, index);
+            programmes.erase(iter);
+            endRemoveRows();
+        }
+        else {
+            iter++;
+            index++;
+        }
+    }
+
+    return found;
+}
+
+void QueueModel::monitorPaths(QFileSystemWatcher &filewatcher) {
+    foreach (QueueItem *programme, programmes) {
+        QString filename = programme->getFilename();
+        if (filename != "") {
+            filewatcher.addPath(filename);
+        }
+    }
+}
+

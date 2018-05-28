@@ -2,6 +2,7 @@
 #define QUEUE_H
 
 #include <QObject>
+#include <QFileSystemWatcher>
 #include "download.h"
 #include "logfile.h"
 
@@ -31,12 +32,15 @@ private:
     void takeAction();
     void setActiveStatus(STATUS status);
     STATUS downloadStatusToQueueStatus(DOWNLOADSTATUS download);
+    void addFileWatch(QString filename);
+    void removeFileWatch(QString filename);
 
     // Internal attributes
     QueueModel * model;
     QString downloadingId;
     Download * download;
     QueueItem * active;
+    QFileSystemWatcher filewatcher;
 
 public:
     explicit Queue(QObject *parent = 0, Download *download = 0);
@@ -55,6 +59,7 @@ public slots:
 private slots:
     void statusChanged(int status);
     void progressChanged(float progress);
+    void fileChanged(const QString &path);
 };
 
 #endif // QUEUE_H

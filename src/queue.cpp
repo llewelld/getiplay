@@ -10,14 +10,23 @@ Queue::Queue(QObject *parent, Download *download) :
     model(nullptr),
     downloadingId(""),
     download(download),
-    active(nullptr)
+    active(nullptr),
+    filewatcher(this)
 {
     connect(download, SIGNAL(statusChanged(int)), this, SLOT(statusChanged(int)));
     connect(download, SIGNAL(progressChanged(float)), this, SLOT(progressChanged(float)));
+    connect(&filewatcher, SIGNAL(fileChanged(QString)), this, SLOT(fileChanged(QString)));
 }
 
 void Queue::setModel(QueueModel * model) {
+    // Clear out all files currently being watched
+    filewatcher.removePaths(filewatcher.files());
+
     this->model = model;
+
+    // Add in the new file paths
+    model->monitorPaths(filewatcher);
+
     takeAction();
 }
 
@@ -43,6 +52,9 @@ bool Queue::addToQueue(QString progid, QString name, quint32 duration, int type)
 
 void Queue::removeFromQueue(QString progid) {
     qDebug() << "Remove " << progid << " from queue";
+    QueueItem * item = model->findFromId(progid);
+    removeFileWatch(item->getFilename());
+
     model->removeFirstWithProgId(progid);
 }
 
@@ -50,6 +62,8 @@ void Queue::deleteAndRemoveFromQueue(QString progid) {
     qDebug() << "Delete " << progid;
 
     QueueItem * item = model->findFromId(progid);
+    removeFileWatch(item->getFilename());
+
     item->deleteFile();
     model->removeFirstWithProgId(progid);
 }
@@ -121,6 +135,7 @@ void Queue::statusChanged(int status) {
             active->setDuration(duration);
             QString filename = download->getFilename();
             active->setFilename(filename);
+            addFileWatch(filename);
         }
 
         // We're done with this download; move on to the next
@@ -163,3 +178,22 @@ void Queue::setActiveStatus(Queue::STATUS status) {
     }
 }
 
+void Queue::addFileWatch(QString filename) {
+    if (filename != "") {
+        filewatcher.addPath(filename);
+    }
+}
+
+void Queue::removeFileWatch(QString filename) {
+    if (filename != "") {
+        filewatcher.removePath(filename);
+    }
+}
+
+void Queue::fileChanged(const QString &path) {
+    // Search for the filename
+    bool found = model->removePath(path);
+    if (found == true) {
+        removeFileWatch(path);
+    }
+}
