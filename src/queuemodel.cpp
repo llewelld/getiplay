@@ -9,6 +9,7 @@ QueueModel::QueueModel(QObject *parent) : QAbstractListModel(parent) {
     roles[StatusRole] = "qstatus";
     roles[ProgressRole] = "progress";
     roles[TypeRole] = "type";
+    roles[FilenameRole] = "filename";
 }
 
 QHash<int, QByteArray> QueueModel::roleNames() const {
@@ -65,6 +66,9 @@ QVariant QueueModel::data(const QModelIndex & index, int role) const {
         return programme->getProgress();
     else if (role == TypeRole)
         return programme->getType();
+    else if (role == FilenameRole)
+        return programme->getFilename();
+
     return QVariant();
 }
 
@@ -81,6 +85,7 @@ void QueueModel::exportToFile(QFile & file) {
             out << (*progIter)->getDuration() << endl;
             out << (*progIter)->getStatus() << endl;
             out << (*progIter)->getType() << endl;
+            out << (*progIter)->getFilename() << endl;
         }
         file.close();
     }
@@ -95,6 +100,7 @@ void QueueModel::importFromFile(QFile & file) {
             float length;
             Queue::STATUS status;
             QueueItem::TYPE type;
+            QString filename;
             title = in.readLine();
             progId = in.readLine();
             length = in.readLine().toFloat();
@@ -103,8 +109,9 @@ void QueueModel::importFromFile(QFile & file) {
                 status = Queue::STATUS_REMOTE;
             }
             type = static_cast<QueueItem::TYPE>(in.readLine().toInt());
+            filename = in.readLine();
             if (progId != nullptr) {
-                addProgramme(new QueueItem(progId, title, length, status, type));
+                addProgramme(new QueueItem(progId, title, length, status, type, filename));
             }
         }
         file.close();
@@ -148,4 +155,17 @@ void QueueModel::refreshItem(int index) {
 void QueueModel::refreshItem(QueueItem * programme) {
     int index = programmes.indexOf(programme);
     refreshItem(index);
+}
+
+void QueueModel::pruneQueue() {
+    QList<QueueItem* >::iterator iter = programmes.begin();
+
+    while (iter != programmes.end()) {
+        if (((*iter)->getStatus() == Queue::STATUS_LOCAL) && ((*iter)->fileExists() == false)) {
+            programmes.erase(iter);
+        }
+        else {
+            iter++;
+        }
+    }
 }

@@ -1,5 +1,8 @@
-#include "queueitem.h"
 #include <QDebug>
+#include <QFileInfo>
+
+#include "settings.h"
+#include "queueitem.h"
 
 QueueItem::QueueItem() :
     name(""),
@@ -7,17 +10,19 @@ QueueItem::QueueItem() :
     progId(""),
     status(Queue::STATUS_REMOTE),
     progress(0.0f),
-    type(QueueItem::TYPE_INVALID)
+    type(QueueItem::TYPE_INVALID),
+    filename("")
 {
 }
 
-QueueItem::QueueItem(QString progId, QString name, quint32 duration, Queue::STATUS status, QueueItem::TYPE type) :
+QueueItem::QueueItem(QString progId, QString name, quint32 duration, Queue::STATUS status, QueueItem::TYPE type, QString filename) :
     name(name),
     duration(duration),
     progId(progId),
     status(status),
     progress(0.0f),
-    type(type)
+    type(type),
+    filename(filename)
 {
 }
 
@@ -90,4 +95,52 @@ void QueueItem::setProgress (float value) {
 
 void QueueItem::setType (TYPE value) {
     type = value;
+}
+
+QString QueueItem::getFilename () const {
+    return filename;
+}
+
+void QueueItem::setFilename (QString value) {
+    filename = value;
+}
+
+bool QueueItem::fileExists() {
+    bool exists = false;
+
+    qDebug() << "Checking file existence for: " << name;
+    qDebug() << "Filename: " << filename;
+    if (filename != "") {
+        exists = QFile(filename).exists();
+        qDebug() << "File check returned: " << exists;
+    }
+
+    return exists;
+}
+
+bool QueueItem::deleteFile() {
+    bool deleted = false;
+    if (filename != "") {
+        QFile file(filename);
+        QFileInfo fileinfo(file);
+        QString storepath;
+
+        // Check that the folder is correct
+        if (type == QueueItem::TYPE_RADIO) {
+            storepath = Settings::getMusicDir();
+        }
+        else {
+            storepath = Settings::getVideoDir();
+        }
+        QFileInfo store = QFileInfo(storepath);
+        if (fileinfo.canonicalPath().compare(store.canonicalFilePath()) == 0) {
+            // The folder is in the correct place
+            // There's a TOCTTOU security vulnerability here
+            // Someone could swith files after the check and before the remove
+            file.remove();
+            deleted = true;
+        }
+    }
+
+    return deleted;
 }

@@ -17,7 +17,7 @@ public:
     };
 
     QueueItem();
-    QueueItem(QString progId, QString name, quint32 duration, Queue::STATUS status, TYPE type);
+    QueueItem(QString progId, QString name, quint32 duration, Queue::STATUS status, TYPE type, QString filename);
 
     QString getName () const;
     quint32 getDuration() const;
@@ -26,6 +26,7 @@ public:
     float getProgress () const;
     TYPE getType () const;
     QString getTypeString () const;
+    QString getFilename () const;
 
     void setName (const QString &value);
     void setDuration (quint32 value);
@@ -33,6 +34,10 @@ public:
     void setStatus (Queue::STATUS status);
     void setProgress (float progress);
     void setType (TYPE type);
+    void setFilename (QString value);
+
+    bool fileExists();
+    bool deleteFile();
 
 private:
     QString name;
@@ -41,6 +46,7 @@ private:
     Queue::STATUS status;
     float progress;
     TYPE type;
+    QString filename;
 };
 
 

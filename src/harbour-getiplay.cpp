@@ -85,6 +85,7 @@ int main(int argc, char *argv[])
     modeltv.importFromFile(file);
     file.setFileName(Settings::getConfigDir() + "/queue.txt");
     modelqueue.importFromFile(file);
+    modelqueue.pruneQueue();
 
     /*
     QFile file("/opt/sdk/GetiPlay/usr/share/GetiPlay/output01.txt");

@@ -50,6 +50,7 @@ public slots:
     bool addToQueue(QString progid, QString name, quint32 duration, int type);
     int getStatusFromId(QString progid);
     void removeFromQueue(QString progid);
+    void deleteAndRemoveFromQueue(QString progid);
 
 private slots:
     void statusChanged(int status);

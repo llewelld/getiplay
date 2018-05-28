@@ -35,6 +35,7 @@ private:
     QString progId;
     QString progType;
     quint32 duration;
+    QString filename;
     float progress;
     Log * log;
 
@@ -55,6 +56,8 @@ public:
     void initialise();
     float getProgress() const;
     DOWNLOADSTATUS getStatus();
+    QString const getFilename() const;
+    quint32 getDuration() const;
 
 signals:
     // General signals

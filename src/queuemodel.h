@@ -18,7 +18,8 @@ public:
         DurationRole,
         StatusRole,
         ProgressRole,
-        TypeRole
+        TypeRole,
+        FilenameRole
     };
 
     QHash<int, QByteArray> roleNames() const;
@@ -40,6 +41,7 @@ public:
 
     void exportToFile(QFile & file);
     void importFromFile(QFile & file);
+    void pruneQueue();
 
 signals:
     // General signals

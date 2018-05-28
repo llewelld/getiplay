@@ -32,7 +32,7 @@ bool Queue::addToQueue(QString progid, QString name, quint32 duration, int type)
     found = model->findFromId(progid);
 
     if (found == nullptr) {
-        model->addProgramme(new QueueItem(progid, name, duration, Queue::STATUS_REMOTE, static_cast<QueueItem::TYPE>(type)));
+        model->addProgramme(new QueueItem(progid, name, duration, Queue::STATUS_REMOTE, static_cast<QueueItem::TYPE>(type), ""));
         emit statusChanged(progid, Queue::STATUS_REMOTE);
         takeAction();
         added = true;
@@ -43,6 +43,14 @@ bool Queue::addToQueue(QString progid, QString name, quint32 duration, int type)
 
 void Queue::removeFromQueue(QString progid) {
     qDebug() << "Remove " << progid << " from queue";
+    model->removeFirstWithProgId(progid);
+}
+
+void Queue::deleteAndRemoveFromQueue(QString progid) {
+    qDebug() << "Delete " << progid;
+
+    QueueItem * item = model->findFromId(progid);
+    item->deleteFile();
     model->removeFirstWithProgId(progid);
 }
 
@@ -100,20 +108,24 @@ Queue::STATUS Queue::downloadStatusToQueueStatus(DOWNLOADSTATUS download) {
 
 
 void Queue::statusChanged(int status) {
+    Queue::STATUS queuestatus;
+
     qDebug() << "Queue download status changed to: " << status;
+    queuestatus = downloadStatusToQueueStatus(static_cast<DOWNLOADSTATUS>(status));
+    setActiveStatus(queuestatus);
+
     if (status >= DOWNLOADSTATUS_CANCEL) {
-        if (active != nullptr) {
-            setActiveStatus(Queue::STATUS_LOCAL);
-            model->refreshItem(active);
-            active = nullptr;
+        if ((active != nullptr) && (status == DOWNLOADSTATUS_DONE)) {
+            // Extract the resulting info
+            quint32 duration = download->getDuration();
+            active->setDuration(duration);
+            QString filename = download->getFilename();
+            active->setFilename(filename);
         }
+
+        // We're done with this download; move on to the next
+        active = nullptr;
         takeAction();
-    }
-    else {
-        if (downloadingId != "") {
-            Queue::STATUS queuestatus = downloadStatusToQueueStatus(static_cast<DOWNLOADSTATUS>(status));
-            emit statusChanged(downloadingId, queuestatus);
-        }
     }
 }
 
@@ -143,6 +155,7 @@ void Queue::setActiveStatus(Queue::STATUS status) {
     if (active != nullptr) {
         if (status != active->getStatus()) {
             active->setStatus(status);
+            model->refreshItem(active);
             if (downloadingId != "") {
                 emit statusChanged(downloadingId, status);
             }

@@ -11,6 +11,7 @@ Download::Download(QObject *parent, Log *log) :
     status(DOWNLOADSTATUS_INVALID),
     progId(""),
     duration(0.0),
+    filename(""),
     progress(0.0),
     log(log)
 {
@@ -59,6 +60,7 @@ void Download::startDownload(QString progId, QString progType) {
         setStatus(DOWNLOADSTATUS_INITIALISING);
         setProgress(-1.0);
         duration = 0.0;
+        filename = "";
         arguments.clear();
     }
 }
@@ -223,6 +225,18 @@ void Download::interpretLine(const QString &text) {
                     duration = (hours * 60 * 60) + (mins * 60) + secs;
                     qDebug() << "Duration: " << duration << "s (" << hours << ":" << mins << ":" << secs << ")";
                 }
+                else {
+                    LOGAPPEND(text);
+                    QRegExp findFile("^Output #\\d+, .*, to '(.*)':$");
+                    foundPos = findFile.indexIn(text);
+                    if (foundPos > -1) {
+                        filename = findFile.cap(1);
+                        // Occassionally the filename of the partial file is returned
+                        // so we remove any instances of ".partial" in the filename.
+                        filename.replace(".partial.", ".");
+                        qDebug() << "Filename: " << filename;
+                    }
+                }
             }
         }
     }
@@ -240,9 +254,15 @@ void Download::finished(int code) {
         process = NULL;
     }
 
-    // anything but a zero exit status is an error
+    // Anything but a zero exit status is an error
     if (!code) {
-        setStatus(DOWNLOADSTATUS_DONE);
+        if (filename == "") {
+            // If we didn't get a filename, treat it as an error
+            setStatus(DOWNLOADSTATUS_ERROR);
+        }
+        else {
+            setStatus(DOWNLOADSTATUS_DONE);
+        }
     } else {
         setStatus(DOWNLOADSTATUS_ERROR);
     }
@@ -273,3 +293,10 @@ DOWNLOADSTATUS Download::getStatus() {
     return status;
 }
 
+QString const Download::getFilename() const {
+    return filename;
+}
+
+quint32 Download::getDuration() const {
+    return duration;
+}
