@@ -168,6 +168,7 @@ bool QueueItem::fileExists() {
 }
 
 bool QueueItem::deleteFile() {
+    qDebug() << "Deleting file " << filename;
     bool deleted = false;
     if (filename != "") {
         QFile file(filename);
@@ -181,8 +182,10 @@ bool QueueItem::deleteFile() {
         else {
             storepath = Settings::getVideoDir();
         }
+        qDebug() << "Compare aginst path " << storepath;
         QFileInfo store = QFileInfo(storepath);
         if (fileinfo.canonicalPath().compare(store.canonicalFilePath()) == 0) {
+            qDebug() << "Performing the deletion";
             // The folder is in the correct place
             // There's a TOCTTOU security vulnerability here
             // Someone could swith files after the check and before the remove

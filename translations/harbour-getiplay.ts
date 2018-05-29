@@ -49,7 +49,7 @@
 <context>
     <name>QueueItemInfo</name>
     <message>
-        <location filename="../qml/pages/QueueItemInfo.qml" line="77"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="87"/>
         <source>Queue Item</source>
         <translation type="unfinished"></translation>
     </message>

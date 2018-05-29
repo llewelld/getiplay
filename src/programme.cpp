@@ -5,9 +5,9 @@ Programme::Programme() :
     name(""),
     duration(0u),
     progId(""),
+    episode(""),
     timeadded(0u),
     channel(""),
-    episode(""),
     web(""),
     description("")
 {
@@ -17,9 +17,9 @@ Programme::Programme(QString progId, QString name, qint32 duration, qint64 timea
     name(name),
     duration(duration),
     progId(progId),
+    episode(episode),
     timeadded(timeadded),
     channel(channel),
-    episode(episode),
     web(web),
     description(description)
 {

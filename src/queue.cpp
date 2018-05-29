@@ -88,8 +88,8 @@ void Queue::takeAction() {
         if (active != nullptr) {
             qDebug() << "Found remote programme in queue. Downloading.";
             // Start downloading the next item in the queue
-            setActiveStatus(Queue::STATUS_DOWNLOADING);
             downloadingId = active->getProgId();
+            setActiveStatus(Queue::STATUS_DOWNLOADING);
             download->startDownload(downloadingId, active->getTypeString().toLocal8Bit());
         }
     }
@@ -126,18 +126,20 @@ void Queue::statusChanged(int status) {
 
     qDebug() << "Queue download status changed to: " << status;
     queuestatus = downloadStatusToQueueStatus(static_cast<DOWNLOADSTATUS>(status));
+
+    // We must update the details before setting the new status
+    if ((status == DOWNLOADSTATUS_DONE) && (active != nullptr)){
+        // Extract the resulting info
+        quint32 duration = download->getDuration();
+        active->setDuration(duration);
+        QString filename = download->getFilename();
+        active->setFilename(filename);
+        addFileWatch(filename);
+    }
+
     setActiveStatus(queuestatus);
 
     if (status >= DOWNLOADSTATUS_CANCEL) {
-        if ((active != nullptr) && (status == DOWNLOADSTATUS_DONE)) {
-            // Extract the resulting info
-            quint32 duration = download->getDuration();
-            active->setDuration(duration);
-            QString filename = download->getFilename();
-            active->setFilename(filename);
-            addFileWatch(filename);
-        }
-
         // We're done with this download; move on to the next
         active = nullptr;
         takeAction();
@@ -192,8 +194,22 @@ void Queue::removeFileWatch(QString filename) {
 
 void Queue::fileChanged(const QString &path) {
     // Search for the filename
-    bool found = model->removePath(path);
-    if (found == true) {
+    QString found = model->removePath(path);
+    if (found != "") {
+        emit statusChanged(found, Queue::STATUS_DELETED);
         removeFileWatch(path);
     }
 }
+
+QVariant Queue::getDetails(QString progid) {
+    QVariantMap details;
+
+    QueueItem const * item = model->findFromId(progid);
+
+    if (item != nullptr) {
+        details.insert("filename", item->getFilename());
+    }
+
+    return details;
+}
+

@@ -206,15 +206,15 @@ void QueueModel::pruneQueue() {
     }
 }
 
-bool QueueModel::removePath(const QString &path) {
+QString QueueModel::removePath(const QString &path) {
     QList<QueueItem* >::iterator iter = programmes.begin();
-    bool found = false;
+    QString found = "";
     int index;
 
     index = 0;
     while (iter != programmes.end()) {
         if (((*iter)->getStatus() == Queue::STATUS_LOCAL) && (path.compare((*iter)->getFilename()) == 0) && ((*iter)->fileExists() == false)) {
-            found = true;
+            found = (*iter)->getProgId();
             beginRemoveRows(QModelIndex(), index, index);
             programmes.erase(iter);
             endRemoveRows();

@@ -34,7 +34,6 @@ private:
     QString progId;
     QString episode;
     qint64 timeadded;
-
     QString channel;
     QString web;
     QString description;

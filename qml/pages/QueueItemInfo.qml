@@ -55,6 +55,16 @@ Page {
         case ProgQueue.STATUS_LOCAL:
             // Local
             statustext = "Downloaded"
+            var item = Queue.getDetails(progId)
+            filename = item["filename"]
+            break;
+        case ProgQueue.STATUS_DELETED:
+            // Deleted
+            statustext = "File deleted"
+            break;
+        case ProgQueue.STATUS_DELETED:
+            // Deleted
+            statustext = "File deleted"
             break;
         default:
             console.log("Status Error: " + status)

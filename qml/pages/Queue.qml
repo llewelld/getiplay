@@ -84,7 +84,8 @@ Item {
                             Qt.resolvedUrl("image://theme/icon-s-high-importance"),
                             Qt.resolvedUrl("image://theme/icon-s-time"),
                             Qt.resolvedUrl("image://theme/icon-s-update"),
-                            Qt.resolvedUrl("image://theme/icon-s-installed")
+                            Qt.resolvedUrl("image://theme/icon-s-installed"),
+                            Qt.resolvedUrl("image://theme/icon-s-high-importance")
                         ][qstatus]
                     }
                 }
@@ -123,7 +124,7 @@ Item {
 
             function remove(progId) {
                 remorseAction("Deleting file", function() {
-                    onClicked: Queue.removeFromQueue(progId)
+                    onClicked: Queue.deleteAndRemoveFromQueue(progId)
                 })
             }
         }

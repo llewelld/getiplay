@@ -23,6 +23,7 @@ public:
         STATUS_REMOTE,
         STATUS_DOWNLOADING,
         STATUS_LOCAL,
+        STATUS_DELETED,
 
         STATUS_NUM
     };
@@ -55,6 +56,7 @@ public slots:
     int getStatusFromId(QString progid);
     void removeFromQueue(QString progid);
     void deleteAndRemoveFromQueue(QString progid);
+    QVariant getDetails(QString progid);
 
 private slots:
     void statusChanged(int status);

@@ -47,7 +47,7 @@ public:
     void exportToFile(QFile & file);
     void importFromFile(QFile & file);
     void pruneQueue();
-    bool removePath(const QString &path);
+    QString removePath(const QString &path);
     void monitorPaths(QFileSystemWatcher &filewatcher);
 
 signals:
