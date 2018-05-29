@@ -103,6 +103,7 @@ void Refresh::collectArguments () {
     addArgument("refresh");
     addArgument("force");
     addArgument("nocopyright");
+    addArgument("refresh-include-groups", "national");
     addArgument("atomicparsley", DIR_BIN "/AtomicParsley");
     addArgument("ffmpeg", DIR_BIN "/ffmpeg");
     addArgument("ffmpeg-loglevel", "info");

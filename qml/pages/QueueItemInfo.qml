@@ -17,6 +17,7 @@ Page {
     property string episode: ""
     property string timeadded: ""
     property string web: ""
+    property string filename: ""
 
     Connections {
         target:Queue
@@ -117,12 +118,12 @@ Page {
 
                 Image {
                     id: thumbnail
-                    source: ""
+                    source: ((type == 0) ? Qt.resolvedUrl("image://theme/icon-m-music") : Qt.resolvedUrl("image://theme/icon-m-video"))
                     width: 832
                     height: 468
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    fillMode: Image.PreserveAspectFit
+                    fillMode: ((type == 0) ? Image.Pad : Image.Pad)
                     NumberAnimation on opacity { id: fadein; from: 0; to: 1; duration: 1000 }
                     onStatusChanged: {
                         if (status == Image.Ready) {
