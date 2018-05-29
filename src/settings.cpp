@@ -33,3 +33,18 @@ QString Settings::getProfileDir() {
     return getConfigDir() + DIR_GETIPLAYERCONFIG;
 }
 
+QString Settings::getTempDir() {
+    return QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+}
+
+QString & Settings::escape(QString &string) {
+    string.replace("\n", "|");
+
+    return string;
+}
+
+QString & Settings::unescape(QString &string) {
+    string.replace("|", "\n");
+
+    return string;
+}

@@ -33,10 +33,16 @@ SOURCES += src/control.cpp \
     src/programme.cpp \
     src/refresh.cpp \
     src/harbour-getiplay.cpp \
-    src/settings.cpp
+    src/settings.cpp \
+    src/queue.cpp \
+    src/queueitem.cpp \
+    src/queuemodel.cpp \
+    src/log.cpp \
+    src/metaget.cpp
 
 OTHER_FILES += qml/GetiPlay.qml \
     qml/cover/CoverPage.qml \
+    qml/components/TabPageHeader.qml \
     rpm/harbour-getiplay.changes \
     rpm/harbour-getiplay.spec \
     rpm/harbour-getiplay.yaml \
@@ -45,10 +51,6 @@ OTHER_FILES += qml/GetiPlay.qml \
     qml/pages/ProgList.qml \
     qml/pages/AboutPage.qml \
     qml/images/getiplay-title.png \
-    qml/pages/ProgInfoTV.qml \
-    qml/pages/ProgInfoRadio.qml \
-    qml/pages/RefreshTV.qml \
-    qml/pages/RefreshRadio.qml \
     bin/ffmpeg \
     bin/AtomicParsley \
     bin/get_iplayer \
@@ -74,7 +76,12 @@ HEADERS += \
     src/programme.h \
     src/refresh.h \
     src/harbour-getiplay.h \
-    src/settings.h
+    src/settings.h \
+    src/queue.h \
+    src/queueitem.h \
+    src/queuemodel.h \
+    src/log.h \
+    src/metaget.h
 
 bin.files = bin
 bin.path = /usr/share/$${TARGET}
@@ -91,4 +98,9 @@ DISTFILES += \
     icons/128x128/harbour-getiplay.png \
     icons/256x256/harbour-getiplay.png \
     icons/86x86/harbour-getiplay.png \
-    rpm/GetiPlay.changes
+    rpm/GetiPlay.changes \
+    qml/pages/MainPage.qml \
+    qml/pages/Queue.qml \
+    qml/pages/Log.qml \
+    qml/pages/ProgInfo.qml \
+    qml/pages/QueueItemInfo.qml

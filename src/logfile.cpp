@@ -23,7 +23,7 @@ void logfile::openLog() {
     QDir dir;
     dir.mkpath(Settings::getLogDir());
 
-    if (file.open(QIODevice::WriteOnly)) {
+    if (file.open(QIODevice::Append)) {
         fileOpen = true;
     }
     else {

@@ -10,49 +10,47 @@
     </message>
 </context>
 <context>
-    <name>ProgInfoRadio</name>
+    <name>Log</name>
     <message>
-        <location filename="../qml/pages/ProgInfoRadio.qml" line="73"/>
-        <source>Radio Programme Info</source>
+        <location filename="../qml/pages/Log.qml" line="18"/>
+        <source>Log</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>ProgInfoTV</name>
+    <name>ProgInfo</name>
     <message>
-        <location filename="../qml/pages/ProgInfoTV.qml" line="73"/>
-        <source>TV Programme Info</source>
+        <location filename="../qml/pages/ProgInfo.qml" line="131"/>
+        <source> Programme Info</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ProgList</name>
     <message>
-        <location filename="../qml/pages/ProgList.qml" line="100"/>
+        <location filename="../qml/pages/ProgList.qml" line="125"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProgList.qml" line="104"/>
+        <location filename="../qml/pages/ProgList.qml" line="129"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/ProgList.qml" line="116"/>
-        <source>Switch to Radio</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/ProgList.qml" line="116"/>
-        <source>Switch to TV</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>RefreshRadio</name>
+    <name>Queue</name>
     <message>
-        <location filename="../qml/pages/RefreshRadio.qml" line="66"/>
-        <source>Refresh Radio Programmes</source>
+        <location filename="../qml/pages/Queue.qml" line="33"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QueueItemInfo</name>
+    <message>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="77"/>
+        <source>Queue Item</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

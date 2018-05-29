@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QProcess>
-#include "logfile.h"
+#include "log.h"
 
 enum DOWNLOADSTATUS {
     DOWNLOADSTATUS_INVALID = -1,
@@ -25,56 +25,56 @@ class Download : public QObject
     Q_OBJECT
 
     // General properties
-    Q_PROPERTY (float progress READ getProgress WRITE setProgress NOTIFY progressChanged)
-    Q_PROPERTY (QString logText READ getLogText WRITE setLogText NOTIFY logTextChanged)
+    Q_PROPERTY(float progress READ getProgress WRITE setProgress NOTIFY progressChanged)
     Q_ENUMS(DOWNLOADSTATUS)
 
 private:
     QProcess * process;
     DOWNLOADSTATUS status;
     QStringList arguments;
-    int progId;
+    QString progId;
     QString progType;
-    double duration;
+    quint32 duration;
+    QString filename;
     float progress;
-    QString logText;
-    logfile logToFile;
+    Log * log;
 
     // Internal methods
-    void setupEnvironment ();
-    void collectArguments ();
-    void setStatus (DOWNLOADSTATUS newStatus);
-    void addArgument (QString key, QString value);
-    void addArgument (QString key);
-    void addArgumentNonempty (QString key, QString value);
-    void addOption (QString key, bool add);
-    void addValue (QString key);
+    void setupEnvironment();
+    void collectArguments();
+    void setStatus(DOWNLOADSTATUS newStatus);
+    void addArgument(QString key, QString value);
+    void addArgument(QString key);
+    void addArgumentNonempty(QString key, QString value);
+    void addOption(QString key, bool add);
+    void addValue(QString key);
     void interpretData(const QString &text);
     void interpretLine(const QString &text);
 
 public:
-    explicit Download(QObject *parent = 0);
+    explicit Download(QObject *parent = 0, Log *log = 0);
     void initialise();
     float getProgress() const;
-    QString getLogText() const;
+    DOWNLOADSTATUS getStatus();
+    QString const getFilename() const;
+    quint32 getDuration() const;
 
 signals:
     // General signals
     void statusChanged(int status);
     void progressChanged(float progress);
-    void logTextChanged (QString &logText);
 
 public slots:
     // General methods
-    void startDownload (int progId,QString progType);
-    void cancel ();
-    void readData ();
-    void started ();
-    void finished (int code);
-    void readError (QProcess::ProcessError error);
+    void startDownload(QString progId, QString progType);
+    void cancel();
+
+private slots:
+    void readData();
+    void started();
+    void finished(int code);
+    void readError(QProcess::ProcessError error);
     void setProgress(float value);
-    void setLogText(const QString &value);
-    void logAppend(const QString &text);
 };
 
 #endif // DOWNLOAD_H

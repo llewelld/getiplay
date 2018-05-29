@@ -22,6 +22,10 @@ public:
     static QString getVideoDir();
     static QString getDownloadsDir();
     static QString getProfileDir();
+    static QString getTempDir();
+
+    static QString & escape(QString &string);
+    static QString & unescape(QString &string);
 signals:
 
 public slots:

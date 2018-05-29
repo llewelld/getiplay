@@ -9,16 +9,16 @@
     </message>
 </context>
 <context>
-    <name>ProgInfoRadio</name>
+    <name>Log</name>
     <message>
-        <source>Radio Programme Info</source>
+        <source>Log</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>ProgInfoTV</name>
+    <name>ProgInfo</name>
     <message>
-        <source>TV Programme Info</source>
+        <source> Programme Info</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -32,19 +32,18 @@
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>Queue</name>
     <message>
-        <source>Switch to Radio</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Switch to TV</source>
+        <source>About</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>RefreshRadio</name>
+    <name>QueueItemInfo</name>
     <message>
-        <source>Refresh Radio Programmes</source>
+        <source>Queue Item</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

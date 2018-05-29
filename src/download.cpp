@@ -5,14 +5,15 @@
 
 #define MAX_LINE_LENGTH (255)
 
-Download::Download(QObject *parent) :
+Download::Download(QObject *parent, Log *log) :
     QObject(parent),
     process(NULL),
     status(DOWNLOADSTATUS_INVALID),
-    progId(0),
+    progId(""),
     duration(0.0),
+    filename(""),
     progress(0.0),
-    logText("")
+    log(log)
 {
     arguments.clear();
 }
@@ -31,25 +32,18 @@ void Download::setStatus(DOWNLOADSTATUS newStatus)
     }
 }
 
-void Download::startDownload(int progId, QString progType) {
-    setLogText("");
-    logToFile.openLog();
-    logToFile.logLine("Process");
+void Download::startDownload(QString progId, QString progType) {
+    LOGAPPEND("\nStarting new process");
 
     this->progId = progId;
     this->progType = progType;
 
     if (process != NULL) {
-        logToFile.logLine("Process already running.");
+        LOGAPPEND("Process already running.");
     }
     else {
         process = new QProcess();
-#ifndef FAKE_GETIPLAYER
         QString program = DIR_BIN "/get_iplayer";
-#else // !FAKE_GETIPLAYER
-        QString program = "cat";
-#endif // !FAKE_GETIPLAYER
-        logToFile.logLine(program);
         process->setWorkingDirectory(DIR_BIN);
         setupEnvironment();
         collectArguments ();
@@ -59,12 +53,14 @@ void Download::startDownload(int progId, QString progType) {
         connect(process, SIGNAL(readyRead()), this, SLOT(readData()));
         connect(process, SIGNAL(started()), this, SLOT(started()));
         connect(process, SIGNAL(finished(int)), this, SLOT(finished(int)));
-        logAppend(program + " " + arguments.join(" ")); // write the get_iplayer command to the log window
+        // Write the get_iplayer command to the log window
+        LOGAPPEND(program + " " + arguments.join(" "));
         process->start(program, arguments);
         process->closeWriteChannel();
         setStatus(DOWNLOADSTATUS_INITIALISING);
         setProgress(-1.0);
         duration = 0.0;
+        filename = "";
         arguments.clear();
     }
 }
@@ -81,19 +77,20 @@ void Download::setupEnvironment() {
 void Download::collectArguments () {
     arguments.clear();
 
-#ifndef FAKE_GETIPLAYER
     if (progType == QString("radio")) {
         addArgument("type=radio");
     } else if (progType == QString("tv")) {
         addArgument("type=tv");
     }
 
-    addArgument("get", QString("%1").arg(progId));
+    addArgument("get");
+    addArgument("pid", QString("%1").arg(progId));
     addArgument("force");
     addArgument("nocopyright");
     addArgument("atomicparsley", DIR_BIN "/AtomicParsley");
     addArgument("ffmpeg", DIR_BIN "/ffmpeg");
     addArgument("ffmpeg-loglevel", "info");
+    addArgument("expiry=99999999");
     addArgument("log-progress");
     addArgument("profile-dir", Settings::getProfileDir());
 
@@ -104,10 +101,6 @@ void Download::collectArguments () {
     } else {
         addArgument("output", Settings::getDownloadsDir());
     }
-
-#else // !FAKE_GETIPLAYER
-    addValue("../share/" APP_NAME "/output02.txt");
-#endif // !FAKE_GETIPLAYER
 }
 
 void Download::addArgument (QString key, QString value) {
@@ -150,7 +143,7 @@ void Download::addValue (QString key) {
 void Download::cancel() {
     if (process != NULL) {
         process->terminate();
-        logAppend("Terminate signal sent");
+        LOGAPPEND("Terminate signal sent");
     }
     setStatus(DOWNLOADSTATUS_CANCEL);
 }
@@ -194,7 +187,7 @@ void Download::interpretLine(const QString &text) {
 
     qDebug() << "Line: " << text;
     if (text.startsWith("INFO: Recorded ")) {
-        logAppend(text);
+        LOGAPPEND(text);
         //setStatus(DOWNLOADSTATUS_DONE);
     }
     else {
@@ -222,7 +215,7 @@ void Download::interpretLine(const QString &text) {
                 }
             }
             else {
-                logAppend(text);
+                LOGAPPEND(text);
                 QRegExp findDuration("^.*Duration: (\\d+):(\\d\\d):(\\d\\d\\.\\d+), .*$");
                 foundPos = findDuration.indexIn(text);
                 if (foundPos > -1) {
@@ -231,6 +224,18 @@ void Download::interpretLine(const QString &text) {
                     float secs = findDuration.cap(3).toFloat();
                     duration = (hours * 60 * 60) + (mins * 60) + secs;
                     qDebug() << "Duration: " << duration << "s (" << hours << ":" << mins << ":" << secs << ")";
+                }
+                else {
+                    LOGAPPEND(text);
+                    QRegExp findFile("^Output #\\d+, .*, to '(.*)':$");
+                    foundPos = findFile.indexIn(text);
+                    if (foundPos > -1) {
+                        filename = findFile.cap(1);
+                        // Occassionally the filename of the partial file is returned
+                        // so we remove any instances of ".partial" in the filename.
+                        filename.replace(".partial.", ".");
+                        qDebug() << "Filename: " << filename;
+                    }
                 }
             }
         }
@@ -243,17 +248,21 @@ void Download::started() {
 }
 
 void Download::finished(int code) {
-    logToFile.logLine("Finished with code " + QString::number(code));
-    logAppend("Finished with code " + QString::number(code));
-    logToFile.closeLog();
+    LOGAPPEND("Finished with code " + QString::number(code));
     if (process != NULL) {
         //delete process;
         process = NULL;
     }
 
-    // anything but a zero exit status is an error
+    // Anything but a zero exit status is an error
     if (!code) {
-        setStatus(DOWNLOADSTATUS_DONE);
+        if (filename == "") {
+            // If we didn't get a filename, treat it as an error
+            setStatus(DOWNLOADSTATUS_ERROR);
+        }
+        else {
+            setStatus(DOWNLOADSTATUS_DONE);
+        }
     } else {
         setStatus(DOWNLOADSTATUS_ERROR);
     }
@@ -261,13 +270,13 @@ void Download::finished(int code) {
 
 void Download::readError(QProcess::ProcessError error)
 {
-    logToFile.logLine("Error: " + error);
+    LOGAPPEND("Error: " + error);
     if (process != NULL) {
         QByteArray dataOut = process->readAllStandardOutput();
         QByteArray errorOut = process->readAllStandardError();
 
-        logToFile.logLine(QString("Output text: ") + dataOut.data());
-        logToFile.logLine(QString("Error text: ") + errorOut.data());
+        LOGAPPEND(QString("Output text: ") + dataOut.data());
+        LOGAPPEND(QString("Error text: ") + errorOut.data());
     }
 }
 
@@ -280,43 +289,14 @@ void Download::setProgress(float value) {
     emit progressChanged(value);
 }
 
-QString Download::getLogText() const
-{
-    return logText;
+DOWNLOADSTATUS Download::getStatus() {
+    return status;
 }
 
-void Download::setLogText(const QString &value)
-{
-    logText = value;
-    emit logTextChanged(logText);
+QString const Download::getFilename() const {
+    return filename;
 }
 
-void Download::logAppend(const QString &text)
-{
-    if (!text.isEmpty()) {
-        QString append = text;
-        logToFile.logLine(append);
-        // Ensure we end with a newline
-        if (!append.endsWith('\n')) {
-            append += '\n';
-        }
-        // How many lines to add
-        int newLines = append.count('\n');
-        int currentLines = logText.count('\n');
-        int removeLines = currentLines + newLines - LOG_LINES;
-
-        // Remove excess lines from the top
-        while (removeLines > 0) {
-            int nextLine = logText.indexOf('\n');
-            if (nextLine > 0) {
-                logText = logText.mid(nextLine + 1);
-            }
-            removeLines--;
-        }
-
-        // Add new lines
-        logText.append(append);
-        emit logTextChanged(logText);
-    }
+quint32 Download::getDuration() const {
+    return duration;
 }
-

@@ -31,32 +31,52 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
-Page {
+Item {
     id: page
+
+    implicitHeight: mainView.height; implicitWidth: mainView.width
+
     property string searchString
     property bool tv: control.viewTv
-    property bool tvmenu: tv
+    property string screenName
+    property bool refreshing: false
 
-    RefreshTV {
-        id: refreshTVLoad
-        visible: false
-    }
-
-    RefreshRadio {
-        id: refreshRadioLoad
-        visible: false
+    Connections {
+        target:Refresh
+        onStatusChanged: {
+            switch (status) {
+            case 0:
+                // Uninitialised
+                refreshing = false
+                break;
+            case 1:
+                // Initialising
+                refreshing = true
+                break;
+            case 5:
+                // Cancel
+                refreshing = false
+                break;
+            case 6:
+                // Done
+                refreshing = false
+                break;
+            default:
+                // Do nothing
+                break;
+            }
+        }
     }
 
     onSearchStringChanged: {
-        programmestv.setFilterFixedString(searchString)
-        programmesradio.setFilterFixedString(searchString)
+        (tv ? programmestv : programmesradio).setFilterFixedString(searchString)
     }
 
     SilicaListView {
         id: listView
-        model: tvmenu ? programmestv : programmesradio
+        model: tv ? programmestv : programmesradio
         anchors.fill: parent
-        currentIndex: -1 // otherwise currentItem will steal focus
+        //currentIndex: -1 // otherwise currentItem will steal focus
 
         onCurrentIndexChanged: {
             // This nasty hack prevents the currentIndex being set
@@ -72,8 +92,10 @@ Page {
         header: Column {
             id: headerColumn
             width: page.width
+            height: header.height + searchField.height
 
             PageHeader {
+                id: header
                 title: tv ? "BBC TV Programmes" : "BBC Radio Programmes"
             }
 
@@ -96,31 +118,19 @@ Page {
         }
 
         PullDownMenu {
+            id: proglistmenu
+            busy: refreshing
+
             MenuItem {
                 text: qsTr("About")
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
             }
             MenuItem {
                 text: qsTr("Refresh")
+                enabled: !refreshing
                 onClicked: {
-                    if (tv) {
-                        pageStack.push(refreshTVLoad)
-                    }
-                    else {
-                        pageStack.push(refreshRadioLoad)
-                    }
+                    Refresh.startRefresh((tv ? 1 : 0)) // 0 = radio; 1 = tv
                 }
-            }
-            MenuItem {
-                id: listType
-                text: tvmenu ? qsTr("Switch to Radio") : qsTr("Switch to TV")
-                onClicked: {
-                    tv = !tv
-                    control.setViewTv(tv)
-                }
-            }
-            onActiveChanged: {
-                tvmenu = tv
             }
         }
 
@@ -147,25 +157,20 @@ Page {
 //            }
 
             Label {
+                property string title: name + ", " + episode + ", " + channel
                 x: Theme.paddingLarge
                 anchors.verticalCenter: parent.verticalCenter
                 color: searchString.length > 0 ? (highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor)
                                                : (highlighted ? Theme.highlightColor : Theme.primaryColor)
                 textFormat: Text.StyledText
-                text: Theme.highlightText(name, searchString, Theme.highlightColor)
-                clip: true
+                text: Theme.highlightText(title, searchString, Theme.highlightColor)
                 width: parent.width - (2 * Theme.paddingLarge)
                 elide: Text.ElideRight
                 focus: false
             }
             onClicked: {
                 console.log("Clicked " + name)
-                if (tv) {
-                    pageStack.push(Qt.resolvedUrl("ProgInfoTV.qml"), { name: name, progId: progId })
-                }
-                else {
-                    pageStack.push(Qt.resolvedUrl("ProgInfoRadio.qml"), { name: name, progId: progId })
-                }
+                pageStack.push(Qt.resolvedUrl("ProgInfo.qml"), { name: name, progId: progId, duration: duration, type: (tv ? 1 : 0), episode: episode, timeadded: timeadded, channel: channel, web: web, description: description, date: Metaget.epochToDate(timeadded) })
             }
         }
     }

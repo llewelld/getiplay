@@ -29,13 +29,16 @@
 */
 
 #include <QtQuick>
+#include <QDebug>
 #include <sailfishapp.h>
 #include "programme.h"
 #include "refresh.h"
 #include "download.h"
+#include "metaget.h"
+#include "queue.h"
+#include "queuemodel.h"
 #include "control.h"
 #include "settings.h"
-#include <QDebug>
 
 #include "harbour-getiplay.h"
 
@@ -54,6 +57,7 @@ int main(int argc, char *argv[])
     // To display the view, call "show()" (will show fullscreen on device).
 
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+    qmlRegisterType<Queue>("harbour.getiplay.progqueue", 1, 0, "ProgQueue");
 
     // These values are used by QSettings to access the config file in
     // /home/nemo/.local/share/flypig/GetiPlay.conf
@@ -71,6 +75,7 @@ int main(int argc, char *argv[])
     QList<ProgModel*> models;
     ProgModel modelradio;
     ProgModel modeltv;
+    QueueModel modelqueue;
     models.append(&modelradio);
     models.append(&modeltv);
 
@@ -78,6 +83,9 @@ int main(int argc, char *argv[])
     modelradio.importFromFile(file);
     file.setFileName(Settings::getConfigDir() + "/tv.txt");
     modeltv.importFromFile(file);
+    file.setFileName(Settings::getConfigDir() + "/queue.txt");
+    modelqueue.importFromFile(file);
+    modelqueue.pruneQueue();
 
     /*
     QFile file("/opt/sdk/GetiPlay/usr/share/GetiPlay/output01.txt");
@@ -123,16 +131,38 @@ int main(int argc, char *argv[])
     proxyModelTV->setFilterCaseSensitivity(Qt::CaseInsensitive);
     proxyModelTV->setSortCaseSensitivity(Qt::CaseInsensitive);
 
+    QSortFilterProxyModel * proxyModelQueue = new QSortFilterProxyModel ();
+    proxyModelQueue->setSourceModel(&modelqueue);
+    proxyModelQueue->setDynamicSortFilter(true);
+    proxyModelQueue->setFilterRole(ProgModel::NameRole);
+    proxyModelQueue->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    proxyModelQueue->setSortCaseSensitivity(Qt::CaseInsensitive);
+
     ctxt->setContextProperty("programmesradio", proxyModelRadio);
     ctxt->setContextProperty("programmestv", proxyModelTV);
+    ctxt->setContextProperty("programmesqueue", proxyModelQueue);
 
-    Refresh * refresh = new Refresh (models);
+    Log * log = new Log (view.data());
+    view->rootContext()->setContextProperty("Log", log);
+    log->initialise();
+    file.setFileName(Settings::getConfigDir() + "/logtail.txt");
+    log->importFromFile(file);
+
+    Refresh * refresh = new Refresh (view.data(), models, log);
     view->rootContext()->setContextProperty("Refresh", refresh);
     refresh->initialise();
 
-    Download * download = new Download ();
+    Download * download = new Download (view.data(), log);
     view->rootContext()->setContextProperty("Download", download);
     download->initialise();
+
+    Queue * queue = new Queue(view.data(), download);
+    view->rootContext()->setContextProperty("Queue", queue);
+    queue->setModel(&modelqueue);
+
+    Metaget * metaget = new Metaget(view.data(), log);
+    view->rootContext()->setContextProperty("Metaget", metaget);
+    metaget->initialise();
 
     view->show();
     result = app->exec();
@@ -144,10 +174,15 @@ int main(int argc, char *argv[])
     modelradio.exportToFile(file);
     file.setFileName(Settings::getConfigDir() + "/tv.txt");
     modeltv.exportToFile(file);
+    file.setFileName(Settings::getConfigDir() + "/queue.txt");
+    modelqueue.exportToFile(file);
+    file.setFileName(Settings::getConfigDir() + "/logtail.txt");
+    log->exportToFile(file);
 
     delete proxyModelRadio;
     delete proxyModelTV;
     delete control;
+    delete log;
 
     return result;
     /*
