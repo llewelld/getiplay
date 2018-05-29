@@ -39,34 +39,29 @@ Page {
         case ProgQueue.STATUS_UNQUEUED:
             // Unqueued
             statustext = "Not queued for download"
-            addToQueue.enabled = true
             break;
         case ProgQueue.STATUS_ERROR:
             // Error
             statustext = "Error"
-            addToQueue.enabled = false
             break;
         case ProgQueue.STATUS_REMOTE:
             // Remote
             statustext = "Queued for download"
-            addToQueue.enabled = false
             break;
         case ProgQueue.STATUS_DOWNLOADING:
             // Downloading
             statustext = "Downloading"
-            addToQueue.enabled = false
             break;
         case ProgQueue.STATUS_LOCAL:
             // Local
             statustext = "Downloaded"
-            addToQueue.enabled = false
             break;
         default:
             console.log("Status Error: " + status)
             statustext = "Error"
-            addToQueue.enabled = true
             break;
         }
+        qstatus = status;
         console.log("Status: " + status)
     }
 
@@ -167,14 +162,12 @@ Page {
                 spacing: Theme.paddingLarge
 
                 Button {
-                    id: addToQueue
-                    text: "Download"
+                    id: openFile
+                    text: "Play"
                     width: ((parent.width - Theme.paddingLarge) / 2)
+                    enabled: ((qstatus == ProgQueue.STATUS_LOCAL) && (filename != ""))
                     onClicked: {
-                        if (Queue.addToQueue(progId, name, 100.0, type)) {
-                            enabled = false
-                            pageStack.pop()
-                        }
+                        Qt.openUrlExternally(filename);
                     }
                 }
 
