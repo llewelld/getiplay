@@ -103,7 +103,7 @@ Item {
             }
             onClicked: {
                 console.log("Clicked " + name)
-                pageStack.push(Qt.resolvedUrl("QueueItemInfo.qml"), { name: name, progId: progId, qstatus: qstatus, duration: duration, type: type, channel: channel, description: description, episode: episode, timeadded: timeadded, web: web, filename: filename })
+                pageStack.push(Qt.resolvedUrl("QueueItemInfo.qml"), { name: name, progId: progId, qstatus: qstatus, duration: duration, type: type, channel: channel, description: description, episode: episode, date: Metaget.epochToDate(timeadded), web: web, filename: filename })
             }
 
             Component {

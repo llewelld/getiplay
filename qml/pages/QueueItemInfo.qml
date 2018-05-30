@@ -15,7 +15,7 @@ Page {
     property string channel: ""
     property string description: ""
     property string episode: ""
-    property string timeadded: ""
+    property string date: ""
     property string web: ""
     property string filename: ""
 
@@ -110,7 +110,7 @@ Page {
             }
             Label {
                 x: Theme.paddingLarge
-                text: "<b>Date:</b> \t" + timeadded
+                text: "<b>Date:</b> \t" + date
             }
 
             Rectangle {
