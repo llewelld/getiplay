@@ -38,6 +38,7 @@ Item {
         ViewPlaceholder {
             enabled: listView.count === 0
             text: "Empty"
+            hintText: "Programmes you select for download will appear here"
         }
 
         delegate: ListItem {

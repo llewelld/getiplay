@@ -103,7 +103,9 @@ void ProgModel::importFromFile(QFile & file) {
             name = in.readLine();
             desc = in.readLine();
 
-            addProgramme(Programme(pid, name, duration, timeadded, channel, episode, web, desc));
+            if (pid != nullptr) {
+                addProgramme(Programme(pid, name, duration, timeadded, channel, episode, web, desc));
+            }
         }
         file.close();
     }

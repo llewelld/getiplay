@@ -137,6 +137,7 @@ Item {
         ViewPlaceholder {
             enabled: listView.count === 0
             text: "No items found"
+            hintText: "Select Refresh from menu to populate"
         }
 
         delegate: BackgroundItem {
