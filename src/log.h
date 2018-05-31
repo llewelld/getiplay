@@ -42,6 +42,7 @@ public slots:
     // General methods
     void setLogText(const QString &value);
     void logAppend(const QString &text);
+    void clear();
 };
 
 #endif // LOG_H

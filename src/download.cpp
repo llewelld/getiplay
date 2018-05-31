@@ -186,56 +186,50 @@ void Download::interpretLine(const QString &text) {
     float percentRead;
 
     qDebug() << "Line: " << text;
-    if (text.startsWith("INFO: Recorded ")) {
-        LOGAPPEND(text);
-        //setStatus(DOWNLOADSTATUS_DONE);
+
+    QRegExp percent("^\\s+(\\d+\\.\\d+)%\\s.*$");
+    foundPos = percent.indexIn(text);
+    if (foundPos > -1) {
+        setStatus(DOWNLOADSTATUS_DOWNLOADING);
+        percentRead = percent.cap(1).toFloat() / 100.0f;
+        setProgress(percentRead);
+        //qDebug() << "Progress " << (getProgress() * 100.0) << "%";
     }
     else {
-        QRegExp percent("^\\s+(\\d+\\.\\d+)%\\s.*$");
-        foundPos = percent.indexIn(text);
+        LOGAPPEND(text);
+        QRegExp findDuration("^.*time=(\\d+):(\\d\\d):(\\d\\d\\.\\d+) .*$");
+        foundPos = findDuration.indexIn(text);
         if (foundPos > -1) {
-            setStatus(DOWNLOADSTATUS_DOWNLOADING);
-            percentRead = percent.cap(1).toFloat() / 100.0f;
-            setProgress(percentRead);
-            qDebug() << "Progress " << (getProgress() * 100.0) << "%";
+            int hours = findDuration.cap(1).toInt();
+            int mins = findDuration.cap(2).toInt();
+            float secs = findDuration.cap(3).toFloat();
+            float durationRead = (hours * 60 * 60) + (mins * 60) + secs;
+            if (durationRead > 0.0) {
+                setStatus(DOWNLOADSTATUS_CONVERTING);
+                percentRead = (durationRead / duration);
+                setProgress(percentRead);
+                qDebug() << "Progress " << (getProgress() * 100.0) << "%";
+            }
         }
         else {
-            QRegExp findDuration("^.*time=(\\d+):(\\d\\d):(\\d\\d\\.\\d+) .*$");
+            QRegExp findDuration("^.*Duration: (\\d+):(\\d\\d):(\\d\\d\\.\\d+), .*$");
             foundPos = findDuration.indexIn(text);
             if (foundPos > -1) {
                 int hours = findDuration.cap(1).toInt();
                 int mins = findDuration.cap(2).toInt();
                 float secs = findDuration.cap(3).toFloat();
-                float durationRead = (hours * 60 * 60) + (mins * 60) + secs;
-                if (durationRead > 0.0) {
-                    setStatus(DOWNLOADSTATUS_CONVERTING);
-                    percentRead = (durationRead / duration);
-                    setProgress(percentRead);
-                    qDebug() << "Progress " << (getProgress() * 100.0) << "%";
-                }
+                duration = (hours * 60 * 60) + (mins * 60) + secs;
+                qDebug() << "Duration: " << duration << "s (" << hours << ":" << mins << ":" << secs << ")";
             }
             else {
-                LOGAPPEND(text);
-                QRegExp findDuration("^.*Duration: (\\d+):(\\d\\d):(\\d\\d\\.\\d+), .*$");
-                foundPos = findDuration.indexIn(text);
+                QRegExp findFile("^Output #\\d+, .*, to '(.*)':$");
+                foundPos = findFile.indexIn(text);
                 if (foundPos > -1) {
-                    int hours = findDuration.cap(1).toInt();
-                    int mins = findDuration.cap(2).toInt();
-                    float secs = findDuration.cap(3).toFloat();
-                    duration = (hours * 60 * 60) + (mins * 60) + secs;
-                    qDebug() << "Duration: " << duration << "s (" << hours << ":" << mins << ":" << secs << ")";
-                }
-                else {
-                    LOGAPPEND(text);
-                    QRegExp findFile("^Output #\\d+, .*, to '(.*)':$");
-                    foundPos = findFile.indexIn(text);
-                    if (foundPos > -1) {
-                        filename = findFile.cap(1);
-                        // Occassionally the filename of the partial file is returned
-                        // so we remove any instances of ".partial" in the filename.
-                        filename.replace(".partial.", ".");
-                        qDebug() << "Filename: " << filename;
-                    }
+                    filename = findFile.cap(1);
+                    // Occassionally the filename of the partial file is returned
+                    // so we remove any instances of ".partial" in the filename.
+                    filename.replace(".partial.", ".");
+                    qDebug() << "Filename: " << filename;
                 }
             }
         }

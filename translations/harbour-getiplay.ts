@@ -12,8 +12,18 @@
 <context>
     <name>Log</name>
     <message>
-        <location filename="../qml/pages/Log.qml" line="18"/>
+        <location filename="../qml/pages/Log.qml" line="22"/>
         <source>Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/Log.qml" line="64"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/Log.qml" line="68"/>
+        <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

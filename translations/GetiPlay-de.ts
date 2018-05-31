@@ -11,6 +11,14 @@
 <context>
     <name>Log</name>
     <message>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Log</source>
         <translation type="unfinished"></translation>
     </message>
