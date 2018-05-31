@@ -78,6 +78,7 @@ void Log::importFromFile(QFile & file) {
 }
 
 void Log::clear() {
+    logToFile.cycle();
     logText = "";
     emit logTextChanged(logText);
 }
