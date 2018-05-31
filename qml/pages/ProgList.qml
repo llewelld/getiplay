@@ -136,7 +136,8 @@ Item {
 
         ViewPlaceholder {
             enabled: listView.count === 0
-            text: "No items found"
+            textFormat: Text.RichText
+            text: "&nbsp;<img style=\"scale: 200%;\" src=\"file:///usr/share/harbour-getiplay/qml/images/getiplay-bg.svg\" />&nbsp;<br />No items found"
             hintText: "Select Refresh from menu to populate"
         }
 

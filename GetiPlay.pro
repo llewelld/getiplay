@@ -50,7 +50,7 @@ OTHER_FILES += qml/GetiPlay.qml \
     harbour-getiplay.desktop \
     qml/pages/ProgList.qml \
     qml/pages/AboutPage.qml \
-    qml/images/getiplay-title.png \
+    qml/images/* \
     bin/ffmpeg \
     bin/AtomicParsley \
     bin/get_iplayer \

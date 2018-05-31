@@ -27,11 +27,11 @@ Page {
             }
 
             Image {
-                width: 311
-                height: 94
+                width: 530
+                height: 150
                 anchors.topMargin: Theme.paddingLarge
                 anchors.horizontalCenter: parent.horizontalCenter
-                source  : "../images/getiplay-title.png"
+                source  : "../images/getiplay-title.svg"
             }
 
             Label {
