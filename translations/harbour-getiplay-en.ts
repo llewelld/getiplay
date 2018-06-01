@@ -9,27 +9,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_share_title">
-        <location filename="../qml/pages/Log.qml" line="35"/>
+        <location filename="../qml/pages/Log.qml" line="33"/>
         <source>Share Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_menu_about">
-        <location filename="../qml/pages/Log.qml" line="53"/>
+        <location filename="../qml/pages/Log.qml" line="51"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_menu_clear">
-        <location filename="../qml/pages/Log.qml" line="58"/>
+        <location filename="../qml/pages/Log.qml" line="56"/>
         <source>Clear log</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="gallery-la-add_account">
-        <location filename="../qml/pages/Log.qml" line="73"/>
+        <location filename="../qml/pages/Log.qml" line="71"/>
         <source>Add account</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_log_title">
-        <location filename="../qml/pages/Log.qml" line="111"/>
+        <location filename="../qml/pages/Log.qml" line="109"/>
         <source>Log</source>
         <translation type="unfinished"></translation>
     </message>
