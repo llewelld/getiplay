@@ -3,6 +3,11 @@
 <TS version="2.1">
 <context>
     <name></name>
+    <message id="getiplay-cover_title">
+        <location filename="../qml/cover/CoverPage.qml" line="39"/>
+        <source>GetiPlay</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message id="getiplay-log_share_title">
         <location filename="../qml/pages/Log.qml" line="35"/>
         <source>Share Log</source>
@@ -21,7 +26,6 @@
     <message id="gallery-la-add_account">
         <location filename="../qml/pages/Log.qml" line="73"/>
         <source>Add account</source>
-        <oldsource>Add account2</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_log_title">
@@ -47,11 +51,6 @@
     <message id="getiplay-queueitem-title">
         <location filename="../qml/pages/QueueItemInfo.qml" line="88"/>
         <source>Queue Item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-cover_title">
-        <location filename="../qml/cover/CoverPage.qml" line="39"/>
-        <source>GetiPlay</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

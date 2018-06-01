@@ -128,7 +128,7 @@ Page {
 
         PageHeader {
             id: header
-            title: (type == 0 ? "Radio" : "TV") + qsTr(" Programme Info")
+            title: (type == 0 ? "Radio" : "TV") + " Programme Info"
         }
 
         Column {

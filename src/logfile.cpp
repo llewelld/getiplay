@@ -5,13 +5,10 @@
 #include <QTimeZone>
 #include "settings.h"
 
-#define LEAF_LOG "/log01.txt"
-#define LEAF_LOG_CYCLE "/log02.txt"
-
 logfile::logfile()
 {
     fileOpen = false;
-    file.setFileName(Settings::getLogDir() + LEAF_LOG);
+    file.setFileName(Settings::getLogFile(0));
 }
 
 logfile::~logfile()
@@ -61,7 +58,7 @@ void logfile::status() {
     logLine("----------------------------------");
     logLine(APP_NAME " Configuration Status");
     logLine("Log dir: " + Settings::getLogDir());
-    logLine("Log file: " + Settings::getLogDir() + LEAF_LOG);
+    logLine("Log file: " + Settings::getLogFile(0));
     logLine("Config dir: " + Settings::getConfigDir());
     logLine("Music dir: " + Settings::getMusicDir());
     logLine("Video dir: " + Settings::getVideoDir());
@@ -77,10 +74,12 @@ void logfile::cycle() {
     // If the file only contains the header information, don't cycle
     if (file.size() > 70) {
         closeLog();
-        QFile cycle(Settings::getLogDir() + LEAF_LOG_CYCLE);
+        // Delete the secondary log
+        QFile cycle(Settings::getLogFile(1));
         cycle.remove();
-        QFile move(Settings::getLogDir() + LEAF_LOG);
-        move.rename(Settings::getLogDir() + LEAF_LOG_CYCLE);
+        // Move the main log to become the secondary log
+        QFile move(Settings::getLogFile(0));
+        move.rename(Settings::getLogFile(1));
         openLog();
     }
 }

@@ -78,15 +78,13 @@ public:
     float getProgress() const;
     QString getLogText() const;
 
+    Q_INVOKABLE void startRefresh(REFRESHTYPE type);
+    Q_INVOKABLE void cancel();
+
 signals:
     // General signals
     void statusChanged(int status);
     void progressChanged(float progress);
-
-public slots:
-    // General methods
-    void startRefresh(REFRESHTYPE type);
-    void cancel();
 
 private slots:
     void readData();

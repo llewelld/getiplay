@@ -57,7 +57,9 @@ int main(int argc, char *argv[])
     // To display the view, call "show()" (will show fullscreen on device).
 
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+    Settings::instantiate();
     qmlRegisterType<Queue>("harbour.getiplay.progqueue", 1, 0, "ProgQueue");
+    qmlRegisterSingletonType<Settings>("harbour.getiplay.settings", 1, 0, "Settings", Settings::provider);
 
     // These values are used by QSettings to access the config file in
     // /home/nemo/.local/share/flypig/GetiPlay.conf

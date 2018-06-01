@@ -11,26 +11,6 @@ Page {
     Item {
         anchors.fill: parent
 
-        /*
-        PullDownMenu {
-            MenuItem {
-                text: qsTr("About")
-                onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
-            }
-            MenuItem {
-                text: qsTr("Refresh")
-                onClicked: {
-                    if (tv) {
-                        pageStack.push(refreshTVLoad)
-                    }
-                    else {
-                        pageStack.push(refreshRadioLoad)
-                    }
-                }
-            }
-        }
-        */
-
         Rectangle {
             anchors { top: parent.top; left: parent.left; right: parent.right }
             height: parent.height - mainPageHeader.visibleHeight

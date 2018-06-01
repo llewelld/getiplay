@@ -84,7 +84,8 @@ Page {
 
         PageHeader {
             id: header
-            title: qsTr("Queue Item")
+            //% "Queue Item"
+            title: qsTrId("getiplay-queueitem-title")
         }
 
         Column {

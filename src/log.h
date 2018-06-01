@@ -34,6 +34,9 @@ public:
     void exportToFile(QFile & file);
     void importFromFile(QFile & file);
 
+    Q_INVOKABLE void logAppend(const QString &text);
+    Q_INVOKABLE void clear();
+
 signals:
     // General signals
     void logTextChanged(QString &logText);
@@ -41,8 +44,6 @@ signals:
 public slots:
     // General methods
     void setLogText(const QString &value);
-    void logAppend(const QString &text);
-    void clear();
 };
 
 #endif // LOG_H
