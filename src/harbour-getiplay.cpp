@@ -68,9 +68,6 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName(APP_NAME);
 
     logfile logs;
-    logs.openLog();
-    logs.status();
-    logs.closeLog();
 
     Control * control = new Control();
 

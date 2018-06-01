@@ -81,5 +81,6 @@ void logfile::cycle() {
         QFile move(Settings::getLogFile(0));
         move.rename(Settings::getLogFile(1));
         openLog();
+        status();
     }
 }
