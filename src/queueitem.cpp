@@ -13,14 +13,14 @@ QueueItem::QueueItem() :
     type(QueueItem::TYPE_INVALID),
     filename(""),
     episode(""),
-    timeadded(0u),
+    available(0u),
     channel(""),
     web(""),
     description("")
 {
 }
 
-QueueItem::QueueItem(QString progId, QString name, quint32 duration, Queue::STATUS status, QueueItem::TYPE type, QString filename, QString episode, qint64 timeadded, QString channel, QString web, QString description) :
+QueueItem::QueueItem(QString progId, QString name, quint32 duration, Queue::STATUS status, QueueItem::TYPE type, QString filename, QString episode, qint64 available, QString channel, QString web, QString description) :
     name(name),
     duration(duration),
     progId(progId),
@@ -29,7 +29,7 @@ QueueItem::QueueItem(QString progId, QString name, quint32 duration, Queue::STAT
     type(type),
     filename(filename),
     episode(episode),
-    timeadded(timeadded),
+    available(available),
     channel(channel),
     web(web),
     description(description)
@@ -90,8 +90,8 @@ QString QueueItem::getEpisode () const {
     return episode;
 }
 
-qint64 QueueItem::getTimeadded() const {
-    return timeadded;
+qint64 QueueItem::getAvailable() const {
+    return available;
 }
 
 QString QueueItem::getChannel() const {
@@ -138,8 +138,8 @@ void QueueItem::setEpisode (QString &value) {
     episode = value;
 }
 
-void QueueItem::setTimeadded (qint64 value) {
-    timeadded = value;
+void QueueItem::setAvailable(qint64 value) {
+    available = value;
 }
 
 void QueueItem::setChannel (QString &value) {
