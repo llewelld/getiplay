@@ -6,19 +6,19 @@ Programme::Programme() :
     duration(0u),
     progId(""),
     episode(""),
-    timeadded(0u),
+    available(0u),
     channel(""),
     web(""),
     description("")
 {
 }
 
-Programme::Programme(QString progId, QString name, qint32 duration, qint64 timeadded, QString channel, QString episode, QString web, QString description) :
+Programme::Programme(QString progId, QString name, qint32 duration, qint64 available, QString channel, QString episode, QString web, QString description) :
     name(name),
     duration(duration),
     progId(progId),
     episode(episode),
-    timeadded(timeadded),
+    available(available),
     channel(channel),
     web(web),
     description(description)
@@ -37,8 +37,8 @@ QString Programme::getProgId () const {
     return progId;
 }
 
-qint64 Programme::getTimeAdded () const {
-    return timeadded;
+qint64 Programme::getAvailable () const {
+    return available;
 }
 
 QString Programme::getChannel () const {
@@ -69,8 +69,8 @@ void Programme::setProgId (unsigned int value) {
     progId = value;
 }
 
-void Programme::setTimeAdded(qint64 value) {
-    timeadded = value;
+void Programme::setAvailable(qint64 value) {
+    available = value;
 }
 
 void Programme::setChannel(QString value) {

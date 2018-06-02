@@ -17,7 +17,7 @@ public:
     };
 
     QueueItem();
-    QueueItem(QString progId, QString name, quint32 duration, Queue::STATUS status, TYPE type, QString filename, QString episode, qint64 timeadded, QString channel, QString web, QString description);
+    QueueItem(QString progId, QString name, quint32 duration, Queue::STATUS status, TYPE type, QString filename, QString episode, qint64 available, QString channel, QString web, QString description);
 
     QString getName () const;
     quint32 getDuration() const;
@@ -28,7 +28,7 @@ public:
     QString getTypeString () const;
     QString getFilename () const;
     QString getEpisode () const;
-    qint64 getTimeadded() const;
+    qint64 getAvailable() const;
     QString getChannel() const;
     QString getWeb() const;
     QString getDescription() const;
@@ -41,7 +41,7 @@ public:
     void setType (TYPE type);
     void setFilename (QString &value);
     void setEpisode (QString &value);
-    void setTimeadded (qint64 value);
+    void setAvailable (qint64 value);
     void setChannel (QString &value);
     void setWeb (QString &value);
     void setDescription (QString &value);
@@ -59,7 +59,7 @@ private:
     QString filename;
 
     QString episode;
-    qint64 timeadded;
+    qint64 available;
     QString channel;
     QString web;
     QString description;

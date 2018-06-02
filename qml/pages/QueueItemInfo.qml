@@ -2,20 +2,21 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtQuick.XmlListModel 2.0
 import harbour.getiplay.progqueue 1.0
+import harbour.getiplay.settings 1.0
 
 Page {
     id: queueInfoPage
     property string name: ""
     property string progId: ""
     property int type: 0
+    property int duration: 0
+    property int available: 0
     property int qstatus: 0
     property string statustext: ""
-    property int duration: 0
 
     property string channel: ""
     property string description: ""
     property string episode: ""
-    property string date: ""
     property string web: ""
     property string filename: ""
 
@@ -103,15 +104,24 @@ Page {
             }
             Label {
                 x: Theme.paddingLarge
+                width: parent.width - (2 * Theme.paddingLarge)
+                wrapMode: Text.NoWrap
+                elide: Text.ElideRight
                 text: "<b>Episode:</b> \t" + episode
             }
             Label {
                 x: Theme.paddingLarge
+                width: parent.width - (2 * Theme.paddingLarge)
+                wrapMode: Text.NoWrap
+                elide: Text.ElideRight
                 text: "<b>Channel:</b> \t" + channel
             }
             Label {
                 x: Theme.paddingLarge
-                text: "<b>Date:</b> \t" + date
+                width: parent.width - (2 * Theme.paddingLarge)
+                wrapMode: Text.NoWrap
+                elide: Text.ElideRight
+                text: "<b>Date:</b> \t" + Settings.epochToDate(available);
             }
 
             Rectangle {
@@ -163,6 +173,9 @@ Page {
             Label {
                 id: statusindicator;
                 x: Theme.paddingLarge
+                width: parent.width - (2 * Theme.paddingLarge)
+                wrapMode: Text.NoWrap
+                elide: Text.ElideRight
                 text: "<b>Status:</b> \t" + statustext
             }
 

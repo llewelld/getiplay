@@ -6,7 +6,7 @@ ProgModel::ProgModel(QObject *parent) : QAbstractListModel(parent) {
     roles[EpisodeRole] = "episode";
     roles[DurationRole] = "duration";
     roles[ChannelRole] = "channel";
-    roles[TimeaddedRole] = "timeadded";
+    roles[AvailableRole] = "available";
     roles[WebRole] = "web";
     roles[NameRole] = "name";
     roles[DescRole] = "description";
@@ -49,8 +49,8 @@ QVariant ProgModel::data(const QModelIndex & index, int role) const {
         return programme.getDuration();
     else if (role == ChannelRole)
         return programme.getChannel();
-    else if (role == TimeaddedRole)
-        return programme.getTimeAdded();
+    else if (role == AvailableRole)
+        return programme.getAvailable();
     else if (role == WebRole)
         return programme.getWeb();
     else if (role == NameRole)
@@ -72,7 +72,7 @@ void ProgModel::exportToFile(QFile & file) {
             out << progIter->getEpisode() << endl;
             out << progIter->getDuration() << endl;
             out << progIter->getChannel() << endl;
-            out << progIter->getTimeAdded() << endl;
+            out << progIter->getAvailable() << endl;
             out << progIter->getWeb() << endl;
             out << progIter->getName() << endl;
             out << progIter->getDescription() << endl;
@@ -89,7 +89,7 @@ void ProgModel::importFromFile(QFile & file) {
             QString episode = "";
             qint32 duration = 0;
             QString channel = "";
-            qint64 timeadded = 0;
+            qint64 available = 0;
             QString web = "";
             QString name = "";
             QString desc = "";
@@ -98,13 +98,13 @@ void ProgModel::importFromFile(QFile & file) {
             episode = in.readLine();
             duration = in.readLine().toLongLong();
             channel = in.readLine();
-            timeadded = in.readLine().toLongLong();
+            available = in.readLine().toLongLong();
             web = in.readLine();
             name = in.readLine();
             desc = in.readLine();
 
             if (pid != nullptr) {
-                addProgramme(Programme(pid, name, duration, timeadded, channel, episode, web, desc));
+                addProgramme(Programme(pid, name, duration, available, channel, episode, web, desc));
             }
         }
         file.close();

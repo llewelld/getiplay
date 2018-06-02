@@ -15,7 +15,7 @@ QueueModel::QueueModel(QObject *parent) : QAbstractListModel(parent) {
     roles[ChannelRole] = "channel";
     roles[DescriptionRole] = "description";
     roles[EpisodeRole] = "episode";
-    roles[TimeaddedRole] = "timeadded";
+    roles[AvailableRole] = "available";
     roles[WebRole] = "web";
 }
 
@@ -81,8 +81,8 @@ QVariant QueueModel::data(const QModelIndex & index, int role) const {
         return programme->getDescription();
     else if (role == EpisodeRole)
         return programme->getEpisode();
-    else if (role == TimeaddedRole)
-        return programme->getTimeadded();
+    else if (role == AvailableRole)
+        return programme->getAvailable();
     else if (role == WebRole)
         return programme->getWeb();
 
@@ -104,7 +104,7 @@ void QueueModel::exportToFile(QFile & file) {
             out << (*progIter)->getType() << endl;
             out << (*progIter)->getFilename() << endl;
             out << (*progIter)->getEpisode() << endl;
-            out << (*progIter)->getTimeadded() << endl;
+            out << (*progIter)->getAvailable() << endl;
             out << (*progIter)->getChannel() << endl;
             out << (*progIter)->getWeb() << endl;
             QString value = (*progIter)->getDescription();
@@ -125,7 +125,7 @@ void QueueModel::importFromFile(QFile & file) {
             QueueItem::TYPE type;
             QString filename;
             QString episode;
-            qint64 timeadded;
+            qint64 available;
             QString channel;
             QString web;
             QString description;
@@ -140,14 +140,14 @@ void QueueModel::importFromFile(QFile & file) {
             type = static_cast<QueueItem::TYPE>(in.readLine().toInt());
             filename = in.readLine();
             episode = in.readLine();
-            timeadded = in.readLine().toULongLong();
+            available = in.readLine().toULongLong();
             channel = in.readLine();
             web = in.readLine();
             QString value = in.readLine();
             description = Settings::unescape(value);
 
             if (progId != nullptr) {
-                addProgramme(new QueueItem(progId, title, length, status, type, filename, episode, timeadded, channel, web, description));
+                addProgramme(new QueueItem(progId, title, length, status, type, filename, episode, available, channel, web, description));
             }
         }
         file.close();

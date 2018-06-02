@@ -30,7 +30,7 @@ void Queue::setModel(QueueModel * model) {
     takeAction();
 }
 
-bool Queue::addToQueue(QString progid, QString name, quint32 duration, int type, QString episode, qint64 timeadded, QString channel, QString web, QString description) {
+bool Queue::addToQueue(QString progid, QString name, quint32 duration, int type, QString episode, qint64 available, QString channel, QString web, QString description) {
     QueueItem * found;
     bool added;
 
@@ -41,7 +41,7 @@ bool Queue::addToQueue(QString progid, QString name, quint32 duration, int type,
     found = model->findFromId(progid);
 
     if (found == nullptr) {
-        model->addProgramme(new QueueItem(progid, name, duration, Queue::STATUS_REMOTE, static_cast<QueueItem::TYPE>(type), "", episode, timeadded, channel, web, description));
+        model->addProgramme(new QueueItem(progid, name, duration, Queue::STATUS_REMOTE, static_cast<QueueItem::TYPE>(type), "", episode, available, channel, web, description));
         emit statusChanged(progid, Queue::STATUS_REMOTE);
         takeAction();
         added = true;

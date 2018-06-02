@@ -52,6 +52,7 @@ public:
     explicit Metaget(QObject *parent = 0, Log *log = 0);
     void initialise();
     STATUS getStatus();
+    Q_INVOKABLE QString metagot();
 
 signals:
     // General signals
@@ -61,8 +62,6 @@ public slots:
     // General methods
     void startDownload(QString progId, int progType);
     void cancel();
-    QString metagot();
-    QString epochToDate (quint64 epoch) const;
 
 private slots:
     void readData();

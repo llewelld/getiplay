@@ -11,7 +11,7 @@ static const QString typeString[] = {"radio", "tv"};
 
 #define STRINGSEP "|"
 
-static const QStringList listformat = {"pid", "episode", "duration", "channel", "timeadded", "web", "name", "desc"};
+static const QStringList listformat = {"pid", "episode", "duration", "channel", "available", "web", "name", "desc"};
 
 Refresh::Refresh(QObject *parent, QList<ProgModel*> model, Log *log) :
     QObject(parent),
@@ -231,7 +231,7 @@ bool Refresh::interpretProgramme(const QString &text) {
     QString episode = "";
     qint32 duration = 0;
     QString channel = "";
-    qint64 timeadded = 0;
+    qint64 available = 0;
     QString web = "";
     QString name = "";
     QString desc = "";
@@ -254,8 +254,8 @@ bool Refresh::interpretProgramme(const QString &text) {
                 case 3: // "channel"
                 channel = split[property];
                 break;
-                case 4: // "timeadded"
-                timeadded = split[property].toLongLong();
+                case 4: // "available"
+                available = Settings::dateToEpoch(split[property]);
                 break;
                 case 5: // "web"
                 web = split[property];
@@ -270,7 +270,7 @@ bool Refresh::interpretProgramme(const QString &text) {
 
         }
 
-        temp.addProgramme(Programme(pid, name, duration, timeadded, channel, episode, web, desc));
+        temp.addProgramme(Programme(pid, name, duration, available, channel, episode, web, desc));
     }
 
     return success;

@@ -16,7 +16,7 @@ public:
         EpisodeRole,
         DurationRole,
         ChannelRole,
-        TimeaddedRole,
+        AvailableRole,
         WebRole,
         NameRole,
         DescRole

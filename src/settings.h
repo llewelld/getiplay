@@ -30,6 +30,9 @@ public:
     Q_INVOKABLE static QString getTempDir();
     Q_INVOKABLE static QString getLogFile(unsigned int cycle);
 
+    Q_INVOKABLE static QString epochToDate (quint64 epoch);
+    Q_INVOKABLE static quint64 dateToEpoch (QString date);
+
     static QString & escape(QString &string);
     static QString & unescape(QString &string);
 signals:

@@ -45,7 +45,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem-title">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="88"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="89"/>
         <source>Queue Item</source>
         <translation type="unfinished"></translation>
     </message>

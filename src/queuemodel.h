@@ -23,7 +23,7 @@ public:
         ChannelRole,
         DescriptionRole,
         EpisodeRole,
-        TimeaddedRole,
+        AvailableRole,
         WebRole
     };
 

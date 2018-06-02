@@ -1,4 +1,5 @@
 #include <QDesktopServices>
+#include <QDateTime>
 
 #include "settings.h"
 
@@ -82,3 +83,17 @@ QString & Settings::unescape(QString &string) {
 
     return string;
 }
+
+QString Settings::epochToDate (quint64 epoch) {
+    QDateTime date;
+
+    date.setTime_t(epoch);
+    return date.toString("yyyy-MM-dd");
+}
+
+quint64 Settings::dateToEpoch (QString date) {
+    quint64 epoch = QDateTime::fromString(date, Qt::ISODate).toTime_t();
+
+    return epoch;
+}
+
