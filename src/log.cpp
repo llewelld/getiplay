@@ -33,9 +33,10 @@ void Log::setLogText(const QString &value)
 
 void Log::logAppend(const QString &text)
 {
+    qDebug() << "LOGAPPEND: " << text;
     if (!text.isEmpty()) {
         QString append = text;
-        //logToFile.logLine(append);
+        logToFile.logLine(append);
         // Ensure we end with a newline
         if (!append.endsWith('\n')) {
             append += '\n';
@@ -74,5 +75,11 @@ void Log::importFromFile(QFile & file) {
         logText = in.readAll();
         file.close();
     }
+}
+
+void Log::clear() {
+    logToFile.cycle();
+    logText = "";
+    emit logTextChanged(logText);
 }
 

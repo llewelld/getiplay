@@ -61,12 +61,15 @@ SAILFISHAPP_ICONS = 86x86 108x108 128x128 256x256
 # to disable building translations every time, comment out the
 # following CONFIG line
 CONFIG += sailfishapp_i18n
+CONFIG += sailfishapp_i18n_idbased
+CONFIG += sailfishapp_i18n_unfinished
 
 # German translation is enabled as an example. If you aren't
 # planning to localize your app, remember to comment out the
 # following TRANSLATIONS line. And also do not forget to
 # modify the localized app name in the the .desktop file.
-TRANSLATIONS += translations/GetiPlay-de.ts
+TRANSLATIONS += translations/harbour-getiplay-de.ts
+TRANSLATIONS += translations/harbour-getiplay-en.ts
 
 HEADERS += \
     src/control.h \
@@ -103,4 +106,5 @@ DISTFILES += \
     qml/pages/Queue.qml \
     qml/pages/Log.qml \
     qml/pages/ProgInfo.qml \
-    qml/pages/QueueItemInfo.qml
+    qml/pages/QueueItemInfo.qml \
+    qml/component/SplitViewItem.qml

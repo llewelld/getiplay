@@ -30,7 +30,8 @@ Item {
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("About")
+                //% "About"
+                text: qsTrId("getiplay-queue_menu_about")
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
             }
         }

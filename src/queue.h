@@ -47,16 +47,14 @@ public:
     explicit Queue(QObject *parent = 0, Download *download = 0);
     void setModel(QueueModel * model);
 
+    Q_INVOKABLE bool addToQueue(QString progid, QString name, quint32 duration, int type, QString episode, qint64 timeadded, QString channel, QString web, QString description);
+    Q_INVOKABLE int getStatusFromId(QString progid);
+    Q_INVOKABLE void removeFromQueue(QString progid);
+    Q_INVOKABLE void deleteAndRemoveFromQueue(QString progid);
+    Q_INVOKABLE QVariant getDetails(QString progid);
+
 signals:
     void statusChanged(QString progidchanged, int status);
-
-public slots:
-    // General methods
-    bool addToQueue(QString progid, QString name, quint32 duration, int type, QString episode, qint64 timeadded, QString channel, QString web, QString description);
-    int getStatusFromId(QString progid);
-    void removeFromQueue(QString progid);
-    void deleteAndRemoveFromQueue(QString progid);
-    QVariant getDetails(QString progid);
 
 private slots:
     void statusChanged(int status);

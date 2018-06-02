@@ -17,6 +17,7 @@ public:
     void logLine(const QString &text);
     void closeLog();
     void status();
+    void cycle();
 
 private:
     QFile file;

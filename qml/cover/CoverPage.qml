@@ -35,7 +35,8 @@ CoverBackground {
     Label {
         id: label
         anchors.centerIn: parent
-        text: qsTr("GetiPlay")
+        //% "GetiPlay"
+        text: qsTrId("getiplay-cover_title")
     }
 
     CoverActionList {

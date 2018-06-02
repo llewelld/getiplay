@@ -122,11 +122,13 @@ Item {
             busy: refreshing
 
             MenuItem {
-                text: qsTr("About")
+                //% "About"
+                text: qsTrId("getiplay-proglist_menu_about")
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
             }
             MenuItem {
-                text: qsTr("Refresh")
+                //% "Refresh"
+                text: qsTrId("getiplay-proglist_menu_refresh")
                 enabled: !refreshing
                 onClicked: {
                     Refresh.startRefresh((tv ? 1 : 0)) // 0 = radio; 1 = tv
