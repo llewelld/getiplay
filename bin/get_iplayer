@@ -6711,6 +6711,7 @@ sub get_links_schedule_html {
 		$seriesnum = main::convert_words_to_number( $1 ) if "$name $episode" =~ m{$regex}i;
 		# only default version in schedules
 		$version = 'default';
+		my $thumbnail = "https://ichef.bbci.co.uk/images/ic/480xn/p01tqv8z.png";
 		# build data structure
 		decode_entities($name);
 		decode_entities($episode);
@@ -6729,6 +6730,7 @@ sub get_links_schedule_html {
 			'web'		=> "${bbc_prog_page_prefix}/${pid}",
 			'available' => $available_str,
 			'expires' => $expires,
+			'thumbnail' => $thumbnail,
 		);
 	}
 }
@@ -6820,6 +6822,8 @@ sub get_links_schedule_json {
 		$seriesnum = main::convert_words_to_number( $1 ) if "$name $episode" =~ m{$regex}i;
 		# only default version in schedules
 		$version = 'default';
+		my $thumbnail = $entry->{image} || $entry->{partOfSeries}->{image};
+		$thumbnail ||= "https://ichef.bbci.co.uk/images/ic/480xn/p01tqv8z.png";
 		# build data structure
 		decode_entities($name);
 		decode_entities($episode);
@@ -6838,6 +6842,7 @@ sub get_links_schedule_json {
 			'web'		=> "${bbc_prog_page_prefix}/${pid}",
 			'available' => $available_str,
 			'expires' => $expires,
+			'thumbnail' => $thumbnail,
 		);
 	}
 }
