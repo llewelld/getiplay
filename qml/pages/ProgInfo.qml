@@ -17,6 +17,7 @@ Page {
     property string description: ""
     property string episode: ""
     property string web: ""
+    property string imageid: ""
 
     Connections {
         target:Queue
@@ -63,7 +64,9 @@ Page {
                 description = metadata.get(0).desclong
                 episode = metadata.get(0).episode
                 web = metadata.get(0).web
-                thumbnail.source = metadata.get(0).thumbnail
+                if (metadata.get(0).thumbnail != thumbnail.source) {
+                    thumbnail.source = metadata.get(0).thumbnail
+                }
                 console.log("Thumbnail url: " + thumbnail.source);
             }
         }
@@ -74,7 +77,11 @@ Page {
             console.log("Exposed changed: " + _exposed)
             status = Queue.getStatusFromId(progId)
             updateStatus(status);
-            Metaget.startDownload(progId, type)
+            // The following code line triggers metadata collection
+            // It's currently disabled because we get all the data we need from the 'get_iplayer --listitem' call
+            //Metaget.startDownload(progId, type)
+            // We just need to download the thumbnail
+            thumbnail.source = (imageid == "" ? "https://ichef.bbci.co.uk/images/ic/640x360/p01tqv8z.png" : "https://ichef.bbci.co.uk/images/ic/640x360/" + imageid + ".jpg")
         }
     }
 
@@ -203,7 +210,7 @@ Page {
             Label {
                 x: Theme.paddingLarge
                 text: description
-                font.pixelSize: Theme.fontSizeExtraSmall
+                //font.pixelSize: Theme.fontSizeExtraSmall
                 width: parent.width - 2 * Theme.paddingLarge
                 height: Theme.fontSizeExtraSmall * 8
                 wrapMode: Text.WordWrap
@@ -232,7 +239,7 @@ Page {
                     text: "Download"
                     width: ((parent.width - Theme.paddingLarge) / 2)
                     onClicked: {
-                        if (Queue.addToQueue(progId, name, duration, type, episode, available, channel, web, description)) {
+                        if (Queue.addToQueue(progId, name, duration, type, episode, available, channel, web, description, imageid)) {
                             enabled = false
                             pageStack.pop()
                         }

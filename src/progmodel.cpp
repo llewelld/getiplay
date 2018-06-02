@@ -10,6 +10,7 @@ ProgModel::ProgModel(QObject *parent) : QAbstractListModel(parent) {
     roles[WebRole] = "web";
     roles[NameRole] = "name";
     roles[DescRole] = "description";
+    roles[ImageIdRole] = "imageid";
 }
 
 QHash<int, QByteArray> ProgModel::roleNames() const {
@@ -57,6 +58,8 @@ QVariant ProgModel::data(const QModelIndex & index, int role) const {
         return programme.getName();
     else if (role == DescRole)
         return programme.getDescription();
+    else if (role == ImageIdRole)
+        return programme.getImageId();
     return QVariant();
 }
 
@@ -76,6 +79,7 @@ void ProgModel::exportToFile(QFile & file) {
             out << progIter->getWeb() << endl;
             out << progIter->getName() << endl;
             out << progIter->getDescription() << endl;
+            out << progIter->getImageId() << endl;
         }
         file.close();
     }
@@ -93,6 +97,7 @@ void ProgModel::importFromFile(QFile & file) {
             QString web = "";
             QString name = "";
             QString desc = "";
+            QString imageId = "";
 
             pid = in.readLine();
             episode = in.readLine();
@@ -102,9 +107,10 @@ void ProgModel::importFromFile(QFile & file) {
             web = in.readLine();
             name = in.readLine();
             desc = in.readLine();
+            imageId = in.readLine();
 
             if (pid != nullptr) {
-                addProgramme(Programme(pid, name, duration, available, channel, episode, web, desc));
+                addProgramme(Programme(pid, name, duration, available, channel, episode, web, desc, imageId));
             }
         }
         file.close();

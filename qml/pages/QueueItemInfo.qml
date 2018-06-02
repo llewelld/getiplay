@@ -19,6 +19,7 @@ Page {
     property string episode: ""
     property string web: ""
     property string filename: ""
+    property string imageid: ""
 
     Connections {
         target:Queue
@@ -32,6 +33,7 @@ Page {
     on_ExposedChanged: {
         if (_exposed) {
             updateStatus(qstatus)
+            thumbnail.source = (imageid == "" ? "https://ichef.bbci.co.uk/images/ic/640x360/p01tqv8z.png" : "https://ichef.bbci.co.uk/images/ic/640x360/" + imageid + ".jpg")
         }
     }
 
@@ -134,12 +136,12 @@ Page {
 
                 Image {
                     id: thumbnail
-                    source: ((type == 0) ? Qt.resolvedUrl("image://theme/icon-m-music") : Qt.resolvedUrl("image://theme/icon-m-video"))
+                    source: ""
                     width: 832
                     height: 468
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    fillMode: ((type == 0) ? Image.Pad : Image.Pad)
+                    fillMode: Image.PreserveAspectFit
                     NumberAnimation on opacity { id: fadein; from: 0; to: 1; duration: 1000 }
                     onStatusChanged: {
                         if (status == Image.Ready) {
@@ -161,7 +163,7 @@ Page {
             Label {
                 x: Theme.paddingLarge
                 text: description
-                font.pixelSize: Theme.fontSizeExtraSmall
+                //font.pixelSize: Theme.fontSizeExtraSmall
                 width: parent.width - 2 * Theme.paddingLarge
                 height: Theme.fontSizeExtraSmall * 8
                 wrapMode: Text.WordWrap
