@@ -199,9 +199,9 @@
         <source>Version</source>
         <translation type="unfinished"></translation>
     </message>
-    <message id="getiplay-about_getiplayer_maintainer">
+    <message id="getiplay-about_getiplayer_author">
         <location filename="../qml/pages/AboutPage.qml" line="135"/>
-        <source>Maintainer</source>
+        <source>Author</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_getiplayer_licence">

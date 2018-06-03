@@ -131,8 +131,8 @@ Page {
                 }
             }
             Label {
-                //% "Maintainer"
-                text: qsTrId("getiplay-about_getiplayer_maintainer") + ":\t\t" + "dinkypumpkin"
+                //% "Author"
+                text: qsTrId("getiplay-about_getiplayer_author") + ":\t\t\t" + "Phil Lewis + others"
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
                 horizontalAlignment: Text.AlignLeft
