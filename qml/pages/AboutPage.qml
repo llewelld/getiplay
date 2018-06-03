@@ -23,7 +23,8 @@ Page {
             spacing: Theme.paddingLarge
 
             PageHeader {
-                title: "About GetiPlay"
+                //% "About GetiPlay"
+                title: qsTrId("getiplay-about_title")
             }
 
             Image {
@@ -35,7 +36,8 @@ Page {
             }
 
             Label {
-                text: "User interface for controlling get_iplayer"
+                //% "User interface for controlling get_iplayer"
+                text: qsTrId("getiplay-about-description")
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
                 anchors {
@@ -46,19 +48,8 @@ Page {
                 }
             }
             Label {
-                text: "Version:\t" + version
-                wrapMode: Text.WordWrap
-                font.pixelSize: Theme.fontSizeSmall
-                horizontalAlignment: Text.AlignLeft
-                anchors {
-                    leftMargin: Theme.paddingLarge
-                    rightMargin: Theme.paddingLarge
-                    left: parent.left
-                    right: parent.right
-                }
-            }
-            Label {
-                text: "Author:\t\tDavid Llewellyn-Jones"
+                //% "Version"
+                text: qsTrId("getiplay-about_version") + ":\t" + version
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
                 horizontalAlignment: Text.AlignLeft
@@ -70,7 +61,21 @@ Page {
                 }
             }
             Label {
-                text: "Licence:\tMIT"
+                //% "Author"
+                text: qsTrId("getiplay-about_author") + ":\t\t" + "David Llewellyn-Jones"
+                wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeSmall
+                horizontalAlignment: Text.AlignLeft
+                anchors {
+                    leftMargin: Theme.paddingLarge
+                    rightMargin: Theme.paddingLarge
+                    left: parent.left
+                    right: parent.right
+                }
+            }
+            Label {
+                //% "Licence"
+                text: qsTrId("getiplay-about_licence") + ":\t" + "MIT"
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
                 horizontalAlignment: Text.AlignLeft
@@ -84,7 +89,8 @@ Page {
 
 
             Label {
-                text: "Please respect the copyright of all files downloaded using this software"
+                //% "Please respect the copyright of all files downloaded using this software"
+                text: qsTrId("getiplay-about_respect_copyright")
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
                 anchors {
@@ -96,7 +102,8 @@ Page {
             }
 
             Label {
-                text: "Links"
+                //% "Links"
+                text: qsTrId("getiplay-about_subtitle_links")
                 color: Theme.highlightColor
                 font.family: Theme.fontFamilyHeading
                 horizontalAlignment: Text.AlignRight
@@ -112,13 +119,15 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 Button {
                     id: connect
-                    text: "Website"
+                    //% "Website"
+                    text: qsTrId("getiplay-about_website")
                     enabled: true
                     onClicked: Qt.openUrlExternally("http://www.flypig.co.uk/?to=getiplay")
                 }
                 Button {
                     id : disconnect
-                    text: "Email"
+                    //% "Email"
+                    text: qsTrId("getiaplay-about_email")
                     enabled: true
                     onClicked: Qt.openUrlExternally("mailto:david@flypig.co.uk")
                 }

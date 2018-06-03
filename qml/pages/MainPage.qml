@@ -32,10 +32,28 @@ Page {
 
                 anchors { top: parent.top; left: parent.left; right: parent.right }
                 model: VisualItemModel {
-                    ProgList { id: tab4; screenName: "BBC TV Programmes"; tv: true }
-                    ProgList { id: tab3; screenName: "BBC Radio Programmes"; tv: false }
-                    Queue { id: tab2; screenName: "Queue"}
-                    Log { id: tab1; screenName: "Log"}
+                    ProgList {
+                        id: tab4;
+                        //% "BBC TV Programmes"
+                        screenName: qsTrId("getiplay-proglisttv_title");
+                        tv: true
+                    }
+                    ProgList {
+                        id: tab3;
+                        //% "BBC Radio Programmes"
+                        screenName: qsTrId("getiplay-proglistradio_title");
+                        tv: false
+                    }
+                    Queue {
+                        id: tab2;
+                        //% "Queue"
+                        screenName: qsTrId("getiplay-queue_title")
+                    }
+                    Log {
+                        id: tab1;
+                        //% "Log"
+                        screenName: qsTrId("getiplay-log_title")
+                    }
                 }
             }
         }

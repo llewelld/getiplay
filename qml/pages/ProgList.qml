@@ -98,13 +98,14 @@ Item {
 
             PageHeader {
                 id: header
-                title: tv ? "BBC TV Programmes" : "BBC Radio Programmes"
+                title: screenName
             }
 
             SearchField {
                 id: searchField
                 width: parent.width
-                placeholderText: "Search programmes"
+                //% "Search programmes"
+                placeholderText: qsTrId("getiplay-proglist_search_placeholder")
                 // Predictive text actually messes up the clear button so it only
                 // works if there's more than one word (weird!), but predictive
                 // is likely to be the more useful of the two, so I've left it on
@@ -141,8 +142,10 @@ Item {
         ViewPlaceholder {
             enabled: listView.count === 0
             textFormat: Text.RichText
-            text: ((totalitems == 0) ? "&nbsp;<img style=\"scale: 200%;\" src=\"file:///usr/share/harbour-getiplay/qml/images/getiplay-bg.svg\" />&nbsp;<br />No items found" : "No items found")
-            hintText: ((totalitems == 0) ? "Select Refresh from menu to populate" : "")
+            //% "No items found"
+            text: ((totalitems == 0) ? "&nbsp;<img style=\"scale: 200%;\" src=\"file:///usr/share/harbour-getiplay/qml/images/getiplay-bg.svg\" />&nbsp;<br />" : "") + qsTrId("getiplay-proglist_empty_message")
+            //% "Select Refresh from menu to populate"
+            hintText: ((totalitems == 0) ? qsTrId("getiplay-proglist_select_empty_hint") : "")
         }
 
         delegate: BackgroundItem {

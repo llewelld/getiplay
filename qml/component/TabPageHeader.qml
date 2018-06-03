@@ -128,11 +128,8 @@ Item {
         PushUpMenu {
             MenuItem {
                onClicked: pageStack.push(Qt.resolvedUrl("../About.qml"))
-               text: qsTr("About Pico")
-            }
-            MenuItem {
-                onClicked: pageStack.push(Qt.resolvedUrl("../Loggout.qml"))
-               text: qsTr("Stop all sessions")
+               //% "About"
+               text: qsTrId("getiplay-main_menu_about")
             }
         }
         */

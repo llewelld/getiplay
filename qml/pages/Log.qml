@@ -38,7 +38,8 @@ SplitViewItem {
             "name" : "log.txt",
             "type" : "text/plain",
             "icon" : "image://theme/icon-l-document",
-            "status" : "GetiPlay log file",
+            //% "GetiPlay log file"
+            "status" : qsTrId("getiplay-log_share_status"),
         }
 
         filter: "text/plain"
@@ -68,7 +69,7 @@ SplitViewItem {
             Label {
                 id: addAccountLabel
                 //% "Add account"
-                text: qsTrId("gallery-la-add_account")
+                text: qsTrId("getiplay-log_share_add_account")
                 x: Theme.horizontalPageMargin
                 anchors.verticalCenter: parent.verticalCenter
                 color: highlighted ? Theme.highlightColor : Theme.primaryColor
@@ -106,7 +107,7 @@ SplitViewItem {
         PageHeader {
             id: othertitle
             //% "Log"
-            title: qsTrId("getiplay-log_log_title")
+            title: screenName
         }
 
         Rectangle {
