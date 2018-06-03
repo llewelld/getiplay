@@ -51,6 +51,8 @@ public:
     bool fileExists();
     bool deleteFile();
 
+    bool getCompleted();
+
 private:
     QString name;
     quint32 duration;

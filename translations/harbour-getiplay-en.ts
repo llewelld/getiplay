@@ -3,8 +3,28 @@
 <TS version="2.1">
 <context>
     <name></name>
+    <message id="getiplay-cover_programmes_completed_line1">
+        <location filename="../qml/cover/CoverPage.qml" line="67"/>
+        <source>Programmes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-cover_programmes_completed_line2">
+        <location filename="../qml/cover/CoverPage.qml" line="69"/>
+        <source>Completed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-cover_programmes_downloading_line1">
+        <location filename="../qml/cover/CoverPage.qml" line="104"/>
+        <source>Programmes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-cover_programmes_downloading_line2">
+        <location filename="../qml/cover/CoverPage.qml" line="106"/>
+        <source>Downloading</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message id="getiplay-cover_title">
-        <location filename="../qml/cover/CoverPage.qml" line="39"/>
+        <location filename="../qml/cover/CoverPage.qml" line="131"/>
         <source>GetiPlay</source>
         <translation type="unfinished"></translation>
     </message>

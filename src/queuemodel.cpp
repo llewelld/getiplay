@@ -243,3 +243,16 @@ void QueueModel::monitorPaths(QFileSystemWatcher &filewatcher) {
     }
 }
 
+unsigned int QueueModel::getCompleted() {
+    unsigned int completed = 0;
+    QList<QueueItem* >::const_iterator iter;
+
+    for (iter = programmes.constBegin(); (iter != programmes.constEnd()); ++iter) {
+        if ((*iter)->getCompleted()) {
+            completed++;
+        }
+    }
+
+    return completed;
+
+}

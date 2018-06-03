@@ -206,3 +206,17 @@ bool QueueItem::deleteFile() {
 
     return deleted;
 }
+
+bool QueueItem::getCompleted() {
+    bool completed = true;
+    switch (status) {
+    case Queue::STATUS_DOWNLOADING:
+    case Queue::STATUS_REMOTE:
+        completed = false;
+        break;
+    default:
+        completed = true;
+        break;
+    }
+    return completed;
+}
