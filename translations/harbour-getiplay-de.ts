@@ -188,18 +188,39 @@
         <source>Please respect the copyright of all files downloaded using this software</source>
         <translation type="unfinished"></translation>
     </message>
+    <message id="getiplay-about_getiplayer_description">
+        <location filename="../qml/pages/AboutPage.qml" line="110"/>
+        <source>Backend functionality is provided by get_iplayer</source>
+        <oldsource>Backend functionality is provided by get_iplayer.</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-about_getiplayer_version">
+        <location filename="../qml/pages/AboutPage.qml" line="122"/>
+        <source>Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-about_getiplayer_author">
+        <location filename="../qml/pages/AboutPage.qml" line="135"/>
+        <source>Author</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-about_getiplayer_licence">
+        <location filename="../qml/pages/AboutPage.qml" line="148"/>
+        <source>Licence</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message id="getiplay-about_subtitle_links">
-        <location filename="../qml/pages/AboutPage.qml" line="106"/>
+        <location filename="../qml/pages/AboutPage.qml" line="162"/>
         <source>Links</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_website">
-        <location filename="../qml/pages/AboutPage.qml" line="123"/>
+        <location filename="../qml/pages/AboutPage.qml" line="171"/>
         <source>Website</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiaplay-about_email">
-        <location filename="../qml/pages/AboutPage.qml" line="130"/>
+        <location filename="../qml/pages/AboutPage.qml" line="178"/>
         <source>Email</source>
         <translation type="unfinished"></translation>
     </message>
