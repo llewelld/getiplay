@@ -24,7 +24,7 @@ Item {
 
             PageHeader {
                 id: header
-                title: "Queue"
+                title: screenName
             }
         }
 
@@ -39,8 +39,10 @@ Item {
         ViewPlaceholder {
             enabled: listView.count === 0
             textFormat: Text.RichText
-            text: "&nbsp;<img style=\"scale: 200%;\" src=\"file:///usr/share/harbour-getiplay/qml/images/getiplay-bg.svg\" />&nbsp;<br />Empty"
-            hintText: "Programmes you select for download will appear here"
+            //% "Empty"
+            text: "&nbsp;<img style=\"scale: 200%;\" src=\"file:///usr/share/harbour-getiplay/qml/images/getiplay-bg.svg\" />&nbsp;<br />" + qsTrId("getiplay-queue_empty_message")
+            //% "Programmes you select for download will appear here"
+            hintText: qsTrId("getiplay-queue_empty_hint")
         }
 
         delegate: ListItem {
@@ -113,12 +115,14 @@ Item {
                 id: queueMenuComponent
                 ContextMenu {
                     MenuItem {
-                        text: "Remove from queue"
+                        //% "Remove from queue"
+                        text: qsTrId("getiplay-queue_remove")
                         enabled: (qstatus != ProgQueue.STATUS_DOWNLOADING)
                         onClicked: Queue.removeFromQueue(progId)
                     }
                     MenuItem {
-                        text: "Delete"
+                        //% "Delete"
+                        text: qsTrId("getiplay-queue_delete")
                         enabled: (qstatus == ProgQueue.STATUS_LOCAL)
                         onClicked: remove(progId)
                     }
@@ -126,7 +130,8 @@ Item {
             }
 
             function remove(progId) {
-                remorseAction("Deleting file", function() {
+                //% "Deleting file"
+                remorseAction(qsTrId("getiplay-queue_delete_remourse"), function() {
                     onClicked: Queue.deleteAndRemoveFromQueue(progId)
                 })
             }

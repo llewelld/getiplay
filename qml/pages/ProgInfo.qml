@@ -94,32 +94,38 @@ Page {
         switch (status) {
         case ProgQueue.STATUS_UNQUEUED:
             // Unqueued
-            statustext = "Not queued for download"
+            //% "Not queued for download"
+            statustext = qsTrId("getiplay-proginfo_unqueued")
             addToQueue.enabled = true
             break;
         case ProgQueue.STATUS_ERROR:
             // Error
-            statustext = "Error"
+            //% "Error"
+            statustext = qsTrId("getiplay-proginfo_error")
             addToQueue.enabled = false
             break;
         case ProgQueue.STATUS_REMOTE:
             // Remote
-            statustext = "Queued for download"
+            //% "Queued for download"
+            statustext = qsTrId("getiplay-proginfo_remote")
             addToQueue.enabled = false
             break;
         case ProgQueue.STATUS_DOWNLOADING:
             // Downloading
-            statustext = "Downloading"
+            //% "Downloading"
+            statustext = qsTrId("getiplay-proginfo_downloading")
             addToQueue.enabled = false
             break;
         case ProgQueue.STATUS_LOCAL:
             // Local
-            statustext = "Downloaded"
+            //% "Downloaded"
+            statustext = qsTrId("getiplay-proginfo_local")
             addToQueue.enabled = false
             break;
         default:
             console.log("Status Error: " + status)
-            statustext = "Error"
+            //% "Unexpected error"
+            statustext = qsTrId("getiplay-proginfo_status_error")
             addToQueue.enabled = true
             break;
         }
@@ -135,7 +141,11 @@ Page {
 
         PageHeader {
             id: header
-            title: (type == 0 ? "Radio" : "TV") + " Programme Info"
+            title: (type == 0 ?
+                        //% "Radio Programme Info"
+                        qsTrId("getiplay-proginfo_radio_info")
+                        //% "TV Programme Info"
+                      : qsTrId("getiplay-proginfo_tv_info"))
         }
 
         Column {
@@ -156,21 +166,24 @@ Page {
                 width: parent.width - (2 * Theme.paddingLarge)
                 wrapMode: Text.NoWrap
                 elide: Text.ElideRight
-                text: "<b>Episode:</b> \t" + episode
+                //% "Episode"
+                text: "<b>" + qsTrId("getiplay-proginfo_episode") + ":</b> \t" + episode
             }
             Label {
                 x: Theme.paddingLarge
                 width: parent.width - (2 * Theme.paddingLarge)
                 wrapMode: Text.NoWrap
                 elide: Text.ElideRight
-                text: "<b>Channel:</b> \t" + channel
+                //% "Channel"
+                text: "<b>" + qsTrId("getiplay-proginfo_channel") + ":</b> \t" + channel
             }
             Label {
                 x: Theme.paddingLarge
                 width: parent.width - (2 * Theme.paddingLarge)
                 wrapMode: Text.NoWrap
                 elide: Text.ElideRight
-                text: "<b>Date:</b> \t" + Settings.epochToDate(available)
+                //% "Date"
+                text: "<b>" + qsTrId("getiplay-proginfo_date_available") + ":</b> \t" + Settings.epochToDate(available)
             }
 
             Rectangle {
@@ -226,7 +239,8 @@ Page {
                 width: parent.width - (2 * Theme.paddingLarge)
                 wrapMode: Text.NoWrap
                 elide: Text.ElideRight
-                text: "<b>Status:</b> \t" + statustext
+                //% "Status"
+                text: "<b>" + qsTrId("getiplay-proginfo_status") + ":</b> \t" + statustext
             }
 
             Row {
@@ -237,7 +251,8 @@ Page {
 
                 Button {
                     id: addToQueue
-                    text: "Download"
+                    //% "Download"
+                    text: qsTrId("getiplay-proginfo_download")
                     width: ((parent.width - Theme.paddingLarge) / 2)
                     onClicked: {
                         if (Queue.addToQueue(progId, name, duration, type, episode, available, channel, web, description, imageid)) {
@@ -249,7 +264,8 @@ Page {
 
                 Button {
                     id: visitWebsite
-                    text: "Visit website"
+                    //% "Visit website"
+                    text: qsTrId("getiplay-proginfo_website")
                     width: ((parent.width - Theme.paddingLarge) / 2)
                     enabled: (web != "")
                     onClicked: Qt.openUrlExternally(web)

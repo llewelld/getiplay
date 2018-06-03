@@ -41,37 +41,40 @@ Page {
         switch (status) {
         case ProgQueue.STATUS_UNQUEUED:
             // Unqueued
-            statustext = "Not queued for download"
+            //% "Not queued for download"
+            statustext = qsTrId("getiplay-queueitem_unqueued")
             break;
         case ProgQueue.STATUS_ERROR:
             // Error
-            statustext = "Error"
+            //% "Error"
+            statustext = qsTrId("getiplay-queueitem_error")
             break;
         case ProgQueue.STATUS_REMOTE:
             // Remote
-            statustext = "Queued for download"
+            //% "Queued for download"
+            statustext = qsTrId("getiplay-queueitem_remote")
             break;
         case ProgQueue.STATUS_DOWNLOADING:
             // Downloading
-            statustext = "Downloading"
+            //% "Downloading"
+            statustext = qsTrId("getiplay-queueitem_downloading")
             break;
         case ProgQueue.STATUS_LOCAL:
             // Local
-            statustext = "Downloaded"
+            //% "Downloaded"
+            statustext = qsTrId("getiplay-queueitem_local")
             var item = Queue.getDetails(progId)
             filename = item["filename"]
             break;
         case ProgQueue.STATUS_DELETED:
             // Deleted
-            statustext = "File deleted"
-            break;
-        case ProgQueue.STATUS_DELETED:
-            // Deleted
-            statustext = "File deleted"
+            //% "File deleted"
+            statustext = qsTrId("getiplay-queueitem_deleted")
             break;
         default:
             console.log("Status Error: " + status)
-            statustext = "Error"
+            //% "Unexpected error"
+            statustext = qsTrId("getiplay-queueitem_status_error")
             break;
         }
         qstatus = status;
@@ -109,21 +112,24 @@ Page {
                 width: parent.width - (2 * Theme.paddingLarge)
                 wrapMode: Text.NoWrap
                 elide: Text.ElideRight
-                text: "<b>Episode:</b> \t" + episode
+                //% "Episode"
+                text: "<b>" + qsTrId("getiplay-queueitem_episode") + ":</b> \t" + episode
             }
             Label {
                 x: Theme.paddingLarge
                 width: parent.width - (2 * Theme.paddingLarge)
                 wrapMode: Text.NoWrap
                 elide: Text.ElideRight
-                text: "<b>Channel:</b> \t" + channel
+                //% "Channel"
+                text: "<b>" + qsTrId("getiplay-queueitem_channel") + ":</b> \t" + channel
             }
             Label {
                 x: Theme.paddingLarge
                 width: parent.width - (2 * Theme.paddingLarge)
                 wrapMode: Text.NoWrap
                 elide: Text.ElideRight
-                text: "<b>Date:</b> \t" + Settings.epochToDate(available);
+                //% "Date"
+                text: "<b>" + qsTrId("getiplay-queueitem_date_available") + ":</b> \t" + Settings.epochToDate(available);
             }
 
             Rectangle {
@@ -178,7 +184,8 @@ Page {
                 width: parent.width - (2 * Theme.paddingLarge)
                 wrapMode: Text.NoWrap
                 elide: Text.ElideRight
-                text: "<b>Status:</b> \t" + statustext
+                //% "Status"
+                text: "<b>" + qsTrId("getiplay-queueinfo_status") + ":</b> \t" + statustext
             }
 
             Row {
@@ -189,7 +196,8 @@ Page {
 
                 Button {
                     id: openFile
-                    text: "Play"
+                    //% "Play"
+                    text: qsTrId("getiplay-queueinfo_play")
                     width: ((parent.width - Theme.paddingLarge) / 2)
                     enabled: ((qstatus == ProgQueue.STATUS_LOCAL) && (filename != ""))
                     onClicked: {
@@ -199,7 +207,8 @@ Page {
 
                 Button {
                     id: visitWebsite
-                    text: "Visit website"
+                    //% "Visit website"
+                    text: qsTrId("getiplay-queueinfo_website")
                     width: ((parent.width - Theme.paddingLarge) / 2)
                     enabled: (web != "")
                     onClicked: Qt.openUrlExternally(web)

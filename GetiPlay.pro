@@ -43,14 +43,20 @@ SOURCES += src/control.cpp \
 OTHER_FILES += qml/GetiPlay.qml \
     qml/cover/CoverPage.qml \
     qml/components/TabPageHeader.qml \
+    qml/components/SplitViewItem.qml \
+    qml/pages/AboutPage.qml \
+    qml/pages/Log.qml \
+    qml/pages/MainPage.qml \
+    qml/pages/ProgInfo.qml \
+    qml/pages/ProgList.qml \
+    qml/pages/Queue.qml \
+    qml/pages/QueueItemInfo.qml \
+    qml/images/* \
     rpm/harbour-getiplay.changes \
     rpm/harbour-getiplay.spec \
     rpm/harbour-getiplay.yaml \
     translations/*.ts \
     harbour-getiplay.desktop \
-    qml/pages/ProgList.qml \
-    qml/pages/AboutPage.qml \
-    qml/images/* \
     bin/ffmpeg \
     bin/AtomicParsley \
     bin/get_iplayer \
