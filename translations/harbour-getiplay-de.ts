@@ -30,12 +30,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_menu_about">
-        <location filename="../qml/pages/ProgList.qml" line="126"/>
+        <location filename="../qml/pages/ProgList.qml" line="128"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_menu_refresh">
-        <location filename="../qml/pages/ProgList.qml" line="131"/>
+        <location filename="../qml/pages/ProgList.qml" line="133"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
@@ -45,7 +45,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem-title">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="89"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="91"/>
         <source>Queue Item</source>
         <translation type="unfinished"></translation>
     </message>

@@ -19,7 +19,8 @@ public:
         AvailableRole,
         WebRole,
         NameRole,
-        DescRole
+        DescRole,
+        ImageIdRole
     };
 
     QHash<int, QByteArray> roleNames() const;

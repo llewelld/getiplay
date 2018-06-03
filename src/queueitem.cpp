@@ -16,11 +16,12 @@ QueueItem::QueueItem() :
     available(0u),
     channel(""),
     web(""),
-    description("")
+    description(""),
+    imageid("")
 {
 }
 
-QueueItem::QueueItem(QString progId, QString name, quint32 duration, Queue::STATUS status, QueueItem::TYPE type, QString filename, QString episode, qint64 available, QString channel, QString web, QString description) :
+QueueItem::QueueItem(QString progId, QString name, quint32 duration, Queue::STATUS status, QueueItem::TYPE type, QString filename, QString episode, qint64 available, QString channel, QString web, QString description, QString imageid) :
     name(name),
     duration(duration),
     progId(progId),
@@ -32,7 +33,8 @@ QueueItem::QueueItem(QString progId, QString name, quint32 duration, Queue::STAT
     available(available),
     channel(channel),
     web(web),
-    description(description)
+    description(description),
+    imageid(imageid)
 {
 }
 
@@ -106,6 +108,10 @@ QString QueueItem::getDescription() const {
     return description;;
 }
 
+QString QueueItem::getImageId() const {
+    return imageid;
+}
+
 void QueueItem::setName (const QString &value) {
     name = value;
 }
@@ -152,6 +158,10 @@ void QueueItem::setWeb (QString &value) {
 
 void QueueItem::setDescription (QString &value) {
     description = value;
+}
+
+void QueueItem::setImageId (QString &value) {
+    imageid = value;
 }
 
 bool QueueItem::fileExists() {

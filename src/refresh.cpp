@@ -11,7 +11,7 @@ static const QString typeString[] = {"radio", "tv"};
 
 #define STRINGSEP "|"
 
-static const QStringList listformat = {"pid", "episode", "duration", "channel", "available", "web", "name", "desc"};
+static const QStringList listformat = {"pid", "episode", "duration", "channel", "available", "web", "name", "desc", "thumbnail"};
 
 Refresh::Refresh(QObject *parent, QList<ProgModel*> model, Log *log) :
     QObject(parent),
@@ -235,6 +235,7 @@ bool Refresh::interpretProgramme(const QString &text) {
     QString web = "";
     QString name = "";
     QString desc = "";
+    QString imageId = "";
 
     split = text.split(STRINGSEP, QString::KeepEmptyParts, Qt::CaseSensitive);
     success = (split.size() == listformat.size());
@@ -263,14 +264,24 @@ bool Refresh::interpretProgramme(const QString &text) {
                 case 6: // "name"
                 name = split[property];
                 break;
-                case 7: //"desc"
+                case 7: // "desc"
                 desc = split[property];
                 break;
+                case 8: // "imageId"
+                QString url = split[property];
+                if (url.endsWith(".jpg")) {
+                    imageId = "";
+                    int start = url.lastIndexOf('/');
+                    int end = url.lastIndexOf('.');
+                    if ((start >= 0) && (end > start)) {
+                        imageId = url.mid(start + 1, end - start - 1);
+                    }
+                }
+                break;
             }
-
         }
 
-        temp.addProgramme(Programme(pid, name, duration, available, channel, episode, web, desc));
+        temp.addProgramme(Programme(pid, name, duration, available, channel, episode, web, desc, imageId));
     }
 
     return success;

@@ -19,6 +19,7 @@ Page {
     property string episode: ""
     property string web: ""
     property string filename: ""
+    property string imageid: ""
 
     Connections {
         target:Queue
@@ -32,6 +33,7 @@ Page {
     on_ExposedChanged: {
         if (_exposed) {
             updateStatus(qstatus)
+            thumbnail.source = (imageid == "" ? "https://ichef.bbci.co.uk/images/ic/640x360/p01tqv8z.png" : "https://ichef.bbci.co.uk/images/ic/640x360/" + imageid + ".jpg")
         }
     }
 
@@ -125,21 +127,21 @@ Page {
             }
 
             Rectangle {
-                width: 840
-                height: 476
-                border.width: 4
+                width: parent.width - 2 * Theme.paddingLarge
+                height: width * 0.5625
+                border.width: 0
                 border.color: "transparent" // Theme.highlightColor
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: "transparent"
 
                 Image {
                     id: thumbnail
-                    source: ((type == 0) ? Qt.resolvedUrl("image://theme/icon-m-music") : Qt.resolvedUrl("image://theme/icon-m-video"))
-                    width: 832
-                    height: 468
+                    source: ""
+                    width: parent.width - 8
+                    height: parent.height - 8
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    fillMode: ((type == 0) ? Image.Pad : Image.Pad)
+                    fillMode: Image.PreserveAspectFit
                     NumberAnimation on opacity { id: fadein; from: 0; to: 1; duration: 1000 }
                     onStatusChanged: {
                         if (status == Image.Ready) {
@@ -161,9 +163,9 @@ Page {
             Label {
                 x: Theme.paddingLarge
                 text: description
-                font.pixelSize: Theme.fontSizeExtraSmall
+                //font.pixelSize: Theme.fontSizeExtraSmall
                 width: parent.width - 2 * Theme.paddingLarge
-                height: Theme.fontSizeExtraSmall * 8
+                height: Theme.fontSizeMedium * 4
                 wrapMode: Text.WordWrap
                 verticalAlignment: Text.AlignTop
                 clip: true

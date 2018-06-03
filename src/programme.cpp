@@ -9,11 +9,12 @@ Programme::Programme() :
     available(0u),
     channel(""),
     web(""),
-    description("")
+    description(""),
+    imageId("")
 {
 }
 
-Programme::Programme(QString progId, QString name, qint32 duration, qint64 available, QString channel, QString episode, QString web, QString description) :
+Programme::Programme(QString progId, QString name, qint32 duration, qint64 available, QString channel, QString episode, QString web, QString description, QString imageId) :
     name(name),
     duration(duration),
     progId(progId),
@@ -21,7 +22,8 @@ Programme::Programme(QString progId, QString name, qint32 duration, qint64 avail
     available(available),
     channel(channel),
     web(web),
-    description(description)
+    description(description),
+    imageId(imageId)
 {
 }
 
@@ -57,6 +59,10 @@ QString Programme::getDescription () const {
     return description;
 }
 
+QString Programme::getImageId () const {
+    return imageId;
+}
+
 void Programme::setName (const QString &value) {
     name = value;
 }
@@ -88,3 +94,8 @@ void Programme::setWeb(QString value) {
 void Programme::setDescription(QString value) {
     description = value;
 }
+
+void Programme::setImageId(QString value) {
+    imageId = value;
+}
+

@@ -40,6 +40,7 @@ Item {
     property bool tv: control.viewTv
     property string screenName
     property bool refreshing: false
+    property int totalitems: 0
 
     Connections {
         target:Refresh
@@ -70,6 +71,7 @@ Item {
 
     onSearchStringChanged: {
         (tv ? programmestv : programmesradio).setFilterFixedString(searchString)
+        totalitems = (tv ? programmestv : programmesradio).sourceModel.rowCount()
     }
 
     SilicaListView {
@@ -139,8 +141,8 @@ Item {
         ViewPlaceholder {
             enabled: listView.count === 0
             textFormat: Text.RichText
-            text: "&nbsp;<img style=\"scale: 200%;\" src=\"file:///usr/share/harbour-getiplay/qml/images/getiplay-bg.svg\" />&nbsp;<br />No items found"
-            hintText: "Select Refresh from menu to populate"
+            text: ((totalitems == 0) ? "&nbsp;<img style=\"scale: 200%;\" src=\"file:///usr/share/harbour-getiplay/qml/images/getiplay-bg.svg\" />&nbsp;<br />No items found" : "No items found")
+            hintText: ((totalitems == 0) ? "Select Refresh from menu to populate" : "")
         }
 
         delegate: BackgroundItem {
@@ -174,7 +176,7 @@ Item {
             }
             onClicked: {
                 console.log("Clicked " + name)
-                pageStack.push(Qt.resolvedUrl("ProgInfo.qml"), { name: name, progId: progId, duration: duration, type: (tv ? 1 : 0), episode: episode, available: available, channel: channel, web: web, description: description })
+                pageStack.push(Qt.resolvedUrl("ProgInfo.qml"), { name: name, progId: progId, duration: duration, type: (tv ? 1 : 0), episode: episode, available: available, channel: channel, web: web, description: description, imageid: imageid })
             }
         }
     }

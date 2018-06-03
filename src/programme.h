@@ -8,7 +8,7 @@ class Programme
 {
 public:
     Programme();
-    Programme(QString progId, QString name, qint32 duration, qint64 available, QString channel, QString episode, QString web, QString description);
+    Programme(QString progId, QString name, qint32 duration, qint64 available, QString channel, QString episode, QString web, QString description, QString imageId);
 
     QString getName () const;
     qint32 getDuration () const;
@@ -18,6 +18,7 @@ public:
     QString getEpisode () const;
     QString getWeb () const;
     QString getDescription () const;
+    QString getImageId () const;
 
     void setName (const QString &value);
     void setDuration (qint32 value);
@@ -27,6 +28,7 @@ public:
     void setEpisode(QString value);
     void setWeb(QString value);
     void setDescription(QString value);
+    void setImageId(QString value);
 
 private:
     QString name;
@@ -37,6 +39,7 @@ private:
     QString channel;
     QString web;
     QString description;
+    QString imageId;
 };
 
 
