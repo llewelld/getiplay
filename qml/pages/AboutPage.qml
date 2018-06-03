@@ -49,7 +49,7 @@ Page {
             }
             Label {
                 //% "Version"
-                text: qsTrId("getiplay-about_version") + ":\t" + version
+                text: qsTrId("getiplay-about_version") + ":\t\t" + version
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
                 horizontalAlignment: Text.AlignLeft
@@ -62,7 +62,7 @@ Page {
             }
             Label {
                 //% "Author"
-                text: qsTrId("getiplay-about_author") + ":\t\t" + "David Llewellyn-Jones"
+                text: qsTrId("getiplay-about_author") + ":\t\t\t" + "David Llewellyn-Jones"
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
                 horizontalAlignment: Text.AlignLeft
@@ -75,7 +75,7 @@ Page {
             }
             Label {
                 //% "Licence"
-                text: qsTrId("getiplay-about_licence") + ":\t" + "MIT"
+                text: qsTrId("getiplay-about_licence") + ":\t\t" + "MIT"
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
                 horizontalAlignment: Text.AlignLeft
@@ -101,17 +101,65 @@ Page {
                 }
             }
 
+            SectionHeader {
+                text:  "About get_iplayer"
+            }
+
             Label {
-                //% "Links"
-                text: qsTrId("getiplay-about_subtitle_links")
-                color: Theme.highlightColor
-                font.family: Theme.fontFamilyHeading
-                horizontalAlignment: Text.AlignRight
+                //% "Backend functionality is provided by get_iplayer"
+                text: qsTrId("getiplay-about_getiplayer_description")
+                wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeSmall
                 anchors {
-                    margins: Theme.paddingLarge
+                    leftMargin: Theme.paddingLarge
+                    rightMargin: Theme.paddingLarge
                     left: parent.left
                     right: parent.right
                 }
+            }
+            Label {
+                //% "Version"
+                text: qsTrId("getiplay-about_getiplayer_version") + ":\t\t" + "3.14"
+                wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeSmall
+                horizontalAlignment: Text.AlignLeft
+                anchors {
+                    leftMargin: Theme.paddingLarge
+                    rightMargin: Theme.paddingLarge
+                    left: parent.left
+                    right: parent.right
+                }
+            }
+            Label {
+                //% "Maintainer"
+                text: qsTrId("getiplay-about_getiplayer_maintainer") + ":\t\t" + "dinkypumpkin"
+                wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeSmall
+                horizontalAlignment: Text.AlignLeft
+                anchors {
+                    leftMargin: Theme.paddingLarge
+                    rightMargin: Theme.paddingLarge
+                    left: parent.left
+                    right: parent.right
+                }
+            }
+            Label {
+                //% "Licence"
+                text: qsTrId("getiplay-about_getiplayer_licence") + ":\t\t" + "GPLv3"
+                wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeSmall
+                horizontalAlignment: Text.AlignLeft
+                anchors {
+                    leftMargin: Theme.paddingLarge
+                    rightMargin: Theme.paddingLarge
+                    left: parent.left
+                    right: parent.right
+                }
+            }
+
+            SectionHeader {
+                //% "Links"
+                text: qsTrId("getiplay-about_subtitle_links")
             }
 
             Row {
