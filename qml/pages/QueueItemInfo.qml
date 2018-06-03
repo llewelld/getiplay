@@ -127,9 +127,9 @@ Page {
             }
 
             Rectangle {
-                width: 840
-                height: 476
-                border.width: 4
+                width: parent.width - 2 * Theme.paddingLarge
+                height: width * 0.5625
+                border.width: 0
                 border.color: "transparent" // Theme.highlightColor
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: "transparent"
@@ -137,8 +137,8 @@ Page {
                 Image {
                     id: thumbnail
                     source: ""
-                    width: 832
-                    height: 468
+                    width: parent.width - 8
+                    height: parent.height - 8
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                     fillMode: Image.PreserveAspectFit
@@ -165,7 +165,7 @@ Page {
                 text: description
                 //font.pixelSize: Theme.fontSizeExtraSmall
                 width: parent.width - 2 * Theme.paddingLarge
-                height: Theme.fontSizeExtraSmall * 8
+                height: Theme.fontSizeMedium * 4
                 wrapMode: Text.WordWrap
                 verticalAlignment: Text.AlignTop
                 clip: true
