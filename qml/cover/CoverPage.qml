@@ -32,11 +32,111 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 CoverBackground {
+    id: cover
+
+    property int completed: Queue.completed
+    property int downloading: Queue.downloading
+    property string max: Math.max(Queue.completed, Queue.downloading)
+    property int numwidth: max.length
+
+    Image {
+        id: background
+        visible: true
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: parent.width
+        height: sourceSize.height * width / sourceSize.width
+        source: "../images/graphic-cover-getiplay-background.png"
+        opacity: 0.1
+    }
+
+
     Label {
-        id: label
-        anchors.centerIn: parent
+        id: queuesizeCount
+        text: completed
+        x: Theme.paddingLarge
+        width: numwidth * Theme.fontSizeMedium
+        y: Theme.paddingMedium
+        visible: true
+        font.pixelSize: Theme.fontSizeHuge
+        horizontalAlignment: Text.AlignRight
+    }
+
+    Label {
+        id: sessionLabel
+        //% "Programmes"
+        text: qsTrId("getiplay-cover_programmes_completed_line1") + "\n"
+        //% "Completed"
+        + qsTrId("getiplay-cover_programmes_completed_line2")
+        font.pixelSize: Theme.fontSizeExtraSmall
+        visible: true
+        maximumLineCount: 2
+        wrapMode: Text.Wrap
+        fontSizeMode: Text.HorizontalFit
+        lineHeight: 0.8
+        height: implicitHeight/0.8
+        verticalAlignment: Text.AlignVCenter
+        anchors {
+            right: parent.right
+            left: queuesizeCount.right
+            leftMargin: Theme.paddingMedium
+            baseline: queuesizeCount.baseline
+            baselineOffset: lineCount > 1 ? -implicitHeight/2 : -(height-implicitHeight)/2
+        }
+    }
+
+    Label {
+        id: downloadingCount
+        text: downloading
+        x: Theme.paddingLarge
+        y: Theme.paddingMedium
+        width: numwidth * Theme.fontSizeMedium
+        visible: true
+        font.pixelSize: Theme.fontSizeHuge
+        horizontalAlignment: Text.AlignRight
+        anchors {
+            top: queuesizeCount.baseline;
+            topMargin: Theme.paddingLarge
+        }
+    }
+    Label {
+        id: availableLabel
+        //% "Programmes"
+        text: qsTrId("getiplay-cover_programmes_downloading_line1") + "\n"
+        //% "Downloading"
+        + qsTrId("getiplay-cover_programmes_downloading_line2")
+        font.pixelSize: Theme.fontSizeExtraSmall
+        visible: true
+        maximumLineCount: 2
+        wrapMode: Text.Wrap
+        fontSizeMode: Text.HorizontalFit
+        lineHeight: 0.8
+        height: implicitHeight/0.8
+        verticalAlignment: Text.AlignVCenter
+        anchors {
+            right: parent.right
+            left: downloadingCount.right
+            leftMargin: Theme.paddingMedium
+            baseline: downloadingCount.baseline
+            baselineOffset: lineCount > 1 ? -implicitHeight/2 : -(height-implicitHeight)/2
+        }
+    }
+
+    Label {
+        id: statusLabel
+
+        visible: true
+        x: Theme.paddingLarge
+        color: Theme.highlightColor
         //% "GetiPlay"
         text: qsTrId("getiplay-cover_title")
+        anchors { top: downloadingCount.baseline; topMargin: Theme.paddingLarge }
+        height: parent.height - coverActionArea.height - statusLabel.y - Theme.paddingMedium
+        fontSizeMode: Text.VerticalFit
+        font.pixelSize: Theme.fontSizeLarge
+        wrapMode: Text.Wrap
+        width: parent.width - Theme.paddingLarge
+        elide: Text.ElideNone
+        maximumLineCount: 3
     }
 
     CoverActionList {

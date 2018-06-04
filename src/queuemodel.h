@@ -50,6 +50,7 @@ public:
     void pruneQueue();
     QString removePath(const QString &path);
     void monitorPaths(QFileSystemWatcher &filewatcher);
+    unsigned int getCompleted();
 
 signals:
     // General signals

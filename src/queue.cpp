@@ -11,7 +11,9 @@ Queue::Queue(QObject *parent, Download *download) :
     downloadingId(""),
     download(download),
     active(nullptr),
-    filewatcher(this)
+    filewatcher(this),
+    downloading(0),
+    completed(0)
 {
     connect(download, SIGNAL(statusChanged(int)), this, SLOT(statusChanged(int)));
     connect(download, SIGNAL(progressChanged(float)), this, SLOT(progressChanged(float)));
@@ -26,6 +28,8 @@ void Queue::setModel(QueueModel * model) {
 
     // Add in the new file paths
     model->monitorPaths(filewatcher);
+    setCompleted(model->getCompleted());
+    setDownloading(model->rowCount() - completed);
 
     takeAction();
 }
@@ -43,6 +47,7 @@ bool Queue::addToQueue(QString progid, QString name, quint32 duration, int type,
     if (found == nullptr) {
         model->addProgramme(new QueueItem(progid, name, duration, Queue::STATUS_REMOTE, static_cast<QueueItem::TYPE>(type), "", episode, available, channel, web, description, imageid));
         emit statusChanged(progid, Queue::STATUS_REMOTE);
+        incrementDownloading();
         takeAction();
         added = true;
     }
@@ -53,19 +58,35 @@ bool Queue::addToQueue(QString progid, QString name, quint32 duration, int type,
 void Queue::removeFromQueue(QString progid) {
     qDebug() << "Remove " << progid << " from queue";
     QueueItem * item = model->findFromId(progid);
-    removeFileWatch(item->getFilename());
+    if (item != nullptr) {
+        if (item->getCompleted()) {
+            decrementCompleted();
+        }
+        else {
+            decrementDownloading();
+        }
+        removeFileWatch(item->getFilename());
 
-    model->removeFirstWithProgId(progid);
+        model->removeFirstWithProgId(progid);
+    }
 }
 
 void Queue::deleteAndRemoveFromQueue(QString progid) {
     qDebug() << "Delete " << progid;
 
     QueueItem * item = model->findFromId(progid);
-    removeFileWatch(item->getFilename());
+    if (item != nullptr) {
+        if (item->getCompleted()) {
+            decrementCompleted();
+        }
+        else {
+            decrementDownloading();
+        }
+        removeFileWatch(item->getFilename());
 
-    item->deleteFile();
-    model->removeFirstWithProgId(progid);
+        item->deleteFile();
+        model->removeFirstWithProgId(progid);
+    }
 }
 
 void Queue::takeAction() {
@@ -142,6 +163,8 @@ void Queue::statusChanged(int status) {
     if (status >= DOWNLOADSTATUS_CANCEL) {
         // We're done with this download; move on to the next
         active = nullptr;
+        decrementDownloading();
+        incrementCompleted();
         takeAction();
     }
 }
@@ -213,3 +236,36 @@ QVariant Queue::getDetails(QString progid) {
     return details;
 }
 
+unsigned int Queue::getCompleted() {
+    return completed;
+}
+
+unsigned int Queue::getDownloading() {
+    return downloading;
+}
+
+void Queue::setCompleted(unsigned int value) {
+    completed = value;
+    emit completedChanged(value);
+}
+
+void Queue::setDownloading(unsigned int value) {
+    downloading = value;
+    emit downloadingChanged(value);
+}
+
+void Queue::incrementDownloading() {
+    emit downloadingChanged(++downloading);
+}
+
+void Queue::decrementDownloading() {
+    emit downloadingChanged(--downloading);
+}
+
+void Queue::incrementCompleted() {
+    emit completedChanged(++completed);
+}
+
+void Queue::decrementCompleted() {
+    emit completedChanged(--completed);
+}
