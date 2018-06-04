@@ -12,8 +12,8 @@ Queue::Queue(QObject *parent, Download *download) :
     download(download),
     active(nullptr),
     filewatcher(this),
-    completed(0),
-    downloading(0)
+    downloading(0),
+    completed(0)
 {
     connect(download, SIGNAL(statusChanged(int)), this, SLOT(statusChanged(int)));
     connect(download, SIGNAL(progressChanged(float)), this, SLOT(progressChanged(float)));
