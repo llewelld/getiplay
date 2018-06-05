@@ -2,12 +2,20 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import Sailfish.Pickers 1.0
 import "../component"
+import harbour.getiplay.settings 1.0
 
 Page {
     id: settingsPage
 
-    property string videoFolder: "/home/nemo/Videos/harbour-getiplay"
-    property string audioFolder: "/home/nemo/Music/harbour-getiplay"
+    property string videoFolder: Settings.videoDir
+    property string audioFolder: Settings.audioDir
+    property alias proxyUrl: proxyUrlEntry.text
+    property alias refreshType: refreshtypeentry.currentIndex
+
+    Binding { target: Settings; property: "videoDir"; value: videoFolder }
+    Binding { target: Settings; property: "audioDir"; value: audioFolder }
+    Binding { target: Settings; property: "proxyUrl"; value: proxyUrl }
+    Binding { target: Settings; property: "refreshType"; value: refreshType }
 
     SilicaFlickable {
         width: parent.width
@@ -29,11 +37,17 @@ Page {
                 title: qsTrId("getiplay-settings_title")
             }
 
+            SectionHeader {
+                //% "Download settings"
+                text: qsTrId("getiplay-settings_subtitle_")
+            }
+
             ComboBox {
+                id: refreshtypeentry
                 width: parent.width
                 //% "Programme listing type"
                 label: qsTrId("getiplay-settings_listtype")
-                currentIndex: 0
+                currentIndex: Settings.refreshType
 
                 menu: ContextMenu {
                     MenuItem {
@@ -54,12 +68,19 @@ Page {
             }
 
             TextField {
+                id: proxyUrlEntry
                 //% "Web proxy URL"
                 label: qsTrId("getiplay-settings_proxy")
                 placeholderText: label
                 width: parent.width
+                text: Settings.proxyUrl
                 //EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 //EnterKey.onClicked: passwordField.focus = true
+            }
+
+            SectionHeader {
+                //% "File storage"
+                text: qsTrId("getiplay-settings_subtitle_file_storage")
             }
 
             ValueButton {
@@ -87,7 +108,7 @@ Page {
             ValueButton {
                 //% "Audio folder"
                 label: qsTrId("getiplay-settings_audio_folder")
-                value: audioFolder ? audioFolder : "None"
+                value: audioFolder
                 onClicked: {
                     pageStack.push(audioPickerDialog, { })
                 }

@@ -375,58 +375,68 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_title">
-        <location filename="../qml/pages/Settings.qml" line="29"/>
+        <location filename="../qml/pages/Settings.qml" line="37"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message id="getiplay-settings_subtitle_">
+        <location filename="../qml/pages/Settings.qml" line="42"/>
+        <source>Download settings</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message id="getiplay-settings_listtype">
-        <location filename="../qml/pages/Settings.qml" line="35"/>
+        <location filename="../qml/pages/Settings.qml" line="49"/>
         <source>Programme listing type</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype_national">
-        <location filename="../qml/pages/Settings.qml" line="41"/>
+        <location filename="../qml/pages/Settings.qml" line="55"/>
         <source>National</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype_regional">
-        <location filename="../qml/pages/Settings.qml" line="45"/>
+        <location filename="../qml/pages/Settings.qml" line="59"/>
         <source>Regional</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype_local">
-        <location filename="../qml/pages/Settings.qml" line="49"/>
+        <location filename="../qml/pages/Settings.qml" line="63"/>
         <source>Local</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype_description">
-        <location filename="../qml/pages/Settings.qml" line="53"/>
+        <location filename="../qml/pages/Settings.qml" line="67"/>
         <source>Programme lists must be refreshed to take effect</source>
         <oldsource>Programme lists must be refreshed for change to take effect.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_proxy">
-        <location filename="../qml/pages/Settings.qml" line="58"/>
+        <location filename="../qml/pages/Settings.qml" line="73"/>
         <source>Web proxy URL</source>
         <translation type="unfinished"></translation>
     </message>
+    <message id="getiplay-settings_subtitle_file_storage">
+        <location filename="../qml/pages/Settings.qml" line="83"/>
+        <source>File storage</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message id="getiplay-settings_video_folder">
-        <location filename="../qml/pages/Settings.qml" line="67"/>
+        <location filename="../qml/pages/Settings.qml" line="88"/>
         <source>Video folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_select_video_folder">
-        <location filename="../qml/pages/Settings.qml" line="78"/>
+        <location filename="../qml/pages/Settings.qml" line="99"/>
         <source>Select video folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_audio_folder">
-        <location filename="../qml/pages/Settings.qml" line="89"/>
+        <location filename="../qml/pages/Settings.qml" line="110"/>
         <source>Audio folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_select_audio_folder">
-        <location filename="../qml/pages/Settings.qml" line="100"/>
+        <location filename="../qml/pages/Settings.qml" line="121"/>
         <source>Select audio folder</source>
         <translation type="unfinished"></translation>
     </message>

@@ -187,10 +187,10 @@ bool QueueItem::deleteFile() {
 
         // Check that the folder is correct
         if (type == QueueItem::TYPE_RADIO) {
-            storepath = Settings::getMusicDir();
+            storepath = Settings::getInstance().getAudioDir();
         }
         else {
-            storepath = Settings::getVideoDir();
+            storepath = Settings::getInstance().getVideoDir();
         }
         qDebug() << "Compare aginst path " << storepath;
         QFileInfo store = QFileInfo(storepath);

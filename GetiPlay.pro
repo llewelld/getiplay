@@ -26,7 +26,7 @@ DEFINES += "VERSION_MAJOR=$$VERSION_MAJOR" \
 
 CONFIG += sailfishapp
 
-SOURCES += src/control.cpp \
+SOURCES += \
     src/download.cpp \
     src/logfile.cpp \
     src/progmodel.cpp \
@@ -77,7 +77,6 @@ TRANSLATIONS += translations/harbour-getiplay-de.ts
 TRANSLATIONS += translations/harbour-getiplay-en.ts
 
 HEADERS += \
-    src/control.h \
     src/download.h \
     src/logfile.h \
     src/progmodel.h \

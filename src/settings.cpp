@@ -1,5 +1,6 @@
 #include <QDesktopServices>
 #include <QDateTime>
+#include <QDebug>
 
 #include "settings.h"
 
@@ -9,9 +10,20 @@
 
 Settings * Settings::instance = nullptr;
 
-Settings::Settings(QObject *parent) : QObject(parent)
+Settings::Settings(QObject *parent) : QObject(parent),
+  settings(this)
 {
+    audioDir = settings.value("storage/audioDir", QString(QStandardPaths::writableLocation(QStandardPaths::MusicLocation) + "/" APP_NAME)).toString();
+    videoDir = settings.value("storage/videoDir", QString(QStandardPaths::writableLocation(QStandardPaths::MoviesLocation) + "/" APP_NAME)).toString();
+    proxyUrl = settings.value("download/proxyUrl", "").toString();
+    refreshType = (PROGTYPE)settings.value("storage/refreshType", PROGTYPE_NATIONAL).toInt();
+}
 
+Settings::~Settings() {
+    settings.setValue("storage/audioDir", audioDir);
+    settings.setValue("storage/videoDir", videoDir);
+    settings.setValue("download/proxyUrl", proxyUrl);
+    settings.setValue("storage/refreshType", refreshType);
 }
 
 void Settings::instantiate(QObject *parent) {
@@ -37,14 +49,6 @@ QString Settings::getLogDir() {
 
 QString Settings::getConfigDir() {
     return QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
-}
-
-QString Settings::getMusicDir() {
-    return QStandardPaths::writableLocation(QStandardPaths::MusicLocation) + "/" APP_NAME;
-}
-
-QString Settings::getVideoDir() {
-    return QStandardPaths::writableLocation(QStandardPaths::MoviesLocation) + "/" APP_NAME;
 }
 
 QString Settings::getDownloadsDir() {
@@ -95,5 +99,47 @@ quint64 Settings::dateToEpoch (QString date) {
     quint64 epoch = QDateTime::fromString(date, Qt::ISODate).toTime_t();
 
     return epoch;
+}
+
+// Configurable values
+
+QString Settings::getAudioDir() {
+    return audioDir;
+}
+
+QString Settings::getVideoDir() {
+    return videoDir;
+}
+
+QString Settings::getProxyUrl() {
+    return proxyUrl;
+}
+
+Settings::PROGTYPE Settings::getRefreshType() {
+    return refreshType;
+}
+
+void Settings::setAudioDir(QString &value) {
+    qDebug() << "Set audio Dir: " << value;
+    audioDir = value;
+    emit audioDirChanged(audioDir);
+}
+
+void Settings::setVideoDir(QString &value) {
+    qDebug() << "Set video Dir: " << value;
+    videoDir = value;
+    emit videoDirChanged(videoDir);
+}
+
+void Settings::setProxyUrl(QString &value) {
+    qDebug() << "Set proxy URL: " << value;
+    proxyUrl = value;
+    emit proxyUrlChanged(proxyUrl);
+}
+
+void Settings::setRefreshType(PROGTYPE value) {
+    qDebug() << "Set refresh type: " << value;
+    refreshType = value;
+    emit refreshTypeChanged(refreshType);
 }
 

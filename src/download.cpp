@@ -95,9 +95,9 @@ void Download::collectArguments () {
     addArgument("profile-dir", Settings::getProfileDir());
 
     if (progType == QString("radio")) {
-        addArgument("output", Settings::getMusicDir());
+        addArgument("output", Settings::getInstance().getAudioDir());
     } else if (progType == QString("tv")) {
-        addArgument("output", Settings::getVideoDir());
+        addArgument("output", Settings::getInstance().getVideoDir());
     } else {
         addArgument("output", Settings::getDownloadsDir());
     }

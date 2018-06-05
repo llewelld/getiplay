@@ -60,8 +60,8 @@ void logfile::status() {
     logLine("Log dir: " + Settings::getLogDir());
     logLine("Log file: " + Settings::getLogFile(0));
     logLine("Config dir: " + Settings::getConfigDir());
-    logLine("Music dir: " + Settings::getMusicDir());
-    logLine("Video dir: " + Settings::getVideoDir());
+    logLine("Music dir: " + Settings::getInstance().getAudioDir());
+    logLine("Video dir: " + Settings::getInstance().getVideoDir());
     logLine("Downloads dir: " + Settings::getDownloadsDir());
     logLine("Profile dir: " + Settings::getProfileDir());
     logLine("Bin: " DIR_BIN);

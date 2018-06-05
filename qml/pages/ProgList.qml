@@ -37,7 +37,7 @@ Item {
     implicitHeight: mainView.height; implicitWidth: mainView.width
 
     property string searchString
-    property bool tv: control.viewTv
+    property bool tv
     property string screenName
     property bool refreshing: false
     property int totalitems: 0
