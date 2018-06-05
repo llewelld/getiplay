@@ -3,7 +3,7 @@ import Sailfish.Silica 1.0
 import Sailfish.Pickers 1.0
 import "../component"
 
-Dialog {
+Page {
     id: settingsPage
 
     property string videoFolder: "/home/nemo/Videos/harbour-getiplay"
@@ -24,7 +24,7 @@ Dialog {
             width: parent.width
             spacing: Theme.paddingLarge
 
-            DialogHeader {
+            PageHeader {
                 //% "Settings"
                 title: qsTrId("getiplay-settings_title")
             }

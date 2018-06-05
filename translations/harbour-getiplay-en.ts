@@ -343,33 +343,33 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="components_pickers-he-select_location">
-        <location filename="../qml/component/FolderPickerDialog.qml" line="17"/>
+        <location filename="../qml/component/FolderPickerDialog.qml" line="27"/>
         <source>Select location</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-components_pickers-me-hide_hidden_dirs">
-        <location filename="../qml/component/private/DirectoryListView.qml" line="82"/>
+        <location filename="../qml/component/private/DirectoryListView.qml" line="85"/>
         <source>Hide hidden folders</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-components_pickers-me-show_hidden_dirs">
-        <location filename="../qml/component/private/DirectoryListView.qml" line="84"/>
+        <location filename="../qml/component/private/DirectoryListView.qml" line="87"/>
         <source>Show hidden folders</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="components_pickers-me-sort">
-        <location filename="../qml/component/private/DirectoryListView.qml" line="89"/>
+        <location filename="../qml/component/private/DirectoryListView.qml" line="92"/>
         <source>Sort</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-components_pickers-ph-unreadable_location">
-        <location filename="../qml/component/private/DirectoryListView.qml" line="127"/>
+        <location filename="../qml/component/private/DirectoryListView.qml" line="130"/>
         <source>Select Accept to choose this folder</source>
         <extracomment>Empty state text if there are no folders to show</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message id="components_pickers-ph-unreadable_location">
-        <location filename="../qml/component/private/DirectoryListView.qml" line="134"/>
+        <location filename="../qml/component/private/DirectoryListView.qml" line="137"/>
         <source>The location cannot be accessed</source>
         <extracomment>Empty state text if the path is not readable by the application</extracomment>
         <translation type="unfinished"></translation>
