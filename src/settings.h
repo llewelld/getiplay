@@ -15,7 +15,7 @@
 class Settings : public QObject
 {
     Q_OBJECT
-    Q_ENUMS(PROGTYPE)
+    Q_ENUMS(REFRESHTYPE PROGTYPE)
 
     // General properties
     Q_PROPERTY(QString audioDir READ getAudioDir WRITE setAudioDir NOTIFY audioDirChanged)
@@ -34,6 +34,15 @@ public:
         PROGTYPE_NUM
     };
 
+    enum REFRESHTYPE {
+        REFRESHTYPE_INVALID = -1,
+
+        REFRESHTYPE_RADIO = 0,
+        REFRESHTYPE_TV = 1,
+
+        REFRESHTYPE_NUM
+    };
+
     explicit Settings(QObject *parent = nullptr);
     ~Settings();
 
@@ -48,6 +57,7 @@ public:
     Q_INVOKABLE static QString getProfileDir();
     Q_INVOKABLE static QString getTempDir();
     Q_INVOKABLE static QString getLogFile(unsigned int cycle);
+    bool getRebuildCache(int type);
 
     // Configurable values
     Q_INVOKABLE QString getAudioDir();
@@ -60,6 +70,7 @@ public:
 
     static QString & escape(QString &string);
     static QString & unescape(QString &string);
+
 signals:
     // Configurable values
     void audioDirChanged(QString &audioDir);
@@ -83,6 +94,7 @@ private:
     QString videoDir;
     QString proxyUrl;
     PROGTYPE refreshType;
+    PROGTYPE lastRefreshType[REFRESHTYPE_NUM];
 };
 
 #endif // SETTINGS_H

@@ -183,22 +183,10 @@ bool QueueItem::deleteFile() {
     if (filename != "") {
         QFile file(filename);
         QFileInfo fileinfo(file);
-        QString storepath;
 
-        // Check that the folder is correct
-        if (type == QueueItem::TYPE_RADIO) {
-            storepath = Settings::getInstance().getAudioDir();
-        }
-        else {
-            storepath = Settings::getInstance().getVideoDir();
-        }
-        qDebug() << "Compare aginst path " << storepath;
-        QFileInfo store = QFileInfo(storepath);
-        if (fileinfo.canonicalPath().compare(store.canonicalFilePath()) == 0) {
+        // Only delete files, not folders or anything else
+        if (fileinfo.isFile()) {
             qDebug() << "Performing the deletion";
-            // The folder is in the correct place
-            // There's a TOCTTOU security vulnerability here
-            // Someone could swith files after the check and before the remove
             file.remove();
             deleted = true;
         }

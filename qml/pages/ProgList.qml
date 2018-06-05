@@ -30,6 +30,7 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import harbour.getiplay.settings 1.0
 
 Item {
     id: page
@@ -139,7 +140,7 @@ Item {
                 text: qsTrId("getiplay-proglist_menu_refresh")
                 enabled: !refreshing
                 onClicked: {
-                    Refresh.startRefresh((tv ? 1 : 0)) // 0 = radio; 1 = tv
+                    Refresh.startRefresh((tv ? Settings.REFRESHTYPE_TV : Settings.REFRESHTYPE_RADIO)) // 0 = radio; 1 = tv
                 }
             }
         }

@@ -75,6 +75,7 @@ void Download::setupEnvironment() {
 }
 
 void Download::collectArguments () {
+    QString proxy = Settings::getInstance().getProxyUrl();
     arguments.clear();
 
     if (progType == QString("radio")) {
@@ -87,12 +88,14 @@ void Download::collectArguments () {
     addArgument("pid", QString("%1").arg(progId));
     addArgument("force");
     addArgument("nocopyright");
+    addArgument("nopurge");
     addArgument("atomicparsley", DIR_BIN "/AtomicParsley");
     addArgument("ffmpeg", DIR_BIN "/ffmpeg");
     addArgument("ffmpeg-loglevel", "info");
     addArgument("expiry=99999999");
     addArgument("log-progress");
     addArgument("profile-dir", Settings::getProfileDir());
+    (proxy != "") ? addArgument("proxy", proxy): addArgument("no-proxy");
 
     if (progType == QString("radio")) {
         addArgument("output", Settings::getInstance().getAudioDir());

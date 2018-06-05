@@ -3,6 +3,7 @@
 #include <QDebug>
 
 #include "settings.h"
+#include "refresh.h"
 
 #define DIR_GETIPLAYERCONFIG "/.get_iplayer"
 #define LEAF_LOG "/log01.txt"
@@ -17,6 +18,13 @@ Settings::Settings(QObject *parent) : QObject(parent),
     videoDir = settings.value("storage/videoDir", QString(QStandardPaths::writableLocation(QStandardPaths::MoviesLocation) + "/" APP_NAME)).toString();
     proxyUrl = settings.value("download/proxyUrl", "").toString();
     refreshType = (PROGTYPE)settings.value("storage/refreshType", PROGTYPE_NATIONAL).toInt();
+
+    settings.beginReadArray("storage/lastRefresh");
+    for (int progType = 0; progType < REFRESHTYPE_NUM; progType++) {
+        settings.setArrayIndex(progType);
+        lastRefreshType[progType] = static_cast<PROGTYPE>(settings.value("type", PROGTYPE_INVALID).toInt());
+    }
+    settings.endArray();
 }
 
 Settings::~Settings() {
@@ -24,6 +32,13 @@ Settings::~Settings() {
     settings.setValue("storage/videoDir", videoDir);
     settings.setValue("download/proxyUrl", proxyUrl);
     settings.setValue("storage/refreshType", refreshType);
+
+    settings.beginWriteArray("storage/lastRefresh");
+    for (int progType = 0; progType < REFRESHTYPE_NUM; progType++) {
+        settings.setArrayIndex(progType);
+        settings.setValue("type", static_cast<int>(lastRefreshType[progType]));
+    }
+    settings.endArray();
 }
 
 void Settings::instantiate(QObject *parent) {
@@ -141,5 +156,22 @@ void Settings::setRefreshType(PROGTYPE value) {
     qDebug() << "Set refresh type: " << value;
     refreshType = value;
     emit refreshTypeChanged(refreshType);
+}
+
+bool Settings::getRebuildCache(int type) {
+    bool rebuildCache;
+    int typeget = qBound(0, (int)type, (int)REFRESHTYPE_NUM);
+
+    // If the refresh type changed since the last time we refreshed
+    // we need to rebuild the cache
+    if (refreshType != lastRefreshType[typeget]) {
+        rebuildCache = true;
+    }
+    else {
+        rebuildCache = false;
+    }
+    lastRefreshType[typeget] = refreshType;
+
+    return rebuildCache;
 }
 

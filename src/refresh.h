@@ -6,6 +6,7 @@
 #include <QList>
 #include <QTimer>
 #include "progmodel.h"
+#include "settings.h"
 #include "log.h"
 
 class Refresh : public QObject
@@ -14,7 +15,7 @@ class Refresh : public QObject
 
     // General properties
     Q_PROPERTY(float progress READ getProgress WRITE setProgress NOTIFY progressChanged)
-    Q_ENUMS(REFRESHSTATUS REFRESHTYPE)
+    Q_ENUMS(REFRESHSTATUS)
 
 public:
     enum REFRESHSTATUS {
@@ -31,15 +32,6 @@ public:
         REFRESHSTATUS_NUM
     };
 
-    enum REFRESHTYPE {
-        REFRESHTYPE_INVALID = -1,
-
-        REFRESHTYPE_RADIO = 0,
-        REFRESHTYPE_TV = 1,
-
-        REFRESHTYPE_NUM
-    };
-
 private:
     QProcess * process;
     REFRESHSTATUS status;
@@ -54,7 +46,7 @@ private:
     float progress;
     QTimer * overflowpoll;
     int finishedcode;
-    REFRESHTYPE currentRefresh;
+    Settings::REFRESHTYPE currentRefresh;
     Log * log;
 
     // Internal methods
@@ -70,6 +62,8 @@ private:
     void interpretLine(const QString &text);
     bool interpretProgramme(const QString &text);
     void setProgressCount(int periodCount, int addingCount);
+    static const QString & includeTypeToString(Settings::PROGTYPE refreshType);
+    static const QString & excludeTypeToString(Settings::PROGTYPE refreshType);
 
 public:
     // General methods
@@ -78,7 +72,7 @@ public:
     float getProgress() const;
     QString getLogText() const;
 
-    Q_INVOKABLE void startRefresh(REFRESHTYPE type);
+    Q_INVOKABLE void startRefresh(int type);
     Q_INVOKABLE void cancel();
 
 signals:

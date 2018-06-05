@@ -79,7 +79,7 @@ Page {
             }
 
             SectionHeader {
-                //% "File storage"
+                //% "File storage settings"
                 text: qsTrId("getiplay-settings_subtitle_file_storage")
             }
 

@@ -45,7 +45,7 @@
     </message>
     <message id="getiplay-proglist_menu_settings">
         <location filename="../qml/pages/Log.qml" line="57"/>
-        <location filename="../qml/pages/ProgList.qml" line="134"/>
+        <location filename="../qml/pages/ProgList.qml" line="135"/>
         <location filename="../qml/pages/Queue.qml" line="39"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
@@ -61,27 +61,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_search_placeholder">
-        <location filename="../qml/pages/ProgList.qml" line="108"/>
+        <location filename="../qml/pages/ProgList.qml" line="109"/>
         <source>Search programmes</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_menu_about">
-        <location filename="../qml/pages/ProgList.qml" line="129"/>
+        <location filename="../qml/pages/ProgList.qml" line="130"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_menu_refresh">
-        <location filename="../qml/pages/ProgList.qml" line="139"/>
+        <location filename="../qml/pages/ProgList.qml" line="140"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_empty_message">
-        <location filename="../qml/pages/ProgList.qml" line="151"/>
+        <location filename="../qml/pages/ProgList.qml" line="152"/>
         <source>No items found</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_select_empty_hint">
-        <location filename="../qml/pages/ProgList.qml" line="153"/>
+        <location filename="../qml/pages/ProgList.qml" line="154"/>
         <source>Select Refresh from menu to populate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -417,7 +417,8 @@
     </message>
     <message id="getiplay-settings_subtitle_file_storage">
         <location filename="../qml/pages/Settings.qml" line="83"/>
-        <source>File storage</source>
+        <source>File storage settings</source>
+        <oldsource>File storage</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_video_folder">
