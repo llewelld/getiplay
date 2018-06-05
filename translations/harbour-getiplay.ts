@@ -18,13 +18,20 @@
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
-    <message id="getiplay-log_menu_clear">
+    <message id="getiplay-proglist_menu_settings">
         <location filename="../qml/pages/Log.qml" line="57"/>
+        <location filename="../qml/pages/ProgList.qml" line="134"/>
+        <location filename="../qml/pages/Queue.qml" line="39"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-log_menu_clear">
+        <location filename="../qml/pages/Log.qml" line="62"/>
         <source>Clear log</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_share_add_account">
-        <location filename="../qml/pages/Log.qml" line="72"/>
+        <location filename="../qml/pages/Log.qml" line="77"/>
         <source>Add account</source>
         <translation type="unfinished"></translation>
     </message>
@@ -39,17 +46,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_menu_refresh">
-        <location filename="../qml/pages/ProgList.qml" line="134"/>
+        <location filename="../qml/pages/ProgList.qml" line="139"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_empty_message">
-        <location filename="../qml/pages/ProgList.qml" line="146"/>
+        <location filename="../qml/pages/ProgList.qml" line="151"/>
         <source>No items found</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_select_empty_hint">
-        <location filename="../qml/pages/ProgList.qml" line="148"/>
+        <location filename="../qml/pages/ProgList.qml" line="153"/>
         <source>Select Refresh from menu to populate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -59,27 +66,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_empty_message">
-        <location filename="../qml/pages/Queue.qml" line="43"/>
+        <location filename="../qml/pages/Queue.qml" line="48"/>
         <source>Empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_empty_hint">
-        <location filename="../qml/pages/Queue.qml" line="45"/>
+        <location filename="../qml/pages/Queue.qml" line="50"/>
         <source>Programmes you select for download will appear here</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_remove">
-        <location filename="../qml/pages/Queue.qml" line="119"/>
+        <location filename="../qml/pages/Queue.qml" line="124"/>
         <source>Remove from queue</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_delete">
-        <location filename="../qml/pages/Queue.qml" line="125"/>
+        <location filename="../qml/pages/Queue.qml" line="130"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_delete_remourse">
-        <location filename="../qml/pages/Queue.qml" line="134"/>
+        <location filename="../qml/pages/Queue.qml" line="139"/>
         <source>Deleting file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -333,6 +340,134 @@
     <message id="getiplay-proginfo_website">
         <location filename="../qml/pages/ProgInfo.qml" line="268"/>
         <source>Visit website</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="components_pickers-he-select_location">
+        <location filename="../qml/component/FolderPickerDialog.qml" line="17"/>
+        <source>Select location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-components_pickers-me-hide_hidden_dirs">
+        <location filename="../qml/component/private/DirectoryListView.qml" line="82"/>
+        <source>Hide hidden folders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-components_pickers-me-show_hidden_dirs">
+        <location filename="../qml/component/private/DirectoryListView.qml" line="84"/>
+        <source>Show hidden folders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="components_pickers-me-sort">
+        <location filename="../qml/component/private/DirectoryListView.qml" line="89"/>
+        <source>Sort</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-components_pickers-ph-unreadable_location">
+        <location filename="../qml/component/private/DirectoryListView.qml" line="127"/>
+        <source>Select Accept to choose this folder</source>
+        <extracomment>Empty state text if there are no folders to show</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="components_pickers-ph-unreadable_location">
+        <location filename="../qml/component/private/DirectoryListView.qml" line="134"/>
+        <source>The location cannot be accessed</source>
+        <extracomment>Empty state text if the path is not readable by the application</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_title">
+        <location filename="../qml/pages/Settings.qml" line="29"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_listtype">
+        <location filename="../qml/pages/Settings.qml" line="35"/>
+        <source>Programme listing type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_listtype_national">
+        <location filename="../qml/pages/Settings.qml" line="41"/>
+        <source>National</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_listtype_regional">
+        <location filename="../qml/pages/Settings.qml" line="45"/>
+        <source>Regional</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_listtype_local">
+        <location filename="../qml/pages/Settings.qml" line="49"/>
+        <source>Local</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_listtype_description">
+        <location filename="../qml/pages/Settings.qml" line="53"/>
+        <source>Programme lists must be refreshed to take effect</source>
+        <oldsource>Programme lists must be refreshed for change to take effect.</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_proxy">
+        <location filename="../qml/pages/Settings.qml" line="58"/>
+        <source>Web proxy URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_video_folder">
+        <location filename="../qml/pages/Settings.qml" line="67"/>
+        <source>Video folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_select_video_folder">
+        <location filename="../qml/pages/Settings.qml" line="78"/>
+        <source>Select video folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_audio_folder">
+        <location filename="../qml/pages/Settings.qml" line="89"/>
+        <source>Audio folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_select_audio_folder">
+        <location filename="../qml/pages/Settings.qml" line="100"/>
+        <source>Select audio folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="components_pickers-la-system_files">
+        <location filename="../qml/component/private/PartitionListView.qml" line="41"/>
+        <source>System files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="components_pickers-la-home_folder">
+        <location filename="../qml/component/private/PartitionListView.qml" line="48"/>
+        <source>Home folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="components_pickers-la-memory_card">
+        <location filename="../qml/component/private/PartitionListView.qml" line="65"/>
+        <source>Memory card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="components_pickers-he-multiselect_dialog_back">
+        <location filename="../qml/component/private/PickerDialogHeader.qml" line="20"/>
+        <source>Back</source>
+        <extracomment>Dialog header cancel text as &quot;Back&quot;</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="components_pickers-he-multipicker_accept" numerus="yes">
+        <location filename="../qml/component/private/PickerDialogHeader.qml" line="30"/>
+        <source>Accept %n</source>
+        <extracomment>Multi content picker number of selected content items</extracomment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message id="components_pickers-la-file_details">
+        <location filename="../qml/component/private/FileItem.qml" line="70"/>
+        <source>%1, %2</source>
+        <extracomment>Shows size and modification date, e.g. &quot;15.5MB, 02/03/2016&quot;</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="components_pickers-la-parent_folder">
+        <location filename="../qml/component/private/FileItem.qml" line="81"/>
+        <source>Parent folder</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

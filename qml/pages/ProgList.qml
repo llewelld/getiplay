@@ -130,6 +130,11 @@ Item {
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
             }
             MenuItem {
+                //% "Settings"
+                text: qsTrId("getiplay-proglist_menu_settings")
+                onClicked: pageStack.push(Qt.resolvedUrl("Settings.qml"))
+            }
+            MenuItem {
                 //% "Refresh"
                 text: qsTrId("getiplay-proglist_menu_refresh")
                 enabled: !refreshing

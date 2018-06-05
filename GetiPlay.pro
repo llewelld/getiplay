@@ -42,8 +42,7 @@ SOURCES += src/control.cpp \
 
 OTHER_FILES += qml/GetiPlay.qml \
     qml/cover/CoverPage.qml \
-    qml/components/TabPageHeader.qml \
-    qml/components/SplitViewItem.qml \
+    qml/component/*.qml \
     qml/pages/AboutPage.qml \
     qml/pages/Log.qml \
     qml/pages/MainPage.qml \
@@ -113,4 +112,7 @@ DISTFILES += \
     qml/pages/Log.qml \
     qml/pages/ProgInfo.qml \
     qml/pages/QueueItemInfo.qml \
-    qml/component/SplitViewItem.qml
+    qml/component/SplitViewItem.qml \
+    qml/pages/Settings.qml \
+    qml/component/FolderPickerDialog.qml \
+    qml/component/PickerDialog.qml
