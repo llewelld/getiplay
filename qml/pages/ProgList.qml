@@ -30,6 +30,7 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import harbour.getiplay.settings 1.0
 
 Item {
     id: page
@@ -37,7 +38,7 @@ Item {
     implicitHeight: mainView.height; implicitWidth: mainView.width
 
     property string searchString
-    property bool tv: control.viewTv
+    property bool tv
     property string screenName
     property bool refreshing: false
     property int totalitems: 0
@@ -130,11 +131,16 @@ Item {
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
             }
             MenuItem {
+                //% "Settings"
+                text: qsTrId("getiplay-proglist_menu_settings")
+                onClicked: pageStack.push(Qt.resolvedUrl("Settings.qml"))
+            }
+            MenuItem {
                 //% "Refresh"
                 text: qsTrId("getiplay-proglist_menu_refresh")
                 enabled: !refreshing
                 onClicked: {
-                    Refresh.startRefresh((tv ? 1 : 0)) // 0 = radio; 1 = tv
+                    Refresh.startRefresh((tv ? Settings.REFRESHTYPE_TV : Settings.REFRESHTYPE_RADIO)) // 0 = radio; 1 = tv
                 }
             }
         }

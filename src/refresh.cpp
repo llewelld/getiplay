@@ -26,7 +26,7 @@ Refresh::Refresh(QObject *parent, QList<ProgModel*> model, Log *log) :
     progress(0.0),
     overflowpoll(nullptr),
     finishedcode(0),
-    currentRefresh(Refresh::REFRESHTYPE_INVALID),
+    currentRefresh(Settings::REFRESHTYPE_INVALID),
     log(log)
 {
     arguments.clear();
@@ -48,15 +48,15 @@ void Refresh::setStatus(REFRESHSTATUS newStatus)
     }
 }
 
-void Refresh::startRefresh(REFRESHTYPE type) {
+void Refresh::startRefresh(int type) {
     LOGAPPEND("\nStarting new process");
 
-    if ((process != NULL) || (currentRefresh != REFRESHTYPE_INVALID)) {
+    if ((process != NULL) || (currentRefresh != Settings::REFRESHTYPE_INVALID)) {
         LOGAPPEND("Process already running.");
     }
     else {
-        if ((type > REFRESHTYPE_INVALID) && (type < REFRESHTYPE_NUM)) {
-            currentRefresh = type;
+        if ((type > Settings::REFRESHTYPE_INVALID) && (type < Settings::REFRESHTYPE_NUM)) {
+            currentRefresh = (Settings::REFRESHTYPE)type;
             process = new QProcess();
             QString program = DIR_BIN "/get_iplayer";
             process->setWorkingDirectory(DIR_BIN);
@@ -77,7 +77,7 @@ void Refresh::startRefresh(REFRESHTYPE type) {
             addingCount = 0;
             addingTotal = model[currentRefresh]->rowCount();
             if (addingTotal == 0) {
-                addingTotal = (currentRefresh == REFRESHTYPE_RADIO ? 13000 : 7500);
+                addingTotal = (currentRefresh == Settings::REFRESHTYPE_RADIO ? 13000 : 7500);
             }
             lineProcessCount = 0;
             setProgress(-1.0);
@@ -96,19 +96,41 @@ void Refresh::setupEnvironment() {
     process->setProcessEnvironment(env);
 }
 
+const QString & Refresh::includeTypeToString(Settings::PROGTYPE refreshType) {
+    static const QString types[Settings::PROGTYPE_NUM] = {"national", "regional", "local"};
+
+    return types[qBound((int)0, (int)refreshType, (int)(Settings::PROGTYPE_NUM - 1))];
+}
+
+const QString & Refresh::excludeTypeToString(Settings::PROGTYPE refreshType) {
+    static const QString types[Settings::PROGTYPE_NUM] = {"regional,local", "national,local", "national,regional"};
+
+    return types[qBound((int)0, (int)refreshType, (int)(Settings::PROGTYPE_NUM - 1))];
+}
+
 void Refresh::collectArguments () {
+    Settings::PROGTYPE refreshType = Settings::getInstance().getRefreshType();
+    QString proxy = Settings::getInstance().getProxyUrl();
+    bool rebuildCache = Settings::getInstance().getRebuildCache(currentRefresh);
     arguments.clear();
 
     addArgument("type=" + typeString[currentRefresh]);
     addArgument("refresh");
     addArgument("force");
     addArgument("nocopyright");
-    addArgument("refresh-include-groups", "national");
+    addArgument("nopurge");
+    if (rebuildCache) {
+        addArgument("cache-rebuild");
+        qDebug() << "Rebuilding cache";
+    }
+    addArgument("refresh-include-groups", includeTypeToString(refreshType));
+    addArgument("refresh-exclude-groups", excludeTypeToString(refreshType));
     addArgument("atomicparsley", DIR_BIN "/AtomicParsley");
     addArgument("ffmpeg", DIR_BIN "/ffmpeg");
     addArgument("ffmpeg-loglevel", "info");
     addArgument("log-progress");
     addArgument("profile-dir", Settings::getProfileDir());
+    (proxy != "") ? addArgument("proxy", proxy): addArgument("no-proxy");
     addArgument("listformat", "<" + listformat.join(">" STRINGSEP "<") + ">");
     addValue(".*");
 }
@@ -151,7 +173,7 @@ void Refresh::addValue (QString key) {
 }
 
 void Refresh::cancel() {
-    currentRefresh = REFRESHTYPE_INVALID;
+    currentRefresh = Settings::REFRESHTYPE_INVALID;
     if (process != NULL) {
         process->terminate();
         LOGAPPEND("Terminate signal sent");
@@ -322,7 +344,7 @@ void Refresh::overflow() {
         temp.clear();
 
         // Clean up
-        currentRefresh = REFRESHTYPE_INVALID;
+        currentRefresh = Settings::REFRESHTYPE_INVALID;
         setStatus(REFRESHSTATUS_DONE);
         disconnect(overflowpoll, SIGNAL(timeout()), this, SLOT(overflow()));
         overflowpoll->stop();

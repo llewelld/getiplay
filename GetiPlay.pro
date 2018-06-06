@@ -26,7 +26,7 @@ DEFINES += "VERSION_MAJOR=$$VERSION_MAJOR" \
 
 CONFIG += sailfishapp
 
-SOURCES += src/control.cpp \
+SOURCES += \
     src/download.cpp \
     src/logfile.cpp \
     src/progmodel.cpp \
@@ -42,8 +42,7 @@ SOURCES += src/control.cpp \
 
 OTHER_FILES += qml/GetiPlay.qml \
     qml/cover/CoverPage.qml \
-    qml/components/TabPageHeader.qml \
-    qml/components/SplitViewItem.qml \
+    qml/component/*.qml \
     qml/pages/AboutPage.qml \
     qml/pages/Log.qml \
     qml/pages/MainPage.qml \
@@ -78,7 +77,6 @@ TRANSLATIONS += translations/harbour-getiplay-de.ts
 TRANSLATIONS += translations/harbour-getiplay-en.ts
 
 HEADERS += \
-    src/control.h \
     src/download.h \
     src/logfile.h \
     src/progmodel.h \
@@ -113,4 +111,7 @@ DISTFILES += \
     qml/pages/Log.qml \
     qml/pages/ProgInfo.qml \
     qml/pages/QueueItemInfo.qml \
-    qml/component/SplitViewItem.qml
+    qml/component/SplitViewItem.qml \
+    qml/pages/Settings.qml \
+    qml/component/FolderPickerDialog.qml \
+    qml/component/PickerDialog.qml

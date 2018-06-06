@@ -34,6 +34,11 @@ Item {
                 text: qsTrId("getiplay-queue_menu_about")
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
             }
+            MenuItem {
+                //% "Settings"
+                text: qsTrId("getiplay-proglist_menu_settings")
+                onClicked: pageStack.push(Qt.resolvedUrl("Settings.qml"))
+            }
         }
 
         ViewPlaceholder {

@@ -37,7 +37,6 @@
 #include "metaget.h"
 #include "queue.h"
 #include "queuemodel.h"
-#include "control.h"
 #include "settings.h"
 
 #include "harbour-getiplay.h"
@@ -68,8 +67,6 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName(APP_NAME);
 
     logfile logs;
-
-    Control * control = new Control();
 
     QList<ProgModel*> models;
     ProgModel modelradio;
@@ -109,7 +106,6 @@ int main(int argc, char *argv[])
     view->setSource(SailfishApp::pathTo("qml/GetiPlay.qml"));
 
     QQmlContext *ctxt = view->rootContext();
-    ctxt->setContextProperty("control", control);
     ctxt->setContextProperty("version", VERSION);
     qDebug() << "harbour-getiplay VERSION string: " << VERSION;
     qDebug() << "VERSION_MAJOR: " << VERSION_MAJOR;
@@ -180,7 +176,6 @@ int main(int argc, char *argv[])
 
     delete proxyModelRadio;
     delete proxyModelTV;
-    delete control;
     delete log;
 
     return result;
