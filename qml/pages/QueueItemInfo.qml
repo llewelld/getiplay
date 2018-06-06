@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import QtQuick.XmlListModel 2.0
+import QtMultimedia 5.0
 import harbour.getiplay.progqueue 1.0
 import harbour.getiplay.settings 1.0
 
@@ -37,6 +37,7 @@ Page {
                                     "https://ichef.bbci.co.uk/images/ic/640x360/p01tqv8z.png" :
                                     "https://ichef.bbci.co.uk/images/ic/640x360/" + imageid
                                 )
+            video.source = filename
         }
     }
 
@@ -144,6 +145,7 @@ Page {
                 color: "transparent"
 
                 Image {
+                    visible: true
                     id: thumbnail
                     source: ""
                     width: parent.width - 8
@@ -155,6 +157,38 @@ Page {
                     onStatusChanged: {
                         if (status == Image.Ready) {
                             fadein.start()
+                        }
+                    }
+                }
+
+                Image {
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    source: Qt.resolvedUrl("image://theme/icon-l-play")
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            video.visible = true
+                            video.play()
+                        }
+                    }
+                }
+
+                Video {
+                    visible: false
+                    id: video
+                    source: ""
+                    width: parent.width - 8
+                    height: parent.height - 8
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    fillMode: Image.PreserveAspectFit
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            video.play()
                         }
                     }
                 }

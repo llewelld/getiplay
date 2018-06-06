@@ -121,72 +121,72 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_unqueued">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="48"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="49"/>
         <source>Not queued for download</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_error">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="53"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="54"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_remote">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="58"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="59"/>
         <source>Queued for download</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_downloading">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="63"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="64"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_local">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="68"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="69"/>
         <source>Downloaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_deleted">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="75"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="76"/>
         <source>File deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_status_error">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="80"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="81"/>
         <source>Unexpected error</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem-title">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="97"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="98"/>
         <source>Queue Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_episode">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="119"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="120"/>
         <source>Episode</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_channel">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="127"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="128"/>
         <source>Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_date_available">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="135"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="136"/>
         <source>Date</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_status">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="191"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="225"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_play">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="203"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="237"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_website">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="214"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="248"/>
         <source>Visit website</source>
         <translation type="unfinished"></translation>
     </message>

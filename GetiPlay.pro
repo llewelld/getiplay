@@ -114,4 +114,5 @@ DISTFILES += \
     qml/component/SplitViewItem.qml \
     qml/pages/Settings.qml \
     qml/component/FolderPickerDialog.qml \
-    qml/component/PickerDialog.qml
+    qml/component/PickerDialog.qml \
+    qml/pages/VideoView.qml
