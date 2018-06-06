@@ -110,8 +110,13 @@
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
+    <message id="getiplay-queue_requeue">
+        <location filename="../qml/pages/Queue.qml" line="132"/>
+        <source>Requeue</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message id="getiplay-queue_delete_remourse">
-        <location filename="../qml/pages/Queue.qml" line="139"/>
+        <location filename="../qml/pages/Queue.qml" line="147"/>
         <source>Deleting file</source>
         <translation type="unfinished"></translation>
     </message>

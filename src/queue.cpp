@@ -269,3 +269,17 @@ void Queue::incrementCompleted() {
 void Queue::decrementCompleted() {
     emit completedChanged(--completed);
 }
+
+void Queue::requeue(QString progid) {
+    QueueItem * found;
+
+    // Check whether it's already there
+    found = model->findFromId(progid);
+    if ((found != nullptr) && (found->getStatus() == Queue::STATUS_ERROR)) {
+        incrementDownloading();
+        decrementCompleted();
+        found->setStatus(Queue::STATUS_REMOTE);
+        takeAction();
+    }
+}
+

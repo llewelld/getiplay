@@ -63,6 +63,7 @@ public:
     Q_INVOKABLE QVariant getDetails(QString progid);
     Q_INVOKABLE unsigned int getDownloading();
     Q_INVOKABLE unsigned int getCompleted();
+    Q_INVOKABLE void requeue(QString progid);
 
     unsigned int downloading;
     unsigned int completed;
