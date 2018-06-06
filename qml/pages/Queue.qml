@@ -126,6 +126,14 @@ Item {
                         enabled: (qstatus == ProgQueue.STATUS_LOCAL)
                         onClicked: remove(progId)
                     }
+
+                    MenuItem {
+                        //% "Requeue"
+                        text: qsTrId("getiplay-queue_requeue")
+                        visible: (qstatus == ProgQueue.STATUS_ERROR)
+                        onClicked: Queue.requeue(progId)
+                    }
+
                 }
             }
 
