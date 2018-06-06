@@ -86,7 +86,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_requeue">
-        <location filename="../qml/pages/Queue.qml" line="132"/>
+        <location filename="../qml/pages/Queue.qml" line="137"/>
         <source>Requeue</source>
         <translation type="unfinished"></translation>
     </message>
@@ -104,7 +104,7 @@
         <location filename="../qml/pages/QueueItemInfo.qml" line="53"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
-    </message>
+    </message>5
     <message id="getiplay-queueitem_remote">
         <location filename="../qml/pages/QueueItemInfo.qml" line="58"/>
         <source>Queued for download</source>

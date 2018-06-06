@@ -111,7 +111,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_requeue">
-        <location filename="../qml/pages/Queue.qml" line="132"/>
+        <location filename="../qml/pages/Queue.qml" line="137"/>
         <source>Requeue</source>
         <translation type="unfinished"></translation>
     </message>
