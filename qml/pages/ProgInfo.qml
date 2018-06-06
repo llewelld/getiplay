@@ -81,7 +81,10 @@ Page {
             // It's currently disabled because we get all the data we need from the 'get_iplayer --listitem' call
             //Metaget.startDownload(progId, type)
             // We just need to download the thumbnail
-            thumbnail.source = (imageid == "" ? "https://ichef.bbci.co.uk/images/ic/640x360/p01tqv8z.png" : "https://ichef.bbci.co.uk/images/ic/640x360/" + imageid + ".jpg")
+            thumbnail.source = (imageid == "" ?
+                                    "https://ichef.bbci.co.uk/images/ic/640x360/p01tqv8z.png" :
+                                    "https://ichef.bbci.co.uk/images/ic/640x360/" + imageid
+                                )
         }
     }
 

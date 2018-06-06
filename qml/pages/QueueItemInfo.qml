@@ -33,7 +33,10 @@ Page {
     on_ExposedChanged: {
         if (_exposed) {
             updateStatus(qstatus)
-            thumbnail.source = (imageid == "" ? "https://ichef.bbci.co.uk/images/ic/640x360/p01tqv8z.png" : "https://ichef.bbci.co.uk/images/ic/640x360/" + imageid + ".jpg")
+            thumbnail.source = (imageid == "" ?
+                                    "https://ichef.bbci.co.uk/images/ic/640x360/p01tqv8z.png" :
+                                    "https://ichef.bbci.co.uk/images/ic/640x360/" + imageid
+                                )
         }
     }
 

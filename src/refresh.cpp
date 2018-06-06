@@ -291,12 +291,11 @@ bool Refresh::interpretProgramme(const QString &text) {
                 break;
                 case 8: // "imageId"
                 QString url = split[property];
-                if (url.endsWith(".jpg")) {
+                if ((url.endsWith(".jpg")) || (url.endsWith(".png"))) {
                     imageId = "";
                     int start = url.lastIndexOf('/');
-                    int end = url.lastIndexOf('.');
-                    if ((start >= 0) && (end > start)) {
-                        imageId = url.mid(start + 1, end - start - 1);
+                    if (start >= 0) {
+                        imageId = url.mid(start + 1);
                     }
                 }
                 break;
