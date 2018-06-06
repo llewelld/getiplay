@@ -109,72 +109,72 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_unqueued">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="45"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="48"/>
         <source>Not queued for download</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_error">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="50"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="53"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_remote">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="55"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="58"/>
         <source>Queued for download</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_downloading">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="60"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="63"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_local">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="65"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="68"/>
         <source>Downloaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_deleted">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="72"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="75"/>
         <source>File deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_status_error">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="77"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="80"/>
         <source>Unexpected error</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem-title">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="94"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="97"/>
         <source>Queue Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_episode">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="116"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="119"/>
         <source>Episode</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_channel">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="124"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="127"/>
         <source>Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_date_available">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="132"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="135"/>
         <source>Date</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_status">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="188"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="191"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_play">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="200"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="203"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_website">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="211"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="214"/>
         <source>Visit website</source>
         <translation type="unfinished"></translation>
     </message>
@@ -265,73 +265,73 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_unqueued">
-        <location filename="../qml/pages/ProgInfo.qml" line="98"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="101"/>
         <source>Not queued for download</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_error">
-        <location filename="../qml/pages/ProgInfo.qml" line="104"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="107"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_remote">
-        <location filename="../qml/pages/ProgInfo.qml" line="110"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="113"/>
         <source>Queued for download</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_downloading">
-        <location filename="../qml/pages/ProgInfo.qml" line="116"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="119"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_local">
-        <location filename="../qml/pages/ProgInfo.qml" line="122"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="125"/>
         <source>Downloaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_status_error">
-        <location filename="../qml/pages/ProgInfo.qml" line="128"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="131"/>
         <source>Unexpected error</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_radio_info">
-        <location filename="../qml/pages/ProgInfo.qml" line="146"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="149"/>
         <source>Radio Programme Info</source>
         <oldsource>Radio Progrmme Info</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_tv_info">
-        <location filename="../qml/pages/ProgInfo.qml" line="148"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="151"/>
         <source>TV Programme Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_episode">
-        <location filename="../qml/pages/ProgInfo.qml" line="170"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="173"/>
         <source>Episode</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_channel">
-        <location filename="../qml/pages/ProgInfo.qml" line="178"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="181"/>
         <source>Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_date_available">
-        <location filename="../qml/pages/ProgInfo.qml" line="186"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="189"/>
         <source>Date</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_status">
-        <location filename="../qml/pages/ProgInfo.qml" line="243"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="246"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_download">
-        <location filename="../qml/pages/ProgInfo.qml" line="255"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="258"/>
         <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_website">
-        <location filename="../qml/pages/ProgInfo.qml" line="268"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="271"/>
         <source>Visit website</source>
         <translation type="unfinished"></translation>
     </message>
