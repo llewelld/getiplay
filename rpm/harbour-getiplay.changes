@@ -8,6 +8,19 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Wed Jun 06 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.3-1
+- Completely reworked tab-based UI
+- Improved get_iplayer control (following input from dinkypumpkin)
+- Refresh perfomed in the background
+- Programmes downloaded in a queue, rather than individually
+- Files tracked to ensure queue matches filesystem
+- All text now translatable
+- Cover page to show queue information on the home screen
+- Programme details are collected and can be previewed
+- Unified log interface, allowing log to be shared
+- Settings page to set storage locations, proxy and programme type
+- Updated About page showing details of get_iplayer
+
 * Wed May 16 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.2-6
 - Update to get-iplayer 3.14
 - Store downloaded files in Music/Video directories as appropriate
