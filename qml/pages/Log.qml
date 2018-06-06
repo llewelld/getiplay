@@ -126,13 +126,14 @@ SplitViewItem {
             anchors.horizontalCenter: parent.horizontalCenter
             height: parent.height - othertitle.height - 2 * Theme.paddingLarge
             width: parent.width - 2 * Theme.paddingLarge
+            clip: true
 
             //TextEdit {
             Label {
                 id: logOutput
                 textFormat: Text.PlainText
                 width: parent.width - 2 * Theme.paddingSmall
-                height: parent.height - 0 * Theme.paddingSmall
+                height: logPage.height - othertitle.height - 2 * Theme.paddingLarge - 2 * Theme.paddingSmall
                 wrapMode: Text.WrapAnywhere
                 font.pixelSize: Theme.fontSizeTiny * 0.6
                 font.family: "Monospace"
@@ -141,8 +142,7 @@ SplitViewItem {
                 text: Log.logText
                 verticalAlignment: Text.AlignBottom
                 x: Theme.paddingSmall
-                y: Theme.paddingSmall
-                clip: true
+                anchors.bottom: parent.bottom
             }
         }
         onClicked: {
