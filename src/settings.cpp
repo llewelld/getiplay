@@ -175,3 +175,11 @@ bool Settings::getRebuildCache(int type) {
     return rebuildCache;
 }
 
+QString Settings::millisecondsToTime (quint32 milliseconds) {
+    int remaining = milliseconds / 1000;
+    int hours = remaining / 3600;
+    int minutes = (remaining / 60) % 60;
+    int seconds = (remaining % 60);
+
+    return QString("%1:%2:%3").arg(hours).arg(minutes, 2, 'f', 0, '0').arg(seconds, 2, 'f', 0, '0');
+}

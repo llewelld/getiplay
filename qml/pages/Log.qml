@@ -111,7 +111,6 @@ SplitViewItem {
 
         PageHeader {
             id: othertitle
-            //% "Log"
             title: screenName
         }
 

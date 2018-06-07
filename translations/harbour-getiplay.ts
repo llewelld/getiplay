@@ -104,7 +104,7 @@
         <location filename="../qml/pages/QueueItemInfo.qml" line="53"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
-    </message>5
+    </message>
     <message id="getiplay-queueitem_remote">
         <location filename="../qml/pages/QueueItemInfo.qml" line="58"/>
         <source>Queued for download</source>
@@ -151,17 +151,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_status">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="191"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="205"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_play">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="203"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="217"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_website">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="214"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="228"/>
         <source>Visit website</source>
         <translation type="unfinished"></translation>
     </message>

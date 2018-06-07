@@ -37,7 +37,6 @@ Page {
                                     "https://ichef.bbci.co.uk/images/ic/640x360/p01tqv8z.png" :
                                     "https://ichef.bbci.co.uk/images/ic/640x360/" + imageid
                                 )
-            video.source = filename
         }
     }
 
@@ -169,26 +168,7 @@ Page {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            video.visible = true
-                            video.play()
-                        }
-                    }
-                }
-
-                Video {
-                    visible: false
-                    id: video
-                    source: ""
-                    width: parent.width - 8
-                    height: parent.height - 8
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    fillMode: Image.PreserveAspectFit
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            video.play()
+                            pageStack.push(Qt.resolvedUrl("VideoView.qml"), { imageid: imageid, filename: filename })
                         }
                     }
                 }
