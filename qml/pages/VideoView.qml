@@ -13,7 +13,7 @@ Page {
     property string imageid: ""
     property bool playing: (media.playbackState == MediaPlayer.PlayingState)
     property bool controlsvisible: false
-    property int controlgap: 3 * Theme.paddingLarge
+    property int controlgap: 2 * Theme.paddingLarge
 
     Timer {
         id: controlsTimer
@@ -124,7 +124,8 @@ Page {
 
         Image {
             id: playbutton
-            anchors.verticalCenter: parent.verticalCenter
+            anchors.bottom: mediaslider.top
+            anchors.bottomMargin: controlgap
             anchors.horizontalCenter: parent.horizontalCenter
             source: playing ? Qt.resolvedUrl("image://theme/icon-l-pause") : Qt.resolvedUrl("image://theme/icon-l-play")
 
