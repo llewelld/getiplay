@@ -122,61 +122,53 @@ Page {
             }
         }
 
-        Image {
+        IconButton {
             id: playbutton
             anchors.bottom: mediaslider.top
             anchors.bottomMargin: controlgap
             anchors.horizontalCenter: parent.horizontalCenter
-            source: playing ? Qt.resolvedUrl("image://theme/icon-l-pause") : Qt.resolvedUrl("image://theme/icon-l-play")
+            icon.source: (playing ? Qt.resolvedUrl("image://theme/icon-l-pause?") : Qt.resolvedUrl("image://theme/icon-l-play?"))
+                    + (pressed ? Theme.highlightColor : Theme.primaryColor)
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    openControls()
-                    console.log("MouseArea click 2")
-                    if (playing) {
-                        console.log("Pause 2")
-                        media.pause()
-                    }
-                    else {
-                        console.log("Play 2")
-                        media.play()
-                    }
+            onClicked: {
+                openControls()
+                console.log("MouseArea click 2")
+                if (playing) {
+                    console.log("Pause 2")
+                    media.pause()
+                }
+                else {
+                    console.log("Play 2")
+                    media.play()
                 }
             }
         }
 
-        Image {
+        IconButton {
             id: reversebutton
             anchors.verticalCenter: playbutton.verticalCenter
             anchors.right: playbutton.left
             anchors.rightMargin: controlgap
-            source: Qt.resolvedUrl("image://theme/icon-l-timer")
+            icon.source: Qt.resolvedUrl("image://getiplay/icon-l-10sback.png?") + (pressed ? Theme.highlightColor : Theme.primaryColor)
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    openControls()
-                    media.seek(media.position - 10000)
-                    mediaslider.value = mediaslider.value - 10000
-                }
+            onClicked: {
+                openControls()
+                media.seek(media.position - 10000)
+                mediaslider.value = mediaslider.value - 10000
             }
         }
 
-        Image {
+        IconButton {
             id: forwardsbutton
             anchors.verticalCenter: playbutton.verticalCenter
             anchors.left: playbutton.right
             anchors.leftMargin: controlgap
-            source: Qt.resolvedUrl("image://theme/icon-l-timer")
+            icon.source: Qt.resolvedUrl("image://getiplay/icon-l-10sforw.png?") + (pressed ? Theme.highlightColor : Theme.primaryColor)
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    openControls()
-                    media.seek(media.position + 10000)
-                    mediaslider.value = mediaslider.value + 10000
-                }
+            onClicked: {
+                openControls()
+                media.seek(media.position + 10000)
+                mediaslider.value = mediaslider.value + 10000
             }
         }
 
@@ -199,9 +191,6 @@ Page {
             onReleased: {
                 media.seek(sliderValue)
                 openControls()
-            }
-            onValueChanged: {
-                console.log("Value: " + value)
             }
         }
     }

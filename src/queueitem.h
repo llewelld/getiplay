@@ -68,6 +68,7 @@ private:
     QString web;
     QString description;
     QString imageid;
+    quint32 position;
 };
 
 

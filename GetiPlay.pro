@@ -38,7 +38,8 @@ SOURCES += \
     src/queueitem.cpp \
     src/queuemodel.cpp \
     src/log.cpp \
-    src/metaget.cpp
+    src/metaget.cpp \
+    src/imageprovider.cpp
 
 OTHER_FILES += qml/GetiPlay.qml \
     qml/cover/CoverPage.qml \
@@ -88,7 +89,8 @@ HEADERS += \
     src/queueitem.h \
     src/queuemodel.h \
     src/log.h \
-    src/metaget.h
+    src/metaget.h \
+    src/imageprovider.h
 
 bin.files = bin
 bin.path = /usr/share/$${TARGET}
