@@ -161,14 +161,18 @@ Page {
                     }
                 }
 
-                Image {
+                IconButton {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    source: Qt.resolvedUrl("image://theme/icon-l-play")
+                    icon.source: Qt.resolvedUrl("image://theme/icon-l-play")
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
+                    onClicked: {
+                        if (type == Settings.REFRESHTYPE_RADIO) {
+                            audio.source = filename
+                            audio.play()
+                        }
+                        else {
+                            audio.stop()
                             pageStack.push(Qt.resolvedUrl("VideoView.qml"), { progId: progId, imageid: imageid, filename: filename })
                         }
                     }

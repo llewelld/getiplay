@@ -30,12 +30,70 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import QtMultimedia 5.0
 import "pages"
 
 ApplicationWindow
 {
+    id: appwindow
     initialPage: Component { MainPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
+    bottomMargin: mediapanel.height
+    property alias audio: audioplayer
+
+    DockedPanel {
+        id: mediapanel
+        width: parent.width
+        dock: Dock.Bottom
+        open: true
+        height: playbutton.height + 2 * Theme.paddingSmall
+
+        IconButton {
+            id: reversebutton
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: playbutton.left
+            anchors.rightMargin: Theme.paddingSmall
+            icon.source: Qt.resolvedUrl("image://theme/icon-m-left")
+
+            onClicked: {
+                audio.seek(audio.position - 10000)
+            }
+        }
+
+        IconButton {
+            id: playbutton
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            icon.source: (audio.playbackState == MediaPlayer.PlayingState) ? Qt.resolvedUrl("image://theme/icon-m-pause") : Qt.resolvedUrl("image://theme/icon-m-play")
+
+            onClicked: {
+                if (audio.playbackState == MediaPlayer.PlayingState) {
+                    audio.pause()
+                }
+                else {
+                    audio.play()
+                }
+            }
+        }
+
+        IconButton {
+            id: forwardsbutton
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: playbutton.right
+            anchors.leftMargin: Theme.paddingSmall
+            icon.source: Qt.resolvedUrl("image://theme/icon-m-right")
+
+            onClicked: {
+                audio.seek(audio.position + 10000)
+            }
+        }
+    }
+
+    MediaPlayer {
+        id: audioplayer
+        source: ""
+        autoPlay: false
+    }
 }
 
 

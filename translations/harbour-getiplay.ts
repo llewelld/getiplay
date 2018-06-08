@@ -151,17 +151,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_status">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="206"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="210"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_play">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="218"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="222"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_website">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="229"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="233"/>
         <source>Visit website</source>
         <translation type="unfinished"></translation>
     </message>
