@@ -18,6 +18,7 @@ QueueModel::QueueModel(QObject *parent) : QAbstractListModel(parent) {
     roles[AvailableRole] = "available";
     roles[WebRole] = "web";
     roles[ImageIdRole] = "imageid";
+    roles[PositionRole] = "position";
 }
 
 QHash<int, QByteArray> QueueModel::roleNames() const {
@@ -88,6 +89,8 @@ QVariant QueueModel::data(const QModelIndex & index, int role) const {
         return programme->getWeb();
     else if (role == ImageIdRole)
         return programme->getImageId();
+    else if (role == PositionRole)
+        return programme->getPosition();
 
     return QVariant();
 }
@@ -113,6 +116,7 @@ void QueueModel::exportToFile(QFile & file) {
             QString value = (*progIter)->getDescription();
             out << Settings::escape(value) << endl;
             out << (*progIter)->getImageId() << endl;
+            out << (*progIter)->getPosition() << endl;
         }
         file.close();
     }
@@ -134,6 +138,7 @@ void QueueModel::importFromFile(QFile & file) {
             QString web;
             QString description;
             QString imageid;
+            quint32 position;
 
             title = in.readLine();
             progId = in.readLine();
@@ -151,9 +156,10 @@ void QueueModel::importFromFile(QFile & file) {
             QString value = in.readLine();
             description = Settings::unescape(value);
             imageid = in.readLine();
+            position = in.readLine().toULong();
 
             if (progId != nullptr) {
-                addProgramme(new QueueItem(progId, title, length, status, type, filename, episode, available, channel, web, description, imageid));
+                addProgramme(new QueueItem(progId, title, length, status, type, filename, episode, available, channel, web, description, imageid, position));
             }
         }
         file.close();

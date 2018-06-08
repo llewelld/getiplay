@@ -17,7 +17,7 @@ public:
     };
 
     QueueItem();
-    QueueItem(QString progId, QString name, quint32 duration, Queue::STATUS status, TYPE type, QString filename, QString episode, qint64 available, QString channel, QString web, QString description, QString imageid);
+    QueueItem(QString progId, QString name, quint32 duration, Queue::STATUS status, TYPE type, QString filename, QString episode, qint64 available, QString channel, QString web, QString description, QString imageid, quint32 position);
 
     QString getName () const;
     quint32 getDuration() const;
@@ -33,6 +33,7 @@ public:
     QString getWeb() const;
     QString getDescription() const;
     QString getImageId() const;
+    quint32 getPosition() const;
 
     void setName (const QString &value);
     void setDuration (quint32 value);
@@ -47,6 +48,7 @@ public:
     void setWeb (QString &value);
     void setDescription (QString &value);
     void setImageId (QString &value);
+    void setPosition (quint32 value);
 
     bool fileExists();
     bool deleteFile();

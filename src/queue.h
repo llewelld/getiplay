@@ -56,7 +56,7 @@ public:
     explicit Queue(QObject *parent = 0, Download *download = 0);
     void setModel(QueueModel * model);
 
-    Q_INVOKABLE bool addToQueue(QString progid, QString name, quint32 duration, int type, QString episode, qint64 available, QString channel, QString web, QString description, QString imageid);
+    Q_INVOKABLE bool addToQueue(QString progid, QString name, quint32 duration, int type, QString episode, qint64 available, QString channel, QString web, QString description, QString imageid, quint32 position);
     Q_INVOKABLE int getStatusFromId(QString progid);
     Q_INVOKABLE void removeFromQueue(QString progid);
     Q_INVOKABLE void deleteAndRemoveFromQueue(QString progid);
@@ -64,6 +64,8 @@ public:
     Q_INVOKABLE unsigned int getDownloading();
     Q_INVOKABLE unsigned int getCompleted();
     Q_INVOKABLE void requeue(QString progid);
+    Q_INVOKABLE quint32 getMediaPosition(QString progid);
+    Q_INVOKABLE void setMediaPosition(QString progid, quint32 position);
 
     unsigned int downloading;
     unsigned int completed;

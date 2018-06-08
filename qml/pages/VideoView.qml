@@ -9,11 +9,24 @@ Page {
     allowedOrientations: Orientation.All
     showNavigationIndicator: false
 
+    property string progId: ""
     property string filename: ""
     property string imageid: ""
     property bool playing: (media.playbackState == MediaPlayer.PlayingState)
     property bool controlsvisible: false
     property int controlgap: 2 * Theme.paddingLarge
+
+    on_ExposedChanged: {
+        if (_exposed) {
+            var mediapos = Queue.getMediaPosition(progId)
+            console.log("Set media to play from: " + mediapos)
+            media.seek(mediapos)
+        }
+        else {
+            console.log("Record media to play from: " + media.position)
+            Queue.setMediaPosition(progId, media.position)
+        }
+    }
 
     Timer {
         id: controlsTimer
@@ -74,8 +87,11 @@ Page {
         source: filename
         autoPlay: true
         onPositionChanged: {
-            console.log("Position: " + position)
             mediaslider.value = position
+        }
+        onStatusChanged: {
+            if (status == MediaPlayer.Loaded) {
+            }
         }
     }
 

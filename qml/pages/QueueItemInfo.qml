@@ -20,6 +20,7 @@ Page {
     property string web: ""
     property string filename: ""
     property string imageid: ""
+    property int position: 0
 
     Connections {
         target:Queue
@@ -168,7 +169,7 @@ Page {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            pageStack.push(Qt.resolvedUrl("VideoView.qml"), { imageid: imageid, filename: filename })
+                            pageStack.push(Qt.resolvedUrl("VideoView.qml"), { progId: progId, imageid: imageid, filename: filename })
                         }
                     }
                 }
