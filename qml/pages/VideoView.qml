@@ -19,11 +19,12 @@ Page {
     on_ExposedChanged: {
         if (_exposed) {
             var mediapos = Queue.getMediaPosition(progId)
-            console.log("Set media to play from: " + mediapos)
+            console.log("Set video to play from: " + mediapos)
             media.seek(mediapos)
+            mediapanelvisible = false
         }
         else {
-            console.log("Record media to play from: " + media.position)
+            console.log("Record video to play from: " + media.position)
             Queue.setMediaPosition(progId, media.position)
         }
     }
@@ -64,34 +65,12 @@ Page {
         controlsTimer.restart()
     }
 
-    /*
-    Image {
-        visible: !video.visible
-        id: thumbnail
-        source: "https://ichef.bbci.co.uk/images/ic/640x360/" + imageid
-        width: parent.width
-        height: parent.height
-        anchors.fill: parent
-        fillMode: Image.PreserveAspectFit
-        NumberAnimation on opacity { id: fadein; from: 0; to: 1; duration: 1000 }
-        onStatusChanged: {
-            if (status == Image.Ready) {
-                fadein.start()
-            }
-        }
-    }
-    */
-
     MediaPlayer {
         id: media
         source: filename
         autoPlay: true
         onPositionChanged: {
             mediaslider.value = position
-        }
-        onStatusChanged: {
-            if (status == MediaPlayer.Loaded) {
-            }
         }
     }
 

@@ -85,155 +85,165 @@ Page {
         console.log("Status: " + status)
     }
 
-    // Place our content in a Column.  The PageHeader is always placed at the top
-    // of the page, followed by our content.
-    Column {
-        id: column
-        width: queueInfoPage.width
-        spacing: Theme.paddingLarge
+    SilicaFlickable {
+        width: parent.width
+        height: parent.height
+        interactive: true
 
-        PageHeader {
-            id: header
-            //% "Queue Item"
-            title: qsTrId("getiplay-queueitem-title")
-        }
+        anchors.fill: parent
+        contentHeight: column.height + Theme.paddingLarge
 
+        VerticalScrollDecorator {}
+
+        // Place our content in a Column.  The PageHeader is always placed at the top
+        // of the page, followed by our content.
         Column {
-            id: infopane
-            width: parent.width
+            id: column
+            width: queueInfoPage.width
             spacing: Theme.paddingLarge
 
-            Label {
-                x: Theme.paddingLarge
-                text: name
-                wrapMode: Text.Wrap
-                width: parent.width - (2 * Theme.paddingLarge)
-                height: Theme.fontSizeLarge* 2 + Theme.paddingSmall
-                clip: true
-            }
-            Label {
-                x: Theme.paddingLarge
-                width: parent.width - (2 * Theme.paddingLarge)
-                wrapMode: Text.NoWrap
-                elide: Text.ElideRight
-                //% "Episode"
-                text: "<b>" + qsTrId("getiplay-queueitem_episode") + ":</b> \t" + episode
-            }
-            Label {
-                x: Theme.paddingLarge
-                width: parent.width - (2 * Theme.paddingLarge)
-                wrapMode: Text.NoWrap
-                elide: Text.ElideRight
-                //% "Channel"
-                text: "<b>" + qsTrId("getiplay-queueitem_channel") + ":</b> \t" + channel
-            }
-            Label {
-                x: Theme.paddingLarge
-                width: parent.width - (2 * Theme.paddingLarge)
-                wrapMode: Text.NoWrap
-                elide: Text.ElideRight
-                //% "Date"
-                text: "<b>" + qsTrId("getiplay-queueitem_date_available") + ":</b> \t" + Settings.epochToDate(available);
+            PageHeader {
+                id: header
+                //% "Queue Item"
+                title: qsTrId("getiplay-queueitem-title")
             }
 
-            Rectangle {
-                width: parent.width - 2 * Theme.paddingLarge
-                height: width * 0.5625
-                border.width: 0
-                border.color: "transparent" // Theme.highlightColor
-                anchors.horizontalCenter: parent.horizontalCenter
-                color: "transparent"
-
-                Image {
-                    visible: true
-                    id: thumbnail
-                    source: ""
-                    width: parent.width - 8
-                    height: parent.height - 8
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    fillMode: Image.PreserveAspectFit
-                    NumberAnimation on opacity { id: fadein; from: 0; to: 1; duration: 1000 }
-                    onStatusChanged: {
-                        if (status == Image.Ready) {
-                            fadein.start()
-                        }
-                    }
-                }
-
-                IconButton {
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    icon.source: Qt.resolvedUrl("image://theme/icon-l-play")
-
-                    onClicked: {
-                        if (type == Settings.REFRESHTYPE_RADIO) {
-                            audio.source = filename
-                            audio.play()
-                        }
-                        else {
-                            audio.stop()
-                            pageStack.push(Qt.resolvedUrl("VideoView.qml"), { progId: progId, imageid: imageid, filename: filename })
-                        }
-                    }
-                }
-
-                BusyIndicator {
-                    id: downloadbusy
-                    running: true
-                    visible: (thumbnail.status != Image.Ready)
-                    size: BusyIndicatorSize.Large
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                }
-            }
-
-            Label {
-                x: Theme.paddingLarge
-                text: description
-                //font.pixelSize: Theme.fontSizeExtraSmall
-                width: parent.width - 2 * Theme.paddingLarge
-                height: Theme.fontSizeMedium * 4
-                wrapMode: Text.WordWrap
-                verticalAlignment: Text.AlignTop
-                clip: true
-                elide: Text.ElideRight
-            }
-
-            Label {
-                id: statusindicator;
-                x: Theme.paddingLarge
-                width: parent.width - (2 * Theme.paddingLarge)
-                wrapMode: Text.NoWrap
-                elide: Text.ElideRight
-                //% "Status"
-                text: "<b>" + qsTrId("getiplay-queueinfo_status") + ":</b> \t" + statustext
-            }
-
-            Row {
-                width: parent.width - 2 * Theme.paddingLarge
-                height: 100
-                anchors.horizontalCenter: parent.horizontalCenter
+            Column {
+                id: infopane
+                width: parent.width
                 spacing: Theme.paddingLarge
 
-                Button {
-                    id: openFile
-                    //% "Play"
-                    text: qsTrId("getiplay-queueinfo_play")
-                    width: ((parent.width - Theme.paddingLarge) / 2)
-                    enabled: ((qstatus == ProgQueue.STATUS_LOCAL) && (filename != ""))
-                    onClicked: {
-                        Qt.openUrlExternally(filename);
+                Label {
+                    x: Theme.paddingLarge
+                    text: name
+                    wrapMode: Text.Wrap
+                    width: parent.width - (2 * Theme.paddingLarge)
+                    height: Theme.fontSizeLarge* 2 + Theme.paddingSmall
+                    clip: true
+                }
+                Label {
+                    x: Theme.paddingLarge
+                    width: parent.width - (2 * Theme.paddingLarge)
+                    wrapMode: Text.NoWrap
+                    elide: Text.ElideRight
+                    //% "Episode"
+                    text: "<b>" + qsTrId("getiplay-queueitem_episode") + ":</b> \t" + episode
+                }
+                Label {
+                    x: Theme.paddingLarge
+                    width: parent.width - (2 * Theme.paddingLarge)
+                    wrapMode: Text.NoWrap
+                    elide: Text.ElideRight
+                    //% "Channel"
+                    text: "<b>" + qsTrId("getiplay-queueitem_channel") + ":</b> \t" + channel
+                }
+                Label {
+                    x: Theme.paddingLarge
+                    width: parent.width - (2 * Theme.paddingLarge)
+                    wrapMode: Text.NoWrap
+                    elide: Text.ElideRight
+                    //% "Date"
+                    text: "<b>" + qsTrId("getiplay-queueitem_date_available") + ":</b> \t" + Settings.epochToDate(available);
+                }
+
+                Rectangle {
+                    width: parent.width - 2 * Theme.paddingLarge
+                    height: width * 0.5625
+                    border.width: 0
+                    border.color: "transparent" // Theme.highlightColor
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: "transparent"
+
+                    Image {
+                        visible: true
+                        id: thumbnail
+                        source: ""
+                        width: parent.width - 8
+                        height: parent.height - 8
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        fillMode: Image.PreserveAspectFit
+                        NumberAnimation on opacity { id: fadein; from: 0; to: 1; duration: 1000 }
+                        onStatusChanged: {
+                            if (status == Image.Ready) {
+                                fadein.start()
+                            }
+                        }
+                    }
+
+                    IconButton {
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        icon.source: Qt.resolvedUrl("image://theme/icon-l-play")
+
+                        onClicked: {
+                            if (type == Settings.REFRESHTYPE_RADIO) {
+                                startAudio(progId, filename)
+                            }
+                            else {
+                                stopAudio()
+                                pageStack.push(Qt.resolvedUrl("VideoView.qml"), { progId: progId, imageid: imageid, filename: filename })
+                            }
+                        }
+                    }
+
+                    BusyIndicator {
+                        id: downloadbusy
+                        running: true
+                        visible: (thumbnail.status != Image.Ready)
+                        size: BusyIndicatorSize.Large
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
                     }
                 }
 
-                Button {
-                    id: visitWebsite
-                    //% "Visit website"
-                    text: qsTrId("getiplay-queueinfo_website")
-                    width: ((parent.width - Theme.paddingLarge) / 2)
-                    enabled: (web != "")
-                    onClicked: Qt.openUrlExternally(web)
+                Label {
+                    x: Theme.paddingLarge
+                    text: description
+                    //font.pixelSize: Theme.fontSizeExtraSmall
+                    width: parent.width - 2 * Theme.paddingLarge
+                    height: Theme.fontSizeMedium * 4
+                    wrapMode: Text.WordWrap
+                    verticalAlignment: Text.AlignTop
+                    clip: true
+                    elide: Text.ElideRight
+                }
+
+                Label {
+                    id: statusindicator;
+                    x: Theme.paddingLarge
+                    width: parent.width - (2 * Theme.paddingLarge)
+                    wrapMode: Text.NoWrap
+                    elide: Text.ElideRight
+                    //% "Status"
+                    text: "<b>" + qsTrId("getiplay-queueinfo_status") + ":</b> \t" + statustext
+                }
+
+                Row {
+                    width: parent.width - 2 * Theme.paddingLarge
+                    height: 100
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    spacing: Theme.paddingLarge
+
+                    Button {
+                        id: openFile
+                        //% "Play"
+                        text: qsTrId("getiplay-queueinfo_play")
+                        width: ((parent.width - Theme.paddingLarge) / 2)
+                        enabled: ((qstatus == ProgQueue.STATUS_LOCAL) && (filename != ""))
+                        onClicked: {
+                            Qt.openUrlExternally(filename);
+                        }
+                    }
+
+                    Button {
+                        id: visitWebsite
+                        //% "Visit website"
+                        text: qsTrId("getiplay-queueinfo_website")
+                        width: ((parent.width - Theme.paddingLarge) / 2)
+                        enabled: (web != "")
+                        onClicked: Qt.openUrlExternally(web)
+                    }
                 }
             }
         }

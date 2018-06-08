@@ -135,143 +135,154 @@ Page {
         console.log("Status: " + status)
     }
 
-    // Place our content in a Column.  The PageHeader is always placed at the top
-    // of the page, followed by our content.
-    Column {
-        id: column
-        width: infoPage.width
-        spacing: Theme.paddingLarge
+    SilicaFlickable {
+        width: parent.width
+        height: parent.height
+        interactive: true
 
-        PageHeader {
-            id: header
-            title: (type == 0 ?
-                        //% "Radio Programme Info"
-                        qsTrId("getiplay-proginfo_radio_info")
-                        //% "TV Programme Info"
-                      : qsTrId("getiplay-proginfo_tv_info"))
-        }
+        anchors.fill: parent
+        contentHeight: column.height + Theme.paddingLarge
 
+        VerticalScrollDecorator {}
+
+        // Place our content in a Column.  The PageHeader is always placed at the top
+        // of the page, followed by our content.
         Column {
-            id: infopane
-            width: parent.width
+            id: column
+            width: infoPage.width
             spacing: Theme.paddingLarge
 
-            Label {
-                x: Theme.paddingLarge
-                text: name
-                wrapMode: Text.Wrap
-                width: parent.width - (2 * Theme.paddingLarge)
-                height: Theme.fontSizeLarge* 2 + Theme.paddingSmall
-                clip: true
-            }
-            Label {
-                x: Theme.paddingLarge
-                width: parent.width - (2 * Theme.paddingLarge)
-                wrapMode: Text.NoWrap
-                elide: Text.ElideRight
-                //% "Episode"
-                text: "<b>" + qsTrId("getiplay-proginfo_episode") + ":</b> \t" + episode
-            }
-            Label {
-                x: Theme.paddingLarge
-                width: parent.width - (2 * Theme.paddingLarge)
-                wrapMode: Text.NoWrap
-                elide: Text.ElideRight
-                //% "Channel"
-                text: "<b>" + qsTrId("getiplay-proginfo_channel") + ":</b> \t" + channel
-            }
-            Label {
-                x: Theme.paddingLarge
-                width: parent.width - (2 * Theme.paddingLarge)
-                wrapMode: Text.NoWrap
-                elide: Text.ElideRight
-                //% "Date"
-                text: "<b>" + qsTrId("getiplay-proginfo_date_available") + ":</b> \t" + Settings.epochToDate(available)
+            PageHeader {
+                id: header
+                title: (type == 0 ?
+                            //% "Radio Programme Info"
+                            qsTrId("getiplay-proginfo_radio_info")
+                            //% "TV Programme Info"
+                          : qsTrId("getiplay-proginfo_tv_info"))
             }
 
-            Rectangle {
-                width: parent.width - 2 * Theme.paddingLarge
-                height: width * 0.5625
-                border.width: 0
-                border.color: "transparent" // Theme.highlightColor
-                anchors.horizontalCenter: parent.horizontalCenter
-                color: "transparent"
-
-                Image {
-                    id: thumbnail
-                    source: ""
-                    width: parent.width - 8
-                    height: parent.height - 8
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    fillMode: Image.PreserveAspectFit
-                    NumberAnimation on opacity { id: fadein; from: 0; to: 1; duration: 1000 }
-                    onStatusChanged: {
-                        if (status == Image.Ready) {
-                            fadein.start()
-                        }
-                    }
-                }
-
-                BusyIndicator {
-                    id: downloadbusy
-                    running: true
-                    visible: (thumbnail.status != Image.Ready)
-                    size: BusyIndicatorSize.Large
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                }
-            }
-
-            Label {
-                x: Theme.paddingLarge
-                text: description
-                //font.pixelSize: Theme.fontSizeExtraSmall
-                width: parent.width - 2 * Theme.paddingLarge
-                //height: Theme.fontSizeExtraSmall * 8
-                height: Theme.fontSizeMedium * 4
-                wrapMode: Text.WordWrap
-                verticalAlignment: Text.AlignTop
-                clip: true
-                elide: Text.ElideRight
-            }
-
-            Label {
-                id: statusindicator;
-                x: Theme.paddingLarge
-                width: parent.width - (2 * Theme.paddingLarge)
-                wrapMode: Text.NoWrap
-                elide: Text.ElideRight
-                //% "Status"
-                text: "<b>" + qsTrId("getiplay-proginfo_status") + ":</b> \t" + statustext
-            }
-
-            Row {
-                width: parent.width - 2 * Theme.paddingLarge
-                height: 100
-                anchors.horizontalCenter: parent.horizontalCenter
+            Column {
+                id: infopane
+                width: parent.width
                 spacing: Theme.paddingLarge
 
-                Button {
-                    id: addToQueue
-                    //% "Download"
-                    text: qsTrId("getiplay-proginfo_download")
-                    width: ((parent.width - Theme.paddingLarge) / 2)
-                    onClicked: {
-                        if (Queue.addToQueue(progId, name, duration, type, episode, available, channel, web, description, imageid)) {
-                            enabled = false
-                            pageStack.pop()
+                Label {
+                    x: Theme.paddingLarge
+                    text: name
+                    wrapMode: Text.Wrap
+                    width: parent.width - (2 * Theme.paddingLarge)
+                    height: Theme.fontSizeLarge* 2 + Theme.paddingSmall
+                    clip: true
+                }
+                Label {
+                    x: Theme.paddingLarge
+                    width: parent.width - (2 * Theme.paddingLarge)
+                    wrapMode: Text.NoWrap
+                    elide: Text.ElideRight
+                    //% "Episode"
+                    text: "<b>" + qsTrId("getiplay-proginfo_episode") + ":</b> \t" + episode
+                }
+                Label {
+                    x: Theme.paddingLarge
+                    width: parent.width - (2 * Theme.paddingLarge)
+                    wrapMode: Text.NoWrap
+                    elide: Text.ElideRight
+                    //% "Channel"
+                    text: "<b>" + qsTrId("getiplay-proginfo_channel") + ":</b> \t" + channel
+                }
+                Label {
+                    x: Theme.paddingLarge
+                    width: parent.width - (2 * Theme.paddingLarge)
+                    wrapMode: Text.NoWrap
+                    elide: Text.ElideRight
+                    //% "Date"
+                    text: "<b>" + qsTrId("getiplay-proginfo_date_available") + ":</b> \t" + Settings.epochToDate(available)
+                }
+
+                Rectangle {
+                    width: parent.width - 2 * Theme.paddingLarge
+                    height: width * 0.5625
+                    border.width: 0
+                    border.color: "transparent" // Theme.highlightColor
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: "transparent"
+
+                    Image {
+                        id: thumbnail
+                        source: ""
+                        width: parent.width - 8
+                        height: parent.height - 8
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        fillMode: Image.PreserveAspectFit
+                        NumberAnimation on opacity { id: fadein; from: 0; to: 1; duration: 1000 }
+                        onStatusChanged: {
+                            if (status == Image.Ready) {
+                                fadein.start()
+                            }
                         }
+                    }
+
+                    BusyIndicator {
+                        id: downloadbusy
+                        running: true
+                        visible: (thumbnail.status != Image.Ready)
+                        size: BusyIndicatorSize.Large
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
                     }
                 }
 
-                Button {
-                    id: visitWebsite
-                    //% "Visit website"
-                    text: qsTrId("getiplay-proginfo_website")
-                    width: ((parent.width - Theme.paddingLarge) / 2)
-                    enabled: (web != "")
-                    onClicked: Qt.openUrlExternally(web)
+                Label {
+                    x: Theme.paddingLarge
+                    text: description
+                    //font.pixelSize: Theme.fontSizeExtraSmall
+                    width: parent.width - 2 * Theme.paddingLarge
+                    //height: Theme.fontSizeExtraSmall * 8
+                    height: Theme.fontSizeMedium * 4
+                    wrapMode: Text.WordWrap
+                    verticalAlignment: Text.AlignTop
+                    clip: true
+                    elide: Text.ElideRight
+                }
+
+                Label {
+                    id: statusindicator;
+                    x: Theme.paddingLarge
+                    width: parent.width - (2 * Theme.paddingLarge)
+                    wrapMode: Text.NoWrap
+                    elide: Text.ElideRight
+                    //% "Status"
+                    text: "<b>" + qsTrId("getiplay-proginfo_status") + ":</b> \t" + statustext
+                }
+
+                Row {
+                    width: parent.width - 2 * Theme.paddingLarge
+                    height: 100
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    spacing: Theme.paddingLarge
+
+                    Button {
+                        id: addToQueue
+                        //% "Download"
+                        text: qsTrId("getiplay-proginfo_download")
+                        width: ((parent.width - Theme.paddingLarge) / 2)
+                        onClicked: {
+                            if (Queue.addToQueue(progId, name, duration, type, episode, available, channel, web, description, imageid, 0)) {
+                                enabled = false
+                                pageStack.pop()
+                            }
+                        }
+                    }
+
+                    Button {
+                        id: visitWebsite
+                        //% "Visit website"
+                        text: qsTrId("getiplay-proginfo_website")
+                        width: ((parent.width - Theme.paddingLarge) / 2)
+                        enabled: (web != "")
+                        onClicked: Qt.openUrlExternally(web)
+                    }
                 }
             }
         }
