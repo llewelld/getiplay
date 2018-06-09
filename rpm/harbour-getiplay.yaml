@@ -1,7 +1,7 @@
 Name: harbour-getiplay
 Summary: User interface for get_iplayer
 Version: 0.3
-Release: 1
+Release: 2
 # The contents of the Group field should be one of the groups listed here:
 # http://gitorious.org/meego-developer-tools/spectacle/blobs/master/data/GROUPS
 Group: Applications/Multimedia
@@ -47,6 +47,8 @@ Requires:
 #  - perl-XML-Parser >= 2.41
 #  - perl-XML-Simple >= 2.22
 #  - perl-XML-SAX-Expat >= 0.51
+# Requred to allow use of XmlListModel
+  - qt5-qtdeclarative-import-xmllistmodel
 
 # All installed files
 Files:
