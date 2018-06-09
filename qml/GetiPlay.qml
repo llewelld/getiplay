@@ -85,7 +85,7 @@ ApplicationWindow
 
             IconButton {
                 id: reversebutton
-                icon.source: Qt.resolvedUrl("image://theme/icon-m-left")
+                icon.source: Qt.resolvedUrl("image://getiplay/icon-m-replay.png")
 
                 onClicked: {
                     audio.seek(audio.position - 10000)
@@ -108,7 +108,7 @@ ApplicationWindow
 
             IconButton {
                 id: forwardsbutton
-                icon.source: Qt.resolvedUrl("image://theme/icon-m-right")
+                icon.source: Qt.resolvedUrl("image://getiplay/icon-m-skip.png")
 
                 onClicked: {
                     audio.seek(audio.position + 10000)
@@ -132,7 +132,7 @@ ApplicationWindow
 
             IconButton {
                 id: stopbutton
-                icon.source: Qt.resolvedUrl("image://theme/icon-m-clear")
+                icon.source: Qt.resolvedUrl("image://getiplay/icon-m-eject.png")
 
                 onClicked: {
                     stopAudio()

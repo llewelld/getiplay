@@ -146,27 +146,24 @@ CoverBackground {
         enabled: mediaplayerdefined
 
         CoverAction {
-            iconSource: "image://theme/icon-cover-backup"
+            iconSource: "../images/icon-cover-replay.png"
 
             onTriggered: {
                 if (mediaplayerdefined) {
-                    console.log("Cover skip back 10s")
                     mediaplayer.seek(mediaplayer.position - 10000)
                 }
             }
         }
 
         CoverAction {
-            iconSource: mediaavilable ? "image://theme/icon-cover-pause" : "image://theme/icon-cover-play"
+            iconSource: mediaavilable ? Qt.resolvedUrl("image://theme/icon-cover-pause") : Qt.resolvedUrl("image://theme/icon-cover-play")
 
             onTriggered: {
                 if (mediaplayerdefined) {
                     if (mediaplayer.playbackState == MediaPlayer.PlayingState) {
-                        console.log("Cover pause")
                         mediaplayer.pause()
                     }
                     else {
-                        console.log("Cover play")
                         mediaplayer.play()
                     }
                 }

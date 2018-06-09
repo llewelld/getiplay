@@ -150,7 +150,7 @@ Page {
             anchors.verticalCenter: playbutton.verticalCenter
             anchors.right: playbutton.left
             anchors.rightMargin: controlgap
-            icon.source: Qt.resolvedUrl("image://getiplay/icon-l-10sback.png?") + (pressed ? Theme.highlightColor : Theme.primaryColor)
+            icon.source: Qt.resolvedUrl("image://getiplay/icon-l-replay.png?") + (pressed ? Theme.highlightColor : Theme.primaryColor)
 
             onClicked: {
                 openControls()
@@ -164,7 +164,7 @@ Page {
             anchors.verticalCenter: playbutton.verticalCenter
             anchors.left: playbutton.right
             anchors.leftMargin: controlgap
-            icon.source: Qt.resolvedUrl("image://getiplay/icon-l-10sforw.png?") + (pressed ? Theme.highlightColor : Theme.primaryColor)
+            icon.source: Qt.resolvedUrl("image://getiplay/icon-l-skip.png?") + (pressed ? Theme.highlightColor : Theme.primaryColor)
 
             onClicked: {
                 openControls()
