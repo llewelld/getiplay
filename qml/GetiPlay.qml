@@ -42,8 +42,12 @@ ApplicationWindow
     property alias audio: audioplayer
     property string audioProgId: ""
     property alias mediapanelvisible: mediapanel.visible
+    property MediaPlayer mediaplayer
+    property bool mediaplayerdefined: false
 
     function startAudio (progId, filename) {
+        mediaplayer = audioplayer
+        mediaplayerdefined = true
         mediapanelvisible = true
         if (audioProgId != "") {
             console.log("Record audio to play from: " + audio.position)
@@ -60,6 +64,7 @@ ApplicationWindow
     }
 
     function stopAudio () {
+        mediaplayerdefined = false
         mediapanel.open = false
         console.log("Record audio to play from: " + audio.position)
         Queue.setMediaPosition(audioProgId, audio.position)

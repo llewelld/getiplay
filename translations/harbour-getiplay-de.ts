@@ -166,27 +166,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-cover_programmes_completed_line1">
-        <location filename="../qml/cover/CoverPage.qml" line="67"/>
+        <location filename="../qml/cover/CoverPage.qml" line="69"/>
         <source>Programmes</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-cover_programmes_completed_line2">
-        <location filename="../qml/cover/CoverPage.qml" line="69"/>
+        <location filename="../qml/cover/CoverPage.qml" line="71"/>
         <source>Completed</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-cover_programmes_downloading_line1">
-        <location filename="../qml/cover/CoverPage.qml" line="104"/>
+        <location filename="../qml/cover/CoverPage.qml" line="106"/>
         <source>Programmes</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-cover_programmes_downloading_line2">
-        <location filename="../qml/cover/CoverPage.qml" line="106"/>
+        <location filename="../qml/cover/CoverPage.qml" line="108"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-cover_title">
-        <location filename="../qml/cover/CoverPage.qml" line="131"/>
+        <location filename="../qml/cover/CoverPage.qml" line="133"/>
         <source>GetiPlay</source>
         <translation type="unfinished"></translation>
     </message>

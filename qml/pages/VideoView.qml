@@ -18,14 +18,20 @@ Page {
 
     on_ExposedChanged: {
         if (_exposed) {
+            media.source = filename
             var mediapos = Queue.getMediaPosition(progId)
             console.log("Set video to play from: " + mediapos)
             media.seek(mediapos)
             mediapanelvisible = false
+            media.play()
+            mediaplayer = media
+            mediaplayerdefined = true
         }
         else {
             console.log("Record video to play from: " + media.position)
             Queue.setMediaPosition(progId, media.position)
+            media.stop()
+            mediaplayerdefined = false
         }
     }
 
