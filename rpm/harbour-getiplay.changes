@@ -8,6 +8,9 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Sat Jun 09 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.3-2
+- Add XML::SAX::Base perl libs to allow get_iplayer to work
+
 * Wed Jun 06 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.3-1
 - Completely reworked tab-based UI
 - Improved get_iplayer control (following input from dinkypumpkin)
