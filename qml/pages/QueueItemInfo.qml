@@ -175,6 +175,7 @@ Page {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
                         icon.source: Qt.resolvedUrl("image://theme/icon-l-play")
+                        visible: ((qstatus == ProgQueue.STATUS_LOCAL) && (filename != ""))
 
                         onClicked: {
                             if (type == Settings.REFRESHTYPE_RADIO) {

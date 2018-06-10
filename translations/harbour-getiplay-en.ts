@@ -176,17 +176,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_status">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="219"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="220"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_play">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="231"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="232"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_website">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="242"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="243"/>
         <source>Visit website</source>
         <translation type="unfinished"></translation>
     </message>
