@@ -113,7 +113,7 @@ Item {
             }
             onClicked: {
                 console.log("Clicked " + name)
-                pageStack.push(Qt.resolvedUrl("QueueItemInfo.qml"), { name: name, progId: progId, qstatus: qstatus, duration: duration, type: type, channel: channel, description: description, episode: episode, available: available, web: web, filename: filename, imageid: imageid })
+                pageStack.push(Qt.resolvedUrl("QueueItemInfo.qml"), { name: name, progId: progId, qstatus: qstatus, duration: duration, type: type, channel: channel, description: description, episode: episode, available: available, web: web, filename: filename, imageid: imageid, position: position })
             }
 
             Component {

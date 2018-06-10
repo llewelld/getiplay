@@ -38,7 +38,8 @@ SOURCES += \
     src/queueitem.cpp \
     src/queuemodel.cpp \
     src/log.cpp \
-    src/metaget.cpp
+    src/metaget.cpp \
+    src/imageprovider.cpp
 
 OTHER_FILES += qml/GetiPlay.qml \
     qml/cover/CoverPage.qml \
@@ -73,6 +74,7 @@ CONFIG += sailfishapp_i18n_unfinished
 # planning to localize your app, remember to comment out the
 # following TRANSLATIONS line. And also do not forget to
 # modify the localized app name in the the .desktop file.
+TRANSLATIONS += translations/harbour-getiplay.ts
 TRANSLATIONS += translations/harbour-getiplay-de.ts
 TRANSLATIONS += translations/harbour-getiplay-en.ts
 
@@ -88,7 +90,8 @@ HEADERS += \
     src/queueitem.h \
     src/queuemodel.h \
     src/log.h \
-    src/metaget.h
+    src/metaget.h \
+    src/imageprovider.h
 
 bin.files = bin
 bin.path = /usr/share/$${TARGET}
@@ -114,4 +117,5 @@ DISTFILES += \
     qml/component/SplitViewItem.qml \
     qml/pages/Settings.qml \
     qml/component/FolderPickerDialog.qml \
-    qml/component/PickerDialog.qml
+    qml/component/PickerDialog.qml \
+    qml/pages/VideoView.qml

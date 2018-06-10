@@ -30,12 +30,127 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import QtMultimedia 5.0
 import "pages"
 
 ApplicationWindow
 {
+    id: appwindow
     initialPage: Component { MainPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
+    bottomMargin: mediapanel.visibleSize
+    property alias audio: audioplayer
+    property string audioProgId: ""
+    property alias mediapanelvisible: mediapanel.visible
+    property MediaPlayer mediaplayer
+    property bool mediaplayerdefined: false
+
+    function startAudio (progId, filename) {
+        mediaplayer = audioplayer
+        mediaplayerdefined = true
+        mediapanelvisible = true
+        if (audioProgId != "") {
+            console.log("Record audio to play from: " + audio.position)
+            Queue.setMediaPosition(audioProgId, audio.position)
+            audio.stop()
+        }
+        audioProgId = progId
+        audio.source = filename
+        var mediapos = Queue.getMediaPosition(audioProgId)
+        console.log("Set audio to play from: " + mediapos)
+        audio.seek(mediapos)
+        mediapanel.open = true
+        audio.play()
+    }
+
+    function stopAudio () {
+        mediaplayerdefined = false
+        mediapanel.open = false
+        console.log("Record audio to play from: " + audio.position)
+        Queue.setMediaPosition(audioProgId, audio.position)
+        audio.stop()
+        audioProgId =  ""
+    }
+
+    DockedPanel {
+        id: mediapanel
+        width: parent.width
+        dock: Dock.Bottom
+        open: false
+        height: playbutton.height + 2 * Theme.paddingSmall
+
+        Row {
+            anchors.fill: parent
+            anchors.margins: Theme.paddingSmall
+
+            IconButton {
+                id: reversebutton
+                icon.source: Qt.resolvedUrl("image://getiplay/icon-m-replay.png")
+
+                onClicked: {
+                    audio.seek(audio.position - 10000)
+                }
+            }
+
+            IconButton {
+                id: playbutton
+                icon.source: (audio.playbackState == MediaPlayer.PlayingState) ? Qt.resolvedUrl("image://theme/icon-m-pause") : Qt.resolvedUrl("image://theme/icon-m-play")
+
+                onClicked: {
+                    if (audio.playbackState == MediaPlayer.PlayingState) {
+                        audio.pause()
+                    }
+                    else {
+                        audio.play()
+                    }
+                }
+            }
+
+            IconButton {
+                id: forwardsbutton
+                icon.source: Qt.resolvedUrl("image://getiplay/icon-m-skip.png")
+
+                onClicked: {
+                    audio.seek(audio.position + 10000)
+                }
+            }
+
+            Slider {
+                id: audioslider
+                minimumValue: 0
+                maximumValue: audio.duration
+                stepSize: 1
+                value: 0
+                width: parent.width - reversebutton.width - playbutton.width - forwardsbutton.width - stopbutton.width
+                anchors.margins: 0
+                leftMargin: Theme.paddingLarge
+                rightMargin: Theme.paddingLarge
+                onReleased: {
+                    audio.seek(sliderValue)
+                }
+            }
+
+            IconButton {
+                id: stopbutton
+                icon.source: Qt.resolvedUrl("image://getiplay/icon-m-eject.png")
+
+                onClicked: {
+                    stopAudio()
+                }
+            }
+        }
+    }
+
+    MediaPlayer {
+        id: audioplayer
+        source: ""
+        autoPlay: false
+        onPositionChanged: {
+            if (mediapanel.open) {
+                audioslider.value = position
+            }
+        }
+    }
 }
 
 

@@ -38,6 +38,7 @@
 #include "queue.h"
 #include "queuemodel.h"
 #include "settings.h"
+#include "imageprovider.h"
 
 #include "harbour-getiplay.h"
 
@@ -103,6 +104,7 @@ int main(int argc, char *argv[])
 
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
+    view->engine()->addImageProvider(QLatin1String("getiplay"), new ImageProvider);
     view->setSource(SailfishApp::pathTo("qml/GetiPlay.qml"));
 
     QQmlContext *ctxt = view->rootContext();

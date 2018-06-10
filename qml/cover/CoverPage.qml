@@ -30,6 +30,7 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import QtMultimedia 5.0
 
 CoverBackground {
     id: cover
@@ -38,6 +39,7 @@ CoverBackground {
     property int downloading: Queue.downloading
     property string max: Math.max(Queue.completed, Queue.downloading)
     property int numwidth: max.length
+    property bool mediaavilable: mediaplayerdefined && (mediaplayer.playbackState == MediaPlayer.PlayingState)
 
     Image {
         id: background
@@ -141,14 +143,32 @@ CoverBackground {
 
     CoverActionList {
         id: coverAction
+        enabled: mediaplayerdefined
 
-        //CoverAction {
-        //    iconSource: "image://theme/icon-cover-next"
-        //}
+        CoverAction {
+            iconSource: "../images/icon-cover-replay.png"
 
-        //CoverAction {
-        //    iconSource: "image://theme/icon-cover-pause"
-        //}
+            onTriggered: {
+                if (mediaplayerdefined) {
+                    mediaplayer.seek(mediaplayer.position - 10000)
+                }
+            }
+        }
+
+        CoverAction {
+            iconSource: mediaavilable ? Qt.resolvedUrl("image://theme/icon-cover-pause") : Qt.resolvedUrl("image://theme/icon-cover-play")
+
+            onTriggered: {
+                if (mediaplayerdefined) {
+                    if (mediaplayer.playbackState == MediaPlayer.PlayingState) {
+                        mediaplayer.pause()
+                    }
+                    else {
+                        mediaplayer.play()
+                    }
+                }
+            }
+        }
     }
 }
 

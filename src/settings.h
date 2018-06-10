@@ -67,6 +67,7 @@ public:
 
     Q_INVOKABLE static QString epochToDate (quint64 epoch);
     Q_INVOKABLE static quint64 dateToEpoch (QString date);
+    Q_INVOKABLE static QString millisecondsToTime (quint32 milliseconds);
 
     static QString & escape(QString &string);
     static QString & unescape(QString &string);

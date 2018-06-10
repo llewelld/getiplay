@@ -25,7 +25,8 @@ public:
         EpisodeRole,
         AvailableRole,
         WebRole,
-        ImageIdRole
+        ImageIdRole,
+        PositionRole
     };
 
     QHash<int, QByteArray> roleNames() const;

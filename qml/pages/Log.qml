@@ -6,7 +6,6 @@ import harbour.getiplay.settings 1.0
 
 import Sailfish.Gallery 1.0
 import com.jolla.settings.accounts 1.0
-import com.jolla.signonuiservice 1.0
 
 
 SplitViewItem {
@@ -82,15 +81,8 @@ SplitViewItem {
             }
 
             onClicked: {
-                jolla_signon_ui_service.inProcessParent = logPage
                 accountCreator.startAccountCreation()
             }
-        }
-
-        SignonUiService {
-            id: jolla_signon_ui_service
-            inProcessServiceName: "com.jolla.gallery"
-            inProcessObjectPath: "/JollaGallerySignonUi"
         }
 
         AccountCreationManager {
@@ -111,7 +103,6 @@ SplitViewItem {
 
         PageHeader {
             id: othertitle
-            //% "Log"
             title: screenName
         }
 

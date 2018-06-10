@@ -34,7 +34,7 @@ void Queue::setModel(QueueModel * model) {
     takeAction();
 }
 
-bool Queue::addToQueue(QString progid, QString name, quint32 duration, int type, QString episode, qint64 available, QString channel, QString web, QString description, QString imageid) {
+bool Queue::addToQueue(QString progid, QString name, quint32 duration, int type, QString episode, qint64 available, QString channel, QString web, QString description, QString imageid, quint32 position) {
     QueueItem * found;
     bool added;
 
@@ -45,7 +45,7 @@ bool Queue::addToQueue(QString progid, QString name, quint32 duration, int type,
     found = model->findFromId(progid);
 
     if (found == nullptr) {
-        model->addProgramme(new QueueItem(progid, name, duration, Queue::STATUS_REMOTE, static_cast<QueueItem::TYPE>(type), "", episode, available, channel, web, description, imageid));
+        model->addProgramme(new QueueItem(progid, name, duration, Queue::STATUS_REMOTE, static_cast<QueueItem::TYPE>(type), "", episode, available, channel, web, description, imageid, position));
         emit statusChanged(progid, Queue::STATUS_REMOTE);
         incrementDownloading();
         takeAction();
@@ -283,3 +283,23 @@ void Queue::requeue(QString progid) {
     }
 }
 
+void Queue::setMediaPosition(QString progid, quint32 position) {
+    QueueItem * found;
+
+    found = model->findFromId(progid);
+    if (found != nullptr) {
+        found->setPosition(position);
+    }
+}
+
+quint32 Queue::getMediaPosition(QString progid) {
+    quint32 position = 0;
+    QueueItem * found;
+
+    found = model->findFromId(progid);
+    if (found != nullptr) {
+        position = found->getPosition();
+    }
+
+    return position;
+}
