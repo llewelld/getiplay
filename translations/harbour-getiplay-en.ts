@@ -29,34 +29,34 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_share_title">
-        <location filename="../qml/pages/Log.qml" line="33"/>
+        <location filename="../qml/pages/Log.qml" line="32"/>
         <source>Share Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_share_status">
-        <location filename="../qml/pages/Log.qml" line="42"/>
+        <location filename="../qml/pages/Log.qml" line="41"/>
         <source>GetiPlay log file</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_menu_about">
-        <location filename="../qml/pages/Log.qml" line="52"/>
+        <location filename="../qml/pages/Log.qml" line="51"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_menu_settings">
-        <location filename="../qml/pages/Log.qml" line="57"/>
+        <location filename="../qml/pages/Log.qml" line="56"/>
         <location filename="../qml/pages/ProgList.qml" line="135"/>
         <location filename="../qml/pages/Queue.qml" line="39"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_menu_clear">
-        <location filename="../qml/pages/Log.qml" line="62"/>
+        <location filename="../qml/pages/Log.qml" line="61"/>
         <source>Clear log</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_share_add_account">
-        <location filename="../qml/pages/Log.qml" line="77"/>
+        <location filename="../qml/pages/Log.qml" line="76"/>
         <source>Add account</source>
         <translation type="unfinished"></translation>
     </message>
