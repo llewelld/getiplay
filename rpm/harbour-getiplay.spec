@@ -14,7 +14,7 @@ Name:       harbour-getiplay
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    User interface for get_iplayer
 Version:    0.3
-Release:    2
+Release:    3
 Group:      Applications/Multimedia
 License:    LICENSE
 URL:        http://example.org/
@@ -24,6 +24,7 @@ AutoReq:    0
 Requires:   sailfishsilica-qt5 >= 0.10.9
 Requires:   perl >= 5.8.8
 Requires:   qt5-qtdeclarative-import-xmllistmodel
+Requires:   perl-Digest-SHA
 BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
