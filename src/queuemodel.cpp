@@ -212,9 +212,7 @@ void QueueModel::pruneQueue() {
         if (((*iter)->getStatus() == Queue::STATUS_LOCAL) && ((*iter)->fileExists() == false)) {
             programmes.erase(iter);
         }
-        else {
-            iter++;
-        }
+        iter++;
     }
 }
 
@@ -232,9 +230,9 @@ QString QueueModel::removePath(const QString &path) {
             endRemoveRows();
         }
         else {
-            iter++;
             index++;
         }
+        iter++;
     }
 
     return found;
