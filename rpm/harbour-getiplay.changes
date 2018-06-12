@@ -8,6 +8,11 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Tue Jun 12 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.4-1
+- Allow videos to be played within the app
+- Allow audio to be played within the app
+- Add media controls to app cover
+
 * Sun Jun 10 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.3-3
 - Add perl-Digest-SHA as dependency to allow refresh to work
 
