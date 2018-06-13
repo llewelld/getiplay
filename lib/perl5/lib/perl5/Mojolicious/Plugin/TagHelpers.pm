@@ -439,6 +439,7 @@ and shown as default.
 =head2 javascript
 
   %= javascript '/script.js'
+  %= javascript '/script.js', defer => undef
   %= javascript begin
     var a = 'b';
   % end
@@ -446,6 +447,7 @@ and shown as default.
 Generate portable C<script> tag for JavaScript asset.
 
   <script src="/path/to/script.js"></script>
+  <script defer src="/path/to/script.js"></script>
   <script><![CDATA[
     var a = 'b';
   ]]></script>
@@ -618,6 +620,7 @@ get picked up and shown as default.
 =head2 stylesheet
 
   %= stylesheet '/foo.css'
+  %= stylesheet '/foo.css', title => 'Foo style'
   %= stylesheet begin
     body {color: #000}
   % end
@@ -625,6 +628,7 @@ get picked up and shown as default.
 Generate portable C<style> or C<link> tag for CSS asset.
 
   <link href="/path/to/foo.css" rel="stylesheet">
+  <link href="/path/to/foo.css" rel="stylesheet" title="Foo style">
   <style><![CDATA[
     body {color: #000}
   ]]></style>
@@ -652,9 +656,9 @@ Alias for L</"tag">.
   %= tag 'br'
   %= tag 'div'
   %= tag 'div', id => 'foo', hidden => undef
-  %= tag div => 'test & 123'
-  %= tag div => (id => 'foo') => 'test & 123'
-  %= tag div => (data => {my_id => 1, Name => 'test'}) => 'test & 123'
+  %= tag 'div', 'test & 123'
+  %= tag 'div', id => 'foo', 'test & 123'
+  %= tag 'div', data => {my_id => 1, Name => 'test'}, 'test & 123'
   %= tag div => begin
     test & 123
   % end
@@ -677,8 +681,8 @@ Very useful for reuse in more specific tag helpers.
 
   my $output = $c->tag('meta');
   my $output = $c->tag('meta', charset => 'UTF-8');
-  my $output = $c->tag(div => '<p>This will be escaped</p>');
-  my $output = $c->tag(div => sub { '<p>This will not be escaped</p>' });
+  my $output = $c->tag('div', '<p>This will be escaped</p>');
+  my $output = $c->tag('div', sub { '<p>This will not be escaped</p>' });
 
 Results are automatically wrapped in L<Mojo::ByteStream> objects to prevent
 accidental double escaping in C<ep> templates.

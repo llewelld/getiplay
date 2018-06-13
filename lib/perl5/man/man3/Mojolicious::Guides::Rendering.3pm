@@ -1200,7 +1200,8 @@ Static files are automatically served from the \f(CW\*(C`public\*(C'\fR director
 application, which can be customized with \*(L"paths\*(R" in Mojolicious::Static, or one
 of the \f(CW\*(C`DATA\*(C'\fR sections from \*(L"classes\*(R" in Mojolicious::Static. And if that's not
 enough you can also serve them manually with
-\&\*(L"reply\->static\*(R" in Mojolicious::Plugin::DefaultHelpers.
+\&\*(L"reply\->static\*(R" in Mojolicious::Plugin::DefaultHelpers and
+\&\*(L"reply\->file\*(R" in Mojolicious::Plugin::DefaultHelpers.
 .PP
 .Vb 1
 \&  use Mojolicious::Lite;
@@ -1214,6 +1215,11 @@ enough you can also serve them manually with
 \&    my $c = shift;
 \&    $c\->res\->headers\->content_disposition(\*(Aqattachment; filename=bar.png;\*(Aq);
 \&    $c\->reply\->static(\*(Aqfoo/bar.png\*(Aq);
+\&  };
+\&
+\&  get \*(Aq/leak\*(Aq => sub {
+\&    my $c = shift;
+\&    $c\->reply\->file(\*(Aq/etc/passwd\*(Aq);
 \&  };
 \&
 \&  app\->start;

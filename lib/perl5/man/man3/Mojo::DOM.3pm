@@ -487,30 +487,33 @@ fragment if necessary.
 .PP
 Construct a new Mojo::DOM object for an \s-1HTML/XML\s0 tag with or without
 attributes and content. The \f(CW\*(C`data\*(C'\fR attribute may contain a hash reference with
-key/value pairs to generate attributes from. Note that this method is
-\&\s-1EXPERIMENTAL\s0 and might change without warning!
+key/value pairs to generate attributes from.
 .PP
 .Vb 2
 \&  # "<br>"
-\&  Mojo::DOM\->new_tag(\*(Aqbr\*(Aq);
+\&  $dom\->new_tag(\*(Aqbr\*(Aq);
 \&
 \&  # "<div></div>"
-\&  Mojo::DOM\->new_tag(\*(Aqdiv\*(Aq);
+\&  $dom\->new_tag(\*(Aqdiv\*(Aq);
 \&
 \&  # "<div id="foo" hidden></div>"
-\&  Mojo::DOM\->new_tag(\*(Aqdiv\*(Aq, id => \*(Aqfoo\*(Aq, hidden => undef);
+\&  $dom\->new_tag(\*(Aqdiv\*(Aq, id => \*(Aqfoo\*(Aq, hidden => undef);
 \&
 \&  # "<div>test &amp; 123</div>"
-\&  Mojo::DOM\->new_tag(\*(Aqdiv\*(Aq, \*(Aqtest & 123\*(Aq);
+\&  $dom\->new_tag(\*(Aqdiv\*(Aq, \*(Aqtest & 123\*(Aq);
 \&
 \&  # "<div id="foo">test &amp; 123</div>"
-\&  Mojo::DOM\->new_tag(\*(Aqdiv\*(Aq, id => \*(Aqfoo\*(Aq, \*(Aqtest & 123\*(Aq);
+\&  $dom\->new_tag(\*(Aqdiv\*(Aq, id => \*(Aqfoo\*(Aq, \*(Aqtest & 123\*(Aq);
 \&
 \&  # "<div data\-foo="1" data\-bar="test">test &amp; 123</div>""
-\&  Mojo::DOM\->new_tag(\*(Aqdiv\*(Aq, data => {foo => 1, Bar => \*(Aqtest\*(Aq}, \*(Aqtest & 123\*(Aq);
+\&  $dom\->new_tag(\*(Aqdiv\*(Aq, data => {foo => 1, Bar => \*(Aqtest\*(Aq}, \*(Aqtest & 123\*(Aq);
 \&
 \&  # "<div id="foo">test & 123</div>"
-\&  Mojo::DOM\->new_tag(\*(Aqdiv\*(Aq, id => \*(Aqfoo\*(Aq, sub { \*(Aqtest & 123\*(Aq });
+\&  $dom\->new_tag(\*(Aqdiv\*(Aq, id => \*(Aqfoo\*(Aq, sub { \*(Aqtest & 123\*(Aq });
+\&
+\&  # "<div>Hello<b>Mojo!</b></div>"
+\&  $dom\->parse(\*(Aq<div>Hello</div>\*(Aq)\->at(\*(Aqdiv\*(Aq)
+\&    \->append_content($dom\->new_tag(\*(Aqb\*(Aq, \*(AqMojo!\*(Aq))\->root;
 .Ve
 .SS "next"
 .IX Subsection "next"
@@ -708,6 +711,21 @@ nodes) or \*(L"parent\*(R".
 .Ve
 .PP
 Return Mojo::DOM object for \f(CW\*(C`root\*(C'\fR node.
+.SS "selector"
+.IX Subsection "selector"
+.Vb 1
+\&  my $selector = $dom\->selector;
+.Ve
+.PP
+Get a unique \s-1CSS\s0 selector for this element.
+.PP
+.Vb 2
+\&  # "ul:nth\-child(1) > li:nth\-child(2)"
+\&  $dom\->parse(\*(Aq<ul><li>Test</li><li>123</li></ul>\*(Aq)\->find(\*(Aqli\*(Aq)\->last\->selector;
+\&
+\&  # "p:nth\-child(1) > b:nth\-child(1) > i:nth\-child(1)"
+\&  $dom\->parse(\*(Aq<p><b><i>Test</i></b></p>\*(Aq)\->at(\*(Aqi\*(Aq)\->selector;
+.Ve
 .SS "strip"
 .IX Subsection "strip"
 .Vb 1

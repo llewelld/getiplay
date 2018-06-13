@@ -66,11 +66,11 @@ sub run {
   $self->_hot_deploy unless $ENV{HYPNOTOAD_PID};
 
   # Daemonize as early as possible (but not for restarts)
+  local $SIG{USR2} = sub { $self->{upgrade} ||= steady_time };
   $prefork->start;
   $prefork->daemonize if !$ENV{HYPNOTOAD_FOREGROUND} && $ENV{HYPNOTOAD_REV} < 3;
 
   # Start accepting connections
-  local $SIG{USR2} = sub { $self->{upgrade} ||= steady_time };
   $prefork->cleanup(1)->run;
 }
 
@@ -184,7 +184,7 @@ file with it, and send a L</"USR2"> signal to the already running server.
 For better scalability (epoll, kqueue) and to provide non-blocking name
 resolution, SOCKS5 as well as TLS support, the optional modules L<EV> (4.0+),
 L<Net::DNS::Native> (0.15+), L<IO::Socket::Socks> (0.64+) and
-L<IO::Socket::SSL> (1.94+) will be used automatically if possible. Individual
+L<IO::Socket::SSL> (2.009+) will be used automatically if possible. Individual
 features can also be disabled with the C<MOJO_NO_NNR>, C<MOJO_NO_SOCKS> and
 C<MOJO_NO_TLS> environment variables.
 

@@ -141,7 +141,7 @@ loaded.
 For better scalability (epoll, kqueue) and to provide non-blocking name
 resolution, \s-1SOCKS5\s0 as well as \s-1TLS\s0 support, the optional modules \s-1EV\s0 (4.0+),
 Net::DNS::Native (0.15+), IO::Socket::Socks (0.64+) and
-IO::Socket::SSL (1.94+) will be used automatically if possible. Individual
+IO::Socket::SSL (2.009+) will be used automatically if possible. Individual
 features can also be disabled with the \f(CW\*(C`MOJO_NO_NNR\*(C'\fR, \f(CW\*(C`MOJO_NO_SOCKS\*(C'\fR and
 \&\f(CW\*(C`MOJO_NO_TLS\*(C'\fR environment variables.
 .PP
@@ -234,12 +234,13 @@ Get Mojo::IOLoop::Server object for id or turn object into an acceptor.
 .Ve
 .PP
 Open a \s-1TCP/IP\s0 or \s-1UNIX\s0 domain socket connection with Mojo::IOLoop::Client and
-create a Mojo::IOLoop::Stream object, takes the same arguments as
-\&\*(L"connect\*(R" in Mojo::IOLoop::Client.
+create a stream object (usually Mojo::IOLoop::Stream), takes the same
+arguments as \*(L"connect\*(R" in Mojo::IOLoop::Client in addition to \f(CW\*(C`stream_class\*(C'\fR.
 .PP
-.Vb 5
-\&  # Connect to 127.0.0.1 on port 3000
-\&  Mojo::IOLoop\->client({port => 3000} => sub {
+.Vb 6
+\&  # Connect to 127.0.0.1 on port 3000 with a custom stream class
+\&  my $class = \*(AqMojo::IOLoop::Stream::HTTPClient\*(Aq;
+\&  Mojo::IOLoop\->client({port => 3000, stream_class => $class} => sub {
 \&    my ($loop, $err, $stream) = @_;
 \&    ...
 \&  });
@@ -394,12 +395,13 @@ Remove everything and stop the event loop.
 .Ve
 .PP
 Accept \s-1TCP/IP\s0 and \s-1UNIX\s0 domain socket connections with Mojo::IOLoop::Server
-and create Mojo::IOLoop::Stream objects, takes the same arguments as
-\&\*(L"listen\*(R" in Mojo::IOLoop::Server.
+and create stream objects (usually Mojo::IOLoop::Stream, takes the same
+arguments as \*(L"listen\*(R" in Mojo::IOLoop::Server in addition to \f(CW\*(C`stream_class\*(C'\fR.
 .PP
-.Vb 5
-\&  # Listen on port 3000
-\&  Mojo::IOLoop\->server({port => 3000} => sub {
+.Vb 6
+\&  # Listen on port 3000 with a custom stream class
+\&  my $class = \*(AqMojo::IOLoop::Stream::HTTPServer\*(Aq;
+\&  Mojo::IOLoop\->server({port => 3000, stream_class => $class} => sub {
 \&    my ($loop, $stream, $id) = @_;
 \&    ...
 \&  });
@@ -527,6 +529,15 @@ seconds.
 \&    ...
 \&  });
 .Ve
+.SS "transition"
+.IX Subsection "transition"
+.Vb 3
+\&  my $stream =
+\&    Mojo::IOLoop\->transition($id => \*(AqMojo::IOLoop::Stream::HTTPClient\*(Aq);
+\&  my $stream = $loop\->transition($id => \*(AqMojo::IOLoop::Stream::HTTPClient\*(Aq);
+.Ve
+.PP
+Transition stream to a different class.
 .SH "DEBUGGING"
 .IX Header "DEBUGGING"
 You can set the \f(CW\*(C`MOJO_IOLOOP_DEBUG\*(C'\fR environment variable to get some advanced

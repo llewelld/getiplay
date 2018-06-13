@@ -187,6 +187,17 @@ Hypnotoad.
 .Vb 1
 \&  $ ./myapp.pl prefork \-m production \-l http://*:8080 \-w 10
 .Ve
+.ie n .SS "What does the error ""...certificate verify failed"" mean?"
+.el .SS "What does the error ``...certificate verify failed'' mean?"
+.IX Subsection "What does the error ...certificate verify failed mean?"
+There are many variations of this error, but most of them mean that \s-1TLS\s0
+certificate verification in Mojo::UserAgent failed. This usually happens for
+two reasons. The most common one is that the peer certificate is simply invalid.
+If that's the case and you are certain that no \s-1MITM\s0 attack is being attempted,
+you can use the attribute \*(L"insecure\*(R" in Mojo::UserAgent or \f(CW\*(C`MOJO_INSECURE\*(C'\fR
+environment variable to disable certificate verification. And if that's not the
+case you might be missing the Mozilla::CA module, which is often required by
+IO::Socket::SSL to be able to verify certificates.
 .ie n .SS "What does the error ""Maximum message size exceeded"" mean?"
 .el .SS "What does the error ``Maximum message size exceeded'' mean?"
 .IX Subsection "What does the error Maximum message size exceeded mean?"

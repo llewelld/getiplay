@@ -438,7 +438,9 @@ automatic rendering would result in a response.
 .PP
 Try to render content, but do not call
 \&\*(L"reply\->not_found\*(R" in Mojolicious::Plugin::DefaultHelpers if no response
-could be generated, takes the same arguments as \*(L"render\*(R".
+could be generated, all arguments get localized automatically and are only
+available during this render operation, takes the same arguments as
+\&\*(L"render\*(R".
 .PP
 .Vb 2
 \&  # Render template "index_local" only if it exists

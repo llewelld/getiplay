@@ -1,8 +1,8 @@
-$HOME/perl5/lib/perl5/POD2/DE/local/lib.pod
-$HOME/perl5/lib/perl5/POD2/PT_BR/local/lib.pod
-$HOME/perl5/lib/perl5/lib/core/only.pm
-$HOME/perl5/lib/perl5/local/lib.pm
-$HOME/perl5/man/man3/POD2::DE::local::lib.3pm
-$HOME/perl5/man/man3/POD2::PT_BR::local::lib.3pm
-$HOME/perl5/man/man3/lib::core::only.3pm
-$HOME/perl5/man/man3/local::lib.3pm
+/home/nemo/perl5/lib/perl5/POD2/DE/local/lib.pod
+/home/nemo/perl5/lib/perl5/POD2/PT_BR/local/lib.pod
+/home/nemo/perl5/lib/perl5/lib/core/only.pm
+/home/nemo/perl5/lib/perl5/local/lib.pm
+/home/nemo/perl5/man/man3/POD2::DE::local::lib.3pm
+/home/nemo/perl5/man/man3/POD2::PT_BR::local::lib.3pm
+/home/nemo/perl5/man/man3/lib::core::only.3pm
+/home/nemo/perl5/man/man3/local::lib.3pm

@@ -101,7 +101,7 @@ and multiple event loop support.
 For better scalability (epoll, kqueue) and to provide non-blocking name
 resolution, \s-1SOCKS5\s0 as well as \s-1TLS\s0 support, the optional modules \s-1EV\s0 (4.0+),
 Net::DNS::Native (0.15+), IO::Socket::Socks (0.64+) and
-IO::Socket::SSL (1.94+) will be used automatically if possible. Individual
+IO::Socket::SSL (2.009+) will be used automatically if possible. Individual
 features can also be disabled with the \f(CW\*(C`MOJO_NO_NNR\*(C'\fR, \f(CW\*(C`MOJO_NO_SOCKS\*(C'\fR and
 \&\f(CW\*(C`MOJO_NO_TLS\*(C'\fR environment variables.
 .PP
@@ -269,8 +269,7 @@ Only accept one connection at a time.
 \&  verify=0x00
 .Ve
 .Sp
-\&\s-1TLS\s0 verification mode, defaults to \f(CW0x03\fR if a certificate authority file has
-been provided, or \f(CW0x00\fR.
+\&\s-1TLS\s0 verification mode.
 .IP "version" 2
 .IX Item "version"
 .Vb 1
@@ -308,6 +307,14 @@ Disable console messages.
 .IX Header "METHODS"
 Mojo::Server::Daemon inherits all methods from Mojo::Server and
 implements the following new ones.
+.SS "close_connections"
+.IX Subsection "close_connections"
+.Vb 1
+\&  $daemon\->close_connections;
+.Ve
+.PP
+Stop accepting new requests and close all connections after finising those
+currently being processed.
 .SS "ports"
 .IX Subsection "ports"
 .Vb 1
@@ -353,11 +360,11 @@ Start or resume accepting connections through \*(L"ioloop\*(R".
 Stop accepting connections through \*(L"ioloop\*(R".
 .SH "DEBUGGING"
 .IX Header "DEBUGGING"
-You can set the \f(CW\*(C`MOJO_DAEMON_DEBUG\*(C'\fR environment variable to get some advanced
+You can set the \f(CW\*(C`MOJO_SERVER_DEBUG\*(C'\fR environment variable to get some advanced
 diagnostics information printed to \f(CW\*(C`STDERR\*(C'\fR.
 .PP
 .Vb 1
-\&  MOJO_DAEMON_DEBUG=1
+\&  MOJO_SERVER_DEBUG=1
 .Ve
 .SH "SEE ALSO"
 .IX Header "SEE ALSO"

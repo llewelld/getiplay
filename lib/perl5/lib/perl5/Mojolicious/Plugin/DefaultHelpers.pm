@@ -1,6 +1,7 @@
 package Mojolicious::Plugin::DefaultHelpers;
 use Mojo::Base 'Mojolicious::Plugin';
 
+use Mojo::Asset::File;
 use Mojo::ByteStream;
 use Mojo::Collection;
 use Mojo::Exception;
@@ -48,7 +49,7 @@ sub register {
   $app->helper(dumper => sub { shift; dumper @_ });
   $app->helper(include => sub { shift->render_to_string(@_) });
 
-  $app->helper("reply.$_" => $self->can("_$_")) for qw(asset static);
+  $app->helper("reply.$_" => $self->can("_$_")) for qw(asset file static);
 
   $app->helper('reply.exception' => sub { _development('exception', @_) });
   $app->helper('reply.not_found' => sub { _development('not_found', @_) });
@@ -103,19 +104,17 @@ sub _development {
 
   # Filtered stash snapshot
   my $stash = $c->stash;
-  my %snapshot = map { $_ => $stash->{$_} }
+  %{$stash->{snapshot} = {}} = map { $_ => $stash->{$_} }
     grep { !/^mojo\./ and defined $stash->{$_} } keys %$stash;
+  $stash->{exception} = $page eq 'exception' ? $e : undef;
 
   # Render with fallbacks
-  my $mode     = $app->mode;
-  my $renderer = $app->renderer;
-  my $options  = {
-    exception => $page eq 'exception' ? $e : undef,
-    format    => $stash->{format} || $renderer->default_format,
-    handler   => undef,
-    snapshot  => \%snapshot,
-    status    => $page eq 'exception' ? 500 : 404,
-    template  => "$page.$mode"
+  my $mode    = $app->mode;
+  my $options = {
+    format   => $stash->{format} || $app->renderer->default_format,
+    handler  => undef,
+    status   => $page eq 'exception' ? 500 : 404,
+    template => "$page.$mode"
   };
   my $bundled = 'mojo/' . ($mode eq 'development' ? 'debug' : $page);
   return $c if _fallbacks($c, $options, $page, $bundled);
@@ -136,10 +135,12 @@ sub _fallbacks {
 
   # Inline template
   my $stash = $c->stash;
-  return undef unless $stash->{format} eq 'html';
+  return undef unless $options->{format} eq 'html';
   delete @$stash{qw(extends layout)};
   return $c->render_maybe($bundled, %$options, handler => 'ep');
 }
+
+sub _file { _asset(shift, Mojo::Asset::File->new(path => shift)) }
 
 sub _inactivity_timeout {
   my ($c, $timeout) = @_;
@@ -424,6 +425,23 @@ C<exception.$format.*> and set the response status code to C<500>. Also sets
 the stash values C<exception> to a L<Mojo::Exception> object and C<snapshot> to
 a copy of the L</"stash"> for use in the templates.
 
+=head2 reply->file
+
+  $c->reply->file('/etc/passwd');
+
+Reply with a static file from an absolute path anywhere on the file system using
+L<Mojolicious/"static">.
+
+  # Longer version
+  $c->reply->asset(Mojo::Asset::File->new(path => '/etc/passwd'));
+
+  # Serve file from an absolute path with a custom content type
+  $c->res->headers->content_type('application/myapp');
+  $c->reply->file('/home/sri/foo.txt');
+
+  # Serve file from a secret application directory
+  $c->reply->file($c->app->home->child('secret', 'file.txt'));
+
 =head2 reply->not_found
 
   $c = $c->reply->not_found;
@@ -443,7 +461,7 @@ C<public> directories or C<DATA> sections of your application. Note that this
 helper uses a relative path, but does not protect from traversing to parent
 directories.
 
-  # Serve file with a custom content type
+  # Serve file from a relative path with a custom content type
   $c->res->headers->content_type('application/myapp');
   $c->reply->static('foo.txt');
 

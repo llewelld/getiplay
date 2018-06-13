@@ -111,7 +111,9 @@ your tests with the command Mojolicious::Command::test or prove.
 .PP
 If it is not already defined, the \f(CW\*(C`MOJO_LOG_LEVEL\*(C'\fR environment variable will
 be set to \f(CW\*(C`debug\*(C'\fR or \f(CW\*(C`fatal\*(C'\fR, depending on the value of the
-\&\f(CW\*(C`HARNESS_IS_VERBOSE\*(C'\fR environment variable.
+\&\f(CW\*(C`HARNESS_IS_VERBOSE\*(C'\fR environment variable. And to make it esier to test
+\&\s-1HTTPS/WSS\s0 web services \*(L"insecure\*(R" in Mojo::UserAgent will be activated by
+default for \*(L"ua\*(R".
 .PP
 See Mojolicious::Guides::Testing for more.
 .SH "ATTRIBUTES"
