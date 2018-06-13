@@ -91,6 +91,13 @@ Proxy detection is enabled by default, but you can disable it with the
 \&  $ MOJO_PROXY=0 perl \-Mojo \-E \*(Aqsay g("example.com")\->body\*(Aq
 .Ve
 .PP
+\&\s-1TLS\s0 certificate verification can be disabled with the \f(CW\*(C`MOJO_INSECURE\*(C'\fR
+environment variable.
+.PP
+.Vb 1
+\&  $ MOJO_INSECURE=1 perl \-Mojo \-E \*(Aqsay g("https://127.0.0.1:3000")\->body\*(Aq
+.Ve
+.PP
 Every ojo one-liner is also a Mojolicious::Lite application.
 .PP
 .Vb 1

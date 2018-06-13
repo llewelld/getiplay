@@ -350,8 +350,9 @@ and shown as default.
 .Ve
 .SS "javascript"
 .IX Subsection "javascript"
-.Vb 4
+.Vb 5
 \&  %= javascript \*(Aq/script.js\*(Aq
+\&  %= javascript \*(Aq/script.js\*(Aq, defer => undef
 \&  %= javascript begin
 \&    var a = \*(Aqb\*(Aq;
 \&  % end
@@ -359,8 +360,9 @@ and shown as default.
 .PP
 Generate portable \f(CW\*(C`script\*(C'\fR tag for JavaScript asset.
 .PP
-.Vb 4
+.Vb 5
 \&  <script src="/path/to/script.js"></script>
+\&  <script defer src="/path/to/script.js"></script>
 \&  <script><![CDATA[
 \&    var a = \*(Aqb\*(Aq;
 \&  ]]></script>
@@ -559,8 +561,9 @@ get picked up and shown as default.
 .Ve
 .SS "stylesheet"
 .IX Subsection "stylesheet"
-.Vb 4
+.Vb 5
 \&  %= stylesheet \*(Aq/foo.css\*(Aq
+\&  %= stylesheet \*(Aq/foo.css\*(Aq, title => \*(AqFoo style\*(Aq
 \&  %= stylesheet begin
 \&    body {color: #000}
 \&  % end
@@ -568,8 +571,9 @@ get picked up and shown as default.
 .PP
 Generate portable \f(CW\*(C`style\*(C'\fR or \f(CW\*(C`link\*(C'\fR tag for \s-1CSS\s0 asset.
 .PP
-.Vb 4
+.Vb 5
 \&  <link href="/path/to/foo.css" rel="stylesheet">
+\&  <link href="/path/to/foo.css" rel="stylesheet" title="Foo style">
 \&  <style><![CDATA[
 \&    body {color: #000}
 \&  ]]></style>
@@ -604,9 +608,9 @@ Alias for \*(L"tag\*(R".
 \&  %= tag \*(Aqbr\*(Aq
 \&  %= tag \*(Aqdiv\*(Aq
 \&  %= tag \*(Aqdiv\*(Aq, id => \*(Aqfoo\*(Aq, hidden => undef
-\&  %= tag div => \*(Aqtest & 123\*(Aq
-\&  %= tag div => (id => \*(Aqfoo\*(Aq) => \*(Aqtest & 123\*(Aq
-\&  %= tag div => (data => {my_id => 1, Name => \*(Aqtest\*(Aq}) => \*(Aqtest & 123\*(Aq
+\&  %= tag \*(Aqdiv\*(Aq, \*(Aqtest & 123\*(Aq
+\&  %= tag \*(Aqdiv\*(Aq, id => \*(Aqfoo\*(Aq, \*(Aqtest & 123\*(Aq
+\&  %= tag \*(Aqdiv\*(Aq, data => {my_id => 1, Name => \*(Aqtest\*(Aq}, \*(Aqtest & 123\*(Aq
 \&  %= tag div => begin
 \&    test & 123
 \&  % end
@@ -633,8 +637,8 @@ Very useful for reuse in more specific tag helpers.
 .Vb 4
 \&  my $output = $c\->tag(\*(Aqmeta\*(Aq);
 \&  my $output = $c\->tag(\*(Aqmeta\*(Aq, charset => \*(AqUTF\-8\*(Aq);
-\&  my $output = $c\->tag(div => \*(Aq<p>This will be escaped</p>\*(Aq);
-\&  my $output = $c\->tag(div => sub { \*(Aq<p>This will not be escaped</p>\*(Aq });
+\&  my $output = $c\->tag(\*(Aqdiv\*(Aq, \*(Aq<p>This will be escaped</p>\*(Aq);
+\&  my $output = $c\->tag(\*(Aqdiv\*(Aq, sub { \*(Aq<p>This will not be escaped</p>\*(Aq });
 .Ve
 .PP
 Results are automatically wrapped in Mojo::ByteStream objects to prevent

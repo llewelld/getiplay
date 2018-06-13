@@ -128,6 +128,28 @@ Mojo::Promise \- Promises/A+
 .IX Header "DESCRIPTION"
 Mojo::Promise is a Perl-ish implementation of
 Promises/A+ <https://promisesaplus.com>.
+.SH "STATES"
+.IX Header "STATES"
+A promise is an object representing the eventual completion or failure of a
+non-blocking operation. It allows non-blocking functions to return values, like
+blocking functions. But instead of immediately returning the final value, the
+non-blocking function returns a promise to supply the value at some point in the
+future.
+.PP
+A promise can be in one of three states:
+.IP "pending" 2
+.IX Item "pending"
+Initial state, neither fulfilled nor rejected.
+.IP "fulfilled" 2
+.IX Item "fulfilled"
+Meaning that the operation completed successfully.
+.IP "rejected" 2
+.IX Item "rejected"
+Meaning that the operation failed.
+.PP
+A pending promise can either be fulfilled with a value or rejected with a
+reason. When either happens, the associated handlers queued up by a promise's
+\&\*(L"then\*(R" method are called.
 .SH "ATTRIBUTES"
 .IX Header "ATTRIBUTES"
 Mojo::Promise implements the following attributes.

@@ -144,6 +144,14 @@ Proxy \s-1URL\s0 for request.
 .Ve
 .PP
 Request has been performed through a reverse proxy.
+.SS "request_id"
+.IX Subsection "request_id"
+.Vb 2
+\&  my $id = $req\->request_id;
+\&  $req   = $req\->request_id(\*(Aqaee7d5d8\*(Aq);
+.Ve
+.PP
+Request \s-1ID\s0, defaults to a reasonably unique value.
 .SS "url"
 .IX Subsection "url"
 .Vb 2
