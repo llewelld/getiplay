@@ -80,7 +80,7 @@ sub listen {
   $handle->blocking(0);
   @$self{qw(args handle)} = ($args, $handle);
 
-  croak 'IO::Socket::SSL 1.94+ required for TLS support'
+  croak 'IO::Socket::SSL 2.009+ required for TLS support'
     if !Mojo::IOLoop::TLS->can_tls && $args->{tls};
 }
 
@@ -205,7 +205,7 @@ Check if connections are currently being accepted.
   $server->listen({port => 3000});
 
 Create a new listen socket. Note that TLS support depends on L<IO::Socket::SSL>
-(1.94+).
+(2.009+).
 
 These options are currently available:
 
@@ -287,12 +287,17 @@ L<https://www.openssl.org/docs/manmaster/apps/ciphers.html#CIPHER-STRINGS>.
 
 Path to the TLS key file, defaults to a built-in test key.
 
+=item tls_protocols
+
+  tls_protocols => ['foo', 'bar']
+
+ALPN protocols to negotiate.
+
 =item tls_verify
 
   tls_verify => 0x00
 
-TLS verification mode, defaults to C<0x03> if a certificate authority file has
-been provided, or C<0x00>.
+TLS verification mode.
 
 =item tls_version
 

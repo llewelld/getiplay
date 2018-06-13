@@ -160,6 +160,38 @@ enable support for subroutine signatures.
 .PP
 This will also disable experimental warnings on versions of Perl where this
 feature was still experimental.
+.SH "FLUENT INTERFACES"
+.IX Header "FLUENT INTERFACES"
+Fluent interfaces are a way to design object-oriented APIs around method
+chaining to create domain-specific languages, with the goal of making the
+readablity of the source code close to written prose.
+.PP
+.Vb 2
+\&  package Duck;
+\&  use Mojo::Base \-base;
+\&
+\&  has \*(Aqname\*(Aq;
+\&
+\&  sub quack {
+\&    my $self = shift;
+\&    my $name = $self\->name;
+\&    say "$name: Quack!"
+\&  }
+.Ve
+.PP
+Mojo::Base will help you with this by having all attribute accessors created
+with \*(L"has\*(R" (or \*(L"attr\*(R") return their invocant (\f(CW$self\fR) whenever they
+are used to assign a new attribute value.
+.PP
+.Vb 1
+\&  Duck\->new\->name(\*(AqDonald\*(Aq)\->quack;
+.Ve
+.PP
+In this case the \f(CW\*(C`name\*(C'\fR attribute accessor is called on the object created by
+\&\f(CW\*(C`Duck\->new\*(C'\fR. It assigns a new attribute value and then returns the \f(CW\*(C`Duck\*(C'\fR
+object, so the \f(CW\*(C`quack\*(C'\fR method can be called on it afterwards. These method
+chains can continue until one of the methods called does not return the \f(CW\*(C`Duck\*(C'\fR
+object.
 .SH "FUNCTIONS"
 .IX Header "FUNCTIONS"
 Mojo::Base implements the following functions, which can be imported with

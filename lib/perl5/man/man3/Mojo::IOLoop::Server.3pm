@@ -152,7 +152,7 @@ Check if connections are currently being accepted.
 .Ve
 .PP
 Create a new listen socket. Note that \s-1TLS\s0 support depends on IO::Socket::SSL
-(1.94+).
+(2.009+).
 .PP
 These options are currently available:
 .IP "address" 2
@@ -243,14 +243,20 @@ https://www.openssl.org/docs/manmaster/apps/ciphers.html#CIPHER\-STRINGS <https:
 .Ve
 .Sp
 Path to the \s-1TLS\s0 key file, defaults to a built-in test key.
+.IP "tls_protocols" 2
+.IX Item "tls_protocols"
+.Vb 1
+\&  tls_protocols => [\*(Aqfoo\*(Aq, \*(Aqbar\*(Aq]
+.Ve
+.Sp
+\&\s-1ALPN\s0 protocols to negotiate.
 .IP "tls_verify" 2
 .IX Item "tls_verify"
 .Vb 1
 \&  tls_verify => 0x00
 .Ve
 .Sp
-\&\s-1TLS\s0 verification mode, defaults to \f(CW0x03\fR if a certificate authority file has
-been provided, or \f(CW0x00\fR.
+\&\s-1TLS\s0 verification mode.
 .IP "tls_version" 2
 .IX Item "tls_version"
 .Vb 1

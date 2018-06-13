@@ -182,7 +182,7 @@ method is the old attribute value.
 .IX Subsection "agent"
 .Vb 4
 \&    my $agent = $ua\->agent;
-\&    $ua\->agent(\*(AqCheckbot/0.4 \*(Aq);    # append the defaul to the end
+\&    $ua\->agent(\*(AqCheckbot/0.4 \*(Aq);    # append the default to the end
 \&    $ua\->agent(\*(AqMozilla/5.0\*(Aq);
 \&    $ua\->agent("");                 # don\*(Aqt identify
 .Ve
@@ -467,10 +467,15 @@ https-URLs.
 Get/set the timeout value in seconds. The default value is
 180 seconds, i.e. 3 minutes.
 .PP
-The requests is aborted if no activity on the connection to the server
+The request is aborted if no activity on the connection to the server
 is observed for \f(CW\*(C`timeout\*(C'\fR seconds.  This means that the time it takes
 for the complete transaction and the \*(L"request\*(R" in LWP::UserAgent method to
 actually return might be longer.
+.PP
+When a request times out, a response object is still returned.  The response
+will have a standard \s-1HTTP\s0 Status Code (500).  This response will have the
+\&\*(L"Client-Warning\*(R" header set to the value of \*(L"Internal response\*(R".  See the
+\&\*(L"get\*(R" in LWP::UserAgent method description below for further details.
 .SH "PROXY ATTRIBUTES"
 .IX Header "PROXY ATTRIBUTES"
 The following methods set up when requests should be passed via a

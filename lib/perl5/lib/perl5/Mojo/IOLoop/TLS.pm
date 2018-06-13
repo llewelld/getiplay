@@ -8,10 +8,7 @@ use Scalar::Util 'weaken';
 # TLS support requires IO::Socket::SSL
 use constant TLS => $ENV{MOJO_NO_TLS}
   ? 0
-  : eval { require IO::Socket::SSL; IO::Socket::SSL->VERSION('1.94'); 1 };
-use constant DEFAULT => eval { IO::Socket::SSL->VERSION('1.965') }
-  ? \undef
-  : '';
+  : eval { require IO::Socket::SSL; IO::Socket::SSL->VERSION('2.009'); 1 };
 use constant READ  => TLS ? IO::Socket::SSL::SSL_WANT_READ()  : 0;
 use constant WRITE => TLS ? IO::Socket::SSL::SSL_WANT_WRITE() : 0;
 
@@ -29,7 +26,7 @@ sub can_tls {TLS}
 sub negotiate {
   my ($self, $args) = (shift, ref $_[0] ? $_[0] : {@_});
 
-  return $self->emit(error => 'IO::Socket::SSL 1.94+ required for TLS support')
+  return $self->emit(error => 'IO::Socket::SSL 2.009+ required for TLS support')
     unless TLS;
 
   my $handle = $self->{handle};
@@ -53,28 +50,26 @@ sub _expand {
 
   weaken $self;
   my $tls = {
-    SSL_ca_file => $args->{tls_ca}
-      && -T $args->{tls_ca} ? $args->{tls_ca} : DEFAULT,
-    SSL_error_trap         => sub { $self->_cleanup->emit(error => $_[1]) },
-    SSL_honor_cipher_order => 1,
-    SSL_startHandshake     => 0
+    SSL_error_trap     => sub { $self->_cleanup->emit(error => $_[1]) },
+    SSL_startHandshake => 0
   };
+  $tls->{SSL_alpn_protocols} = $args->{tls_protocols} if $args->{tls_protocols};
+  $tls->{SSL_ca_file} = $args->{tls_ca}
+    if $args->{tls_ca} && -T $args->{tls_ca};
   $tls->{SSL_cert_file}   = $args->{tls_cert}    if $args->{tls_cert};
   $tls->{SSL_cipher_list} = $args->{tls_ciphers} if $args->{tls_ciphers};
   $tls->{SSL_key_file}    = $args->{tls_key}     if $args->{tls_key};
   $tls->{SSL_server}      = $args->{server}      if $args->{server};
-  $tls->{SSL_verify_mode} = $args->{tls_verify}  if exists $args->{tls_verify};
+  $tls->{SSL_verify_mode} = $args->{tls_verify}  if defined $args->{tls_verify};
   $tls->{SSL_version}     = $args->{tls_version} if $args->{tls_version};
 
   if ($args->{server}) {
     $tls->{SSL_cert_file} ||= $CERT;
     $tls->{SSL_key_file}  ||= $KEY;
-    $tls->{SSL_verify_mode} //= $args->{tls_ca} ? 0x03 : 0x00;
   }
   else {
     $tls->{SSL_hostname}
       = IO::Socket::SSL->can_client_sni ? $args->{address} : '';
-    $tls->{SSL_verify_mode} //= $args->{tls_ca} ? 0x01 : 0x00;
     $tls->{SSL_verifycn_name} = $args->{address};
   }
 
@@ -168,7 +163,7 @@ implements the following new ones.
 
   my $bool = Mojo::IOLoop::TLS->can_tls;
 
-True if L<IO::Socket::SSL> 1.94+ is installed and TLS support enabled.
+True if L<IO::Socket::SSL> 2.009+ is installed and TLS support enabled.
 
 =head2 negotiate
 
@@ -191,8 +186,7 @@ Negotiate TLS from the server-side, defaults to the client-side.
 
   tls_ca => '/etc/tls/ca.crt'
 
-Path to TLS certificate authority file. Also activates hostname verification on
-the client-side.
+Path to TLS certificate authority file.
 
 =item tls_cert
 
@@ -216,12 +210,17 @@ L<https://www.openssl.org/docs/manmaster/apps/ciphers.html#CIPHER-STRINGS>.
 
 Path to the TLS key file, defaults to a built-in test key on the server-side.
 
+=item tls_protocols
+
+  tls_protocols => ['foo', 'bar']
+
+ALPN protocols to negotiate.
+
 =item tls_verify
 
   tls_verify => 0x00
 
-TLS verification mode, defaults to C<0x03> on the server-side and C<0x01> on the
-client-side if a certificate authority file has been provided, or C<0x00>.
+TLS verification mode.
 
 =item tls_version
 

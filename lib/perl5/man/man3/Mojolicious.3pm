@@ -104,6 +104,22 @@ Take a look at our excellent documentation in Mojolicious::Guides!
 .SH "HOOKS"
 .IX Header "HOOKS"
 Mojolicious will emit the following hooks in the listed order.
+.SS "before_server_start"
+.IX Subsection "before_server_start"
+Emitted right before the application server is started, for web servers that
+support it, which includes all the built-in ones (except for
+Mojo::Server::CGI). Note that this hook is \s-1EXPERIMENTAL\s0 and might change
+without warning!
+.PP
+.Vb 4
+\&  $app\->hook(before_server_start => sub {
+\&    my ($server, $app) = @_;
+\&    ...
+\&  });
+.Ve
+.PP
+Useful for reconfiguring application servers dynamically or collecting server
+diagnostics information. (Passed the server and application objects)
 .SS "after_build_tx"
 .IX Subsection "after_build_tx"
 Emitted right after the transaction is built and before the \s-1HTTP\s0 request gets
@@ -119,7 +135,7 @@ parsed.
 This is a very powerful hook and should not be used lightly, it makes some
 rather advanced features such as upload progress bars possible. Note that this
 hook will not work for embedded applications, because only the host application
-gets to build transactions. (Passed the transaction and application object)
+gets to build transactions. (Passed the transaction and application objects)
 .SS "around_dispatch"
 .IX Subsection "around_dispatch"
 Emitted right after a new request has been received and wraps around the whole
@@ -652,6 +668,14 @@ default exception handling.
 .PP
 Load a plugin, for a full list of example plugins included in the
 Mojolicious distribution see \*(L"\s-1PLUGINS\s0\*(R" in Mojolicious::Plugins.
+.SS "server"
+.IX Subsection "server"
+.Vb 1
+\&  $app\->server(Mojo::Server\->new);
+.Ve
+.PP
+Emits the \*(L"before_server_start\*(R" hook. Note that this method is \s-1EXPERIMENTAL\s0
+and might change without warning!
 .SS "start"
 .IX Subsection "start"
 .Vb 2

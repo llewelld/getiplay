@@ -65,7 +65,7 @@ has ua       => sub {
 has validator => sub { Mojolicious::Validator->new };
 
 our $CODENAME = 'Doughnut';
-our $VERSION  = '7.78';
+our $VERSION  = '7.84';
 
 sub AUTOLOAD {
   my $self = shift;
@@ -109,7 +109,7 @@ sub build_tx {
   return $tx;
 }
 
-sub config   { Mojo::Util::_stash(config   => @_); }
+sub config   { Mojo::Util::_stash(config   => @_) }
 sub defaults { Mojo::Util::_stash(defaults => @_) }
 
 sub dispatch {
@@ -128,7 +128,8 @@ sub dispatch {
     my $req    = $c->req;
     my $method = $req->method;
     my $path   = $req->url->path->to_abs_string;
-    $self->log->debug(qq{$method "$path"});
+    my $id     = $req->request_id;
+    $self->log->debug(qq{$method "$path" ($id)});
     $c->helpers->timing->begin('mojo.timer');
   }
 
@@ -194,6 +195,8 @@ sub plugin {
   $self->plugins->register_plugin(shift, $self, @_);
 }
 
+sub server { $_[0]->plugins->emit_hook(before_server_start => @_[1, 0]) }
+
 sub start {
   my $self = shift;
   $_->warmup for $self->static, $self->renderer;
@@ -253,6 +256,21 @@ Take a look at our excellent documentation in L<Mojolicious::Guides>!
 
 L<Mojolicious> will emit the following hooks in the listed order.
 
+=head2 before_server_start
+
+Emitted right before the application server is started, for web servers that
+support it, which includes all the built-in ones (except for
+L<Mojo::Server::CGI>). Note that this hook is EXPERIMENTAL and might change
+without warning!
+
+  $app->hook(before_server_start => sub {
+    my ($server, $app) = @_;
+    ...
+  });
+
+Useful for reconfiguring application servers dynamically or collecting server
+diagnostics information. (Passed the server and application objects)
+
 =head2 after_build_tx
 
 Emitted right after the transaction is built and before the HTTP request gets
@@ -266,7 +284,7 @@ parsed.
 This is a very powerful hook and should not be used lightly, it makes some
 rather advanced features such as upload progress bars possible. Note that this
 hook will not work for embedded applications, because only the host application
-gets to build transactions. (Passed the transaction and application object)
+gets to build transactions. (Passed the transaction and application objects)
 
 =head2 around_dispatch
 
@@ -733,6 +751,13 @@ default exception handling.
 
 Load a plugin, for a full list of example plugins included in the
 L<Mojolicious> distribution see L<Mojolicious::Plugins/"PLUGINS">.
+
+=head2 server
+
+  $app->server(Mojo::Server->new);
+
+Emits the L</"before_server_start"> hook. Note that this method is EXPERIMENTAL
+and might change without warning!
 
 =head2 start
 

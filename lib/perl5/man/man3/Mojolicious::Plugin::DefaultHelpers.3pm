@@ -333,6 +333,26 @@ Render the exception template \f(CW\*(C`exception.$mode.$format.*\*(C'\fR or
 \&\f(CW\*(C`exception.$format.*\*(C'\fR and set the response status code to \f(CW500\fR. Also sets
 the stash values \f(CW\*(C`exception\*(C'\fR to a Mojo::Exception object and \f(CW\*(C`snapshot\*(C'\fR to
 a copy of the \*(L"stash\*(R" for use in the templates.
+.SS "reply\->file"
+.IX Subsection "reply->file"
+.Vb 1
+\&  $c\->reply\->file(\*(Aq/etc/passwd\*(Aq);
+.Ve
+.PP
+Reply with a static file from an absolute path anywhere on the file system using
+\&\*(L"static\*(R" in Mojolicious.
+.PP
+.Vb 2
+\&  # Longer version
+\&  $c\->reply\->asset(Mojo::Asset::File\->new(path => \*(Aq/etc/passwd\*(Aq));
+\&
+\&  # Serve file from an absolute path with a custom content type
+\&  $c\->res\->headers\->content_type(\*(Aqapplication/myapp\*(Aq);
+\&  $c\->reply\->file(\*(Aq/home/sri/foo.txt\*(Aq);
+\&
+\&  # Serve file from a secret application directory
+\&  $c\->reply\->file($c\->app\->home\->child(\*(Aqsecret\*(Aq, \*(Aqfile.txt\*(Aq));
+.Ve
 .SS "reply\->not_found"
 .IX Subsection "reply->not_found"
 .Vb 1
@@ -356,7 +376,7 @@ helper uses a relative path, but does not protect from traversing to parent
 directories.
 .PP
 .Vb 3
-\&  # Serve file with a custom content type
+\&  # Serve file from a relative path with a custom content type
 \&  $c\->res\->headers\->content_type(\*(Aqapplication/myapp\*(Aq);
 \&  $c\->reply\->static(\*(Aqfoo.txt\*(Aq);
 .Ve
