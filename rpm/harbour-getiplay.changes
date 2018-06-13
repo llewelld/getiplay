@@ -8,6 +8,9 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Wed Jun 13 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.4-2
+- Add missing dependencies (thanks to gaelic for flagging up)
+
 * Tue Jun 12 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.4-1
 - Allow videos to be played within the app
 - Allow audio to be played within the app
