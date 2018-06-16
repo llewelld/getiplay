@@ -409,40 +409,45 @@
         <source>Local</source>
         <translation type="unfinished"></translation>
     </message>
-    <message id="getiplay-settings_listtype_description">
+    <message id="getiplay-settings_listtype_all">
         <location filename="../qml/pages/Settings.qml" line="67"/>
+        <source>All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_listtype_description">
+        <location filename="../qml/pages/Settings.qml" line="71"/>
         <source>Programme lists must be refreshed to take effect</source>
         <oldsource>Programme lists must be refreshed for change to take effect.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_proxy">
-        <location filename="../qml/pages/Settings.qml" line="73"/>
+        <location filename="../qml/pages/Settings.qml" line="77"/>
         <source>Web proxy URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_subtitle_file_storage">
-        <location filename="../qml/pages/Settings.qml" line="83"/>
+        <location filename="../qml/pages/Settings.qml" line="87"/>
         <source>File storage settings</source>
         <oldsource>File storage</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_video_folder">
-        <location filename="../qml/pages/Settings.qml" line="88"/>
+        <location filename="../qml/pages/Settings.qml" line="92"/>
         <source>Video folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_select_video_folder">
-        <location filename="../qml/pages/Settings.qml" line="99"/>
+        <location filename="../qml/pages/Settings.qml" line="103"/>
         <source>Select video folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_audio_folder">
-        <location filename="../qml/pages/Settings.qml" line="110"/>
+        <location filename="../qml/pages/Settings.qml" line="114"/>
         <source>Audio folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_select_audio_folder">
-        <location filename="../qml/pages/Settings.qml" line="121"/>
+        <location filename="../qml/pages/Settings.qml" line="125"/>
         <source>Select audio folder</source>
         <translation type="unfinished"></translation>
     </message>

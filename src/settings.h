@@ -30,6 +30,7 @@ public:
         PROGTYPE_NATIONAL,
         PROGTYPE_REGIONAL,
         PROGTYPE_LOCAL,
+        PROGTYPE_ALL,
 
         PROGTYPE_NUM
     };
