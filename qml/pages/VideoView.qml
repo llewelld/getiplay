@@ -125,6 +125,11 @@ Page {
 
         IconButton {
             id: playbutton
+            width: Theme.iconSizeLarge
+            height: Theme.iconSizeLarge
+            icon.sourceSize.width: width
+            icon.sourceSize.height: height
+            icon.fillMode: Image.PreserveAspectFit
             anchors.bottom: mediaslider.top
             anchors.bottomMargin: controlgap
             anchors.horizontalCenter: parent.horizontalCenter
@@ -147,6 +152,11 @@ Page {
 
         IconButton {
             id: reversebutton
+            width: Theme.iconSizeLarge
+            height: Theme.iconSizeLarge
+            icon.sourceSize.width: width
+            icon.sourceSize.height: height
+            icon.fillMode: Image.PreserveAspectFit
             anchors.verticalCenter: playbutton.verticalCenter
             anchors.right: playbutton.left
             anchors.rightMargin: controlgap
@@ -161,6 +171,11 @@ Page {
 
         IconButton {
             id: forwardsbutton
+            width: Theme.iconSizeLarge
+            height: Theme.iconSizeLarge
+            icon.sourceSize.width: width
+            icon.sourceSize.height: height
+            icon.fillMode: Image.PreserveAspectFit
             anchors.verticalCenter: playbutton.verticalCenter
             anchors.left: playbutton.right
             anchors.leftMargin: controlgap

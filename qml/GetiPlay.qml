@@ -85,6 +85,11 @@ ApplicationWindow
 
             IconButton {
                 id: reversebutton
+                width: Theme.iconSizeMedium
+                height: Theme.iconSizeMedium
+                icon.sourceSize.width: width
+                icon.sourceSize.height: height
+                icon.fillMode: Image.PreserveAspectFit
                 icon.source: Qt.resolvedUrl("image://getiplay/icon-m-replay.png")
 
                 onClicked: {
@@ -94,6 +99,11 @@ ApplicationWindow
 
             IconButton {
                 id: playbutton
+                width: Theme.iconSizeMedium
+                height: Theme.iconSizeMedium
+                icon.sourceSize.width: width
+                icon.sourceSize.height: height
+                icon.fillMode: Image.PreserveAspectFit
                 icon.source: (audio.playbackState == MediaPlayer.PlayingState) ? Qt.resolvedUrl("image://theme/icon-m-pause") : Qt.resolvedUrl("image://theme/icon-m-play")
 
                 onClicked: {
@@ -108,6 +118,11 @@ ApplicationWindow
 
             IconButton {
                 id: forwardsbutton
+                width: Theme.iconSizeMedium
+                height: Theme.iconSizeMedium
+                icon.sourceSize.width: width
+                icon.sourceSize.height: height
+                icon.fillMode: Image.PreserveAspectFit
                 icon.source: Qt.resolvedUrl("image://getiplay/icon-m-skip.png")
 
                 onClicked: {
@@ -132,6 +147,10 @@ ApplicationWindow
 
             IconButton {
                 id: stopbutton
+                width: Theme.iconSizeMedium
+                height: Theme.iconSizeMedium
+                icon.sourceSize.width: width
+                icon.sourceSize.height: height
                 icon.source: Qt.resolvedUrl("image://getiplay/icon-m-eject.png")
 
                 onClicked: {
