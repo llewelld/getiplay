@@ -50,16 +50,6 @@
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
-    <message id="getiplay-proglist_empty_message">
-        <location filename="../qml/pages/ProgList.qml" line="152"/>
-        <source>No items found</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-proglist_select_empty_hint">
-        <location filename="../qml/pages/ProgList.qml" line="154"/>
-        <source>Select Refresh from menu to populate</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message id="getiplay-queue_menu_about">
         <location filename="../qml/pages/Queue.qml" line="34"/>
         <source>About</source>

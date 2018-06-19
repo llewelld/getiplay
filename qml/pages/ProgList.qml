@@ -146,12 +146,24 @@ Item {
         }
 
         ViewPlaceholder {
+            property var placeholdermessage: [
+                //% "No items found"
+                qsTrId("getiplay-proglist_nothing_found_message"),
+                //% "Nothing here"
+                qsTrId("getiplay-proglist_empty_message"),
+                //% "Updating"
+                qsTrId("getiplay-proglist_updating_message"),
+            ]
+            property int messagechoice: (totalitems == 0) ? (refreshing ? 2 : 1) : 0
+
             enabled: listView.count === 0
             textFormat: Text.RichText
-            //% "No items found"
-            text: ((totalitems == 0) ? "&nbsp;<img style=\"scale: 200%;\" src=\"image://getiplay/getiplay-bg\" />&nbsp;<br />" : "") + qsTrId("getiplay-proglist_empty_message")
-            //% "Select Refresh from menu to populate"
-            hintText: ((totalitems == 0) ? qsTrId("getiplay-proglist_select_empty_hint") : "")
+            text: ((totalitems == 0) ? "&nbsp;<img style=\"scale: 200%;\" src=\"file:///usr/share/harbour-getiplay/qml/images/getiplay-bg.svg\" />&nbsp;<br />" : "") + placeholdermessage[messagechoice]
+            hintText: ((totalitems == 0) ? ((refreshing) ?
+                                                //% "Please wait, refreshing can take some time"
+                                                qsTrId("getiplay-proglist_select_updating_hint") :
+                                                //% "Select Refresh from menu to populate"
+                                                qsTrId("getiplay-proglist_select_empty_hint")) : "")
         }
 
         delegate: BackgroundItem {
