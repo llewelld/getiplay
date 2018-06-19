@@ -85,7 +85,12 @@ ApplicationWindow
 
             IconButton {
                 id: reversebutton
-                icon.source: Qt.resolvedUrl("image://getiplay/icon-m-replay.png")
+                width: Theme.iconSizeMedium
+                height: Theme.iconSizeMedium
+                icon.sourceSize.width: width
+                icon.sourceSize.height: height
+                icon.fillMode: Image.PreserveAspectFit
+                icon.source: Qt.resolvedUrl("image://getiplay/icon-m-replay")
 
                 onClicked: {
                     audio.seek(audio.position - 10000)
@@ -94,6 +99,11 @@ ApplicationWindow
 
             IconButton {
                 id: playbutton
+                width: Theme.iconSizeMedium
+                height: Theme.iconSizeMedium
+                icon.sourceSize.width: width
+                icon.sourceSize.height: height
+                icon.fillMode: Image.PreserveAspectFit
                 icon.source: (audio.playbackState == MediaPlayer.PlayingState) ? Qt.resolvedUrl("image://theme/icon-m-pause") : Qt.resolvedUrl("image://theme/icon-m-play")
 
                 onClicked: {
@@ -108,7 +118,12 @@ ApplicationWindow
 
             IconButton {
                 id: forwardsbutton
-                icon.source: Qt.resolvedUrl("image://getiplay/icon-m-skip.png")
+                width: Theme.iconSizeMedium
+                height: Theme.iconSizeMedium
+                icon.sourceSize.width: width
+                icon.sourceSize.height: height
+                icon.fillMode: Image.PreserveAspectFit
+                icon.source: Qt.resolvedUrl("image://getiplay/icon-m-skip")
 
                 onClicked: {
                     audio.seek(audio.position + 10000)
@@ -121,6 +136,7 @@ ApplicationWindow
                 maximumValue: audio.duration
                 stepSize: 1
                 value: 0
+                anchors.verticalCenter: parent.verticalCenter
                 width: parent.width - reversebutton.width - playbutton.width - forwardsbutton.width - stopbutton.width
                 anchors.margins: 0
                 leftMargin: Theme.paddingLarge
@@ -132,7 +148,11 @@ ApplicationWindow
 
             IconButton {
                 id: stopbutton
-                icon.source: Qt.resolvedUrl("image://getiplay/icon-m-eject.png")
+                width: Theme.iconSizeMedium
+                height: Theme.iconSizeMedium
+                icon.sourceSize.width: width
+                icon.sourceSize.height: height
+                icon.source: Qt.resolvedUrl("image://getiplay/icon-m-eject")
 
                 onClicked: {
                     stopAudio()

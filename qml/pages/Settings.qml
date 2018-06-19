@@ -62,6 +62,10 @@ Page {
                         //% "Local"
                         text: qsTrId("getiplay-settings_listtype_local")
                     }
+                    MenuItem {
+                        //% "All"
+                        text: qsTrId("getiplay-settings_listtype_all")
+                    }
                 }
                 //% "Programme lists must be refreshed to take effect"
                 description: qsTrId("getiplay-settings_listtype_description")
