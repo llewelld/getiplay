@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="18.062222mm"
+   height="18.062222mm"
+   viewBox="0 0 63.999998 63.999997"
+   id="svg35640"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="icon-m-eject.svg">
+  <defs
+     id="defs35642" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="7.9195959"
+     inkscape:cx="6.909946"
+     inkscape:cy="35.245208"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="3200"
+     inkscape:window-height="1773"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata35645">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-253.71429,-423.21935)">
+    <g
+       transform="translate(-124.64286,-152.85713)"
+       id="g8774"
+       inkscape:export-filename="/home/flypig/Documents/Development/sailfish/getiplay/qml/images/icon-m-eject.png"
+       inkscape:export-xdpi="157.5"
+       inkscape:export-ydpi="157.5">
+      <rect
+         height="64"
+         width="64"
+         style="opacity:0;fill:#ffffff"
+         id="icon-m-pause_1_-5"
+         x="378.35715"
+         y="576.07648" />
+      <g
+         id="g8768">
+        <circle
+           id="circle8246-5"
+           r="24"
+           cy="410.35715"
+           cx="-608.07648"
+           style="opacity:0.2;fill:#ffffff"
+           transform="matrix(0,-1,1,0,0,0)" />
+        <g
+           id="g8764">
+          <path
+             sodipodi:nodetypes="sssssssss"
+             id="path8250-2"
+             d="m 419.21116,612.36148 c 1.65,0 3,1.35 3,3 l 0,0.63 c 0,1.65 -1.35,3 -3,3 l -17.70802,0 c -1.65,0 -3,-1.35 -3,-3 l 0,-0.63 c 0,-1.65 1.35,-3 3,-3 z"
+             style="fill:#ffffff"
+             inkscape:connector-curvature="0" />
+          <path
+             inkscape:connector-curvature="0"
+             style="opacity:0.6;fill:#ffffff"
+             d="m 401.16965,609.82653 c -2.5622,0 -3.41355,-1.68756 -1.8937,-3.74897 l 8.31551,-11.27253 c 1.52102,-2.06141 4.00985,-2.06141 5.53087,0 l 8.31551,11.27253 c 1.52102,2.06141 0.6685,3.74897 -1.8937,3.74897 l -18.37449,0 z"
+             id="path12786-9" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

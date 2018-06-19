@@ -149,7 +149,7 @@ Item {
             enabled: listView.count === 0
             textFormat: Text.RichText
             //% "No items found"
-            text: ((totalitems == 0) ? "&nbsp;<img style=\"scale: 200%;\" src=\"file:///usr/share/harbour-getiplay/qml/images/getiplay-bg.svg\" />&nbsp;<br />" : "") + qsTrId("getiplay-proglist_empty_message")
+            text: ((totalitems == 0) ? "&nbsp;<img style=\"scale: 200%;\" src=\"image://getiplay/getiplay-bg\" />&nbsp;<br />" : "") + qsTrId("getiplay-proglist_empty_message")
             //% "Select Refresh from menu to populate"
             hintText: ((totalitems == 0) ? qsTrId("getiplay-proglist_select_empty_hint") : "")
         }

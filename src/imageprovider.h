@@ -9,6 +9,9 @@ public:
     explicit ImageProvider();
 
     QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize);
+private:
+    double pixelRatio;
+    QString imageDir;
 };
 
 #endif // IMAGEPROVIDER_H

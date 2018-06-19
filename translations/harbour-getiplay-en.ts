@@ -4,27 +4,27 @@
 <context>
     <name></name>
     <message id="getiplay-cover_programmes_completed_line1">
-        <location filename="../qml/cover/CoverPage.qml" line="69"/>
+        <location filename="../qml/cover/CoverPage.qml" line="68"/>
         <source>Programmes</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-cover_programmes_completed_line2">
-        <location filename="../qml/cover/CoverPage.qml" line="71"/>
+        <location filename="../qml/cover/CoverPage.qml" line="70"/>
         <source>Completed</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-cover_programmes_downloading_line1">
-        <location filename="../qml/cover/CoverPage.qml" line="106"/>
+        <location filename="../qml/cover/CoverPage.qml" line="105"/>
         <source>Programmes</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-cover_programmes_downloading_line2">
-        <location filename="../qml/cover/CoverPage.qml" line="108"/>
+        <location filename="../qml/cover/CoverPage.qml" line="107"/>
         <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-cover_title">
-        <location filename="../qml/cover/CoverPage.qml" line="133"/>
+        <location filename="../qml/cover/CoverPage.qml" line="132"/>
         <source>GetiPlay</source>
         <translation type="unfinished"></translation>
     </message>
@@ -191,68 +191,67 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_title">
-        <location filename="../qml/pages/AboutPage.qml" line="27"/>
+        <location filename="../qml/pages/AboutPage.qml" line="28"/>
         <source>About GetiPlay</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about-description">
-        <location filename="../qml/pages/AboutPage.qml" line="40"/>
+        <location filename="../qml/pages/AboutPage.qml" line="39"/>
         <source>User interface for controlling get_iplayer</source>
         <translation type="unfinished"></translation>
     </message>
-    <message id="getiplay-about_version">
-        <location filename="../qml/pages/AboutPage.qml" line="52"/>
-        <source>Version</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message id="getiplay-about_author">
-        <location filename="../qml/pages/AboutPage.qml" line="65"/>
-        <source>Author</source>
+        <location filename="../qml/pages/AboutPage.qml" line="52"/>
+        <source>Author:</source>
+        <oldsource>Author</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_licence">
-        <location filename="../qml/pages/AboutPage.qml" line="78"/>
-        <source>Licence</source>
+        <location filename="../qml/pages/AboutPage.qml" line="61"/>
+        <source>Licence:</source>
+        <oldsource>Licence</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_respect_copyright">
-        <location filename="../qml/pages/AboutPage.qml" line="93"/>
+        <location filename="../qml/pages/AboutPage.qml" line="70"/>
         <source>Please respect the copyright of all files downloaded using this software</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_getiplayer_description">
-        <location filename="../qml/pages/AboutPage.qml" line="110"/>
+        <location filename="../qml/pages/AboutPage.qml" line="87"/>
         <source>Backend functionality is provided by get_iplayer</source>
         <oldsource>Backend functionality is provided by get_iplayer.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_getiplayer_version">
-        <location filename="../qml/pages/AboutPage.qml" line="122"/>
-        <source>Version</source>
+        <location filename="../qml/pages/AboutPage.qml" line="100"/>
+        <source>Version:</source>
+        <oldsource>Version</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_getiplayer_author">
-        <location filename="../qml/pages/AboutPage.qml" line="135"/>
-        <source>Author</source>
+        <location filename="../qml/pages/AboutPage.qml" line="111"/>
+        <source>Author:</source>
+        <oldsource>Author</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_getiplayer_licence">
-        <location filename="../qml/pages/AboutPage.qml" line="148"/>
+        <location filename="../qml/pages/AboutPage.qml" line="120"/>
         <source>Licence</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_subtitle_links">
-        <location filename="../qml/pages/AboutPage.qml" line="162"/>
+        <location filename="../qml/pages/AboutPage.qml" line="129"/>
         <source>Links</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_website">
-        <location filename="../qml/pages/AboutPage.qml" line="171"/>
+        <location filename="../qml/pages/AboutPage.qml" line="138"/>
         <source>Website</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiaplay-about_email">
-        <location filename="../qml/pages/AboutPage.qml" line="178"/>
+        <location filename="../qml/pages/AboutPage.qml" line="145"/>
         <source>Email</source>
         <translation type="unfinished"></translation>
     </message>
