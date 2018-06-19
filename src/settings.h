@@ -22,6 +22,7 @@ class Settings : public QObject
     Q_PROPERTY(QString videoDir READ getVideoDir WRITE setVideoDir NOTIFY videoDirChanged)
     Q_PROPERTY(QString proxyUrl READ getProxyUrl WRITE setProxyUrl NOTIFY proxyUrlChanged)
     Q_PROPERTY(PROGTYPE refreshType READ getRefreshType WRITE setRefreshType NOTIFY refreshTypeChanged)
+    Q_PROPERTY(unsigned int currentTab READ getCurrentTab WRITE setCurrentTab NOTIFY currentTabChanged)
 
 public:
     enum PROGTYPE {
@@ -64,6 +65,7 @@ public:
     Q_INVOKABLE QString getVideoDir();
     Q_INVOKABLE QString getProxyUrl();
     Q_INVOKABLE PROGTYPE getRefreshType();
+    Q_INVOKABLE unsigned int getCurrentTab();
 
     Q_INVOKABLE static QString epochToDate (quint64 epoch);
     Q_INVOKABLE static quint64 dateToEpoch (QString date);
@@ -78,6 +80,7 @@ signals:
     void videoDirChanged(QString &videoDir);
     void proxyUrlChanged(QString &proxyUrl);
     void refreshTypeChanged(PROGTYPE refreshType);
+    void currentTabChanged(unsigned int currentTab);
 
 public slots:
     // Configurable values
@@ -85,6 +88,7 @@ public slots:
     void setVideoDir(QString &value);
     void setProxyUrl(QString &value);
     void setRefreshType(PROGTYPE value);
+    void setCurrentTab(unsigned int value);
 
 private:
     static Settings * instance;
@@ -96,6 +100,7 @@ private:
     QString proxyUrl;
     PROGTYPE refreshType;
     PROGTYPE lastRefreshType[REFRESHTYPE_NUM];
+    unsigned int currentTab;
 };
 
 #endif // SETTINGS_H

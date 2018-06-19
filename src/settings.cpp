@@ -25,6 +25,8 @@ Settings::Settings(QObject *parent) : QObject(parent),
         lastRefreshType[progType] = static_cast<PROGTYPE>(settings.value("type", PROGTYPE_INVALID).toInt());
     }
     settings.endArray();
+
+    currentTab = settings.value("state/currentTab", 0).toInt();
 }
 
 Settings::~Settings() {
@@ -32,6 +34,7 @@ Settings::~Settings() {
     settings.setValue("storage/videoDir", videoDir);
     settings.setValue("download/proxyUrl", proxyUrl);
     settings.setValue("storage/refreshType", refreshType);
+    settings.setValue("state/currentTab", currentTab);
 
     settings.beginWriteArray("storage/lastRefresh");
     for (int progType = 0; progType < REFRESHTYPE_NUM; progType++) {
@@ -134,6 +137,10 @@ Settings::PROGTYPE Settings::getRefreshType() {
     return refreshType;
 }
 
+unsigned int Settings::getCurrentTab() {
+    return currentTab;
+}
+
 void Settings::setAudioDir(QString &value) {
     qDebug() << "Set audio Dir: " << value;
     audioDir = value;
@@ -157,6 +164,13 @@ void Settings::setRefreshType(PROGTYPE value) {
     refreshType = value;
     emit refreshTypeChanged(refreshType);
 }
+
+void Settings::setCurrentTab(unsigned int value) {
+    qDebug() << "Set current tab: " << value;
+    currentTab = value;
+    emit currentTabChanged(currentTab);
+}
+
 
 bool Settings::getRebuildCache(int type) {
     bool rebuildCache;

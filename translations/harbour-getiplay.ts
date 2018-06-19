@@ -4,34 +4,34 @@
 <context>
     <name></name>
     <message id="getiplay-log_share_title">
-        <location filename="../qml/pages/Log.qml" line="32"/>
+        <location filename="../qml/pages/Log.qml" line="31"/>
         <source>Share Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_share_status">
-        <location filename="../qml/pages/Log.qml" line="41"/>
+        <location filename="../qml/pages/Log.qml" line="40"/>
         <source>GetiPlay log file</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_menu_about">
-        <location filename="../qml/pages/Log.qml" line="51"/>
+        <location filename="../qml/pages/Log.qml" line="50"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_menu_settings">
-        <location filename="../qml/pages/Log.qml" line="56"/>
+        <location filename="../qml/pages/Log.qml" line="55"/>
         <location filename="../qml/pages/ProgList.qml" line="135"/>
         <location filename="../qml/pages/Queue.qml" line="39"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_menu_clear">
-        <location filename="../qml/pages/Log.qml" line="61"/>
+        <location filename="../qml/pages/Log.qml" line="60"/>
         <source>Clear log</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_share_add_account">
-        <location filename="../qml/pages/Log.qml" line="76"/>
+        <location filename="../qml/pages/Log.qml" line="75"/>
         <source>Add account</source>
         <translation type="unfinished"></translation>
     </message>
@@ -257,22 +257,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglisttv_title">
-        <location filename="../qml/pages/MainPage.qml" line="38"/>
+        <location filename="../qml/pages/MainPage.qml" line="40"/>
         <source>BBC TV Programmes</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglistradio_title">
-        <location filename="../qml/pages/MainPage.qml" line="44"/>
+        <location filename="../qml/pages/MainPage.qml" line="46"/>
         <source>BBC Radio Programmes</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_title">
-        <location filename="../qml/pages/MainPage.qml" line="50"/>
+        <location filename="../qml/pages/MainPage.qml" line="52"/>
         <source>Queue</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_title">
-        <location filename="../qml/pages/MainPage.qml" line="55"/>
+        <location filename="../qml/pages/MainPage.qml" line="57"/>
         <source>Log</source>
         <translation type="unfinished"></translation>
     </message>
