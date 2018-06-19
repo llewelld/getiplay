@@ -69,6 +69,7 @@ SAILFISHAPP_ICONS = 86x86 108x108 128x128 256x256
 CONFIG += sailfishapp_i18n
 CONFIG += sailfishapp_i18n_idbased
 CONFIG += sailfishapp_i18n_unfinished
+PKGCONFIG += mlite5
 
 # German translation is enabled as an example. If you aren't
 # planning to localize your app, remember to comment out the
@@ -118,4 +119,5 @@ DISTFILES += \
     qml/pages/Settings.qml \
     qml/component/FolderPickerDialog.qml \
     qml/component/PickerDialog.qml \
-    qml/pages/VideoView.qml
+    qml/pages/VideoView.qml \
+    qml/component/InfoRow.qml

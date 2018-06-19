@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import "../component"
 
 Page {
     id: aboutPage
@@ -28,11 +29,9 @@ Page {
             }
 
             Image {
-                width: 530
-                height: 150
                 anchors.topMargin: Theme.paddingLarge
                 anchors.horizontalCenter: parent.horizontalCenter
-                source  : "../images/getiplay-title.svg"
+                source  : Qt.resolvedUrl("image://getiplay/getiplay-title")
             }
 
             Label {
@@ -47,46 +46,24 @@ Page {
                     right: parent.right
                 }
             }
-            Label {
-                //% "Version"
-                text: qsTrId("getiplay-about_version") + ":\t\t" + version
-                wrapMode: Text.WordWrap
-                font.pixelSize: Theme.fontSizeSmall
-                horizontalAlignment: Text.AlignLeft
-                anchors {
-                    leftMargin: Theme.paddingLarge
-                    rightMargin: Theme.paddingLarge
-                    left: parent.left
-                    right: parent.right
-                }
-            }
-            Label {
-                //% "Author"
-                text: qsTrId("getiplay-about_author") + ":\t\t\t" + "David Llewellyn-Jones"
-                wrapMode: Text.WordWrap
-                font.pixelSize: Theme.fontSizeSmall
-                horizontalAlignment: Text.AlignLeft
-                anchors {
-                    leftMargin: Theme.paddingLarge
-                    rightMargin: Theme.paddingLarge
-                    left: parent.left
-                    right: parent.right
-                }
-            }
-            Label {
-                //% "Licence"
-                text: qsTrId("getiplay-about_licence") + ":\t\t" + "MIT"
-                wrapMode: Text.WordWrap
-                font.pixelSize: Theme.fontSizeSmall
-                horizontalAlignment: Text.AlignLeft
-                anchors {
-                    leftMargin: Theme.paddingLarge
-                    rightMargin: Theme.paddingLarge
-                    left: parent.left
-                    right: parent.right
-                }
+
+            InfoRow {
+                //% "Author:"
+                label: qsTrId("getiplay-about_author")
+                value: "David Llewellyn-Jones"
+                midlineRatio: 0.3
+                midlineMin: Theme.fontSizeSmall * 5
+                midlineMax: Theme.fontSizeSmall * 10
             }
 
+            InfoRow {
+                //% "Licence:"
+                label: qsTrId("getiplay-about_licence")
+                value: "MIT"
+                midlineRatio: 0.3
+                midlineMin: Theme.fontSizeSmall * 5
+                midlineMax: Theme.fontSizeSmall * 10
+            }
 
             Label {
                 //% "Please respect the copyright of all files downloaded using this software"
@@ -117,44 +94,34 @@ Page {
                     right: parent.right
                 }
             }
-            Label {
-                //% "Version"
-                text: qsTrId("getiplay-about_getiplayer_version") + ":\t\t" + "3.14"
-                wrapMode: Text.WordWrap
-                font.pixelSize: Theme.fontSizeSmall
-                horizontalAlignment: Text.AlignLeft
-                anchors {
-                    leftMargin: Theme.paddingLarge
-                    rightMargin: Theme.paddingLarge
-                    left: parent.left
-                    right: parent.right
-                }
+
+            InfoRow {
+                //% "Version:"
+                label: qsTrId("getiplay-about_getiplayer_version")
+                value: "3.14"
+                midlineRatio: 0.3
+                midlineMin: Theme.fontSizeSmall * 5
+                midlineMax: Theme.fontSizeSmall * 10
             }
-            Label {
-                //% "Author"
-                text: qsTrId("getiplay-about_getiplayer_author") + ":\t\t\t" + "Phil Lewis + others"
-                wrapMode: Text.WordWrap
-                font.pixelSize: Theme.fontSizeSmall
-                horizontalAlignment: Text.AlignLeft
-                anchors {
-                    leftMargin: Theme.paddingLarge
-                    rightMargin: Theme.paddingLarge
-                    left: parent.left
-                    right: parent.right
-                }
+
+
+
+            InfoRow {
+                //% "Author:"
+                label: qsTrId("getiplay-about_getiplayer_author")
+                value: "Phil Lewis + others"
+                midlineRatio: 0.3
+                midlineMin: Theme.fontSizeSmall * 5
+                midlineMax: Theme.fontSizeSmall * 10
             }
-            Label {
+
+            InfoRow {
                 //% "Licence"
-                text: qsTrId("getiplay-about_getiplayer_licence") + ":\t\t" + "GPLv3"
-                wrapMode: Text.WordWrap
-                font.pixelSize: Theme.fontSizeSmall
-                horizontalAlignment: Text.AlignLeft
-                anchors {
-                    leftMargin: Theme.paddingLarge
-                    rightMargin: Theme.paddingLarge
-                    left: parent.left
-                    right: parent.right
-                }
+                label: qsTrId("getiplay-about_getiplayer_licence")
+                value: "GPLv3"
+                midlineRatio: 0.3
+                midlineMin: Theme.fontSizeSmall * 5
+                midlineMax: Theme.fontSizeSmall * 10
             }
 
             SectionHeader {

@@ -47,10 +47,9 @@ CoverBackground {
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width
         height: sourceSize.height * width / sourceSize.width
-        source: "../images/graphic-cover-getiplay-background.png"
+        source: Qt.resolvedUrl("image://getiplay/cover-background")
         opacity: 0.1
     }
-
 
     Label {
         id: queuesizeCount
@@ -146,7 +145,7 @@ CoverBackground {
         enabled: mediaplayerdefined
 
         CoverAction {
-            iconSource: "../images/icon-cover-replay.png"
+            iconSource: Qt.resolvedUrl("image://getiplay/icon-cover-replay")
 
             onTriggered: {
                 if (mediaplayerdefined) {

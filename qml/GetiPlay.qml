@@ -90,7 +90,7 @@ ApplicationWindow
                 icon.sourceSize.width: width
                 icon.sourceSize.height: height
                 icon.fillMode: Image.PreserveAspectFit
-                icon.source: Qt.resolvedUrl("image://getiplay/icon-m-replay.png")
+                icon.source: Qt.resolvedUrl("image://getiplay/icon-m-replay")
 
                 onClicked: {
                     audio.seek(audio.position - 10000)
@@ -123,7 +123,7 @@ ApplicationWindow
                 icon.sourceSize.width: width
                 icon.sourceSize.height: height
                 icon.fillMode: Image.PreserveAspectFit
-                icon.source: Qt.resolvedUrl("image://getiplay/icon-m-skip.png")
+                icon.source: Qt.resolvedUrl("image://getiplay/icon-m-skip")
 
                 onClicked: {
                     audio.seek(audio.position + 10000)
@@ -136,6 +136,7 @@ ApplicationWindow
                 maximumValue: audio.duration
                 stepSize: 1
                 value: 0
+                anchors.verticalCenter: parent.verticalCenter
                 width: parent.width - reversebutton.width - playbutton.width - forwardsbutton.width - stopbutton.width
                 anchors.margins: 0
                 leftMargin: Theme.paddingLarge
@@ -151,7 +152,7 @@ ApplicationWindow
                 height: Theme.iconSizeMedium
                 icon.sourceSize.width: width
                 icon.sourceSize.height: height
-                icon.source: Qt.resolvedUrl("image://getiplay/icon-m-eject.png")
+                icon.source: Qt.resolvedUrl("image://getiplay/icon-m-eject")
 
                 onClicked: {
                     stopAudio()
