@@ -97,13 +97,13 @@ void Refresh::setupEnvironment() {
 }
 
 const QString & Refresh::includeTypeToString(Settings::PROGTYPE refreshType) {
-    static const QString types[Settings::PROGTYPE_NUM] = {"national", "regional", "local"};
+    static const QString types[Settings::PROGTYPE_NUM] = {"national", "regional", "local", "national,regional,local"};
 
     return types[qBound((int)0, (int)refreshType, (int)(Settings::PROGTYPE_NUM - 1))];
 }
 
 const QString & Refresh::excludeTypeToString(Settings::PROGTYPE refreshType) {
-    static const QString types[Settings::PROGTYPE_NUM] = {"regional,local", "national,local", "national,regional"};
+    static const QString types[Settings::PROGTYPE_NUM] = {"regional,local", "national,local", "national,regional", ""};
 
     return types[qBound((int)0, (int)refreshType, (int)(Settings::PROGTYPE_NUM - 1))];
 }
@@ -112,6 +112,8 @@ void Refresh::collectArguments () {
     Settings::PROGTYPE refreshType = Settings::getInstance().getRefreshType();
     QString proxy = Settings::getInstance().getProxyUrl();
     bool rebuildCache = Settings::getInstance().getRebuildCache(currentRefresh);
+    QString include = includeTypeToString(refreshType);
+    QString exclude = excludeTypeToString(refreshType);
     arguments.clear();
 
     addArgument("type=" + typeString[currentRefresh]);
@@ -121,10 +123,13 @@ void Refresh::collectArguments () {
     addArgument("nopurge");
     if (rebuildCache) {
         addArgument("cache-rebuild");
-        qDebug() << "Rebuilding cache";
     }
-    addArgument("refresh-include-groups", includeTypeToString(refreshType));
-    addArgument("refresh-exclude-groups", excludeTypeToString(refreshType));
+    if (include != "") {
+        addArgument("refresh-include-groups", include);
+    }
+    if (exclude != "") {
+        addArgument("refresh-exclude-groups", exclude);
+    }
     addArgument("atomicparsley", DIR_BIN "/AtomicParsley");
     addArgument("ffmpeg", DIR_BIN "/ffmpeg");
     addArgument("ffmpeg-loglevel", "info");
