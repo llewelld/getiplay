@@ -8,8 +8,12 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
-* Sun Jun 17 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.5-1
+* Wed Jun 20 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.5-1
 - Add option to list all programmes, combining national, regional and local.
+- Improve placeholder help text
+- Make currently selected tab persistent across app execution
+- Support different resolution graphics for different devices
+- Ensure UI works across devices (Jolla One, Jolla C, Xperia X)
 
 * Wed Jun 13 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.4-2
 - Add missing dependencies (thanks to gaelic for flagging up)
