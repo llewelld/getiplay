@@ -2,6 +2,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "../component"
 import "."
+import harbour.getiplay.settings 1.0
 
 Page {
     id: mainpage
@@ -24,6 +25,7 @@ Page {
             SlideshowView {
                 id: mainView
                 objectName: "mainView"
+                currentIndex: Settings.currentTab
 
                 itemWidth: width
                 itemHeight: height
@@ -54,6 +56,10 @@ Page {
                         //% "Log"
                         screenName: qsTrId("getiplay-log_title")
                     }
+                }
+
+                onCurrentIndexChanged: {
+                    Settings.currentTab = currentIndex
                 }
             }
         }

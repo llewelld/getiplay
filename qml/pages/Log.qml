@@ -17,7 +17,6 @@ SplitViewItem {
     Connections {
         target: mainView
         onCurrentIndexChanged: {
-            console.log("Current index changed to: " + mainView.currentIndex);
             if (mainView.currentIndex != 3) {
                 logPage.open = false
             }
