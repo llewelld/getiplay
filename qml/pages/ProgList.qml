@@ -158,7 +158,7 @@ Item {
 
             enabled: listView.count === 0
             textFormat: Text.RichText
-            text: ((totalitems == 0) ? "&nbsp;<img style=\"scale: 200%;\" src=\"file:///usr/share/harbour-getiplay/qml/images/getiplay-bg.svg\" />&nbsp;<br />" : "") + placeholdermessage[messagechoice]
+            text: ((totalitems == 0) ? "&nbsp;<img style=\"scale: 200%;\" src=\"image://getiplay/getiplay-bg\" />&nbsp;<br />" : "") + placeholdermessage[messagechoice]
             hintText: ((totalitems == 0) ? ((refreshing) ?
                                                 //% "Please wait, refreshing can take some time"
                                                 qsTrId("getiplay-proglist_select_updating_hint") :

@@ -2,6 +2,7 @@
 #include <QQuickImageProvider>
 #include <QPainter>
 #include <QColor>
+#include <QDebug>
 #include <mlite5/MGConfItem>
 
 #include "imageprovider.h"
