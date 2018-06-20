@@ -215,58 +215,63 @@
         <source>User interface for controlling get_iplayer</source>
         <translation type="unfinished"></translation>
     </message>
-    <message id="getiplay-about_author">
+    <message id="getiplay-about_getiplay_version">
         <location filename="../qml/pages/AboutPage.qml" line="52"/>
+        <source>Version:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-about_author">
+        <location filename="../qml/pages/AboutPage.qml" line="61"/>
         <source>Author:</source>
         <oldsource>Author</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_licence">
-        <location filename="../qml/pages/AboutPage.qml" line="61"/>
+        <location filename="../qml/pages/AboutPage.qml" line="70"/>
         <source>Licence:</source>
         <oldsource>Licence</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_respect_copyright">
-        <location filename="../qml/pages/AboutPage.qml" line="70"/>
+        <location filename="../qml/pages/AboutPage.qml" line="79"/>
         <source>Please respect the copyright of all files downloaded using this software</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_getiplayer_description">
-        <location filename="../qml/pages/AboutPage.qml" line="87"/>
+        <location filename="../qml/pages/AboutPage.qml" line="96"/>
         <source>Backend functionality is provided by get_iplayer</source>
         <oldsource>Backend functionality is provided by get_iplayer.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_getiplayer_version">
-        <location filename="../qml/pages/AboutPage.qml" line="100"/>
+        <location filename="../qml/pages/AboutPage.qml" line="109"/>
         <source>Version:</source>
         <oldsource>Version</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_getiplayer_author">
-        <location filename="../qml/pages/AboutPage.qml" line="111"/>
+        <location filename="../qml/pages/AboutPage.qml" line="118"/>
         <source>Author:</source>
         <oldsource>Author</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_getiplayer_licence">
-        <location filename="../qml/pages/AboutPage.qml" line="120"/>
+        <location filename="../qml/pages/AboutPage.qml" line="127"/>
         <source>Licence</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_subtitle_links">
-        <location filename="../qml/pages/AboutPage.qml" line="129"/>
+        <location filename="../qml/pages/AboutPage.qml" line="136"/>
         <source>Links</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-about_website">
-        <location filename="../qml/pages/AboutPage.qml" line="138"/>
+        <location filename="../qml/pages/AboutPage.qml" line="145"/>
         <source>Website</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiaplay-about_email">
-        <location filename="../qml/pages/AboutPage.qml" line="145"/>
+        <location filename="../qml/pages/AboutPage.qml" line="152"/>
         <source>Email</source>
         <translation type="unfinished"></translation>
     </message>

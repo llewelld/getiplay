@@ -48,6 +48,15 @@ Page {
             }
 
             InfoRow {
+                //% "Version:"
+                label: qsTrId("getiplay-about_getiplay_version")
+                value: version
+                midlineRatio: 0.3
+                midlineMin: Theme.fontSizeSmall * 5
+                midlineMax: Theme.fontSizeSmall * 10
+            }
+
+            InfoRow {
                 //% "Author:"
                 label: qsTrId("getiplay-about_author")
                 value: "David Llewellyn-Jones"
@@ -103,8 +112,6 @@ Page {
                 midlineMin: Theme.fontSizeSmall * 5
                 midlineMax: Theme.fontSizeSmall * 10
             }
-
-
 
             InfoRow {
                 //% "Author:"

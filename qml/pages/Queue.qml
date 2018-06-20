@@ -45,7 +45,7 @@ Item {
             enabled: listView.count === 0
             textFormat: Text.RichText
             //% "Empty"
-            text: "&nbsp;<img style=\"scale: 200%;\" src=\"file:///usr/share/harbour-getiplay/qml/images/getiplay-bg.svg\" />&nbsp;<br />" + qsTrId("getiplay-queue_empty_message")
+            text: "&nbsp;<img style=\"scale: 200%;\" src=\"image://getiplay/getiplay-bg\" />&nbsp;<br />" + qsTrId("getiplay-queue_empty_message")
             //% "Programmes you select for download will appear here"
             hintText: qsTrId("getiplay-queue_empty_hint")
         }
