@@ -60,6 +60,8 @@ public:
     Q_INVOKABLE static QString getTempDir();
     Q_INVOKABLE static QString getLogFile(unsigned int cycle);
     bool getRebuildCache(int type);
+    Q_INVOKABLE QString getImageDir() const;
+    Q_INVOKABLE QString getImageUrl(const QString &id) const;
 
     // Configurable values
     Q_INVOKABLE QString getAudioDir();
@@ -94,6 +96,8 @@ public slots:
 private:
     static Settings * instance;
     QSettings settings;
+    double pixelRatio;
+    QString imageDir;
 
     // Configurable values
     QString audioDir;

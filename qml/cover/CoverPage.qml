@@ -31,6 +31,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtMultimedia 5.0
+import harbour.getiplay.settings 1.0
 
 CoverBackground {
     id: cover
@@ -145,7 +146,7 @@ CoverBackground {
         enabled: mediaplayerdefined
 
         CoverAction {
-            iconSource: Qt.resolvedUrl("image://getiplay/icon-cover-replay")
+            iconSource: Settings.getImageUrl("icon-cover-replay")
 
             onTriggered: {
                 if (mediaplayerdefined) {

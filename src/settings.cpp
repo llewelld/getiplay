@@ -1,6 +1,8 @@
 #include <QDesktopServices>
 #include <QDateTime>
 #include <QDebug>
+#include <sailfishapp.h>
+#include <mlite5/MGConfItem>
 
 #include "settings.h"
 #include "refresh.h"
@@ -27,6 +29,28 @@ Settings::Settings(QObject *parent) : QObject(parent),
     settings.endArray();
 
     currentTab = settings.value("state/currentTab", 0).toInt();
+
+    QScopedPointer<MGConfItem> ratioItem(new MGConfItem("/desktop/sailfish/silica/theme_pixel_ratio"));
+    pixelRatio = ratioItem->value(1.0).toDouble();
+    QString dir;
+    if (pixelRatio > 1.75) {
+        dir = "2.0";
+    }
+    else if (pixelRatio > 1.5) {
+        dir = "1.75";
+    }
+    else if (pixelRatio > 1.25) {
+        dir = "1.5";
+    }
+    else if (pixelRatio > 1.0) {
+        dir = "1.25";
+    }
+    else {
+        dir = "1.0";
+    }
+
+    imageDir = SailfishApp::pathTo("qml/images/z" + dir).toString(QUrl::RemoveScheme) + "/";
+    qDebug() << "Image folder: " << imageDir;
 }
 
 Settings::~Settings() {
@@ -197,3 +221,11 @@ QString Settings::millisecondsToTime (quint32 milliseconds) {
 
     return QString("%1:%2:%3").arg(hours).arg(minutes, 2, 'f', 0, '0').arg(seconds, 2, 'f', 0, '0');
 }
+
+QString Settings::getImageDir() const {
+    return imageDir;
+}
+QString Settings::getImageUrl(const QString &id) const {
+    return imageDir + id + ".png";
+}
+

@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
 
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
-    view->engine()->addImageProvider(QLatin1String("getiplay"), new ImageProvider);
+    view->engine()->addImageProvider(QLatin1String("getiplay"), new ImageProvider(Settings::getInstance()));
     view->setSource(SailfishApp::pathTo("qml/GetiPlay.qml"));
 
     QQmlContext *ctxt = view->rootContext();
