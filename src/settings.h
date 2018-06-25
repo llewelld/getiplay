@@ -24,6 +24,8 @@ class Settings : public QObject
     Q_PROPERTY(PROGTYPE refreshType READ getRefreshType WRITE setRefreshType NOTIFY refreshTypeChanged)
     Q_PROPERTY(unsigned int currentTab READ getCurrentTab WRITE setCurrentTab NOTIFY currentTabChanged)
 
+    Q_PROPERTY(unsigned int indexMaxConn READ getIndexMaxConn WRITE setIndexMaxConn NOTIFY indexMaxConnChanged)
+
 public:
     enum PROGTYPE {
         PROGTYPE_INVALID = -1,
@@ -69,6 +71,7 @@ public:
     Q_INVOKABLE QString getProxyUrl();
     Q_INVOKABLE PROGTYPE getRefreshType();
     Q_INVOKABLE unsigned int getCurrentTab();
+    Q_INVOKABLE unsigned int getIndexMaxConn();
 
     Q_INVOKABLE static QString epochToDate (quint64 epoch);
     Q_INVOKABLE static quint64 dateToEpoch (QString date);
@@ -84,6 +87,7 @@ signals:
     void proxyUrlChanged(QString &proxyUrl);
     void refreshTypeChanged(PROGTYPE refreshType);
     void currentTabChanged(unsigned int currentTab);
+    void indexMaxConnChanged(unsigned int indexMaxConn);
 
 public slots:
     // Configurable values
@@ -92,8 +96,29 @@ public slots:
     void setProxyUrl(QString &value);
     void setRefreshType(PROGTYPE value);
     void setCurrentTab(unsigned int value);
+    void setIndexMaxConn(unsigned int value);
 
 private:
+    typedef enum _DEVICE {
+        DEVICE_INVALID = -1,
+        DEVICE_FAILURE,
+        DEVICE_UNKNOWN,
+
+        DEVICE_JOLLA_ONE,
+        DEVICE_JOLLA_TABLET,
+        DEVICE_ONE_PLUS_X,
+        DEVICE_SIBON,
+        DEVICE_JOLLA_C,
+        DEVICE_AQUAFISH,
+        DEVICE_XPERIA_X,
+        DEVICE_XPERIA_X_DUALSIM,
+        DEVICE_XPERIA_X_COMPACT,
+
+        DEVICe_NUM
+    } DEVICE;
+
+    static DEVICE getDevice();
+
     static Settings * instance;
     QSettings settings;
     double pixelRatio;
@@ -106,6 +131,7 @@ private:
     PROGTYPE refreshType;
     PROGTYPE lastRefreshType[REFRESHTYPE_NUM];
     unsigned int currentTab;
+    unsigned int indexMaxConn;
 };
 
 #endif // SETTINGS_H

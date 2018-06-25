@@ -82,6 +82,20 @@ Page {
                 //EnterKey.onClicked: passwordField.focus = true
             }
 
+            Slider {
+                id: indexMaxConn
+                //% "Maximum connections"
+                label: qsTrId("getiplay-settings_max_connections")
+                minimumValue: 1
+                maximumValue: 10
+                value: Settings.indexMaxConn
+                stepSize: 1
+                handleVisible: true
+                valueText: value
+                width: parent.width
+                onValueChanged: Settings.indexMaxConn = value
+            }
+
             SectionHeader {
                 //% "File storage settings"
                 text: qsTrId("getiplay-settings_subtitle_file_storage")

@@ -444,29 +444,34 @@
         <source>Web proxy URL</source>
         <translation type="unfinished"></translation>
     </message>
+    <message id="getiplay-settings_max_connections">
+        <location filename="../qml/pages/Settings.qml" line="88"/>
+        <source>Maximum connections</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message id="getiplay-settings_subtitle_file_storage">
-        <location filename="../qml/pages/Settings.qml" line="87"/>
+        <location filename="../qml/pages/Settings.qml" line="101"/>
         <source>File storage settings</source>
         <oldsource>File storage</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_video_folder">
-        <location filename="../qml/pages/Settings.qml" line="92"/>
+        <location filename="../qml/pages/Settings.qml" line="106"/>
         <source>Video folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_select_video_folder">
-        <location filename="../qml/pages/Settings.qml" line="103"/>
+        <location filename="../qml/pages/Settings.qml" line="117"/>
         <source>Select video folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_audio_folder">
-        <location filename="../qml/pages/Settings.qml" line="114"/>
+        <location filename="../qml/pages/Settings.qml" line="128"/>
         <source>Audio folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_select_audio_folder">
-        <location filename="../qml/pages/Settings.qml" line="125"/>
+        <location filename="../qml/pages/Settings.qml" line="139"/>
         <source>Select audio folder</source>
         <translation type="unfinished"></translation>
     </message>
