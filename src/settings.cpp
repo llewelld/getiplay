@@ -3,6 +3,8 @@
 #include <QDebug>
 #include <sailfishapp.h>
 #include <mlite5/MGConfItem>
+#include <QDBusConnection>
+#include <QDBusInterface>
 
 #include "settings.h"
 #include "refresh.h"
@@ -51,6 +53,22 @@ Settings::Settings(QObject *parent) : QObject(parent),
 
     imageDir = SailfishApp::pathTo("qml/images/z" + dir).toString(QUrl::RemoveScheme) + "/";
     qDebug() << "Image folder: " << imageDir;
+
+    indexMaxConn = (unsigned int)settings.value("download/indexMaxConn", 0).toInt();
+    if (indexMaxConn == 0) {
+        // Select default value depending on the device
+        DEVICE device = getDevice();
+        switch (device) {
+        case DEVICE_XPERIA_X:
+        case DEVICE_XPERIA_X_DUALSIM:
+        case DEVICE_XPERIA_X_COMPACT:
+            indexMaxConn = 5;
+            break;
+        default:
+            indexMaxConn = 2;
+            break;
+        }
+    }
 }
 
 Settings::~Settings() {
@@ -66,6 +84,8 @@ Settings::~Settings() {
         settings.setValue("type", static_cast<int>(lastRefreshType[progType]));
     }
     settings.endArray();
+
+    settings.setValue("download/indexMaxConn", indexMaxConn);
 }
 
 void Settings::instantiate(QObject *parent) {
@@ -165,6 +185,10 @@ unsigned int Settings::getCurrentTab() {
     return currentTab;
 }
 
+unsigned int Settings::getIndexMaxConn() {
+    return indexMaxConn;
+}
+
 void Settings::setAudioDir(QString &value) {
     qDebug() << "Set audio Dir: " << value;
     audioDir = value;
@@ -193,6 +217,12 @@ void Settings::setCurrentTab(unsigned int value) {
     qDebug() << "Set current tab: " << value;
     currentTab = value;
     emit currentTabChanged(currentTab);
+}
+
+void Settings::setIndexMaxConn(unsigned int value) {
+    qDebug() << "Set index max connections: " << value;
+    indexMaxConn = value;
+    emit indexMaxConnChanged(indexMaxConn);
 }
 
 
@@ -229,3 +259,90 @@ QString Settings::getImageUrl(const QString &id) const {
     return imageDir + id + ".png";
 }
 
+// See https://github.com/kimmoli/chargemon/blob/d577d5277e97524a298bea3ff3cec9588971e06b/src/cmon.cpp#L54
+// Licence MIT
+Settings::DEVICE Settings::getDevice()
+{
+    Settings::DEVICE result = DEVICE_INVALID;
+    QDBusMessage ssuCallReply;
+    QList<QVariant> outArgs;
+
+    if (result != DEVICE_FAILURE) {
+        if (!QDBusConnection::systemBus().isConnected()) {
+            printf("Cannot connect to the D-Bus systemBus\n%s\n", qPrintable(QDBusConnection::systemBus().lastError().message()));
+            result = DEVICE_FAILURE;
+        }
+    }
+
+    if (result != DEVICE_FAILURE) {
+        QDBusInterface ssuCall("org.nemo.ssu", "/org/nemo/ssu", "org.nemo.ssu", QDBusConnection::systemBus());
+        ssuCall.setTimeout(1000);
+
+        QList<QVariant> args;
+        args.append(2);
+
+        ssuCallReply = ssuCall.callWithArgumentList(QDBus::Block, "displayName", args);
+
+        if (ssuCallReply.type() == QDBusMessage::ErrorMessage) {
+            printf("Error: %s\n", qPrintable(ssuCallReply.errorMessage()));
+            result = DEVICE_FAILURE;
+        }
+    }
+
+    if (result != DEVICE_FAILURE) {
+        outArgs = ssuCallReply.arguments();
+        if (outArgs.count() == 0) {
+            printf("Reply is empty\n");
+            result = DEVICE_FAILURE;
+        }
+    }
+
+    if (result != DEVICE_FAILURE) {
+        QString deviceName = outArgs.at(0).toString();
+
+        printf("device name is %s\n", qPrintable(deviceName));
+
+        result = DEVICE_UNKNOWN;
+        if (outArgs.at(0).toString() == "JP-1301") {
+            // The one and only original Jolla phone
+            result = DEVICE_JOLLA_ONE;
+        }
+        else if (outArgs.at(0).toString() == "JT-1501") {
+            // The one and only original Jolla tablet
+            result = DEVICE_JOLLA_TABLET;
+        }
+        else if (outArgs.at(0).toString() == "onyx") {
+            // OneplusX
+            result = DEVICE_ONE_PLUS_X;
+        }
+        else if (outArgs.at(0).toString() == "fp2-sibon") {
+            result = DEVICE_SIBON;
+        }
+        else if (outArgs.at(0).toString() == "JP-1601") {
+             // Jolla C
+             result = DEVICE_JOLLA_C;
+        }
+        else if (outArgs.at(0).toString() == "Aqua Fish") {
+            // Aquafish
+            result = DEVICE_AQUAFISH;
+        }
+        else if (outArgs.at(0).toString() == "L500D") {
+            // This is also Aquafish
+            result = DEVICE_AQUAFISH;
+        }
+        else if (outArgs.at(0).toString() == "f5121") {
+            // Sony Xperia X
+            result = DEVICE_XPERIA_X;
+        }
+        else if (outArgs.at(0).toString() == "f5122") {
+            // Sony Xperia X dual SIM
+            result = DEVICE_XPERIA_X_DUALSIM;
+        }
+        else if (outArgs.at(0).toString() == "f5321") {
+            // Sony Xperia X Compact
+            result = DEVICE_XPERIA_X_COMPACT;
+        }
+    }
+
+    return result;
+}

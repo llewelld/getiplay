@@ -93,6 +93,7 @@ void Refresh::setupEnvironment() {
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     env.insert("PERL5LIB", DIR_PERLLOCAL "/lib/perl5");
     env.insert("PERL_UNICODE", "AS");
+
     process->setProcessEnvironment(env);
 }
 
@@ -130,6 +131,7 @@ void Refresh::collectArguments () {
     if (exclude != "") {
         addArgument("refresh-exclude-groups", exclude);
     }
+    addArgument("index-maxconn", QString("%1").arg(Settings::getInstance().getIndexMaxConn()));
     addArgument("atomicparsley", DIR_BIN "/AtomicParsley");
     addArgument("ffmpeg", DIR_BIN "/ffmpeg");
     addArgument("ffmpeg-loglevel", "info");
