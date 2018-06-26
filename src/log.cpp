@@ -61,6 +61,12 @@ void Log::logAppend(const QString &text)
     }
 }
 
+void Log::logAppendTimestamp(const QString &text) {
+    QDateTime time(QDateTime::currentDateTime());
+    QDateTime UTC(time.toUTC());
+    logAppend(UTC.toString() + ": " + text);
+}
+
 void Log::exportToFile(QFile & file) {
     if (file.open(QIODevice::WriteOnly)) {
         QTextStream out(&file);
