@@ -14,6 +14,9 @@ Item {
     property real midlineMin: 0.0
     property real midlineMax: width
     property real midLine: Math.min(Math.max((width * midlineRatio), midlineMin), midlineMax)
+    property int pixelSize: Theme.fontSizeSmall
+    property alias labelTextBold: labelText.font.bold
+    property alias valueTextBold: valueText.font.bold
 
     Text {
         id: labelText
@@ -27,7 +30,7 @@ Item {
         }
         horizontalAlignment: Text.AlignLeft
         color: Theme.primaryColor
-        font.pixelSize: Theme.fontSizeSmall
+        font.pixelSize: pixelSize
         textFormat: Text.PlainText
         wrapMode: Text.Wrap
     }
@@ -44,7 +47,7 @@ Item {
         }
         horizontalAlignment: Text.AlignLeft
         color: Theme.primaryColor
-        font.pixelSize: Theme.fontSizeSmall
+        font.pixelSize: pixelSize
         textFormat: Text.PlainText
         wrapMode: Text.Wrap
     }
