@@ -3,6 +3,7 @@ import Sailfish.Silica 1.0
 import QtMultimedia 5.0
 import harbour.getiplay.progqueue 1.0
 import harbour.getiplay.settings 1.0
+import "../component"
 
 Page {
     id: queueInfoPage
@@ -121,29 +122,46 @@ Page {
                     height: Theme.fontSizeLarge* 2 + Theme.paddingSmall
                     clip: true
                 }
-                Label {
-                    x: Theme.paddingLarge
-                    width: parent.width - (2 * Theme.paddingLarge)
-                    wrapMode: Text.NoWrap
-                    elide: Text.ElideRight
-                    //% "Episode"
-                    text: "<b>" + qsTrId("getiplay-queueitem_episode") + ":</b> \t" + episode
+                InfoRow {
+                    //% "Episode:"
+                    label: qsTrId("getiplay-queueitem_episode")
+                    value: episode
+                    midlineRatio: 0.25
+                    midlineMin: Theme.fontSizeSmall * 5
+                    midlineMax: Theme.fontSizeSmall * 10
+                    pixelSize: Theme.fontSizeMedium
+                    labelTextBold: true
                 }
-                Label {
-                    x: Theme.paddingLarge
-                    width: parent.width - (2 * Theme.paddingLarge)
-                    wrapMode: Text.NoWrap
-                    elide: Text.ElideRight
-                    //% "Channel"
-                    text: "<b>" + qsTrId("getiplay-queueitem_channel") + ":</b> \t" + channel
+                InfoRow {
+                    //% "Channel:"
+                    label: qsTrId("getiplay-queueitem_channel")
+                    value: channel
+                    midlineRatio: 0.25
+                    midlineMin: Theme.fontSizeSmall * 5
+                    midlineMax: Theme.fontSizeSmall * 10
+                    pixelSize: Theme.fontSizeMedium
+                    labelTextBold: true
                 }
-                Label {
-                    x: Theme.paddingLarge
-                    width: parent.width - (2 * Theme.paddingLarge)
-                    wrapMode: Text.NoWrap
-                    elide: Text.ElideRight
-                    //% "Date"
-                    text: "<b>" + qsTrId("getiplay-queueitem_date_available") + ":</b> \t" + Settings.epochToDate(available);
+                InfoRow {
+                    //% "Date:"
+                    label: qsTrId("getiplay-queueitem_date_available")
+                    value: Settings.epochToDate(available)
+                    midlineRatio: 0.25
+                    midlineMin: Theme.fontSizeSmall * 5
+                    midlineMax: Theme.fontSizeSmall * 10
+                    pixelSize: Theme.fontSizeMedium
+                    labelTextBold: true
+                }
+                InfoRow {
+                    id: statusindicator;
+                    //% "Status:"
+                    label: qsTrId("getiplay-queueinfo_status")
+                    value: statustext
+                    midlineRatio: 0.25
+                    midlineMin: Theme.fontSizeSmall * 5
+                    midlineMax: Theme.fontSizeSmall * 10
+                    pixelSize: Theme.fontSizeMedium
+                    labelTextBold: true
                 }
 
                 Rectangle {
@@ -208,16 +226,6 @@ Page {
                     verticalAlignment: Text.AlignTop
                     clip: true
                     elide: Text.ElideRight
-                }
-
-                Label {
-                    id: statusindicator;
-                    x: Theme.paddingLarge
-                    width: parent.width - (2 * Theme.paddingLarge)
-                    wrapMode: Text.NoWrap
-                    elide: Text.ElideRight
-                    //% "Status"
-                    text: "<b>" + qsTrId("getiplay-queueinfo_status") + ":</b> \t" + statustext
                 }
 
                 Row {
