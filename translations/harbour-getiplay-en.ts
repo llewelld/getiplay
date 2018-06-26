@@ -105,33 +105,38 @@
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
+    <message id="getiplay-proglist_menu_direct_download">
+        <location filename="../qml/pages/Queue.qml" line="44"/>
+        <source>Direct Download</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message id="getiplay-queue_empty_message">
-        <location filename="../qml/pages/Queue.qml" line="48"/>
+        <location filename="../qml/pages/Queue.qml" line="53"/>
         <source>Empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_empty_hint">
-        <location filename="../qml/pages/Queue.qml" line="50"/>
+        <location filename="../qml/pages/Queue.qml" line="55"/>
         <source>Programmes you select for download will appear here</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_remove">
-        <location filename="../qml/pages/Queue.qml" line="124"/>
+        <location filename="../qml/pages/Queue.qml" line="129"/>
         <source>Remove from queue</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_delete">
-        <location filename="../qml/pages/Queue.qml" line="130"/>
+        <location filename="../qml/pages/Queue.qml" line="135"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_requeue">
-        <location filename="../qml/pages/Queue.qml" line="137"/>
+        <location filename="../qml/pages/Queue.qml" line="142"/>
         <source>Requeue</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_delete_remourse">
-        <location filename="../qml/pages/Queue.qml" line="147"/>
+        <location filename="../qml/pages/Queue.qml" line="152"/>
         <source>Deleting file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -513,6 +518,11 @@
     <message id="components_pickers-la-parent_folder">
         <location filename="../qml/component/private/FileItem.qml" line="81"/>
         <source>Parent folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-directdownload_title">
+        <location filename="../qml/pages/DirectDownload.qml" line="25"/>
+        <source>Direct Download</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
