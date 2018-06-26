@@ -3,6 +3,7 @@ import Sailfish.Silica 1.0
 import QtMultimedia 5.0
 import harbour.getiplay.progqueue 1.0
 import harbour.getiplay.settings 1.0
+import "../component"
 
 Page {
     id: videoViewPage
@@ -150,41 +151,45 @@ Page {
             }
         }
 
-        IconButton {
+        IconButtonDual {
             id: reversebutton
             width: Theme.iconSizeLarge
             height: Theme.iconSizeLarge
-            icon.sourceSize.width: width
-            icon.sourceSize.height: height
-            icon.fillMode: Image.PreserveAspectFit
             anchors.verticalCenter: playbutton.verticalCenter
             anchors.right: playbutton.left
             anchors.rightMargin: controlgap
             icon.source: Qt.resolvedUrl("image://getiplay/icon-l-replay?") + (pressed ? Theme.highlightColor : Theme.primaryColor)
 
-            onClicked: {
+            onShortClick: {
                 openControls()
-                media.seek(media.position - 10000)
-                mediaslider.value = mediaslider.value - 10000
+                media.seek(media.position - (1000 * Settings.skipTimeShort))
+                mediaslider.value = mediaslider.value - (1000 * Settings.skipTimeShort)
+            }
+            onLongClick: {
+                openControls()
+                media.seek(media.position - (1000 * Settings.skipTimeLong))
+                mediaslider.value = mediaslider.value - (1000 * Settings.skipTimeLong)
             }
         }
 
-        IconButton {
+        IconButtonDual {
             id: forwardsbutton
             width: Theme.iconSizeLarge
             height: Theme.iconSizeLarge
-            icon.sourceSize.width: width
-            icon.sourceSize.height: height
-            icon.fillMode: Image.PreserveAspectFit
             anchors.verticalCenter: playbutton.verticalCenter
             anchors.left: playbutton.right
             anchors.leftMargin: controlgap
             icon.source: Qt.resolvedUrl("image://getiplay/icon-l-skip?") + (pressed ? Theme.highlightColor : Theme.primaryColor)
 
-            onClicked: {
+            onShortClick: {
                 openControls()
-                media.seek(media.position + 10000)
-                mediaslider.value = mediaslider.value + 10000
+                media.seek(media.position + (1000 * Settings.skipTimeShort))
+                mediaslider.value = mediaslider.value + (1000 * Settings.skipTimeShort)
+            }
+            onLongClick: {
+                openControls()
+                media.seek(media.position + (1000 * Settings.skipTimeLong))
+                mediaslider.value = mediaslider.value + (1000 * Settings.skipTimeLong)
             }
         }
 

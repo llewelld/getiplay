@@ -405,7 +405,8 @@
     </message>
     <message id="getiplay-settings_subtitle_">
         <location filename="../qml/pages/Settings.qml" line="42"/>
-        <source>Download settings</source>
+        <source>Download</source>
+        <oldsource>Download settings</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype">
@@ -451,8 +452,8 @@
     </message>
     <message id="getiplay-settings_subtitle_file_storage">
         <location filename="../qml/pages/Settings.qml" line="101"/>
-        <source>File storage settings</source>
-        <oldsource>File storage</oldsource>
+        <source>File storage</source>
+        <oldsource>File storage settings</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_video_folder">
@@ -473,6 +474,23 @@
     <message id="getiplay-settings_select_audio_folder">
         <location filename="../qml/pages/Settings.qml" line="139"/>
         <source>Select audio folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_subtitle_playback">
+        <location filename="../qml/pages/Settings.qml" line="150"/>
+        <source>Playback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_skip_time_short">
+        <location filename="../qml/pages/Settings.qml" line="157"/>
+        <location filename="../qml/pages/Settings.qml" line="161"/>
+        <source>Short skip duration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_skip_time_long">
+        <location filename="../qml/pages/Settings.qml" line="173"/>
+        <location filename="../qml/pages/Settings.qml" line="177"/>
+        <source>Long skip duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="components_pickers-la-system_files">
@@ -514,6 +532,28 @@
         <location filename="../qml/component/private/FileItem.qml" line="81"/>
         <source>Parent folder</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings-timer_writing_direction">
+        <location filename="../qml/component/SkipPickerDialog.qml" line="68"/>
+        <source>LTR</source>
+        <extracomment>Can have two values: &quot;LTR&quot; if remaining time in timer item should be written in &quot;[value] [unit]&quot; order i.e. &quot;2 min&quot;, or &quot;RTL&quot; i.e. right-to-left like in Arabic writing systems</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings-timer_minutes_short" numerus="yes">
+        <location filename="../qml/component/SkipPickerDialog.qml" line="85"/>
+        <source>min</source>
+        <extracomment>&quot;Minute abbrevation. Should be short form if possible.&quot;</extracomment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message id="getiplay-settings-timer_seconds_short" numerus="yes">
+        <location filename="../qml/component/SkipPickerDialog.qml" line="105"/>
+        <source>sec</source>
+        <extracomment>&quot;Second abbrevation. Should be short form if possible.&quot;</extracomment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 </TS>
