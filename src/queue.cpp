@@ -303,3 +303,14 @@ quint32 Queue::getMediaPosition(QString progid) {
 
     return position;
 }
+
+QString Queue::extractPid(QString progid) {
+    QString result = "";
+
+    QRegExp search("^(http.*/)?(\\w{8})$");
+    if (search.exactMatch(progid)) {
+        result = search.cap(2);
+    }
+
+    return result;
+}

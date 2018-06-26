@@ -521,8 +521,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-directdownload_title">
-        <location filename="../qml/pages/DirectDownload.qml" line="25"/>
+        <location filename="../qml/pages/DirectDownload.qml" line="26"/>
         <source>Direct Download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-direct-download_pid_or_url">
+        <location filename="../qml/pages/DirectDownload.qml" line="32"/>
+        <source>Programme ID or URL</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
