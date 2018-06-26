@@ -120,4 +120,5 @@ DISTFILES += \
     qml/component/FolderPickerDialog.qml \
     qml/component/PickerDialog.qml \
     qml/pages/VideoView.qml \
-    qml/component/InfoRow.qml
+    qml/component/InfoRow.qml \
+    qml/component/IconButtonDual.qml

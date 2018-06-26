@@ -69,6 +69,9 @@ Settings::Settings(QObject *parent) : QObject(parent),
             break;
         }
     }
+
+    skipTimeShort = settings.value("player/skipTimeShort", 10).toInt();
+    skipTimeLong = settings.value("player/skipTimeLong", 5 * 60).toInt();
 }
 
 Settings::~Settings() {
@@ -86,6 +89,8 @@ Settings::~Settings() {
     settings.endArray();
 
     settings.setValue("download/indexMaxConn", indexMaxConn);
+    settings.setValue("player/skipTimeShort", skipTimeShort);
+    settings.setValue("player/skipTimeLong", skipTimeLong);
 }
 
 void Settings::instantiate(QObject *parent) {
@@ -189,6 +194,14 @@ unsigned int Settings::getIndexMaxConn() {
     return indexMaxConn;
 }
 
+unsigned int Settings::getSkipTimeShort() {
+    return skipTimeShort;
+}
+
+unsigned int Settings::getSkipTimeLong() {
+    return skipTimeLong;
+}
+
 void Settings::setAudioDir(QString &value) {
     qDebug() << "Set audio Dir: " << value;
     audioDir = value;
@@ -225,6 +238,17 @@ void Settings::setIndexMaxConn(unsigned int value) {
     emit indexMaxConnChanged(indexMaxConn);
 }
 
+void Settings::setSkipTimeShort(unsigned int value) {
+    qDebug() << "Set skip time short: " << value;
+    skipTimeShort = value;
+    emit skipTimeShortChanged(skipTimeShort);
+}
+
+void Settings::setSkipTimeLong(unsigned int value) {
+    qDebug() << "Set skip time long: " << value;
+    skipTimeLong = value;
+    emit skipTimeLongChanged(skipTimeLong);
+}
 
 bool Settings::getRebuildCache(int type) {
     bool rebuildCache;

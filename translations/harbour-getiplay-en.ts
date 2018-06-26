@@ -405,7 +405,8 @@
     </message>
     <message id="getiplay-settings_subtitle_">
         <location filename="../qml/pages/Settings.qml" line="42"/>
-        <source>Download settings</source>
+        <source>Download</source>
+        <oldsource>Download settings</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype">
@@ -451,8 +452,8 @@
     </message>
     <message id="getiplay-settings_subtitle_file_storage">
         <location filename="../qml/pages/Settings.qml" line="101"/>
-        <source>File storage settings</source>
-        <oldsource>File storage</oldsource>
+        <source>File storage</source>
+        <oldsource>File storage settings</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_video_folder">
@@ -473,6 +474,23 @@
     <message id="getiplay-settings_select_audio_folder">
         <location filename="../qml/pages/Settings.qml" line="139"/>
         <source>Select audio folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_subtitle_playback">
+        <location filename="../qml/pages/Settings.qml" line="150"/>
+        <source>Playback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_skip_time_short">
+        <location filename="../qml/pages/Settings.qml" line="157"/>
+        <location filename="../qml/pages/Settings.qml" line="161"/>
+        <source>Short skip duration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_skip_time_long">
+        <location filename="../qml/pages/Settings.qml" line="173"/>
+        <location filename="../qml/pages/Settings.qml" line="177"/>
+        <source>Long skip duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="components_pickers-la-system_files">
@@ -514,6 +532,104 @@
         <location filename="../qml/component/private/FileItem.qml" line="81"/>
         <source>Parent folder</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message id="components-la-time_start_with_ap">
+        <location filename="../qml/component/private/ClockItem.qml" line="8"/>
+        <source></source>
+        <extracomment>&quot;translate as non-empty if am/pm indicator starts the 12h time pattern&quot;</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="components-la-12h_time_pattern_without_ap">
+        <location filename="../qml/component/private/ClockItem.qml" line="33"/>
+        <source>h:mm</source>
+        <extracomment>Pattern for 12h time, h, hh, m, mm are supported, everything else left as is. escaping with &apos; not supported</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="jolla-clock-la-am">
+        <location filename="../qml/component/private/ClockItem.qml" line="72"/>
+        <source>AM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="jolla-clock-la-pm">
+        <location filename="../qml/component/private/ClockItem.qml" line="74"/>
+        <source>PM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="clock-la-alarm">
+        <location filename="../qml/component/private/ClockEditDialog.qml" line="39"/>
+        <source>Alarm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="clock-la-timer">
+        <location filename="../qml/component/private/ClockEditDialog.qml" line="42"/>
+        <source>Timer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="clock-he-save">
+        <location filename="../qml/component/private/ClockEditDialog.qml" line="79"/>
+        <source>Save</source>
+        <extracomment>Dialog accept text</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="clock-la-timer_writing_direction">
+        <location filename="../qml/component/private/ClockEditDialog.qml" line="108"/>
+        <source>LTR</source>
+        <extracomment>Can have two values: &quot;LTR&quot; if remaining time in timer item should be written in &quot;[value] [unit]&quot; order i.e. &quot;2 min&quot;, or &quot;RTL&quot; i.e. right-to-left like in Arabic writing systems</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="clock-la-hour_short" numerus="yes">
+        <location filename="../qml/component/private/ClockEditDialog.qml" line="125"/>
+        <source>h</source>
+        <extracomment>&quot;Hour abbrevation. Should be short form if possible.&quot;</extracomment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message id="clock-la-minutes_short" numerus="yes">
+        <location filename="../qml/component/private/ClockEditDialog.qml" line="145"/>
+        <source>min</source>
+        <extracomment>&quot;Minute abbrevation. Should be short form if possible.&quot;</extracomment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message id="clock-he-repeat_weekdays">
+        <location filename="../qml/component/private/ClockEditDialog.qml" line="172"/>
+        <source>Repeat</source>
+        <extracomment>Header above days of week to repeat alarm</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="clock-ph-alarm_name">
+        <location filename="../qml/component/private/ClockEditDialog.qml" line="186"/>
+        <source>Alarm name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="clock-ph-timer_name">
+        <location filename="../qml/component/private/ClockEditDialog.qml" line="188"/>
+        <source>Timer name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings-timer_writing_direction">
+        <location filename="../qml/component/SkipPickerDialog.qml" line="68"/>
+        <source>LTR</source>
+        <extracomment>Can have two values: &quot;LTR&quot; if remaining time in timer item should be written in &quot;[value] [unit]&quot; order i.e. &quot;2 min&quot;, or &quot;RTL&quot; i.e. right-to-left like in Arabic writing systems</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings-timer_minutes_short" numerus="yes">
+        <location filename="../qml/component/SkipPickerDialog.qml" line="85"/>
+        <source>min</source>
+        <extracomment>&quot;Minute abbrevation. Should be short form if possible.&quot;</extracomment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message id="getiplay-settings-timer_seconds_short" numerus="yes">
+        <location filename="../qml/component/SkipPickerDialog.qml" line="105"/>
+        <source>sec</source>
+        <extracomment>&quot;Second abbrevation. Should be short form if possible.&quot;</extracomment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 </TS>
