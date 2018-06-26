@@ -23,8 +23,9 @@ class Settings : public QObject
     Q_PROPERTY(QString proxyUrl READ getProxyUrl WRITE setProxyUrl NOTIFY proxyUrlChanged)
     Q_PROPERTY(PROGTYPE refreshType READ getRefreshType WRITE setRefreshType NOTIFY refreshTypeChanged)
     Q_PROPERTY(unsigned int currentTab READ getCurrentTab WRITE setCurrentTab NOTIFY currentTabChanged)
-
     Q_PROPERTY(unsigned int indexMaxConn READ getIndexMaxConn WRITE setIndexMaxConn NOTIFY indexMaxConnChanged)
+    Q_PROPERTY(unsigned int skipTimeShort READ getSkipTimeShort WRITE setSkipTimeShort NOTIFY skipTimeShortChanged)
+    Q_PROPERTY(unsigned int skipTimeLong READ getSkipTimeLong WRITE setSkipTimeLong NOTIFY skipTimeLongChanged)
 
 public:
     enum PROGTYPE {
@@ -72,6 +73,8 @@ public:
     Q_INVOKABLE PROGTYPE getRefreshType();
     Q_INVOKABLE unsigned int getCurrentTab();
     Q_INVOKABLE unsigned int getIndexMaxConn();
+    Q_INVOKABLE unsigned int getSkipTimeShort();
+    Q_INVOKABLE unsigned int getSkipTimeLong();
 
     Q_INVOKABLE static QString epochToDate (quint64 epoch);
     Q_INVOKABLE static quint64 dateToEpoch (QString date);
@@ -88,6 +91,8 @@ signals:
     void refreshTypeChanged(PROGTYPE refreshType);
     void currentTabChanged(unsigned int currentTab);
     void indexMaxConnChanged(unsigned int indexMaxConn);
+    void skipTimeShortChanged(unsigned int skipTimeShort);
+    void skipTimeLongChanged(unsigned int skipTimeLong);
 
 public slots:
     // Configurable values
@@ -97,6 +102,8 @@ public slots:
     void setRefreshType(PROGTYPE value);
     void setCurrentTab(unsigned int value);
     void setIndexMaxConn(unsigned int value);
+    void setSkipTimeShort(unsigned int value);
+    void setSkipTimeLong(unsigned int value);
 
 private:
     typedef enum _DEVICE {
@@ -132,6 +139,8 @@ private:
     PROGTYPE lastRefreshType[REFRESHTYPE_NUM];
     unsigned int currentTab;
     unsigned int indexMaxConn;
+    unsigned int skipTimeShort;
+    unsigned int skipTimeLong;
 };
 
 #endif // SETTINGS_H

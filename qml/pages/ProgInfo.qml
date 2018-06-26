@@ -3,6 +3,7 @@ import Sailfish.Silica 1.0
 import QtQuick.XmlListModel 2.0
 import harbour.getiplay.progqueue 1.0
 import harbour.getiplay.settings 1.0
+import "../component"
 
 Page {
     id: infoPage
@@ -170,33 +171,50 @@ Page {
                     x: Theme.paddingLarge
                     text: name
                     wrapMode: Text.Wrap
-                    width: parent.width - (2 * Theme.paddingLarge)
+                    width: parent.width - 2 * Theme.paddingLarge
                     height: Theme.fontSizeLarge* 2 + Theme.paddingSmall
                     clip: true
                 }
-                Label {
-                    x: Theme.paddingLarge
-                    width: parent.width - (2 * Theme.paddingLarge)
-                    wrapMode: Text.NoWrap
-                    elide: Text.ElideRight
-                    //% "Episode"
-                    text: "<b>" + qsTrId("getiplay-proginfo_episode") + ":</b> \t" + episode
+                InfoRow {
+                    //% "Episode:"
+                    label: qsTrId("getiplay-proginfo_episode")
+                    value: episode
+                    midlineRatio: 0.25
+                    midlineMin: Theme.fontSizeSmall * 5
+                    midlineMax: Theme.fontSizeSmall * 10
+                    pixelSize: Theme.fontSizeMedium
+                    labelTextBold: true
                 }
-                Label {
-                    x: Theme.paddingLarge
-                    width: parent.width - (2 * Theme.paddingLarge)
-                    wrapMode: Text.NoWrap
-                    elide: Text.ElideRight
-                    //% "Channel"
-                    text: "<b>" + qsTrId("getiplay-proginfo_channel") + ":</b> \t" + channel
+                InfoRow {
+                    //% "Channel:"
+                    label: qsTrId("getiplay-proginfo_channel")
+                    value: channel
+                    midlineRatio: 0.25
+                    midlineMin: Theme.fontSizeSmall * 5
+                    midlineMax: Theme.fontSizeSmall * 10
+                    pixelSize: Theme.fontSizeMedium
+                    labelTextBold: true
                 }
-                Label {
-                    x: Theme.paddingLarge
-                    width: parent.width - (2 * Theme.paddingLarge)
-                    wrapMode: Text.NoWrap
-                    elide: Text.ElideRight
-                    //% "Date"
-                    text: "<b>" + qsTrId("getiplay-proginfo_date_available") + ":</b> \t" + Settings.epochToDate(available)
+                InfoRow {
+                    //% "Date:"
+                    label: qsTrId("getiplay-proginfo_date_available")
+                    value: Settings.epochToDate(available)
+                    midlineRatio: 0.25
+                    midlineMin: Theme.fontSizeSmall * 5
+                    midlineMax: Theme.fontSizeSmall * 10
+                    pixelSize: Theme.fontSizeMedium
+                    labelTextBold: true
+                }
+                InfoRow {
+                    id: statusindicator
+                    //% "Status:"
+                    label: qsTrId("getiplay-proginfo_status")
+                    value: statustext
+                    midlineRatio: 0.25
+                    midlineMin: Theme.fontSizeSmall * 5
+                    midlineMax: Theme.fontSizeSmall * 10
+                    pixelSize: Theme.fontSizeMedium
+                    labelTextBold: true
                 }
 
                 Rectangle {
@@ -244,16 +262,6 @@ Page {
                     verticalAlignment: Text.AlignTop
                     clip: true
                     elide: Text.ElideRight
-                }
-
-                Label {
-                    id: statusindicator;
-                    x: Theme.paddingLarge
-                    width: parent.width - (2 * Theme.paddingLarge)
-                    wrapMode: Text.NoWrap
-                    elide: Text.ElideRight
-                    //% "Status"
-                    text: "<b>" + qsTrId("getiplay-proginfo_status") + ":</b> \t" + statustext
                 }
 
                 Row {

@@ -32,6 +32,8 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtMultimedia 5.0
 import "pages"
+import "component"
+import harbour.getiplay.settings 1.0
 
 ApplicationWindow
 {
@@ -83,18 +85,14 @@ ApplicationWindow
             anchors.fill: parent
             anchors.margins: Theme.paddingSmall
 
-            IconButton {
+            IconButtonDual {
                 id: reversebutton
                 width: Theme.iconSizeMedium
                 height: Theme.iconSizeMedium
-                icon.sourceSize.width: width
-                icon.sourceSize.height: height
-                icon.fillMode: Image.PreserveAspectFit
                 icon.source: Qt.resolvedUrl("image://getiplay/icon-m-replay")
 
-                onClicked: {
-                    audio.seek(audio.position - 10000)
-                }
+                onShortClick: audio.seek(audio.position - (1000 * Settings.skipTimeShort))
+                onLongClick: audio.seek(audio.position - (1000 * Settings.skipTimeLong))
             }
 
             IconButton {
@@ -116,18 +114,14 @@ ApplicationWindow
                 }
             }
 
-            IconButton {
+            IconButtonDual {
                 id: forwardsbutton
                 width: Theme.iconSizeMedium
                 height: Theme.iconSizeMedium
-                icon.sourceSize.width: width
-                icon.sourceSize.height: height
-                icon.fillMode: Image.PreserveAspectFit
                 icon.source: Qt.resolvedUrl("image://getiplay/icon-m-skip")
 
-                onClicked: {
-                    audio.seek(audio.position + 10000)
-                }
+                onShortClick: audio.seek(audio.position + (1000 * Settings.skipTimeShort))
+                onLongClick: audio.seek(audio.position + (1000 * Settings.skipTimeLong))
             }
 
             Slider {
@@ -141,9 +135,8 @@ ApplicationWindow
                 anchors.margins: 0
                 leftMargin: Theme.paddingLarge
                 rightMargin: Theme.paddingLarge
-                onReleased: {
-                    audio.seek(sliderValue)
-                }
+
+                onReleased: audio.seek(sliderValue)
             }
 
             IconButton {
@@ -154,9 +147,7 @@ ApplicationWindow
                 icon.sourceSize.height: height
                 icon.source: Qt.resolvedUrl("image://getiplay/icon-m-eject")
 
-                onClicked: {
-                    stopAudio()
-                }
+                onClicked: stopAudio()
             }
         }
     }

@@ -38,7 +38,7 @@ Page {
             }
 
             SectionHeader {
-                //% "Download settings"
+                //% "Download"
                 text: qsTrId("getiplay-settings_subtitle_")
             }
 
@@ -98,7 +98,7 @@ Page {
             }
 
             SectionHeader {
-                //% "File storage settings"
+                //% "File storage"
                 text: qsTrId("getiplay-settings_subtitle_file_storage")
             }
 
@@ -145,7 +145,52 @@ Page {
                     }
                 }
             }
+
+            SectionHeader {
+                //% "Playback"
+                text: qsTrId("getiplay-settings_subtitle_playback")
+            }
+
+            ValueButton {
+                property int skipTime: Settings.skipTimeShort
+
+                //% "Short skip duration"
+                label: qsTrId("getiplay-settings_skip_time_short")
+                value: formatTime(skipTime)
+                width: parent.width
+                onClicked: {
+                    var dialog = pageStack.push(Qt.resolvedUrl("../component/SkipPickerDialog.qml"), { minute: skipTime / 60, second: skipTime % 60, title: qsTrId("getiplay-settings_skip_time_short")})
+                    dialog.accepted.connect(function() {
+                        Settings.skipTimeShort = (dialog.minute * 60) + dialog.second
+                        value = formatTime(skipTime)
+                    })
+                }
+            }
+
+            ValueButton {
+                property int skipTime: Settings.skipTimeLong
+
+                //% "Long skip duration"
+                label: qsTrId("getiplay-settings_skip_time_long")
+                value: formatTime(skipTime)
+                width: parent.width
+                onClicked: {
+                    var dialog = pageStack.push(Qt.resolvedUrl("../component/SkipPickerDialog.qml"), { minute: skipTime / 60, second: skipTime % 60, title: qsTrId("getiplay-settings_skip_time_long")})
+                    dialog.accepted.connect(function() {
+                        Settings.skipTimeLong = (dialog.minute * 60) + dialog.second
+                        value = formatTime(skipTime)
+                    })
+                }
+            }
         }
+    }
+
+    function formatTime(seconds) {
+        var fmt = "m 'mins' s 'secs'"
+        var date = new Date()
+        date.setMinutes(seconds / 60)
+        date.setSeconds(seconds % 60)
+        return Qt.formatDateTime(date, fmt)
     }
 
     /*

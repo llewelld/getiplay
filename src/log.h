@@ -9,6 +9,7 @@
 #include "logfile.h"
 
 #define LOGAPPEND(TEXT) if (log != nullptr) {log->logAppend( TEXT );}
+#define LOGAPPENDTIMESTAMP(TEXT) if (log != nullptr) {log->logAppendTimestamp( TEXT );}
 
 class Log : public QObject
 {
@@ -35,6 +36,7 @@ public:
     void importFromFile(QFile & file);
 
     Q_INVOKABLE void logAppend(const QString &text);
+    Q_INVOKABLE void logAppendTimestamp(const QString &text);
     Q_INVOKABLE void clear();
 
 signals:
