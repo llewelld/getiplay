@@ -49,7 +49,8 @@ void Refresh::setStatus(REFRESHSTATUS newStatus)
 }
 
 void Refresh::startRefresh(int type) {
-    LOGAPPEND("\nStarting new process");
+    LOGAPPEND("\n");
+    LOGAPPENDTIMESTAMP("Starting new process");
 
     if ((process != NULL) || (currentRefresh != Settings::REFRESHTYPE_INVALID)) {
         LOGAPPEND("Process already running.");
@@ -339,7 +340,7 @@ void Refresh::overflow() {
     else {
         LOGAPPEND("Download periods: " + QString::number(periodCount));
         LOGAPPEND("Processed entries: " + QString::number(addingCount));
-        LOGAPPEND("Finished with code " + QString::number(finishedcode));
+        LOGAPPENDTIMESTAMP("Finished with code " + QString::number(finishedcode));
         if (process != NULL) {
             //delete process;
             process = NULL;
@@ -356,7 +357,6 @@ void Refresh::overflow() {
         overflowpoll->stop();
         delete overflowpoll;
         overflowpoll = nullptr;
-
     }
 }
 

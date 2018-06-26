@@ -33,7 +33,8 @@ void Download::setStatus(DOWNLOADSTATUS newStatus)
 }
 
 void Download::startDownload(QString progId, QString progType) {
-    LOGAPPEND("\nStarting new process");
+    LOGAPPEND("\n");
+    LOGAPPENDTIMESTAMP("Starting new process");
 
     this->progId = progId;
     this->progType = progType;
@@ -245,7 +246,7 @@ void Download::started() {
 }
 
 void Download::finished(int code) {
-    LOGAPPEND("Finished with code " + QString::number(code));
+    LOGAPPENDTIMESTAMP("Finished with code " + QString::number(code));
     if (process != NULL) {
         //delete process;
         process = NULL;
