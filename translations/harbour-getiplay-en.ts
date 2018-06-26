@@ -346,18 +346,21 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_episode">
+        <location filename="../qml/pages/DirectDownload.qml" line="139"/>
         <location filename="../qml/pages/ProgInfo.qml" line="180"/>
         <source>Episode:</source>
         <oldsource>Episode</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_channel">
+        <location filename="../qml/pages/DirectDownload.qml" line="149"/>
         <location filename="../qml/pages/ProgInfo.qml" line="190"/>
         <source>Channel:</source>
         <oldsource>Channel</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_date_available">
+        <location filename="../qml/pages/DirectDownload.qml" line="159"/>
         <location filename="../qml/pages/ProgInfo.qml" line="200"/>
         <source>Date:</source>
         <oldsource>Date</oldsource>
@@ -459,50 +462,50 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_max_connections">
-        <location filename="../qml/pages/Settings.qml" line="88"/>
+        <location filename="../qml/pages/Settings.qml" line="89"/>
         <source>Maximum connections</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_subtitle_file_storage">
-        <location filename="../qml/pages/Settings.qml" line="101"/>
+        <location filename="../qml/pages/Settings.qml" line="102"/>
         <source>File storage</source>
         <oldsource>File storage settings</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_video_folder">
-        <location filename="../qml/pages/Settings.qml" line="106"/>
+        <location filename="../qml/pages/Settings.qml" line="107"/>
         <source>Video folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_select_video_folder">
-        <location filename="../qml/pages/Settings.qml" line="117"/>
+        <location filename="../qml/pages/Settings.qml" line="118"/>
         <source>Select video folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_audio_folder">
-        <location filename="../qml/pages/Settings.qml" line="128"/>
+        <location filename="../qml/pages/Settings.qml" line="129"/>
         <source>Audio folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_select_audio_folder">
-        <location filename="../qml/pages/Settings.qml" line="139"/>
+        <location filename="../qml/pages/Settings.qml" line="140"/>
         <source>Select audio folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_subtitle_playback">
-        <location filename="../qml/pages/Settings.qml" line="150"/>
+        <location filename="../qml/pages/Settings.qml" line="151"/>
         <source>Playback</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_skip_time_short">
-        <location filename="../qml/pages/Settings.qml" line="157"/>
-        <location filename="../qml/pages/Settings.qml" line="161"/>
+        <location filename="../qml/pages/Settings.qml" line="158"/>
+        <location filename="../qml/pages/Settings.qml" line="162"/>
         <source>Short skip duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_skip_time_long">
-        <location filename="../qml/pages/Settings.qml" line="173"/>
-        <location filename="../qml/pages/Settings.qml" line="177"/>
+        <location filename="../qml/pages/Settings.qml" line="174"/>
+        <location filename="../qml/pages/Settings.qml" line="178"/>
         <source>Long skip duration</source>
         <translation type="unfinished"></translation>
     </message>
@@ -547,13 +550,33 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-directdownload_title">
-        <location filename="../qml/pages/DirectDownload.qml" line="26"/>
+        <location filename="../qml/pages/DirectDownload.qml" line="89"/>
         <source>Direct Download</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-direct-download_pid_or_url">
-        <location filename="../qml/pages/DirectDownload.qml" line="32"/>
+        <location filename="../qml/pages/DirectDownload.qml" line="95"/>
         <source>Programme ID or URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-direct-download_pid">
+        <location filename="../qml/pages/DirectDownload.qml" line="107"/>
+        <source>PID:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-direct-download_query">
+        <location filename="../qml/pages/DirectDownload.qml" line="119"/>
+        <source>Query</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-direct-download_download">
+        <location filename="../qml/pages/DirectDownload.qml" line="225"/>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-direct-download_website">
+        <location filename="../qml/pages/DirectDownload.qml" line="239"/>
+        <source>Visit website</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings-timer_writing_direction">
