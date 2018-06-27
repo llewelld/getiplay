@@ -346,21 +346,21 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_episode">
-        <location filename="../qml/pages/DirectDownload.qml" line="139"/>
+        <location filename="../qml/pages/DirectDownload.qml" line="231"/>
         <location filename="../qml/pages/ProgInfo.qml" line="180"/>
         <source>Episode:</source>
         <oldsource>Episode</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_channel">
-        <location filename="../qml/pages/DirectDownload.qml" line="149"/>
+        <location filename="../qml/pages/DirectDownload.qml" line="241"/>
         <location filename="../qml/pages/ProgInfo.qml" line="190"/>
         <source>Channel:</source>
         <oldsource>Channel</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_date_available">
-        <location filename="../qml/pages/DirectDownload.qml" line="159"/>
+        <location filename="../qml/pages/DirectDownload.qml" line="251"/>
         <location filename="../qml/pages/ProgInfo.qml" line="200"/>
         <source>Date:</source>
         <oldsource>Date</oldsource>
@@ -550,32 +550,32 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-directdownload_title">
-        <location filename="../qml/pages/DirectDownload.qml" line="89"/>
+        <location filename="../qml/pages/DirectDownload.qml" line="112"/>
         <source>Direct Download</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-direct-download_pid_or_url">
-        <location filename="../qml/pages/DirectDownload.qml" line="95"/>
+        <location filename="../qml/pages/DirectDownload.qml" line="133"/>
         <source>Programme ID or URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-direct-download_pid">
-        <location filename="../qml/pages/DirectDownload.qml" line="107"/>
+        <location filename="../qml/pages/DirectDownload.qml" line="174"/>
         <source>PID:</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-direct-download_query">
-        <location filename="../qml/pages/DirectDownload.qml" line="119"/>
+        <location filename="../qml/pages/DirectDownload.qml" line="187"/>
         <source>Query</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-direct-download_download">
-        <location filename="../qml/pages/DirectDownload.qml" line="225"/>
+        <location filename="../qml/pages/DirectDownload.qml" line="317"/>
         <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
-    <message id="getiplay-direct-download_website">
-        <location filename="../qml/pages/DirectDownload.qml" line="239"/>
+    <message id="getiplay-direct-sdownload_website">
+        <location filename="../qml/pages/DirectDownload.qml" line="331"/>
         <source>Visit website</source>
         <translation type="unfinished"></translation>
     </message>

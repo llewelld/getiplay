@@ -230,7 +230,7 @@ Page {
 
                 Row {
                     width: parent.width - 2 * Theme.paddingLarge
-                    height: 100
+                    height: implicitHeight
                     anchors.horizontalCenter: parent.horizontalCenter
                     spacing: Theme.paddingLarge
 

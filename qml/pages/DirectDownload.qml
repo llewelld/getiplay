@@ -20,6 +20,11 @@ Page {
     property string web: ""
     property string imageid: ""
 
+    property bool queryrunning: false
+    property bool querycomplete: false
+    property bool queryshowing: false
+    property bool queryerror: false
+
     Connections {
         target:Metaget
         onStatusChanged: {
@@ -58,8 +63,20 @@ Page {
                 web = metadata.get(0).web
                 if (metadata.get(0).thumbnail != thumbnail.source) {
                     thumbnail.source = metadata.get(0).thumbnail
+                    imageid = metadata.get(0).thumbnail.substr(-12)
+                    console.log("Image id: " + imageid)
                 }
                 console.log("Thumbnail url: " + thumbnail.source);
+
+                if ((name != "") && (name != "get_iplayer")) {
+                    queryrunning = false
+                    querycomplete = true
+                }
+                else {
+                    queryrunning = false
+                    querycomplete = false
+                    queryerror = true
+                }
             }
         }
     }
@@ -67,6 +84,14 @@ Page {
     onCanceled: {
         console.log("Metadata cancelled");
         Metaget.cancel()
+    }
+
+    BusyIndicator {
+        x: (Screen.width - width) / 2.0
+        y: (Screen.height - height) / 2.0
+        running: true
+        visible: queryrunning
+        size: BusyIndicatorSize.Large
     }
 
     SilicaFlickable {
@@ -89,158 +114,244 @@ Page {
                 title: qsTrId("getiplay-directdownload_title")
             }
 
-            TextField {
-                id: progToFind
-                //% "Programme ID or URL"
-                label: qsTrId("getiplay-direct-download_pid_or_url")
-                placeholderText: label
+            Column {
+                id: pidinput
                 width: parent.width
-                inputMethodHints: Qt.ImhUrlCharactersOnly | Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
-                //text: Settings.proxyUrl
-                //EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                //EnterKey.onClicked: passwordField.focus = true
-            }
+                spacing: Theme.paddingLarge
+                height: (queryrunning || querycomplete) ? 0 : implicitHeight
+                clip: true
 
-            InfoRow {
-                id: progIdLabel
-                //% "PID:"
-                label: qsTrId("getiplay-direct-download_pid")
-                value: Queue.extractPid(progToFind.text)
-                midlineRatio: 0.25
-                midlineMin: Theme.fontSizeSmall * 5
-                midlineMax: Theme.fontSizeSmall * 10
-                pixelSize: Theme.fontSizeMedium
-                labelTextBold: true
-            }
+                Behavior on height {
+                    PropertyAnimation {
+                        properties: "height"
+                        easing.type: Easing.OutCubic
+                        duration: 1000
+                    }
+                }
 
-            Button {
-                id: collectData
-                //% "Query"
-                text: qsTrId("getiplay-direct-download_query")
-                width: ((parent.width - Theme.paddingLarge) / 2)
-                anchors.leftMargin: Theme.paddingLarge
-                enabled: progId != ""
-                onClicked: {
-                    Metaget.startDownload(progId, type)
+                TextField {
+                    id: progToFind
+                    //% "Programme ID or URL"
+                    label: qsTrId("getiplay-direct-download_pid_or_url")
+                    placeholderText: label
+                    width: parent.width - Theme.itemSizeMedium
+                    inputMethodHints: Qt.ImhUrlCharactersOnly | Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                    //text: Settings.proxyUrl
+                    //EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                    //EnterKey.onClicked: passwordField.focus = true
+                    enabled: !(queryrunning || querycomplete)
+
+                    Item {
+                        parent: progToFind
+                        anchors.fill: parent
+                        IconButton {
+                            id: clearButton
+                            anchors {
+                                top: parent.top
+                                left: parent.right
+                                leftMargin: Theme.horizontalPageMargin
+                            }
+                            width: icon.width
+                            height: icon.height
+                            icon.source: "image://theme/icon-m-clear"
+                            highlighted: down || progToFind._editor.activeFocus
+                            opacity: progToFind.text.length > 0 ? 1 : 0
+                            Behavior on opacity {
+                                FadeAnimation {}
+                            }
+
+                            onClicked: {
+                                progToFind.text = ""
+                                console.log("Clicked")
+                            }
+                        }
+                    }
+                }
+
+                Row {
+                    width: parent.width
+                    InfoRow {
+                        id: progIdLabel
+                        //% "PID:"
+                        label: value == "" ? "" : qsTrId("getiplay-direct-download_pid")
+                        value: Queue.extractPid(progToFind.text)
+                        midlineRatio: 0.3
+                        midlineMin: Theme.fontSizeSmall * 0
+                        midlineMax: Theme.fontSizeSmall * 10
+                        pixelSize: Theme.fontSizeMedium
+                        labelTextBold: true
+                        width: 2 * ((parent.width - Theme.paddingLarge) / 3)
+                    }
+
+                    Button {
+                        id: collectData
+                        //% "Query"
+                        text: qsTrId("getiplay-direct-download_query")
+                        width: ((parent.width - Theme.paddingLarge) / 3)
+                        enabled: (progId != "") && !queryrunning
+                        onClicked: {
+                            queryerror = false
+                            queryrunning = true
+                            Metaget.startDownload(progId, type)
+                        }
+                    }
                 }
             }
 
-            Label {
-                x: Theme.paddingLarge
-                text: name
-                wrapMode: Text.Wrap
-                width: parent.width - 2 * Theme.paddingLarge
-                height: Theme.fontSizeLarge* 2 + Theme.paddingSmall
+            Column {
+                id: pidinfo
+                width: parent.width
+                spacing: Theme.paddingLarge
+                height: querycomplete ? implicitHeight : 0
                 clip: true
-            }
 
-            InfoRow {
-                //% "Episode:"
-                label: qsTrId("getiplay-proginfo_episode")
-                value: episode
-                midlineRatio: 0.25
-                midlineMin: Theme.fontSizeSmall * 5
-                midlineMax: Theme.fontSizeSmall * 10
-                pixelSize: Theme.fontSizeMedium
-                labelTextBold: true
-            }
-            InfoRow {
-                //% "Channel:"
-                label: qsTrId("getiplay-proginfo_channel")
-                value: channel
-                midlineRatio: 0.25
-                midlineMin: Theme.fontSizeSmall * 5
-                midlineMax: Theme.fontSizeSmall * 10
-                pixelSize: Theme.fontSizeMedium
-                labelTextBold: true
-            }
-            InfoRow {
-                //% "Date:"
-                label: qsTrId("getiplay-proginfo_date_available")
-                value: Settings.epochToDate(available)
-                midlineRatio: 0.25
-                midlineMin: Theme.fontSizeSmall * 5
-                midlineMax: Theme.fontSizeSmall * 10
-                pixelSize: Theme.fontSizeMedium
-                labelTextBold: true
-            }
+                Behavior on height {
+                    PropertyAnimation {
+                        properties: "height"
+                        easing.type: Easing.OutCubic
+                        duration: 1000
 
+                        onRunningChanged: {
+                            if (pidinfo.height > 0) {
+                                queryshowing = true
+                            }
+                        }
+                    }
+                }
+
+                Label {
+                    x: Theme.paddingLarge
+                    text: "Name " + name
+                    wrapMode: Text.Wrap
+                    width: parent.width - 2 * Theme.paddingLarge
+                    height: Theme.fontSizeLarge* 2 + Theme.paddingSmall
+                    clip: true
+                }
+
+                InfoRow {
+                    //% "Episode:"
+                    label: qsTrId("getiplay-proginfo_episode")
+                    value: episode
+                    midlineRatio: 0.25
+                    midlineMin: Theme.fontSizeSmall * 5
+                    midlineMax: Theme.fontSizeSmall * 10
+                    pixelSize: Theme.fontSizeMedium
+                    labelTextBold: true
+                }
+                InfoRow {
+                    //% "Channel:"
+                    label: qsTrId("getiplay-proginfo_channel")
+                    value: channel
+                    midlineRatio: 0.25
+                    midlineMin: Theme.fontSizeSmall * 5
+                    midlineMax: Theme.fontSizeSmall * 10
+                    pixelSize: Theme.fontSizeMedium
+                    labelTextBold: true
+                }
+                InfoRow {
+                    //% "Date:"
+                    label: qsTrId("getiplay-proginfo_date_available")
+                    value: Settings.epochToDate(available)
+                    midlineRatio: 0.25
+                    midlineMin: Theme.fontSizeSmall * 5
+                    midlineMax: Theme.fontSizeSmall * 10
+                    pixelSize: Theme.fontSizeMedium
+                    labelTextBold: true
+                }
+
+
+                Rectangle {
+                    width: parent.width - 2 * Theme.paddingLarge
+                    height: width * 0.5625
+                    border.width: 0
+                    border.color: "transparent" // Theme.highlightColor
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: "transparent"
+
+                    Image {
+                        id: thumbnail
+                        source: ""
+                        width: parent.width - 8
+                        height: parent.height - 8
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        fillMode: Image.PreserveAspectFit
+                        NumberAnimation on opacity { id: fadein; from: 0; to: 1; duration: 1000 }
+                        onStatusChanged: {
+                            if (status == Image.Ready) {
+                                fadein.start()
+                            }
+                        }
+                    }
+
+                    BusyIndicator {
+                        id: downloadbusy
+                        running: true
+                        visible: (thumbnail.status != Image.Ready)
+                        size: BusyIndicatorSize.Large
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                }
+
+                Label {
+                    x: Theme.paddingLarge
+                    text: description
+                    //font.pixelSize: Theme.fontSizeExtraSmall
+                    width: parent.width - 2 * Theme.paddingLarge
+                    //height: Theme.fontSizeExtraSmall * 8
+                    height: Theme.fontSizeMedium * 4
+                    wrapMode: Text.WordWrap
+                    verticalAlignment: Text.AlignTop
+                    clip: true
+                    elide: Text.ElideRight
+                }
+
+                Row {
+                    width: parent.width - 2 * Theme.paddingLarge
+                    height: implicitHeight
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    spacing: Theme.paddingLarge
+
+                    Button {
+                        id: addToQueue
+                        //% "Download"
+                        text: qsTrId("getiplay-direct-download_download")
+                        width: ((parent.width - Theme.paddingLarge) / 2)
+                        enabled: (name != "")
+                        onClicked: {
+                            if (Queue.addToQueue(progId, name, duration, type, episode, available, channel, web, description, imageid, 0)) {
+                                enabled = false
+                                pageStack.pop()
+                            }
+                        }
+                    }
+
+                    Button {
+                        id: visitWebsite
+                        //% "Visit website"
+                        text: qsTrId("getiplay-direct-sdownload_website")
+                        width: ((parent.width - Theme.paddingLarge) / 2)
+                        enabled: (web != "")
+                        onClicked: Qt.openUrlExternally(web)
+                    }
+                }
+            }
 
             Rectangle {
+                x: Theme.paddingLarge
                 width: parent.width - 2 * Theme.paddingLarge
-                height: width * 0.5625
-                border.width: 0
-                border.color: "transparent" // Theme.highlightColor
-                anchors.horizontalCenter: parent.horizontalCenter
-                color: "transparent"
-
-                Image {
-                    id: thumbnail
-                    source: ""
-                    width: parent.width - 8
-                    height: parent.height - 8
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    fillMode: Image.PreserveAspectFit
-                    NumberAnimation on opacity { id: fadein; from: 0; to: 1; duration: 1000 }
-                    onStatusChanged: {
-                        if (status == Image.Ready) {
-                            fadein.start()
-                        }
-                    }
-                }
-
-                BusyIndicator {
-                    id: downloadbusy
-                    running: true
-                    visible: (thumbnail.status != Image.Ready)
-                    size: BusyIndicatorSize.Large
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                }
+                color: Theme.highlightColor
+                height: 2
+                opacity: 0.5
+                visible: !queryshowing
             }
 
             Label {
                 x: Theme.paddingLarge
-                text: description
-                //font.pixelSize: Theme.fontSizeExtraSmall
+                text: "Error downloading programme data"
                 width: parent.width - 2 * Theme.paddingLarge
-                //height: Theme.fontSizeExtraSmall * 8
-                height: Theme.fontSizeMedium * 4
-                wrapMode: Text.WordWrap
-                verticalAlignment: Text.AlignTop
-                clip: true
-                elide: Text.ElideRight
-            }
-
-            Row {
-                width: parent.width - 2 * Theme.paddingLarge
-                height: 100
-                anchors.horizontalCenter: parent.horizontalCenter
-                spacing: Theme.paddingLarge
-
-                Button {
-                    id: addToQueue
-                    //% "Download"
-                    text: qsTrId("getiplay-direct-download_download")
-                    width: ((parent.width - Theme.paddingLarge) / 2)
-                    enabled: (name != "")
-                    onClicked: {
-                        if (Queue.addToQueue(progId, name, duration, type, episode, available, channel, web, description, imageid, 0)) {
-                            enabled = false
-                            pageStack.pop()
-                        }
-                    }
-                }
-
-                Button {
-                    id: visitWebsite
-                    //% "Visit website"
-                    text: qsTrId("getiplay-direct-download_website")
-                    width: ((parent.width - Theme.paddingLarge) / 2)
-                    enabled: (web != "")
-                    onClicked: Qt.openUrlExternally(web)
-                }
+                visible: queryerror
             }
         }
     }
