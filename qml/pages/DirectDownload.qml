@@ -121,7 +121,7 @@ Page {
                 id: pidinput
                 width: parent.width
                 spacing: Theme.paddingLarge
-                height: (queryrunning || querycomplete) ? 1 : implicitHeight
+                height: (queryrunning || querycomplete) ? 0 : implicitHeight
                 clip: true
 
                 Behavior on height {
