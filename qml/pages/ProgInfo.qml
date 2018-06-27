@@ -198,7 +198,8 @@ Page {
                 InfoRow {
                     //% "Date:"
                     label: qsTrId("getiplay-proginfo_date_available")
-                    value: Settings.epochToDate(available)
+                    //% "Unknown"
+                    value: (available != 0) ? Settings.epochToDate(available) : qsTrId("getiplay-proginfo_date_unknown")
                     midlineRatio: 0.25
                     midlineMin: Theme.fontSizeSmall * 5
                     midlineMax: Theme.fontSizeSmall * 10

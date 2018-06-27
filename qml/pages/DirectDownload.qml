@@ -57,7 +57,10 @@ Page {
             if (status == XmlListModel.Ready) {
                 name = metadata.get(0).name
                 channel = metadata.get(0).channel
-                available = Settings.dateToEpoch(metadata.get(0).available)
+                if (metadata.get(0).available) {
+                    available = Settings.dateToEpoch(metadata.get(0).available)
+                }
+                console.log("Available: " + available + " (" + metadata.get(0).available + ")")
                 description = metadata.get(0).desclong
                 episode = metadata.get(0).episode
                 web = metadata.get(0).web
@@ -107,7 +110,7 @@ Page {
         Column {
             id: downloadColumn
             width: parent.width
-            spacing: Theme.paddingLarge
+            spacing: 0
 
             PageHeader {
                 //% "Direct Download"
@@ -118,7 +121,7 @@ Page {
                 id: pidinput
                 width: parent.width
                 spacing: Theme.paddingLarge
-                height: (queryrunning || querycomplete) ? 0 : implicitHeight
+                height: (queryrunning || querycomplete) ? 1 : implicitHeight
                 clip: true
 
                 Behavior on height {
@@ -196,6 +199,13 @@ Page {
                         }
                     }
                 }
+
+                Rectangle {
+                    x: Theme.paddingLarge
+                    width: parent.width - 2 * Theme.paddingLarge
+                    color: "transparent"
+                    height: 2
+                }
             }
 
             Column {
@@ -221,7 +231,7 @@ Page {
 
                 Label {
                     x: Theme.paddingLarge
-                    text: "Name " + name
+                    text: name
                     wrapMode: Text.Wrap
                     width: parent.width - 2 * Theme.paddingLarge
                     height: Theme.fontSizeLarge* 2 + Theme.paddingSmall
@@ -230,7 +240,7 @@ Page {
 
                 InfoRow {
                     //% "Episode:"
-                    label: qsTrId("getiplay-proginfo_episode")
+                    label: qsTrId("getiplay-direct-download_episode")
                     value: episode
                     midlineRatio: 0.25
                     midlineMin: Theme.fontSizeSmall * 5
@@ -240,7 +250,7 @@ Page {
                 }
                 InfoRow {
                     //% "Channel:"
-                    label: qsTrId("getiplay-proginfo_channel")
+                    label: qsTrId("getiplay-direct-download_channel")
                     value: channel
                     midlineRatio: 0.25
                     midlineMin: Theme.fontSizeSmall * 5
@@ -250,8 +260,9 @@ Page {
                 }
                 InfoRow {
                     //% "Date:"
-                    label: qsTrId("getiplay-proginfo_date_available")
-                    value: Settings.epochToDate(available)
+                    label: qsTrId("getiplay-direct-download_date_available")
+                    //% "Unknown"
+                    value: (available != 0) ? Settings.epochToDate(available) : qsTrId("getiplay-direct-download_date_unknown")
                     midlineRatio: 0.25
                     midlineMin: Theme.fontSizeSmall * 5
                     midlineMax: Theme.fontSizeSmall * 10
@@ -330,28 +341,41 @@ Page {
                     Button {
                         id: visitWebsite
                         //% "Visit website"
-                        text: qsTrId("getiplay-direct-sdownload_website")
+                        text: qsTrId("getiplay-direct-download_website")
                         width: ((parent.width - Theme.paddingLarge) / 2)
                         enabled: (web != "")
                         onClicked: Qt.openUrlExternally(web)
                     }
                 }
+
+                Rectangle {
+                    x: Theme.paddingLarge
+                    width: parent.width - 2 * Theme.paddingLarge
+                    color: "transparent"
+                    height: 2
+                }
             }
 
-            Rectangle {
-                x: Theme.paddingLarge
-                width: parent.width - 2 * Theme.paddingLarge
-                color: Theme.highlightColor
-                height: 2
-                opacity: 0.5
-                visible: !queryshowing
-            }
+            Column {
+                width: parent.width
+                spacing: Theme.paddingLarge
 
-            Label {
-                x: Theme.paddingLarge
-                text: "Error downloading programme data"
-                width: parent.width - 2 * Theme.paddingLarge
-                visible: queryerror
+                Rectangle {
+                    x: Theme.paddingLarge
+                    width: parent.width - 2 * Theme.paddingLarge
+                    color: Theme.highlightColor
+                    height: 2
+                    opacity: 0.5
+                    visible: !queryshowing
+                }
+
+                Label {
+                    x: Theme.paddingLarge
+                    //% "Error downloading programme data"
+                    text: qsTrId("getiplay-direct-download_error")
+                    width: parent.width - 2 * Theme.paddingLarge
+                    visible: queryerror
+                }
             }
         }
     }

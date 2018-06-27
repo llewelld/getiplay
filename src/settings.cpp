@@ -157,9 +157,17 @@ QString & Settings::unescape(QString &string) {
 
 QString Settings::epochToDate (quint64 epoch) {
     QDateTime date;
+    QString result;
 
-    date.setTime_t(epoch);
-    return date.toString("yyyy-MM-dd");
+    if (epoch != 0) {
+        date.setTime_t(epoch);
+        result = date.toString("yyyy-MM-dd");
+    }
+    else {
+        result = "";
+    }
+
+    return result;
 }
 
 quint64 Settings::dateToEpoch (QString date) {
