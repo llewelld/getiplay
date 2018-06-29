@@ -8,7 +8,7 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
-* Fri Jun 29 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.56-1
+* Fri Jun 29 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.6-1
 - Allow different replay/skip times with short/long press on button
 - Allow replay/skip durations to be configured
 - Allow max number of similtaneous refresh connections to be configured
