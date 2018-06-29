@@ -8,6 +8,16 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Fri Jun 29 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.56-1
+- Allow different replay/skip times with short/long press on button
+- Allow replay/skip durations to be configured
+- Allow max number of similtaneous refresh connections to be configured
+- Record timestamp at start and end of process in the logs
+- Support direct download based on PID or URL
+- Cosmetic improvements to programme info pages
+- Cosmetic improvements to audio and video player icons
+- Fix missing coveraction icon bug
+
 * Wed Jun 20 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.5-2
 - Bugfix to use correct graphics on queue placeholder
 - Bugfix to display vesion number on About page
