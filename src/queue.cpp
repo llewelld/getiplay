@@ -307,7 +307,28 @@ quint32 Queue::getMediaPosition(QString progid) {
 QString Queue::extractPid(QString progid) {
     QString result = "";
 
-    QRegExp search("^(http.*/)?(\\w{8})$");
+    // The following are examples of valid PIDs or URLs
+
+    // b0b7f390
+    // p066svr5
+    // w3cswpdw
+    // w172w4fmrwxy1h4
+    // https://www.bbc.co.uk/programmes/w172w4fmrwxy1h4
+    // https://www.bbc.co.uk/programmes/w3csxh6d
+    // https://www.bbc.co.uk/iplayer/episode/p066svr5/hidden-series-1-episode-1
+    // https://www.bbc.co.uk/iplayer/episode/b0702b41/death-in-paradise-series-5-episode-5
+    // https://www.bbc.co.uk/programmes/b006vb2f
+    // http://www.bbc.co.uk/programmes/b0b7hl3d
+
+    //QRegExp search("^(http.*/)?(\\w{8})$");
+    // Regex searches for sequences of 8 or 15 characters, such that the first character
+    // is a consonant, the remaining characters are consonants or digits.
+    // It accepts an optional URL prefix (starting with 'http' and ending with '/'),
+    // and an optional URL postfix starting with '/' and followed by any number of
+    // alphanumeric characters or hyphens.
+    // Frankly, the regexp is probably easier to follow than my explanation.
+    QRegExp search("^(http.*/)?([b-df-hj-np-tv-z][b-df-hj-np-tv-z0-9]{7}|[b-df-hj-np-tv-z][b-df-hj-np-tv-z0-9]{14})(/[\\w-]*)?$");
+
     if (search.exactMatch(progid)) {
         result = search.cap(2);
     }

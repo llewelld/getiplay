@@ -49,6 +49,7 @@ Page {
         XmlRole { name: "desclong"; query: "desclong/string()" }
         XmlRole { name: "episode"; query: "episode/string()" }
         XmlRole { name: "web"; query: "web/string()" }
+        XmlRole { name: "type"; query: "type/string()" }
 
         onCountChanged: console.log("XML count:", count)
 
@@ -70,6 +71,7 @@ Page {
                     console.log("Image id: " + imageid)
                 }
                 console.log("Thumbnail url: " + thumbnail.source);
+                ((type === "tv") ? type = 1 : type = 0)
 
                 if ((name != "") && (name != "get_iplayer")) {
                     queryrunning = false
