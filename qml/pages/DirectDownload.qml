@@ -71,7 +71,7 @@ Page {
                     console.log("Image id: " + imageid)
                 }
                 console.log("Thumbnail url: " + thumbnail.source);
-                ((type === "tv") ? type = 1 : type = 0)
+                ((metadata.get(0).type === "tv") ? type = 1 : type = 0)
 
                 if ((name != "") && (name != "get_iplayer")) {
                     queryrunning = false
