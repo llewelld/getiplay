@@ -66,6 +66,7 @@ public:
     Q_INVOKABLE void requeue(QString progid);
     Q_INVOKABLE quint32 getMediaPosition(QString progid);
     Q_INVOKABLE void setMediaPosition(QString progid, quint32 position);
+    Q_INVOKABLE QString extractPid(QString progid);
 
     unsigned int downloading;
     unsigned int completed;

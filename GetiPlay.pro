@@ -121,4 +121,5 @@ DISTFILES += \
     qml/component/PickerDialog.qml \
     qml/pages/VideoView.qml \
     qml/component/InfoRow.qml \
+    qml/pages/DirectDownload.qml
     qml/component/IconButtonDual.qml

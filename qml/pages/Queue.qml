@@ -39,6 +39,11 @@ Item {
                 text: qsTrId("getiplay-proglist_menu_settings")
                 onClicked: pageStack.push(Qt.resolvedUrl("Settings.qml"))
             }
+            MenuItem {
+                //% "Direct Download"
+                text: qsTrId("getiplay-proglist_menu_direct_download")
+                onClicked: pageStack.push(Qt.resolvedUrl("DirectDownload.qml"))
+            }
         }
 
         ViewPlaceholder {

@@ -105,33 +105,38 @@
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
+    <message id="getiplay-proglist_menu_direct_download">
+        <location filename="../qml/pages/Queue.qml" line="44"/>
+        <source>Direct Download</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message id="getiplay-queue_empty_message">
-        <location filename="../qml/pages/Queue.qml" line="48"/>
+        <location filename="../qml/pages/Queue.qml" line="53"/>
         <source>Empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_empty_hint">
-        <location filename="../qml/pages/Queue.qml" line="50"/>
+        <location filename="../qml/pages/Queue.qml" line="55"/>
         <source>Programmes you select for download will appear here</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_remove">
-        <location filename="../qml/pages/Queue.qml" line="124"/>
+        <location filename="../qml/pages/Queue.qml" line="129"/>
         <source>Remove from queue</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_delete">
-        <location filename="../qml/pages/Queue.qml" line="130"/>
+        <location filename="../qml/pages/Queue.qml" line="135"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_requeue">
-        <location filename="../qml/pages/Queue.qml" line="137"/>
+        <location filename="../qml/pages/Queue.qml" line="142"/>
         <source>Requeue</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_delete_remourse">
-        <location filename="../qml/pages/Queue.qml" line="147"/>
+        <location filename="../qml/pages/Queue.qml" line="152"/>
         <source>Deleting file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -193,19 +198,24 @@
         <oldsource>Date</oldsource>
         <translation type="unfinished"></translation>
     </message>
+    <message id="getiplay-queueitem_date_unknown">
+        <location filename="../qml/pages/QueueItemInfo.qml" line="149"/>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message id="getiplay-queueinfo_status">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="158"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="159"/>
         <source>Status:</source>
         <oldsource>Status</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_play">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="240"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="241"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_website">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="251"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="252"/>
         <source>Visit website</source>
         <translation type="unfinished"></translation>
     </message>
@@ -359,18 +369,18 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_status">
-        <location filename="../qml/pages/ProgInfo.qml" line="211"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="212"/>
         <source>Status:</source>
         <oldsource>Status</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_download">
-        <location filename="../qml/pages/ProgInfo.qml" line="276"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="277"/>
         <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proginfo_website">
-        <location filename="../qml/pages/ProgInfo.qml" line="289"/>
+        <location filename="../qml/pages/ProgInfo.qml" line="290"/>
         <source>Visit website</source>
         <translation type="unfinished"></translation>
     </message>
@@ -454,50 +464,50 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_max_connections">
-        <location filename="../qml/pages/Settings.qml" line="88"/>
+        <location filename="../qml/pages/Settings.qml" line="89"/>
         <source>Maximum connections</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_subtitle_file_storage">
-        <location filename="../qml/pages/Settings.qml" line="101"/>
+        <location filename="../qml/pages/Settings.qml" line="102"/>
         <source>File storage</source>
         <oldsource>File storage settings</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_video_folder">
-        <location filename="../qml/pages/Settings.qml" line="106"/>
+        <location filename="../qml/pages/Settings.qml" line="107"/>
         <source>Video folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_select_video_folder">
-        <location filename="../qml/pages/Settings.qml" line="117"/>
+        <location filename="../qml/pages/Settings.qml" line="118"/>
         <source>Select video folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_audio_folder">
-        <location filename="../qml/pages/Settings.qml" line="128"/>
+        <location filename="../qml/pages/Settings.qml" line="129"/>
         <source>Audio folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_select_audio_folder">
-        <location filename="../qml/pages/Settings.qml" line="139"/>
+        <location filename="../qml/pages/Settings.qml" line="140"/>
         <source>Select audio folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_subtitle_playback">
-        <location filename="../qml/pages/Settings.qml" line="150"/>
+        <location filename="../qml/pages/Settings.qml" line="151"/>
         <source>Playback</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_skip_time_short">
-        <location filename="../qml/pages/Settings.qml" line="157"/>
-        <location filename="../qml/pages/Settings.qml" line="161"/>
+        <location filename="../qml/pages/Settings.qml" line="158"/>
+        <location filename="../qml/pages/Settings.qml" line="162"/>
         <source>Short skip duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_skip_time_long">
-        <location filename="../qml/pages/Settings.qml" line="173"/>
-        <location filename="../qml/pages/Settings.qml" line="177"/>
+        <location filename="../qml/pages/Settings.qml" line="174"/>
+        <location filename="../qml/pages/Settings.qml" line="178"/>
         <source>Long skip duration</source>
         <translation type="unfinished"></translation>
     </message>
@@ -539,6 +549,66 @@
     <message id="components_pickers-la-parent_folder">
         <location filename="../qml/component/private/FileItem.qml" line="81"/>
         <source>Parent folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-directdownload_title">
+        <location filename="../qml/pages/DirectDownload.qml" line="119"/>
+        <source>Direct Download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-direct-download_pid_or_url">
+        <location filename="../qml/pages/DirectDownload.qml" line="140"/>
+        <source>Programme ID or URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-direct-download_pid">
+        <location filename="../qml/pages/DirectDownload.qml" line="181"/>
+        <source>PID:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-direct-download_query">
+        <location filename="../qml/pages/DirectDownload.qml" line="194"/>
+        <source>Query</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-direct-download_episode">
+        <location filename="../qml/pages/DirectDownload.qml" line="245"/>
+        <source>Episode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-direct-download_channel">
+        <location filename="../qml/pages/DirectDownload.qml" line="255"/>
+        <source>Channel:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-direct-download_date_available">
+        <location filename="../qml/pages/DirectDownload.qml" line="265"/>
+        <source>Date:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-direct-download_date_unknown">
+        <location filename="../qml/pages/DirectDownload.qml" line="267"/>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-proginfo_date_unknown">
+        <location filename="../qml/pages/ProgInfo.qml" line="202"/>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-direct-download_download">
+        <location filename="../qml/pages/DirectDownload.qml" line="332"/>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-direct-download_website">
+        <location filename="../qml/pages/DirectDownload.qml" line="346"/>
+        <source>Visit website</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-direct-download_error">
+        <location filename="../qml/pages/DirectDownload.qml" line="377"/>
+        <source>Error downloading programme data</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings-timer_writing_direction">

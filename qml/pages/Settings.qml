@@ -78,6 +78,7 @@ Page {
                 placeholderText: label
                 width: parent.width
                 text: Settings.proxyUrl
+                inputMethodHints: Qt.ImhUrlCharactersOnly | Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
                 //EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 //EnterKey.onClicked: passwordField.focus = true
             }
