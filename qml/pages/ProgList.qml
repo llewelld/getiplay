@@ -42,9 +42,15 @@ Item {
     property string screenName
     property bool refreshing: false
     property int totalitems: 0
+    property bool busy: false
+    property int displayCount: 0
+
+    function positionAtTop() {
+        listView.positionViewAtBeginning();
+    }
 
     Connections {
-        target:Refresh
+        target: Refresh
         onStatusChanged: {
             switch (status) {
             case 0:

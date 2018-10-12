@@ -8,6 +8,12 @@ Item {
     implicitHeight: mainView.height; implicitWidth: mainView.width
 
     property string screenName
+    property bool busy: false
+    property int displayCount: Queue.downloading
+
+    function positionAtTop() {
+        listView.positionViewAtBeginning();
+    }
 
     SilicaListView {
         id: listView

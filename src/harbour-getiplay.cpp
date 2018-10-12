@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("www.flypig.co.uk");
     QCoreApplication::setApplicationName(APP_NAME);
 
-    logfile logs;
+    //logfile logs;
 
     QList<ProgModel*> models;
     ProgModel modelradio;
@@ -105,7 +105,6 @@ int main(int argc, char *argv[])
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
     view->engine()->addImageProvider(QLatin1String("getiplay"), new ImageProvider(Settings::getInstance()));
-    view->setSource(SailfishApp::pathTo("qml/GetiPlay.qml"));
 
     QQmlContext *ctxt = view->rootContext();
     ctxt->setContextProperty("version", VERSION);
@@ -161,6 +160,7 @@ int main(int argc, char *argv[])
     view->rootContext()->setContextProperty("Metaget", metaget);
     metaget->initialise();
 
+    view->setSource(SailfishApp::pathTo("qml/GetiPlay.qml"));
     view->show();
     result = app->exec();
 
@@ -176,9 +176,14 @@ int main(int argc, char *argv[])
     file.setFileName(Settings::getConfigDir() + "/logtail.txt");
     log->exportToFile(file);
 
-    delete proxyModelRadio;
-    delete proxyModelTV;
+    delete metaget;
+    delete queue;
+    delete download;
+    delete refresh;
     delete log;
+    delete proxyModelQueue;
+    delete proxyModelTV;
+    delete proxyModelRadio;
 
     return result;
     /*

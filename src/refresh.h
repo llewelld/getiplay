@@ -14,8 +14,8 @@ class Refresh : public QObject
     Q_OBJECT
 
     // General properties
-    Q_PROPERTY(float progress READ getProgress WRITE setProgress NOTIFY progressChanged)
     Q_ENUMS(REFRESHSTATUS)
+    Q_PROPERTY(float progress READ getProgress WRITE setProgress NOTIFY progressChanged)
 
 public:
     enum REFRESHSTATUS {

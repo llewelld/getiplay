@@ -235,9 +235,11 @@ void Settings::setRefreshType(PROGTYPE value) {
 }
 
 void Settings::setCurrentTab(unsigned int value) {
-    qDebug() << "Set current tab: " << value;
-    currentTab = value;
-    emit currentTabChanged(currentTab);
+    if (value != currentTab) {
+        qDebug() << "Set current tab: " << value;
+        currentTab = value;
+        emit currentTabChanged(currentTab);
+    }
 }
 
 void Settings::setIndexMaxConn(unsigned int value) {

@@ -13,6 +13,12 @@ SplitViewItem {
     implicitHeight: mainView.height; implicitWidth: mainView.width
 
     property string screenName
+    property bool busy: false
+    property int displayCount: 0
+
+    function positionAtTop() {
+        open = false;
+    }
 
     Connections {
         target: mainView

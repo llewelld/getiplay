@@ -24,7 +24,7 @@ Item {
     // VisualItemModel as model
     // function - moveToColumn(index)
     // Each children of VisualItemModel must have:
-    // properties - busy (bool) and unreadCount (int)
+    // properties - busy (bool) and displayCount (int)
     // method - positionAtTop()
     property SlideshowView listView: null
     property variant iconArray: []
@@ -62,11 +62,11 @@ Item {
                             top: parent.top; topMargin: Theme.paddingSmall
                             left: icon.right; leftMargin: -Theme.paddingMedium
                         }
-                        visible: listView.model.children[index].unreadCount > 0
+                        visible: listView.model.children[index].displayCount > 0
                         font.pixelSize: Theme.fontSizeSmall
                         color: Theme.highlightColor
 
-                        text: listView.model.children[index].unreadCount ? listView.model.children[index].unreadCount : ""
+                        text: listView.model.children[index].displayCount ? listView.model.children[index].displayCount : ""
                     }
 
                     Loader {

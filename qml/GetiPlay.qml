@@ -127,11 +127,12 @@ ApplicationWindow
             Slider {
                 id: audioslider
                 minimumValue: 0
-                maximumValue: audio.duration
+                maximumValue: (audio.duration > 0 ? audio.duration : 1)
                 stepSize: 1
                 value: 0
                 anchors.verticalCenter: parent.verticalCenter
                 width: parent.width - reversebutton.width - playbutton.width - forwardsbutton.width - stopbutton.width
+                height: implicitHeight
                 anchors.margins: 0
                 leftMargin: Theme.paddingLarge
                 rightMargin: Theme.paddingLarge

@@ -4,114 +4,114 @@
 <context>
     <name></name>
     <message id="getiplay-log_share_title">
-        <location filename="../qml/pages/Log.qml" line="31"/>
+        <location filename="../qml/pages/Log.qml" line="37"/>
         <source>Share Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_share_status">
-        <location filename="../qml/pages/Log.qml" line="40"/>
+        <location filename="../qml/pages/Log.qml" line="46"/>
         <source>GetiPlay log file</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_menu_about">
-        <location filename="../qml/pages/Log.qml" line="50"/>
+        <location filename="../qml/pages/Log.qml" line="56"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_menu_settings">
-        <location filename="../qml/pages/Log.qml" line="55"/>
-        <location filename="../qml/pages/ProgList.qml" line="135"/>
-        <location filename="../qml/pages/Queue.qml" line="39"/>
+        <location filename="../qml/pages/Log.qml" line="61"/>
+        <location filename="../qml/pages/ProgList.qml" line="141"/>
+        <location filename="../qml/pages/Queue.qml" line="45"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_menu_clear">
-        <location filename="../qml/pages/Log.qml" line="60"/>
+        <location filename="../qml/pages/Log.qml" line="66"/>
         <source>Clear log</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_share_add_account">
-        <location filename="../qml/pages/Log.qml" line="75"/>
+        <location filename="../qml/pages/Log.qml" line="81"/>
         <source>Add account</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_search_placeholder">
-        <location filename="../qml/pages/ProgList.qml" line="109"/>
+        <location filename="../qml/pages/ProgList.qml" line="115"/>
         <source>Search programmes</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_menu_about">
-        <location filename="../qml/pages/ProgList.qml" line="130"/>
+        <location filename="../qml/pages/ProgList.qml" line="136"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_menu_refresh">
-        <location filename="../qml/pages/ProgList.qml" line="140"/>
+        <location filename="../qml/pages/ProgList.qml" line="146"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_nothing_found_message">
-        <location filename="../qml/pages/ProgList.qml" line="151"/>
+        <location filename="../qml/pages/ProgList.qml" line="157"/>
         <source>No items found</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_empty_message">
-        <location filename="../qml/pages/ProgList.qml" line="153"/>
+        <location filename="../qml/pages/ProgList.qml" line="159"/>
         <source>Nothing here</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_updating_message">
-        <location filename="../qml/pages/ProgList.qml" line="155"/>
+        <location filename="../qml/pages/ProgList.qml" line="161"/>
         <source>Updating</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_select_updating_hint">
-        <location filename="../qml/pages/ProgList.qml" line="164"/>
+        <location filename="../qml/pages/ProgList.qml" line="170"/>
         <source>Please wait, refreshing can take some time</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_select_empty_hint">
-        <location filename="../qml/pages/ProgList.qml" line="166"/>
+        <location filename="../qml/pages/ProgList.qml" line="172"/>
         <source>Select Refresh from menu to populate</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_menu_about">
-        <location filename="../qml/pages/Queue.qml" line="34"/>
+        <location filename="../qml/pages/Queue.qml" line="40"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_menu_direct_download">
-        <location filename="../qml/pages/Queue.qml" line="44"/>
+        <location filename="../qml/pages/Queue.qml" line="50"/>
         <source>Direct Download</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_empty_message">
-        <location filename="../qml/pages/Queue.qml" line="53"/>
+        <location filename="../qml/pages/Queue.qml" line="59"/>
         <source>Empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_empty_hint">
-        <location filename="../qml/pages/Queue.qml" line="55"/>
+        <location filename="../qml/pages/Queue.qml" line="61"/>
         <source>Programmes you select for download will appear here</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_remove">
-        <location filename="../qml/pages/Queue.qml" line="129"/>
+        <location filename="../qml/pages/Queue.qml" line="135"/>
         <source>Remove from queue</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_delete">
-        <location filename="../qml/pages/Queue.qml" line="135"/>
+        <location filename="../qml/pages/Queue.qml" line="141"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_requeue">
-        <location filename="../qml/pages/Queue.qml" line="142"/>
+        <location filename="../qml/pages/Queue.qml" line="148"/>
         <source>Requeue</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_delete_remourse">
-        <location filename="../qml/pages/Queue.qml" line="152"/>
+        <location filename="../qml/pages/Queue.qml" line="158"/>
         <source>Deleting file</source>
         <translation type="unfinished"></translation>
     </message>
