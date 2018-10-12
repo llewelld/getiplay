@@ -17,7 +17,7 @@ Version:    0.6
 Release:    1
 Group:      Applications/Multimedia
 License:    LICENSE
-URL:        http://example.org/
+URL:        http://www.flypig.co.uk/?to=getiplay
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-getiplay.yaml
 AutoReq:    0
