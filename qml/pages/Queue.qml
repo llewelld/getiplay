@@ -12,7 +12,7 @@ Item {
     property int displayCount: Queue.downloading
 
     function positionAtTop() {
-        listView.positionViewAtBeginning();
+        listView.scrollToTop();
     }
 
     SilicaListView {
