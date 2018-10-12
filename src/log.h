@@ -25,6 +25,7 @@ private:
     logfile logToFile;
 
     // Internal methods
+    void trim();
 
 public:
     // General methods

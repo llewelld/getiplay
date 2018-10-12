@@ -49,7 +49,7 @@ void Log::logAppend(const QString &text)
         // Remove excess lines from the top
         while (removeLines > 0) {
             int nextLine = logText.indexOf('\n');
-            if (nextLine > 0) {
+            if (nextLine >= 0) {
                 logText = logText.mid(nextLine + 1);
             }
             removeLines--;
@@ -81,11 +81,30 @@ void Log::importFromFile(QFile & file) {
         logText = in.readAll();
         file.close();
     }
+    qDebug() << "Log lines: " << logText.count('\n');
+    trim();
+    qDebug() << "Trimmed to: " << logText.count('\n');
 }
 
 void Log::clear() {
     logToFile.cycle();
     logText = "";
     emit logTextChanged(logText);
+}
+
+void Log::trim() {
+    int newline;
+    int lines;
+
+    lines = 0;
+    newline = logText.length() - 1;
+    while ((lines <= LOG_LINES) && (newline >= 0)) {
+        newline = logText.lastIndexOf('\n', newline) - 1;
+        lines++;
+    }
+
+    if (newline >= 0) {
+        logText = logText.mid(newline + 2);
+    }
 }
 
