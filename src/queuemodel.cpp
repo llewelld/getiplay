@@ -212,7 +212,9 @@ void QueueModel::pruneQueue() {
         if (((*iter)->getStatus() == Queue::STATUS_LOCAL) && ((*iter)->fileExists() == false)) {
             programmes.erase(iter);
         }
-        iter++;
+        else {
+            iter++;
+        }
     }
 }
 
