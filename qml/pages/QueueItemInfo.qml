@@ -173,6 +173,11 @@ Page {
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: "transparent"
 
+                    Label {
+                        id: thumbnailtext
+                        text: ""
+                    }
+
                     Image {
                         visible: true
                         id: thumbnail
@@ -186,23 +191,6 @@ Page {
                         onStatusChanged: {
                             if (status == Image.Ready) {
                                 fadein.start()
-                            }
-                        }
-                    }
-
-                    IconButton {
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        icon.source: Qt.resolvedUrl("image://theme/icon-l-play")
-                        visible: ((qstatus == ProgQueue.STATUS_LOCAL) && (filename != ""))
-
-                        onClicked: {
-                            if (type == Settings.REFRESHTYPE_RADIO) {
-                                startAudio(progId, filename)
-                            }
-                            else {
-                                stopAudio()
-                                pageStack.push(Qt.resolvedUrl("VideoView.qml"), { progId: progId, imageid: imageid, filename: filename })
                             }
                         }
                     }
@@ -236,10 +224,27 @@ Page {
                     spacing: Theme.paddingLarge
 
                     Button {
-                        id: openFile
+                        id: playFile
                         //% "Play"
                         text: qsTrId("getiplay-queueinfo_play")
-                        width: ((parent.width - Theme.paddingLarge) / 2)
+                        width: ((parent.width - 2 * Theme.paddingLarge) / 3)
+                        enabled: ((qstatus == ProgQueue.STATUS_LOCAL) && (filename != ""))
+                        onClicked: {
+                            if (type == Settings.REFRESHTYPE_RADIO) {
+                                startAudio(progId, filename)
+                            }
+                            else {
+                                stopAudio()
+                                pageStack.push(Qt.resolvedUrl("VideoView.qml"), { progId: progId, imageid: imageid, filename: filename })
+                            }
+                        }
+                    }
+
+                    Button {
+                        id: launchFile
+                        //% "Launch"
+                        text: qsTrId("getiplay-queueinfo_launch")
+                        width: ((parent.width - 2 * Theme.paddingLarge) / 3)
                         enabled: ((qstatus == ProgQueue.STATUS_LOCAL) && (filename != ""))
                         onClicked: {
                             Qt.openUrlExternally(filename);
@@ -248,9 +253,9 @@ Page {
 
                     Button {
                         id: visitWebsite
-                        //% "Visit website"
+                        //% "Website"
                         text: qsTrId("getiplay-queueinfo_website")
-                        width: ((parent.width - Theme.paddingLarge) / 2)
+                        width: ((parent.width - 2 * Theme.paddingLarge) / 3)
                         enabled: (web != "")
                         onClicked: Qt.openUrlExternally(web)
                     }

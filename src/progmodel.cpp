@@ -1,7 +1,8 @@
 #include "progmodel.h"
 #include <QDebug>
 
-ProgModel::ProgModel(QObject *parent) : QAbstractListModel(parent) {
+ProgModel::ProgModel(QString filename, QObject *parent) : QAbstractListModel(parent),
+    filename(filename) {
     roles[ProgIdRole] = "progId";
     roles[EpisodeRole] = "episode";
     roles[DurationRole] = "duration";
@@ -11,6 +12,21 @@ ProgModel::ProgModel(QObject *parent) : QAbstractListModel(parent) {
     roles[NameRole] = "name";
     roles[DescRole] = "description";
     roles[ImageIdRole] = "imageid";
+
+    if (filename != "") {
+        QFile file;
+        file.setFileName(filename);
+        importFromFile(file);
+    }
+}
+
+ProgModel::~ProgModel() {
+    if (filename != "") {
+        qDebug() << "Exporting model to: " << filename;
+        QFile file;
+        file.setFileName(filename);
+        exportToFile(file);
+    }
 }
 
 QHash<int, QByteArray> ProgModel::roleNames() const {

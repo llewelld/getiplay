@@ -91,6 +91,8 @@ Settings::~Settings() {
     settings.setValue("download/indexMaxConn", indexMaxConn);
     settings.setValue("player/skipTimeShort", skipTimeShort);
     settings.setValue("player/skipTimeLong", skipTimeLong);
+
+    qDebug() << "Settings deleted";
 }
 
 void Settings::instantiate(QObject *parent) {

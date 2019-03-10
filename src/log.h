@@ -23,19 +23,18 @@ public:
 private:
     QString logText;
     logfile logToFile;
+    QString filename;
 
     // Internal methods
     void trim();
-
-public:
-    // General methods
-    explicit Log(QObject *parent = 0);
-    ~Log();
-    void initialise();
-    QString getLogText() const;
     void exportToFile(QFile & file);
     void importFromFile(QFile & file);
 
+public:
+    // General methods
+    explicit Log(QString filename = QString(), QObject *parent = 0);
+    ~Log();
+    QString getLogText() const;
     Q_INVOKABLE void logAppend(const QString &text);
     Q_INVOKABLE void logAppendTimestamp(const QString &text);
     Q_INVOKABLE void clear();

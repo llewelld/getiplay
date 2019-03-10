@@ -115,85 +115,6 @@
         <source>Deleting file</source>
         <translation type="unfinished"></translation>
     </message>
-    <message id="getiplay-queueitem_unqueued">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="50"/>
-        <source>Not queued for download</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-queueitem_error">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="55"/>
-        <source>Error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-queueitem_remote">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="60"/>
-        <source>Queued for download</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-queueitem_downloading">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="65"/>
-        <source>Downloading</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-queueitem_local">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="70"/>
-        <source>Downloaded</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-queueitem_deleted">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="77"/>
-        <source>File deleted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-queueitem_status_error">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="82"/>
-        <source>Unexpected error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-queueitem-title">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="109"/>
-        <source>Queue Item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-queueitem_episode">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="127"/>
-        <source>Episode:</source>
-        <oldsource>Episode</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-queueitem_channel">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="137"/>
-        <source>Channel:</source>
-        <oldsource>Channel</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-queueitem_date_available">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="147"/>
-        <source>Date:</source>
-        <oldsource>Date</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-queueitem_date_unknown">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="149"/>
-        <source>Unknown</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-queueinfo_status">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="159"/>
-        <source>Status:</source>
-        <oldsource>Status</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-queueinfo_play">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="241"/>
-        <source>Play</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-queueinfo_website">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="252"/>
-        <source>Visit website</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message id="getiplay-cover_programmes_completed_line1">
         <location filename="../qml/cover/CoverPage.qml" line="69"/>
         <source>Programmes</source>
@@ -290,22 +211,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglisttv_title">
-        <location filename="../qml/pages/MainPage.qml" line="40"/>
+        <location filename="../qml/pages/MainPage.qml" line="39"/>
         <source>BBC TV Programmes</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglistradio_title">
-        <location filename="../qml/pages/MainPage.qml" line="46"/>
+        <location filename="../qml/pages/MainPage.qml" line="45"/>
         <source>BBC Radio Programmes</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queue_title">
-        <location filename="../qml/pages/MainPage.qml" line="52"/>
+        <location filename="../qml/pages/MainPage.qml" line="51"/>
         <source>Queue</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_title">
-        <location filename="../qml/pages/MainPage.qml" line="57"/>
+        <location filename="../qml/pages/MainPage.qml" line="56"/>
         <source>Log</source>
         <translation type="unfinished"></translation>
     </message>
@@ -632,6 +553,91 @@
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
+    </message>
+    <message id="getiplay-title">
+        <location filename="../qml/GetiPlay.qml" line="205"/>
+        <source>harbour-getiplay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-queueitem_unqueued">
+        <location filename="../qml/pages/QueueItemInfo.qml" line="50"/>
+        <source>Not queued for download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-queueitem_error">
+        <location filename="../qml/pages/QueueItemInfo.qml" line="55"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-queueitem_remote">
+        <location filename="../qml/pages/QueueItemInfo.qml" line="60"/>
+        <source>Queued for download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-queueitem_downloading">
+        <location filename="../qml/pages/QueueItemInfo.qml" line="65"/>
+        <source>Downloading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-queueitem_local">
+        <location filename="../qml/pages/QueueItemInfo.qml" line="70"/>
+        <source>Downloaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-queueitem_deleted">
+        <location filename="../qml/pages/QueueItemInfo.qml" line="77"/>
+        <source>File deleted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-queueitem_status_error">
+        <location filename="../qml/pages/QueueItemInfo.qml" line="82"/>
+        <source>Unexpected error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-queueitem-title">
+        <location filename="../qml/pages/QueueItemInfo.qml" line="109"/>
+        <source>Queue Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-queueitem_episode">
+        <location filename="../qml/pages/QueueItemInfo.qml" line="127"/>
+        <source>Episode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-queueitem_channel">
+        <location filename="../qml/pages/QueueItemInfo.qml" line="137"/>
+        <source>Channel:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-queueitem_date_available">
+        <location filename="../qml/pages/QueueItemInfo.qml" line="147"/>
+        <source>Date:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-queueitem_date_unknown">
+        <location filename="../qml/pages/QueueItemInfo.qml" line="149"/>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-queueinfo_status">
+        <location filename="../qml/pages/QueueItemInfo.qml" line="159"/>
+        <source>Status:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-queueinfo_play">
+        <location filename="../qml/pages/QueueItemInfo.qml" line="229"/>
+        <source>Play</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-queueinfo_launch">
+        <location filename="../qml/pages/QueueItemInfo.qml" line="246"/>
+        <source>Launch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-queueinfo_website">
+        <location filename="../qml/pages/QueueItemInfo.qml" line="257"/>
+        <source>Website</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

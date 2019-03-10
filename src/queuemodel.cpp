@@ -4,7 +4,8 @@
 #include "queueitem.h"
 #include "queuemodel.h"
 
-QueueModel::QueueModel(QObject *parent) : QAbstractListModel(parent) {
+QueueModel::QueueModel(QString filename, QObject *parent) : QAbstractListModel(parent),
+    filename(filename) {
     roles[ProgIdRole] = "progId";
     roles[NameRole] = "name";
     roles[DurationRole] = "duration";
@@ -19,6 +20,21 @@ QueueModel::QueueModel(QObject *parent) : QAbstractListModel(parent) {
     roles[WebRole] = "web";
     roles[ImageIdRole] = "imageid";
     roles[PositionRole] = "position";
+
+    if (filename != "") {
+        QFile file;
+        file.setFileName(filename);
+        importFromFile(file);
+    }
+}
+
+QueueModel::~QueueModel() {
+    if (filename != "") {
+        qDebug() << "Exporting queue to: " << filename;
+        QFile file;
+        file.setFileName(filename);
+        exportToFile(file);
+    }
 }
 
 QHash<int, QByteArray> QueueModel::roleNames() const {
@@ -210,7 +226,7 @@ void QueueModel::pruneQueue() {
 
     while (iter != programmes.end()) {
         if (((*iter)->getStatus() == Queue::STATUS_LOCAL) && ((*iter)->fileExists() == false)) {
-            programmes.erase(iter);
+            iter = programmes.erase(iter);
         }
         else {
             iter++;
@@ -228,13 +244,13 @@ QString QueueModel::removePath(const QString &path) {
         if (((*iter)->getStatus() == Queue::STATUS_LOCAL) && (path.compare((*iter)->getFilename()) == 0) && ((*iter)->fileExists() == false)) {
             found = (*iter)->getProgId();
             beginRemoveRows(QModelIndex(), index, index);
-            programmes.erase(iter);
+            iter = programmes.erase(iter);
             endRemoveRows();
         }
         else {
             index++;
+            iter++;
         }
-        iter++;
     }
 
     return found;
