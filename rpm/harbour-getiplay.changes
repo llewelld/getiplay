@@ -8,6 +8,16 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Sun Mar 24 2019 David Llewellyn-Jones <david@flypig.co.uk> 0.7-1
+- Correct iterator errors when deleting media files and items from queue.
+- Correctly trim logfile and prevent UI performance degradation over time.
+- Correct an incorrect RPM configuration.
+- Remove cyclic dependences in QML.
+- Fix various other QML errors.
+- Add scroll animation when clicking on tab to jump to the top of the page.
+- Allow control using the lockscreen media (MPRIS) controls.
+- Improve the button layout on the queue item info screen.
+
 * Fri Jun 29 2018 David Llewellyn-Jones <david@flypig.co.uk> 0.6-1
 - Allow different replay/skip times with short/long press on button
 - Allow replay/skip durations to be configured
