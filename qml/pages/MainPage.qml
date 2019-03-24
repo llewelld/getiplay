@@ -15,7 +15,6 @@ Page {
         Rectangle {
             anchors { top: parent.top; left: parent.left; right: parent.right }
             height: parent.height - mainPageHeader.visibleHeight
-            width: parent.width
             clip: true
             antialiasing: false
             color: "transparent"

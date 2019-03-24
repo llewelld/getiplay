@@ -1,6 +1,5 @@
 #include <QDebug>
 #include "harbour-getiplay.h"
-#include "settings.h"
 #include "queue.h"
 #include "queueitem.h"
 #include "queuemodel.h"
@@ -231,6 +230,9 @@ QVariant Queue::getDetails(QString progid) {
 
     if (item != nullptr) {
         details.insert("filename", item->getFilename());
+        details.insert("name", item->getName());
+        details.insert("episode", item->getEpisode());
+        details.insert("channel", item->getChannel());
     }
 
     return details;

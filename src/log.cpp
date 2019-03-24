@@ -1,23 +1,32 @@
 #include "log.h"
 #include <QDebug>
 #include "harbour-getiplay.h"
-#include "settings.h"
 
-Log::Log(QObject *parent) :
+Log::Log(QString filename, QObject *parent) :
     QObject(parent),
-    logText("")
+    logText(""),
+    filename(filename)
 {
     logToFile.openLog();
     qDebug() << "LOG FILE OPEN";
-}
 
-void Log::initialise()
-{
+    if (filename != "") {
+        QFile file;
+        file.setFileName(filename);
+        importFromFile(file);
+    }
 }
 
 Log::~Log() {
     logToFile.closeLog();
     qDebug() << "LOG FILE CLOSED";
+
+    if (filename != "") {
+        qDebug() << "Exporting log to: " << filename;
+        QFile file;
+        file.setFileName(filename);
+        exportToFile(file);
+    }
 }
 
 QString Log::getLogText() const

@@ -45,8 +45,6 @@
 int main(int argc, char *argv[])
 {
     int result;
-    QFile file;
-
     // SailfishApp::main() will display "qml/template.qml", if you need more
     // control over initialization, you can use:
     //
@@ -70,37 +68,13 @@ int main(int argc, char *argv[])
     //logfile logs;
 
     QList<ProgModel*> models;
-    ProgModel modelradio;
-    ProgModel modeltv;
-    QueueModel modelqueue;
+    ProgModel modelradio(Settings::getConfigDir() + "/radio.txt");
+    ProgModel modeltv(Settings::getConfigDir() + "/tv.txt");
     models.append(&modelradio);
     models.append(&modeltv);
 
-    file.setFileName(Settings::getConfigDir() + "/radio.txt");
-    modelradio.importFromFile(file);
-    file.setFileName(Settings::getConfigDir() + "/tv.txt");
-    modeltv.importFromFile(file);
-    file.setFileName(Settings::getConfigDir() + "/queue.txt");
-    modelqueue.importFromFile(file);
+    QueueModel modelqueue(Settings::getConfigDir() + "/queue.txt");
     modelqueue.pruneQueue();
-
-    /*
-    QFile file("/opt/sdk/GetiPlay/usr/share/GetiPlay/output01.txt");
-    if (file.open(QIODevice::ReadOnly)) {
-        QRegExp progInfo("^(\\d+):\\t(.*)$");
-        QTextStream in(&file);
-        while (!in.atEnd()) {
-            QString line = in.readLine();
-            int foundPos = progInfo.indexIn(line);
-            if (foundPos > -1) {
-                unsigned int progId = progInfo.cap(1).toUInt();
-                QString title = progInfo.cap(2);
-                model.addProgramme(Programme(progId, title, 0.0));
-            }
-        }
-        file.close();
-    }
-    */
 
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
@@ -113,21 +87,21 @@ int main(int argc, char *argv[])
     qDebug() << "VERSION_MINOR: " << VERSION_MINOR;
     qDebug() << "VERSION_BUILD: " << VERSION_BUILD;
 
-    QSortFilterProxyModel * proxyModelRadio = new QSortFilterProxyModel ();
+    QSortFilterProxyModel * proxyModelRadio = new QSortFilterProxyModel (view.data());
     proxyModelRadio->setSourceModel(&modelradio);
     proxyModelRadio->setDynamicSortFilter(true);
     proxyModelRadio->setFilterRole(ProgModel::NameRole);
     proxyModelRadio->setFilterCaseSensitivity(Qt::CaseInsensitive);
     proxyModelRadio->setSortCaseSensitivity(Qt::CaseInsensitive);
 
-    QSortFilterProxyModel * proxyModelTV = new QSortFilterProxyModel ();
+    QSortFilterProxyModel * proxyModelTV = new QSortFilterProxyModel (view.data());
     proxyModelTV->setSourceModel(&modeltv);
     proxyModelTV->setDynamicSortFilter(true);
     proxyModelTV->setFilterRole(ProgModel::NameRole);
     proxyModelTV->setFilterCaseSensitivity(Qt::CaseInsensitive);
     proxyModelTV->setSortCaseSensitivity(Qt::CaseInsensitive);
 
-    QSortFilterProxyModel * proxyModelQueue = new QSortFilterProxyModel ();
+    QSortFilterProxyModel * proxyModelQueue = new QSortFilterProxyModel (view.data());
     proxyModelQueue->setSourceModel(&modelqueue);
     proxyModelQueue->setDynamicSortFilter(true);
     proxyModelQueue->setFilterRole(ProgModel::NameRole);
@@ -138,11 +112,8 @@ int main(int argc, char *argv[])
     ctxt->setContextProperty("programmestv", proxyModelTV);
     ctxt->setContextProperty("programmesqueue", proxyModelQueue);
 
-    Log * log = new Log (view.data());
+    Log * log = new Log (Settings::getConfigDir() + "/logtail.txt", view.data());
     view->rootContext()->setContextProperty("Log", log);
-    log->initialise();
-    file.setFileName(Settings::getConfigDir() + "/logtail.txt");
-    log->importFromFile(file);
 
     Refresh * refresh = new Refresh (view.data(), models, log);
     view->rootContext()->setContextProperty("Refresh", refresh);
@@ -167,23 +138,15 @@ int main(int argc, char *argv[])
     // Write out the programme lists
     QDir dir;
     result = dir.mkpath(Settings::getConfigDir());
-    file.setFileName(Settings::getConfigDir() + "/radio.txt");
-    modelradio.exportToFile(file);
-    file.setFileName(Settings::getConfigDir() + "/tv.txt");
-    modeltv.exportToFile(file);
-    file.setFileName(Settings::getConfigDir() + "/queue.txt");
-    modelqueue.exportToFile(file);
-    file.setFileName(Settings::getConfigDir() + "/logtail.txt");
-    log->exportToFile(file);
 
-    delete metaget;
-    delete queue;
-    delete download;
-    delete refresh;
-    delete log;
-    delete proxyModelQueue;
-    delete proxyModelTV;
-    delete proxyModelRadio;
+    //delete metaget;
+    //delete queue;
+    //delete download;
+    //delete refresh;
+    //delete log;
+    //delete proxyModelQueue;
+    //delete proxyModelTV;
+    //delete proxyModelRadio;
 
     return result;
     /*

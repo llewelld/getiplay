@@ -27,12 +27,17 @@ Page {
             media.play()
             mediaplayer = media
             mediaplayerdefined = true
+            appwindow.enableControls()
+
+            var playingDetails = Queue.getDetails(progId)
+            mprisPlayer.updateMetadata(playingDetails["name"] + " - " + playingDetails["episode"], playingDetails["channel"])
         }
         else {
             console.log("Record video to play from: " + media.position)
             Queue.setMediaPosition(progId, media.position)
             media.stop()
-            mediaplayerdefined = false
+            appwindow.disableControls()
+            mprisPlayer.updateMetadata("", "")
         }
     }
 

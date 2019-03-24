@@ -34,6 +34,7 @@ import QtMultimedia 5.0
 import "pages"
 import "component"
 import harbour.getiplay.settings 1.0
+import org.nemomobile.mpris 1.0
 
 ApplicationWindow
 {
@@ -47,9 +48,24 @@ ApplicationWindow
     property MediaPlayer mediaplayer
     property bool mediaplayerdefined: false
 
+    Component.onDestruction: {
+        stopAudio()
+        console.log("Destroying");
+    }
+
+    function enableControls () {
+        mediaplayerdefined = true
+        mprisPlayer.canControl = true
+    }
+
+    function disableControls () {
+        mediaplayerdefined = false
+        mprisPlayer.canControl = false
+    }
+
     function startAudio (progId, filename) {
         mediaplayer = audioplayer
-        mediaplayerdefined = true
+        enableControls()
         mediapanelvisible = true
         if (audioProgId != "") {
             console.log("Record audio to play from: " + audio.position)
@@ -58,6 +74,10 @@ ApplicationWindow
         }
         audioProgId = progId
         audio.source = filename
+
+        var playingDetails = Queue.getDetails(progId)
+        mprisPlayer.updateMetadata(playingDetails["name"] + " - " + playingDetails["episode"], playingDetails["channel"])
+
         var mediapos = Queue.getMediaPosition(audioProgId)
         console.log("Set audio to play from: " + mediapos)
         audio.seek(mediapos)
@@ -66,11 +86,12 @@ ApplicationWindow
     }
 
     function stopAudio () {
-        mediaplayerdefined = false
+        disableControls()
         mediapanel.open = false
         console.log("Record audio to play from: " + audio.position)
         Queue.setMediaPosition(audioProgId, audio.position)
         audio.stop()
+        mprisPlayer.updateMetadata("", "")
         audioProgId =  ""
     }
 
@@ -91,8 +112,14 @@ ApplicationWindow
                 height: Theme.iconSizeMedium
                 icon.source: Qt.resolvedUrl("image://getiplay/icon-m-replay")
 
-                onShortClick: audio.seek(audio.position - (1000 * Settings.skipTimeShort))
-                onLongClick: audio.seek(audio.position - (1000 * Settings.skipTimeLong))
+                onShortClick: {
+                    audio.seek(audio.position - (1000 * Settings.skipTimeShort))
+                    mprisPlayer.emitSeeked()
+                }
+                onLongClick: {
+                    audio.seek(audio.position - (1000 * Settings.skipTimeLong))
+                    mprisPlayer.emitSeeked()
+                }
             }
 
             IconButton {
@@ -120,8 +147,14 @@ ApplicationWindow
                 height: Theme.iconSizeMedium
                 icon.source: Qt.resolvedUrl("image://getiplay/icon-m-skip")
 
-                onShortClick: audio.seek(audio.position + (1000 * Settings.skipTimeShort))
-                onLongClick: audio.seek(audio.position + (1000 * Settings.skipTimeLong))
+                onShortClick: {
+                    audio.seek(audio.position + (1000 * Settings.skipTimeShort))
+                    mprisPlayer.emitSeeked()
+                }
+                onLongClick: {
+                    audio.seek(audio.position + (1000 * Settings.skipTimeLong))
+                    mprisPlayer.emitSeeked()
+                }
             }
 
             Slider {
@@ -158,9 +191,70 @@ ApplicationWindow
         source: ""
         autoPlay: false
         onPositionChanged: {
-            if (mediapanel.open) {
+            if (mediaplayerdefined) {
                 audioslider.value = position
+                mprisPlayer.emitSeeked()
             }
+        }
+    }
+
+    MprisPlayer {
+        id: mprisPlayer
+        serviceName: "harbour-getiplay"
+        //% "harbour-getiplay"
+        identity: qsTrId("getiplay-title")
+        desktopEntry: "harbour-getiplay"
+        supportedUriSchemes: []
+        supportedMimeTypes: []
+
+        canControl: true
+        canGoNext: true
+        canGoPrevious: true
+        canPause: true
+        canPlay: true
+        canSeek: true
+        loopStatus: Mpris.None
+        function updateMetadata (title, channel) {
+            var update = {}
+            update[Mpris.metadataToString(Mpris.Artist)] = channel
+            update[Mpris.metadataToString(Mpris.Title)] = title
+            metadata = update
+        }
+        playbackStatus: mediaplayerdefined && mediaplayer.playbackState == MediaPlayer.PlayingState ? Mpris.Playing : Mpris.Paused
+        position: mediaplayerdefined ? mediaplayer.position * 1000 : 0
+
+        onPlayRequested: {
+            if (mediaplayerdefined) {
+                mediaplayer.play()
+            }
+        }
+        onPauseRequested: {
+            if (mediaplayerdefined) {
+                mediaplayer.pause()
+            }
+        }
+        onPlayPauseRequested: {
+            if (mediaplayerdefined) {
+                if (mediaplayer.playbackState == MediaPlayer.PlayingState) {
+                    mediaplayer.pause()
+                }
+                else {
+                    mediaplayer.play()
+                }
+            }
+        }
+        onNextRequested: mediaplayer.seek(mediaplayer.position + (1000 * Settings.skipTimeShort))
+        onPreviousRequested: mediaplayer.seek(mediaplayer.position - (1000 * Settings.skipTimeShort))
+        onSeekRequested: {
+            var position = mediaplayer.position + (offset / 1000.0)
+            mediaplayer.seek(position < 0 ? 0 : position)
+        }
+        onSetPositionRequested: {
+            mediaplayer.seek(position / 1000.0)
+        }
+
+        function emitSeeked() {
+            seeked(mediaplayer.position * 1000)
         }
     }
 }

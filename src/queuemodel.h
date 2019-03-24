@@ -31,7 +31,8 @@ public:
 
     QHash<int, QByteArray> roleNames() const;
 
-    QueueModel(QObject *parent = 0);
+    QueueModel(QString filename = QString(), QObject *parent = 0);
+    ~QueueModel();
 
     void addProgramme(QueueItem * programme);
     void removeFirstWithProgId(QString progid);
@@ -46,8 +47,6 @@ public:
 
     void clear();
 
-    void exportToFile(QFile & file);
-    void importFromFile(QFile & file);
     void pruneQueue();
     QString removePath(const QString &path);
     void monitorPaths(QFileSystemWatcher &filewatcher);
@@ -58,6 +57,10 @@ signals:
     void programmesChanged();
 
 private:
+    void exportToFile(QFile & file);
+    void importFromFile(QFile & file);
+
+    QString filename;
     QHash<int, QByteArray> roles;
     QList<QueueItem *> programmes;
 };

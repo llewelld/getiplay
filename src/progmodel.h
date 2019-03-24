@@ -25,7 +25,8 @@ public:
 
     QHash<int, QByteArray> roleNames() const;
 
-    ProgModel(QObject *parent = 0);
+    ProgModel(QString filename = QString(), QObject *parent = 0);
+    ~ProgModel();
 
     void addProgramme(const Programme &programme);
     void replaceAll(const ProgModel &model);
@@ -36,14 +37,15 @@ public:
 
     void clear();
 
-    void exportToFile(QFile & file);
-    void importFromFile(QFile & file);
-
 signals:
     // General signals
     void programmesChanged();
 
 private:
+    void exportToFile(QFile & file);
+    void importFromFile(QFile & file);
+
+    QString filename;
     QHash<int, QByteArray> roles;
     QList<Programme> programmes;
 };
