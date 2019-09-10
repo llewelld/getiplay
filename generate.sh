@@ -5,7 +5,7 @@
 ratios="1.0 1.25 1.5 1.75 2.0"
 
 # Generate app icons
-sizes="86 108 128 256"
+sizes="86 108 128 172 256"
 for size in ${sizes}; do
 	mkdir -p "./icons/${size}x${size}"
 	inkscape -z -e "./icons/${size}x${size}/harbour-getiplay.png" -w $size -h $size "inputs/harbour-getiplay.svg"

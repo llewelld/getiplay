@@ -107,7 +107,7 @@ Page {
             InfoRow {
                 //% "Version:"
                 label: qsTrId("getiplay-about_getiplayer_version")
-                value: "3.14"
+                value: "3.22"
                 midlineRatio: 0.3
                 midlineMin: Theme.fontSizeSmall * 5
                 midlineMax: Theme.fontSizeSmall * 10
