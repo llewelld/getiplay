@@ -82,7 +82,6 @@ void Metaget::collectArguments () {
 
     addArgument("nocopyright");
     addArgument("atomicparsley", DIR_BIN "/AtomicParsley");
-    addArgument("ffmpeg", DIR_BIN "/ffmpeg");
     addArgument("ffmpeg-loglevel", "info");
     addArgument("profile-dir", Settings::getProfileDir());
     addArgument("output", Settings::getTempDir());

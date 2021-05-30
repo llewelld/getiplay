@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
     qmlRegisterSingletonType<Settings>("harbour.getiplay.settings", 1, 0, "Settings", Settings::provider);
 
     // These values are used by QSettings to access the config file in
-    // /home/nemo/.local/share/flypig/GetiPlay.conf
+    // ~/.local/share/flypig/GetiPlay.conf
     //QCoreApplication::setOrganizationName("flypig");
     QCoreApplication::setOrganizationDomain("www.flypig.co.uk");
     QCoreApplication::setApplicationName(APP_NAME);
@@ -131,7 +131,7 @@ int main(int argc, char *argv[])
     view->rootContext()->setContextProperty("Metaget", metaget);
     metaget->initialise();
 
-    view->setSource(SailfishApp::pathTo("qml/GetiPlay.qml"));
+    view->setSource(SailfishApp::pathTo("qml/harbour-getiplay.qml"));
     view->show();
     result = app->exec();
 

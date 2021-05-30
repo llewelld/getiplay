@@ -555,7 +555,7 @@
         </translation>
     </message>
     <message id="getiplay-title">
-        <location filename="../qml/GetiPlay.qml" line="205"/>
+        <location filename="../qml/harbour-getiplay.qml" line="205"/>
         <source>harbour-getiplay</source>
         <translation type="unfinished"></translation>
     </message>

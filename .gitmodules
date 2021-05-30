@@ -1,0 +1,3 @@
+[submodule "atomicparsley"]
+	path = atomicparsley
+	url = git@github.com:wez/atomicparsley.git
