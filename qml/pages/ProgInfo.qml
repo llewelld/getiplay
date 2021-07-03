@@ -76,7 +76,7 @@ Page {
     on_ExposedChanged: {
         if (_exposed) {
             console.log("Exposed changed: " + _exposed)
-            status = Queue.getStatusFromId(progId)
+            var status = Queue.getStatusFromId(progId)
             updateStatus(status);
             // The following code line triggers metadata collection
             // It's currently disabled because we get all the data we need from the 'get_iplayer --listitem' call

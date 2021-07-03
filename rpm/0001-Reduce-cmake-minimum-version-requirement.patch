@@ -1,0 +1,25 @@
+From d09490fd867ae6238a3bc77142df527c2602cb7b Mon Sep 17 00:00:00 2001
+From: David Llewellyn-Jones <david@flypig.co.uk>
+Date: Sun, 30 May 2021 15:10:47 +0300
+Subject: [PATCH] Reduce cmake minimum version requirement
+
+The cmake version in sfdk is 3.11.4. The CmakeLists clams not to support
+this, but in practice it seems to work fine, so we patch the file to
+allow us to build it.
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 4fa2c99..2710c70 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.17)
++cmake_minimum_required(VERSION 3.11)
+ project(AtomicParsley)
+ 
+ if(NOT CMAKE_BUILD_TYPE)
+-- 
+2.25.1
+

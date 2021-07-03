@@ -134,7 +134,6 @@ void Refresh::collectArguments () {
     }
     addArgument("index-maxconn", QString("%1").arg(Settings::getInstance().getIndexMaxConn()));
     addArgument("atomicparsley", DIR_BIN "/AtomicParsley");
-    addArgument("ffmpeg", DIR_BIN "/ffmpeg");
     addArgument("ffmpeg-loglevel", "info");
     addArgument("log-progress");
     addArgument("profile-dir", Settings::getProfileDir());

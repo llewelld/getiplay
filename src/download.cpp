@@ -91,7 +91,6 @@ void Download::collectArguments () {
     addArgument("nocopyright");
     addArgument("nopurge");
     addArgument("atomicparsley", DIR_BIN "/AtomicParsley");
-    addArgument("ffmpeg", DIR_BIN "/ffmpeg");
     addArgument("ffmpeg-loglevel", "info");
     addArgument("expiry=99999999");
     addArgument("log-progress");
