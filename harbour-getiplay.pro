@@ -1,8 +1,8 @@
 # Application name
 TARGET = harbour-getiplay
 
-VERSION_MAJOR = 0
-VERSION_MINOR = 9
+VERSION_MAJOR = 1
+VERSION_MINOR = 0
 VERSION_BUILD = 1
 
 #Target version

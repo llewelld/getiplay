@@ -8,6 +8,17 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Sat Jul 03 2021 David Llewellyn-Jones <david@flypig.co.uk> 1.0-1
+- Download latest get_player as part of the build process.
+- Include AtomicParsley as a submodule.
+- Update AtomicParsley to version 0.9.6.
+- Update get_iplayer to version 3.27.
+- Remove ffmpeg binary and replace it with a package runtime requirement.
+- Internalise dependencies. Perl5 libs are now installed during the build.
+- Fix download circle to fill up, rather than deplete during program download.
+- Support 64-bit ARM builds.
+- Fix preview images on the Program Info page.
+
 * Sat Sep 14 2019 David Llewellyn-Jones <david@flypig.co.uk> 0.9-1
 - Support both armv7hl and i486 with separate perl libs and binary tools
 - Update ffmpeg to 4.2.git

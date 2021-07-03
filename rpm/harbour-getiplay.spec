@@ -5,7 +5,7 @@ Name:       harbour-getiplay
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    User interface for get_iplayer
-Version:    0.9
+Version:    1.0
 Release:    1
 License:    LICENSE
 URL:        http://www.flypig.co.uk/?to=getiplay
