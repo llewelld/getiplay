@@ -56,6 +56,8 @@ OTHER_FILES += qml/GetiPlay.qml \
     rpm/harbour-getiplay.spec \
     rpm/harbour-getiplay.yaml \
     translations/*.ts \
+    README.md \
+    generate.sh \
     harbour-getiplay.desktop \
     bin/ffmpeg \
     bin/AtomicParsley \
