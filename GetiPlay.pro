@@ -13,7 +13,7 @@
 TARGET = harbour-getiplay
 
 VERSION_MAJOR = 0
-VERSION_MINOR = 8
+VERSION_MINOR = 9
 VERSION_BUILD = 1
 
 #Target version

@@ -8,6 +8,11 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Sat Sep 14 2019 David Llewellyn-Jones <david@flypig.co.uk> 0.9-1
+- Support both armv7hl and i486 with separate perl libs and binary tools
+- Update ffmpeg to 4.2.git
+- Update AtomicParsley to 0.9.4
+
 * Tue Sep 10 2019 David Llewellyn-Jones <david@flypig.co.uk> 0.8-1
 - Update to get_iplayer 3.22.
 - Update locally installed perl modules to latest versions.
