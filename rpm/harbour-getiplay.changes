@@ -8,6 +8,11 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Tue Sep 10 2019 David Llewellyn-Jones <david@flypig.co.uk> 0.8-1
+- Update to get_iplayer 3.22.
+- Update locally installed perl modules to latest versions.
+- Add 172x172 size application icon.
+
 * Sun Mar 24 2019 David Llewellyn-Jones <david@flypig.co.uk> 0.7-1
 - Correct iterator errors when deleting media files and items from queue.
 - Correctly trim logfile and prevent UI performance degradation over time.

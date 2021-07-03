@@ -13,7 +13,7 @@
 TARGET = harbour-getiplay
 
 VERSION_MAJOR = 0
-VERSION_MINOR = 7
+VERSION_MINOR = 8
 VERSION_BUILD = 1
 
 #Target version
@@ -60,9 +60,11 @@ OTHER_FILES += qml/GetiPlay.qml \
     bin/ffmpeg \
     bin/AtomicParsley \
     bin/get_iplayer \
-    lib/perl5/*
+    lib/perl5-arm/* \
+    lib/perl5-i386/* \
+    lib/notes.md
 
-SAILFISHAPP_ICONS = 86x86 108x108 128x128 256x256
+SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172 256x256
 
 # to disable building translations every time, comment out the
 # following CONFIG line
@@ -99,14 +101,22 @@ bin.path = /usr/share/$${TARGET}
 
 INSTALLS += bin
 
-lib.files = lib
-lib.path = /usr/share/$${TARGET}
+contains(QT_ARCH, arm){
+   message("Compiling for ARM ($$QT_ARCH)")
+   lib.files = lib/perl5-arm/*
+} else {
+   message("Compiling for x86 ($$QT_ARCH)")
+   lib.files = lib/perl5-i386/*
+}
+
+lib.path = /usr/share/$${TARGET}/lib/perl5
 
 INSTALLS += lib
 
 DISTFILES += \
     icons/108x108/harbour-getiplay.png \
     icons/128x128/harbour-getiplay.png \
+    icons/172x172/harbour-getiplay.png \
     icons/256x256/harbour-getiplay.png \
     icons/86x86/harbour-getiplay.png \
     rpm/GetiPlay.changes \
