@@ -3,36 +3,26 @@
 <TS version="2.1">
 <context>
     <name></name>
-    <message id="getiplay-log_share_title">
-        <location filename="../qml/pages/Log.qml" line="37"/>
-        <source>Share Log</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-log_share_status">
-        <location filename="../qml/pages/Log.qml" line="46"/>
-        <source>GetiPlay log file</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message id="getiplay-log_menu_about">
-        <location filename="../qml/pages/Log.qml" line="56"/>
+        <location filename="../qml/pages/Log.qml" line="33"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_menu_settings">
-        <location filename="../qml/pages/Log.qml" line="61"/>
+        <location filename="../qml/pages/Log.qml" line="38"/>
         <location filename="../qml/pages/ProgList.qml" line="141"/>
         <location filename="../qml/pages/Queue.qml" line="45"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-log_menu_clear">
-        <location filename="../qml/pages/Log.qml" line="66"/>
+        <location filename="../qml/pages/Log.qml" line="43"/>
         <source>Clear log</source>
         <translation type="unfinished"></translation>
     </message>
-    <message id="getiplay-log_share_add_account">
-        <location filename="../qml/pages/Log.qml" line="81"/>
-        <source>Add account</source>
+    <message id="getiplay-log_menu_share">
+        <location filename="../qml/pages/Log.qml" line="50"/>
+        <source>Share</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_search_placeholder">

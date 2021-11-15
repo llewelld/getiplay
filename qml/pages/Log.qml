@@ -1,14 +1,10 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import Sailfish.TransferEngine 1.0
+import Sailfish.Share 1.0
 import "../component"
 import harbour.getiplay.settings 1.0
 
-import Sailfish.Gallery 1.0
-import com.jolla.settings.accounts 1.0
-
-
-SplitViewItem {
+Item {
     id: logPage
     implicitHeight: mainView.height; implicitWidth: mainView.width
 
@@ -20,33 +16,14 @@ SplitViewItem {
         open = false;
     }
 
-    Connections {
-        target: mainView
-        onCurrentIndexChanged: {
-            if (mainView.currentIndex != 3) {
-                logPage.open = false
-            }
-        }
-    }
+    // The log output box
+    SilicaFlickable {
+        anchors.fill: parent
 
-    background: ShareMethodList {
-        height: logPage.backgroundItem.height
-        header: PageHeader {
-            id: header
-            //% "Share Log"
-            title: qsTrId("getiplay-log_share_title")
+        PageHeader {
+            id: othertitle
+            title: screenName
         }
-
-        source: Settings.getLogFile(0)
-        content: {
-            "name" : "log.txt",
-            "type" : "text/plain",
-            "icon" : "image://theme/icon-l-document",
-            //% "GetiPlay log file"
-            "status" : qsTrId("getiplay-log_share_status"),
-        }
-
-        filter: "text/plain"
 
         PullDownMenu {
             id: logmenu
@@ -68,47 +45,20 @@ SplitViewItem {
                     Log.clear();
                 }
             }
-        }
-
-        // Add "add account" to the footer. User must be able to
-        // create accounts in a case there are none.
-        footer: BackgroundItem {
-            // Disable mousearea
-            enabled: addAccountLabel.visible
-            Label {
-                id: addAccountLabel
-                //% "Add account"
-                text: qsTrId("getiplay-log_share_add_account")
-                x: Theme.horizontalPageMargin
-                anchors.verticalCenter: parent.verticalCenter
-                color: highlighted ? Theme.highlightColor : Theme.primaryColor
-                visible: true
-            }
-
-            onClicked: {
-                accountCreator.startAccountCreation()
+            MenuItem {
+                //% "Share"
+                text: qsTrId("getiplay-log_menu_share")
+                onClicked: share.trigger()
             }
         }
 
-        AccountCreationManager {
-            id: accountCreator
-            serviceFilter: ["sharing","e-mail"]
-            endDestination: logPage
-            endDestinationAction: PageStackAction.Pop
-        }
-
-
-
-    }
-
-    // The log output box
-    foreground: MouseArea {
-        height: logPage.foregroundItem.height
-        width: parent.width
-
-        PageHeader {
-            id: othertitle
-            title: screenName
+        ShareAction {
+            id: share
+            mimeType: "text/plain"
+            resources: [
+                Settings.getLogFile(0)
+            ]
+            title: "getiplay-log.txt"
         }
 
         Rectangle {
@@ -118,13 +68,12 @@ SplitViewItem {
                 width: 1
             }
 
-            y: parent.y + othertitle.height + Theme.paddingLarge
+            y: othertitle.height + Theme.paddingLarge
             anchors.horizontalCenter: parent.horizontalCenter
             height: parent.height - othertitle.height - 2 * Theme.paddingLarge
             width: parent.width - 2 * Theme.paddingLarge
             clip: true
 
-            //TextEdit {
             Label {
                 id: logOutput
                 textFormat: Text.PlainText
@@ -140,9 +89,6 @@ SplitViewItem {
                 x: Theme.paddingSmall
                 anchors.bottom: parent.bottom
             }
-        }
-        onClicked: {
-            logPage.open = !logPage.open
         }
     }
 }
