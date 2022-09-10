@@ -9,6 +9,7 @@ logfile::logfile()
 {
     fileOpen = false;
     file.setFileName(Settings::getLogFile(0));
+    qDebug() << "Log file: " << file.fileName();
 }
 
 logfile::~logfile()

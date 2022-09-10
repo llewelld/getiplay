@@ -28,6 +28,7 @@ class Settings : public QObject
     Q_PROPERTY(unsigned int skipTimeLong READ getSkipTimeLong WRITE setSkipTimeLong NOTIFY skipTimeLongChanged)
     Q_PROPERTY(QUALITY modeTv READ getModeTv WRITE setModeTv NOTIFY modeTvChanged)
     Q_PROPERTY(QUALITY modeRadio READ getModeRadio WRITE setModeRadio NOTIFY modeRadioChanged)
+    Q_PROPERTY(QString latestLogFile READ getLatestLogFile CONSTANT)
 
 public:
     enum PROGTYPE {
@@ -77,6 +78,7 @@ public:
     bool getRebuildCache(int type);
     Q_INVOKABLE QString getImageDir() const;
     Q_INVOKABLE QString getImageUrl(const QString &id) const;
+    QString getLatestLogFile() const;
 
     // Configurable values
     Q_INVOKABLE QString getAudioDir();

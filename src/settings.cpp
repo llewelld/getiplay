@@ -149,6 +149,9 @@ QString Settings::getLogFile(unsigned int cycle) {
     return filename;
 }
 
+QString Settings::getLatestLogFile() const {
+    return getLogFile(0);
+}
 
 QString & Settings::escape(QString &string) {
     string.replace("\n", "|");

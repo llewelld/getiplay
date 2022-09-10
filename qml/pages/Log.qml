@@ -46,7 +46,7 @@ Item {
                 }
             }
             MenuItem {
-                //% "Share"
+                //% "Share log"
                 text: qsTrId("getiplay-log_menu_share")
                 onClicked: share.trigger()
             }
@@ -56,9 +56,9 @@ Item {
             id: share
             mimeType: "text/plain"
             resources: [
-                Settings.getLogFile(0)
+                Settings.latestLogFile
             ]
-            title: "getiplay-log.txt"
+            title: "GetiPlay log file"
         }
 
         Rectangle {

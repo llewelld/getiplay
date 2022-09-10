@@ -22,7 +22,8 @@
     </message>
     <message id="getiplay-log_menu_share">
         <location filename="../qml/pages/Log.qml" line="50"/>
-        <source>Share</source>
+        <source>Share log</source>
+        <oldsource>Share</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-proglist_search_placeholder">
