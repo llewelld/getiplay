@@ -10,12 +10,16 @@ Page {
     property string videoFolder: Settings.videoDir
     property string audioFolder: Settings.audioDir
     property alias proxyUrl: proxyUrlEntry.text
-    property alias refreshType: refreshtypeentry.currentIndex
+    property alias refreshType: refreshtypeEntry.currentIndex
+    property alias modeTv: modeTvEntry.currentIndex
+    property alias modeRadio: modeRadioEntry.currentIndex
 
     Binding { target: Settings; property: "videoDir"; value: videoFolder }
     Binding { target: Settings; property: "audioDir"; value: audioFolder }
     Binding { target: Settings; property: "proxyUrl"; value: proxyUrl }
     Binding { target: Settings; property: "refreshType"; value: refreshType }
+    Binding { target: Settings; property: "modeTv"; value: modeTv }
+    Binding { target: Settings; property: "modeRadio"; value: modeRadio }
 
     SilicaFlickable {
         width: parent.width
@@ -30,7 +34,7 @@ Page {
         Column {
             id: settingsColumn
             width: parent.width
-            spacing: Theme.paddingLarge
+            spacing: Theme.paddingMedium
 
             PageHeader {
                 //% "Settings"
@@ -43,7 +47,7 @@ Page {
             }
 
             ComboBox {
-                id: refreshtypeentry
+                id: refreshtypeEntry
                 width: parent.width
                 //% "Programme listing type"
                 label: qsTrId("getiplay-settings_listtype")
@@ -69,6 +73,49 @@ Page {
                 }
                 //% "Programme lists must be refreshed to take effect"
                 description: qsTrId("getiplay-settings_listtype_description")
+            }
+
+            ComboBox {
+                id: modeTvEntry
+                width: parent.width
+                //% "Video quality"
+                label: qsTrId("getiplay-settings_videoquality")
+                currentIndex: Settings.modeTv
+
+                menu: ContextMenu {
+                    MenuItem {
+                        //% "Best"
+                        text: qsTrId("getiplay-settings_quality_best")
+                    }
+                    MenuItem {
+                        //% "Good"
+                        text: qsTrId("getiplay-settings_quality_good")
+                    }
+                    MenuItem {
+                        //% "Worst"
+                        text: qsTrId("getiplay-settings_quality_worst")
+                    }
+                }
+            }
+
+            ComboBox {
+                id: modeRadioEntry
+                width: parent.width
+                //% "Audioquality"
+                label: qsTrId("getiplay-settings_autioquality")
+                currentIndex: Settings.modeTv
+
+                menu: ContextMenu {
+                    MenuItem {
+                        text: qsTrId("getiplay-settings_quality_best")
+                    }
+                    MenuItem {
+                        text: qsTrId("getiplay-settings_quality_good")
+                    }
+                    MenuItem {
+                        text: qsTrId("getiplay-settings_quality_worst")
+                    }
+                }
             }
 
             TextField {

@@ -15,7 +15,7 @@
 class Settings : public QObject
 {
     Q_OBJECT
-    Q_ENUMS(REFRESHTYPE PROGTYPE)
+    Q_ENUMS(REFRESHTYPE PROGTYPE QUALITY)
 
     // General properties
     Q_PROPERTY(QString audioDir READ getAudioDir WRITE setAudioDir NOTIFY audioDirChanged)
@@ -26,6 +26,8 @@ class Settings : public QObject
     Q_PROPERTY(unsigned int indexMaxConn READ getIndexMaxConn WRITE setIndexMaxConn NOTIFY indexMaxConnChanged)
     Q_PROPERTY(unsigned int skipTimeShort READ getSkipTimeShort WRITE setSkipTimeShort NOTIFY skipTimeShortChanged)
     Q_PROPERTY(unsigned int skipTimeLong READ getSkipTimeLong WRITE setSkipTimeLong NOTIFY skipTimeLongChanged)
+    Q_PROPERTY(QUALITY modeTv READ getModeTv WRITE setModeTv NOTIFY modeTvChanged)
+    Q_PROPERTY(QUALITY modeRadio READ getModeRadio WRITE setModeRadio NOTIFY modeRadioChanged)
 
 public:
     enum PROGTYPE {
@@ -46,6 +48,16 @@ public:
         REFRESHTYPE_TV = 1,
 
         REFRESHTYPE_NUM
+    };
+
+    enum QUALITY {
+        QUALITY_INVALID = -1,
+
+        QUALITY_BEST,
+        QUALITY_GOOD,
+        QUALITY_WORST,
+
+        QUALITY_NUM
     };
 
     explicit Settings(QObject *parent = nullptr);
@@ -75,10 +87,13 @@ public:
     Q_INVOKABLE unsigned int getIndexMaxConn();
     Q_INVOKABLE unsigned int getSkipTimeShort();
     Q_INVOKABLE unsigned int getSkipTimeLong();
+    Q_INVOKABLE QUALITY getModeTv();
+    Q_INVOKABLE QUALITY getModeRadio();
 
     Q_INVOKABLE static QString epochToDate (quint64 epoch);
     Q_INVOKABLE static quint64 dateToEpoch (QString date);
     Q_INVOKABLE static QString millisecondsToTime (quint32 milliseconds);
+    Q_INVOKABLE static QString qualityToString (QUALITY quality);
 
     static QString & escape(QString &string);
     static QString & unescape(QString &string);
@@ -93,6 +108,8 @@ signals:
     void indexMaxConnChanged(unsigned int indexMaxConn);
     void skipTimeShortChanged(unsigned int skipTimeShort);
     void skipTimeLongChanged(unsigned int skipTimeLong);
+    void modeTvChanged(QUALITY modeTv);
+    void modeRadioChanged(QUALITY modeRadio);
 
 public slots:
     // Configurable values
@@ -104,6 +121,8 @@ public slots:
     void setIndexMaxConn(unsigned int value);
     void setSkipTimeShort(unsigned int value);
     void setSkipTimeLong(unsigned int value);
+    void setModeTv(QUALITY value);
+    void setModeRadio(QUALITY value);
 
 private:
     typedef enum _DEVICE {
@@ -141,6 +160,8 @@ private:
     unsigned int indexMaxConn;
     unsigned int skipTimeShort;
     unsigned int skipTimeLong;
+    QUALITY modeTv;
+    QUALITY modeRadio;
 };
 
 #endif // SETTINGS_H

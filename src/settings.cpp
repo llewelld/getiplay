@@ -21,6 +21,8 @@ Settings::Settings(QObject *parent) : QObject(parent),
     audioDir = settings.value("storage/audioDir", QString(QStandardPaths::writableLocation(QStandardPaths::MusicLocation) + "/" APP_NAME)).toString();
     videoDir = settings.value("storage/videoDir", QString(QStandardPaths::writableLocation(QStandardPaths::MoviesLocation) + "/" APP_NAME)).toString();
     proxyUrl = settings.value("download/proxyUrl", "").toString();
+    modeTv = (QUALITY)settings.value("download/modeTv", QUALITY_WORST).toInt();
+    modeRadio = (QUALITY)settings.value("download/modeRadio", QUALITY_WORST).toInt();
     refreshType = (PROGTYPE)settings.value("storage/refreshType", PROGTYPE_NATIONAL).toInt();
 
     settings.beginReadArray("storage/lastRefresh");
@@ -78,6 +80,9 @@ Settings::~Settings() {
     settings.setValue("storage/audioDir", audioDir);
     settings.setValue("storage/videoDir", videoDir);
     settings.setValue("download/proxyUrl", proxyUrl);
+    settings.setValue("download/modeTv", modeTv);
+    settings.setValue("download/modeRadio", modeRadio);
+
     settings.setValue("storage/refreshType", refreshType);
     settings.setValue("state/currentTab", currentTab);
 
@@ -212,6 +217,14 @@ unsigned int Settings::getSkipTimeLong() {
     return skipTimeLong;
 }
 
+Settings::QUALITY Settings::getModeTv() {
+    return modeTv;
+}
+
+Settings::QUALITY Settings::getModeRadio() {
+    return modeRadio;
+}
+
 void Settings::setAudioDir(QString &value) {
     qDebug() << "Set audio Dir: " << value;
     audioDir = value;
@@ -262,6 +275,18 @@ void Settings::setSkipTimeLong(unsigned int value) {
     emit skipTimeLongChanged(skipTimeLong);
 }
 
+void Settings::setModeTv(QUALITY value) {
+    qDebug() << "Set mode tv: " << value;
+    modeTv = value;
+    emit modeTvChanged(modeTv);
+}
+
+void Settings::setModeRadio(QUALITY value) {
+    qDebug() << "Set mode radio: " << value;
+    modeRadio = value;
+    emit modeRadioChanged(modeRadio);
+}
+
 bool Settings::getRebuildCache(int type) {
     bool rebuildCache;
     int typeget = qBound(0, (int)type, (int)REFRESHTYPE_NUM);
@@ -286,6 +311,24 @@ QString Settings::millisecondsToTime (quint32 milliseconds) {
     int seconds = (remaining % 60);
 
     return QString("%1:%2:%3").arg(hours).arg(minutes, 2, 'f', 0, '0').arg(seconds, 2, 'f', 0, '0');
+}
+
+QString Settings::qualityToString (QUALITY quality) {
+    QString result;
+    switch (quality) {
+    case QUALITY_BEST:
+        result = QStringLiteral("best");
+        break;
+    case QUALITY_GOOD:
+        result = QStringLiteral("good");
+        break;
+    case QUALITY_WORST:
+    default:
+        result = QStringLiteral("worst");
+        break;
+    }
+
+    return result;
 }
 
 QString Settings::getImageDir() const {

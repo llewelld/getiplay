@@ -328,97 +328,125 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_title">
-        <location filename="../qml/pages/Settings.qml" line="37"/>
+        <location filename="../qml/pages/Settings.qml" line="41"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_subtitle_">
-        <location filename="../qml/pages/Settings.qml" line="42"/>
+        <location filename="../qml/pages/Settings.qml" line="46"/>
         <source>Download</source>
         <oldsource>Download settings</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype">
-        <location filename="../qml/pages/Settings.qml" line="49"/>
+        <location filename="../qml/pages/Settings.qml" line="53"/>
         <source>Programme listing type</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype_national">
-        <location filename="../qml/pages/Settings.qml" line="55"/>
+        <location filename="../qml/pages/Settings.qml" line="59"/>
         <source>National</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype_regional">
-        <location filename="../qml/pages/Settings.qml" line="59"/>
+        <location filename="../qml/pages/Settings.qml" line="63"/>
         <source>Regional</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype_local">
-        <location filename="../qml/pages/Settings.qml" line="63"/>
+        <location filename="../qml/pages/Settings.qml" line="67"/>
         <source>Local</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype_all">
-        <location filename="../qml/pages/Settings.qml" line="67"/>
+        <location filename="../qml/pages/Settings.qml" line="71"/>
         <source>All</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype_description">
-        <location filename="../qml/pages/Settings.qml" line="71"/>
+        <location filename="../qml/pages/Settings.qml" line="75"/>
         <source>Programme lists must be refreshed to take effect</source>
         <oldsource>Programme lists must be refreshed for change to take effect.</oldsource>
         <translation type="unfinished"></translation>
     </message>
+    <message id="getiplay-settings_videoquality">
+        <location filename="../qml/pages/Settings.qml" line="82"/>
+        <source>Video quality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_quality_best">
+        <location filename="../qml/pages/Settings.qml" line="88"/>
+        <location filename="../qml/pages/Settings.qml" line="110"/>
+        <source>Best</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_quality_good">
+        <location filename="../qml/pages/Settings.qml" line="92"/>
+        <location filename="../qml/pages/Settings.qml" line="113"/>
+        <source>Good</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_quality_worst">
+        <location filename="../qml/pages/Settings.qml" line="96"/>
+        <location filename="../qml/pages/Settings.qml" line="116"/>
+        <source>Worst</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_autioquality">
+        <location filename="../qml/pages/Settings.qml" line="105"/>
+        <source>Audioquality</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message id="getiplay-settings_proxy">
-        <location filename="../qml/pages/Settings.qml" line="77"/>
+        <location filename="../qml/pages/Settings.qml" line="124"/>
         <source>Web proxy URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_max_connections">
-        <location filename="../qml/pages/Settings.qml" line="89"/>
+        <location filename="../qml/pages/Settings.qml" line="136"/>
         <source>Maximum connections</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_subtitle_file_storage">
-        <location filename="../qml/pages/Settings.qml" line="102"/>
+        <location filename="../qml/pages/Settings.qml" line="149"/>
         <source>File storage</source>
         <oldsource>File storage settings</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_video_folder">
-        <location filename="../qml/pages/Settings.qml" line="107"/>
+        <location filename="../qml/pages/Settings.qml" line="154"/>
         <source>Video folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_select_video_folder">
-        <location filename="../qml/pages/Settings.qml" line="118"/>
+        <location filename="../qml/pages/Settings.qml" line="165"/>
         <source>Select video folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_audio_folder">
-        <location filename="../qml/pages/Settings.qml" line="129"/>
+        <location filename="../qml/pages/Settings.qml" line="176"/>
         <source>Audio folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_select_audio_folder">
-        <location filename="../qml/pages/Settings.qml" line="140"/>
+        <location filename="../qml/pages/Settings.qml" line="187"/>
         <source>Select audio folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_subtitle_playback">
-        <location filename="../qml/pages/Settings.qml" line="151"/>
+        <location filename="../qml/pages/Settings.qml" line="198"/>
         <source>Playback</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_skip_time_short">
-        <location filename="../qml/pages/Settings.qml" line="158"/>
-        <location filename="../qml/pages/Settings.qml" line="162"/>
+        <location filename="../qml/pages/Settings.qml" line="205"/>
+        <location filename="../qml/pages/Settings.qml" line="209"/>
         <source>Short skip duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_skip_time_long">
-        <location filename="../qml/pages/Settings.qml" line="174"/>
-        <location filename="../qml/pages/Settings.qml" line="178"/>
+        <location filename="../qml/pages/Settings.qml" line="221"/>
+        <location filename="../qml/pages/Settings.qml" line="225"/>
         <source>Long skip duration</source>
         <translation type="unfinished"></translation>
     </message>
@@ -590,42 +618,42 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_episode">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="127"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="122"/>
         <source>Episode:</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_channel">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="137"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="132"/>
         <source>Channel:</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_date_available">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="147"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="142"/>
         <source>Date:</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueitem_date_unknown">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="149"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="144"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_status">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="159"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="154"/>
         <source>Status:</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_play">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="229"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="224"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_launch">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="246"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="241"/>
         <source>Launch</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-queueinfo_website">
-        <location filename="../qml/pages/QueueItemInfo.qml" line="257"/>
+        <location filename="../qml/pages/QueueItemInfo.qml" line="252"/>
         <source>Website</source>
         <translation type="unfinished"></translation>
     </message>
