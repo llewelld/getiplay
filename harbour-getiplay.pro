@@ -31,17 +31,6 @@ SOURCES += \
     src/imageprovider.cpp
 
 OTHER_FILES += \
-    qml/cover/CoverPage.qml \
-    qml/component/*.qml \
-    qml/harbour-getiplay.qml \
-    qml/pages/AboutPage.qml \
-    qml/pages/Log.qml \
-    qml/pages/MainPage.qml \
-    qml/pages/ProgInfo.qml \
-    qml/pages/ProgList.qml \
-    qml/pages/Queue.qml \
-    qml/pages/QueueItemInfo.qml \
-    qml/images/* \
     rpm/harbour-getiplay.changes \
     rpm/harbour-getiplay.spec \
     translations/*.ts \
@@ -84,22 +73,11 @@ DISTFILES += \
     icons/172x172/harbour-getiplay.png \
     icons/256x256/harbour-getiplay.png \
     icons/86x86/harbour-getiplay.png \
-    qml/component/ListingTypeComboBox.qml \
-    qml/component/QualityComboBox.qml \
-    rpm/GetiPlay.changes \
-    qml/pages/MainPage.qml \
-    qml/pages/Queue.qml \
-    qml/pages/Log.qml \
-    qml/pages/ProgInfo.qml \
-    qml/pages/QueueItemInfo.qml \
-    qml/component/SplitViewItem.qml \
-    qml/pages/Settings.qml \
-    qml/component/FolderPickerDialog.qml \
-    qml/component/PickerDialog.qml \
-    qml/pages/VideoView.qml \
-    qml/component/InfoRow.qml \
-    qml/pages/DirectDownload.qml
-    qml/component/IconButtonDual.qml
+    qml/cover/CoverPage.qml \
+    qml/harbour-getiplay.qml \
+    qml/component/*.qml \
+    qml/pages/*.qml \
+    qml/images/*
 
 # Perl library building and installation
 perl_lib.commands = mkdir -p lib/perl5

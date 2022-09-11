@@ -122,7 +122,7 @@ Page {
                 text: qsTrId("getiplay-settings_subtitle_file_storage")
             }
 
-            ValueButton {
+            ValueButtonRight {
                 //% "Video folder"
                 label: qsTrId("getiplay-settings_video_folder")
                 value: videoFolder
@@ -133,18 +133,17 @@ Page {
 
             Component {
                 id: videoPickerDialog
-                FolderPickerDialog {
-                    //% "Select video folder"
-                    title: qsTrId("getiplay-settings_select_video_folder")
-                    _maskedAcceptDestination: settingsPage
+                FolderPickerPage {
+                    //% "Video folder"
+                    dialogTitle: qsTrId("getiplay-settings_select_video_folder")
 
-                    onAccepted: {
-                        videoFolder = selectedFolder
+                    onSelectedPathChanged: {
+                        videoFolder = selectedPath
                     }
                 }
             }
 
-            ValueButton {
+            ValueButtonRight {
                 //% "Audio folder"
                 label: qsTrId("getiplay-settings_audio_folder")
                 value: audioFolder
@@ -155,13 +154,12 @@ Page {
 
             Component {
                 id: audioPickerDialog
-                FolderPickerDialog {
-                    //% "Select audio folder"
-                    title: qsTrId("getiplay-settings_select_audio_folder")
-                    _maskedAcceptDestination: settingsPage
+                FolderPickerPage {
+                    //% "Audio folder"
+                    dialogTitle: qsTrId("getiplay-settings_select_audio_folder")
 
-                    onAccepted: {
-                        audioFolder = selectedFolder
+                    onSelectedPathChanged: {
+                        audioFolder = selectedPath
                     }
                 }
             }

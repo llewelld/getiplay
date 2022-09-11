@@ -296,38 +296,6 @@
         <source>Visit website</source>
         <translation type="unfinished"></translation>
     </message>
-    <message id="components_pickers-he-select_location">
-        <location filename="../qml/component/FolderPickerDialog.qml" line="27"/>
-        <source>Select location</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-components_pickers-me-hide_hidden_dirs">
-        <location filename="../qml/component/private/DirectoryListView.qml" line="85"/>
-        <source>Hide hidden folders</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-components_pickers-me-show_hidden_dirs">
-        <location filename="../qml/component/private/DirectoryListView.qml" line="87"/>
-        <source>Show hidden folders</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="components_pickers-me-sort">
-        <location filename="../qml/component/private/DirectoryListView.qml" line="92"/>
-        <source>Sort</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-components_pickers-ph-unreadable_location">
-        <location filename="../qml/component/private/DirectoryListView.qml" line="130"/>
-        <source>Select Accept to choose this folder</source>
-        <extracomment>Empty state text if there are no folders to show</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="components_pickers-ph-unreadable_location">
-        <location filename="../qml/component/private/DirectoryListView.qml" line="137"/>
-        <source>The location cannot be accessed</source>
-        <extracomment>Empty state text if the path is not readable by the application</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
     <message id="getiplay-settings_title">
         <location filename="../qml/pages/Settings.qml" line="43"/>
         <source>Settings</source>
@@ -354,7 +322,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype_description">
-        <location filename="../qml/pages/Settings.qml" line="53"/>
+        <location filename="../qml/pages/Settings.qml" line="67"/>
         <source>Refresh lists to apply the changes</source>
         <oldsource>Refresh list to apply</oldsource>
         <translation type="unfinished"></translation>
@@ -385,12 +353,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype-tv">
-        <location filename="../qml/pages/Settings.qml" line="64"/>
+        <location filename="../qml/pages/Settings.qml" line="54"/>
         <source>Television listing type</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype-radio">
-        <location filename="../qml/pages/Settings.qml" line="71"/>
+        <location filename="../qml/pages/Settings.qml" line="61"/>
         <source>Radio listing type</source>
         <translation type="unfinished"></translation>
     </message>
@@ -427,74 +395,36 @@
     </message>
     <message id="getiplay-settings_select_video_folder">
         <location filename="../qml/pages/Settings.qml" line="138"/>
-        <source>Select video folder</source>
+        <source>Video folder</source>
+        <oldsource>Select video folder</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_audio_folder">
-        <location filename="../qml/pages/Settings.qml" line="149"/>
+        <location filename="../qml/pages/Settings.qml" line="148"/>
         <source>Audio folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_select_audio_folder">
-        <location filename="../qml/pages/Settings.qml" line="160"/>
-        <source>Select audio folder</source>
+        <location filename="../qml/pages/Settings.qml" line="159"/>
+        <source>Audio folder</source>
+        <oldsource>Select audio folder</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_subtitle_playback">
-        <location filename="../qml/pages/Settings.qml" line="171"/>
+        <location filename="../qml/pages/Settings.qml" line="169"/>
         <source>Playback</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_skip_time_short">
-        <location filename="../qml/pages/Settings.qml" line="178"/>
-        <location filename="../qml/pages/Settings.qml" line="182"/>
+        <location filename="../qml/pages/Settings.qml" line="176"/>
+        <location filename="../qml/pages/Settings.qml" line="180"/>
         <source>Short skip duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_skip_time_long">
-        <location filename="../qml/pages/Settings.qml" line="194"/>
-        <location filename="../qml/pages/Settings.qml" line="198"/>
+        <location filename="../qml/pages/Settings.qml" line="192"/>
+        <location filename="../qml/pages/Settings.qml" line="196"/>
         <source>Long skip duration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="components_pickers-la-system_files">
-        <location filename="../qml/component/private/PartitionListView.qml" line="41"/>
-        <source>System files</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="components_pickers-la-home_folder">
-        <location filename="../qml/component/private/PartitionListView.qml" line="48"/>
-        <source>Home folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="components_pickers-la-memory_card">
-        <location filename="../qml/component/private/PartitionListView.qml" line="65"/>
-        <source>Memory card</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="components_pickers-he-multiselect_dialog_back">
-        <location filename="../qml/component/private/PickerDialogHeader.qml" line="20"/>
-        <source>Back</source>
-        <extracomment>Dialog header cancel text as &quot;Back&quot;</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="components_pickers-he-multipicker_accept" numerus="yes">
-        <location filename="../qml/component/private/PickerDialogHeader.qml" line="30"/>
-        <source>Accept %n</source>
-        <extracomment>Multi content picker number of selected content items</extracomment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message id="components_pickers-la-file_details">
-        <location filename="../qml/component/private/FileItem.qml" line="70"/>
-        <source>%1, %2</source>
-        <extracomment>Shows size and modification date, e.g. &quot;15.5MB, 02/03/2016&quot;</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="components_pickers-la-parent_folder">
-        <location filename="../qml/component/private/FileItem.qml" line="81"/>
-        <source>Parent folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-directdownload_title">
@@ -558,13 +488,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings-timer_writing_direction">
-        <location filename="../qml/component/SkipPickerDialog.qml" line="68"/>
+        <location filename="../qml/component/SkipPickerDialog.qml" line="67"/>
         <source>LTR</source>
         <extracomment>Can have two values: &quot;LTR&quot; if remaining time in timer item should be written in &quot;[value] [unit]&quot; order i.e. &quot;2 min&quot;, or &quot;RTL&quot; i.e. right-to-left like in Arabic writing systems</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings-timer_minutes_short" numerus="yes">
-        <location filename="../qml/component/SkipPickerDialog.qml" line="85"/>
+        <location filename="../qml/component/SkipPickerDialog.qml" line="84"/>
         <source>min</source>
         <extracomment>&quot;Minute abbrevation. Should be short form if possible.&quot;</extracomment>
         <translation type="unfinished">
@@ -572,7 +502,7 @@
         </translation>
     </message>
     <message id="getiplay-settings-timer_seconds_short" numerus="yes">
-        <location filename="../qml/component/SkipPickerDialog.qml" line="105"/>
+        <location filename="../qml/component/SkipPickerDialog.qml" line="104"/>
         <source>sec</source>
         <extracomment>&quot;Second abbrevation. Should be short form if possible.&quot;</extracomment>
         <translation type="unfinished">
