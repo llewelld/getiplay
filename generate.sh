@@ -8,7 +8,7 @@ ratios="1.0 1.25 1.5 1.75 2.0"
 sizes="86 108 128 172 256"
 for size in ${sizes}; do
 	mkdir -p "./icons/${size}x${size}"
-	inkscape -z -e "./icons/${size}x${size}/harbour-getiplay.png" -w $size -h $size "inputs/harbour-getiplay.svg"
+        inkscape -o "./icons/${size}x${size}/harbour-getiplay.png" -w $size -h $size "inputs/harbour-getiplay.svg"
 done
 
 # Create the ratio directories
@@ -22,11 +22,11 @@ function generate {
 	basey=$2
 	names=$3
 	for ratio in ${ratios}; do
-		sizex=`echo "${ratio} * ${basex}" | bc`
-		sizey=`echo "${ratio} * ${basey}" | bc`
-		for name in ${names}; do
-			inkscape -z -e "./qml/images/z${ratio}/${name}.png" -w ${sizex} -h ${sizey} "inputs/${name}.svg"
-		done
+                sizex=`echo "(${ratio} * ${basex}) + 0.5" | bc | sed -e "s/[\.,][0-9]*//g"`
+                sizey=`echo "(${ratio} * ${basey}) + 0.5" | bc | sed -e "s/[\.,][0-9]*//g"`
+                for name in ${names}; do
+                        inkscape -o "./qml/images/z${ratio}/${name}.png" -w ${sizex} -h ${sizey} "inputs/${name}.svg"
+                done
 	done
 }
 

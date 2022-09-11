@@ -2,20 +2,20 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="10.217536mm"
-   height="10.217536mm"
+   width="38.617458"
+   height="38.617458"
    viewBox="0 0 36.203868 36.203867"
    id="svg12792"
    version="1.1"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="icon-cover-skip.svg">
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="icon-cover-skip.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs12794" />
   <sodipodi:namedview
@@ -26,8 +26,8 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.959798"
-     inkscape:cx="-120.70529"
-     inkscape:cy="5.4814159"
+     inkscape:cx="-120.71323"
+     inkscape:cy="5.4295699"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -35,11 +35,13 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="3200"
-     inkscape:window-height="1773"
+     inkscape:window-width="3456"
+     inkscape:window-height="2089"
      inkscape:window-x="0"
-     inkscape:window-y="27"
-     inkscape:window-maximized="1" />
+     inkscape:window-y="34"
+     inkscape:window-maximized="1"
+     inkscape:pagecheckerboard="0"
+     units="px" />
   <metadata
      id="metadata12797">
     <rdf:RDF>
@@ -48,7 +50,6 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -58,7 +59,7 @@
      id="layer1"
      transform="translate(-404.75521,-294.26027)">
     <g
-       transform="matrix(-1,0,0,-1,835,756.86726)"
+       transform="rotate(180,417.5,378.43363)"
        id="g8782-6"
        inkscape:export-filename="/home/flypig/Documents/Development/sailfish/getiplay/qml/images/icon-cover-skip.png"
        inkscape:export-xdpi="139.21001"
@@ -67,7 +68,7 @@
          transform="matrix(0,-1,-1,0,428.14286,460.50506)"
          id="icon-cover-backup_2_-4-6">
         <rect
-           transform="matrix(0.98994949,-0.14142136,0.14142136,0.98994949,0,0)"
+           transform="rotate(-8.1301026)"
            y="2.1019335"
            x="-2.4235499"
            id="icon-cover-backup_3_-5-7"

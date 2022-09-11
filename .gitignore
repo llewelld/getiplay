@@ -37,5 +37,4 @@ Makefile*
 resources
 
 # Generated data
-qml/images
 translations/*.qm
