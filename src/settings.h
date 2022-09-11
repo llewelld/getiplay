@@ -21,7 +21,9 @@ class Settings : public QObject
     Q_PROPERTY(QString audioDir READ getAudioDir WRITE setAudioDir NOTIFY audioDirChanged)
     Q_PROPERTY(QString videoDir READ getVideoDir WRITE setVideoDir NOTIFY videoDirChanged)
     Q_PROPERTY(QString proxyUrl READ getProxyUrl WRITE setProxyUrl NOTIFY proxyUrlChanged)
-    Q_PROPERTY(PROGTYPE refreshType READ getRefreshType WRITE setRefreshType NOTIFY refreshTypeChanged)
+    Q_PROPERTY(PROGTYPE refreshTypeTv READ getRefreshTypeTv WRITE setRefreshTypeTv NOTIFY refreshTypeTvChanged)
+    Q_PROPERTY(PROGTYPE refreshTypeRadio READ getRefreshTypeRadio WRITE setRefreshTypeRadio NOTIFY refreshTypeRadioChanged)
+
     Q_PROPERTY(unsigned int currentTab READ getCurrentTab WRITE setCurrentTab NOTIFY currentTabChanged)
     Q_PROPERTY(unsigned int indexMaxConn READ getIndexMaxConn WRITE setIndexMaxConn NOTIFY indexMaxConnChanged)
     Q_PROPERTY(unsigned int skipTimeShort READ getSkipTimeShort WRITE setSkipTimeShort NOTIFY skipTimeShortChanged)
@@ -84,7 +86,8 @@ public:
     Q_INVOKABLE QString getAudioDir();
     Q_INVOKABLE QString getVideoDir();
     Q_INVOKABLE QString getProxyUrl();
-    Q_INVOKABLE PROGTYPE getRefreshType();
+    Q_INVOKABLE PROGTYPE getRefreshTypeTv();
+    Q_INVOKABLE PROGTYPE getRefreshTypeRadio();
     Q_INVOKABLE unsigned int getCurrentTab();
     Q_INVOKABLE unsigned int getIndexMaxConn();
     Q_INVOKABLE unsigned int getSkipTimeShort();
@@ -105,7 +108,8 @@ signals:
     void audioDirChanged(QString &audioDir);
     void videoDirChanged(QString &videoDir);
     void proxyUrlChanged(QString &proxyUrl);
-    void refreshTypeChanged(PROGTYPE refreshType);
+    void refreshTypeTvChanged(PROGTYPE refreshTypeTv);
+    void refreshTypeRadioChanged(PROGTYPE refreshTypeRadio);
     void currentTabChanged(unsigned int currentTab);
     void indexMaxConnChanged(unsigned int indexMaxConn);
     void skipTimeShortChanged(unsigned int skipTimeShort);
@@ -118,7 +122,8 @@ public slots:
     void setAudioDir(QString &value);
     void setVideoDir(QString &value);
     void setProxyUrl(QString &value);
-    void setRefreshType(PROGTYPE value);
+    void setRefreshTypeTv(PROGTYPE value);
+    void setRefreshTypeRadio(PROGTYPE value);
     void setCurrentTab(unsigned int value);
     void setIndexMaxConn(unsigned int value);
     void setSkipTimeShort(unsigned int value);
@@ -127,25 +132,7 @@ public slots:
     void setModeRadio(QUALITY value);
 
 private:
-    typedef enum _DEVICE {
-        DEVICE_INVALID = -1,
-        DEVICE_FAILURE,
-        DEVICE_UNKNOWN,
-
-        DEVICE_JOLLA_ONE,
-        DEVICE_JOLLA_TABLET,
-        DEVICE_ONE_PLUS_X,
-        DEVICE_SIBON,
-        DEVICE_JOLLA_C,
-        DEVICE_AQUAFISH,
-        DEVICE_XPERIA_X,
-        DEVICE_XPERIA_X_DUALSIM,
-        DEVICE_XPERIA_X_COMPACT,
-
-        DEVICe_NUM
-    } DEVICE;
-
-    static DEVICE getDevice();
+    static bool earlyDevice();
 
     static Settings * instance;
     QSettings settings;
@@ -156,7 +143,8 @@ private:
     QString audioDir;
     QString videoDir;
     QString proxyUrl;
-    PROGTYPE refreshType;
+    PROGTYPE refreshTypeTv;
+    PROGTYPE refreshTypeRadio;
     PROGTYPE lastRefreshType[REFRESHTYPE_NUM];
     unsigned int currentTab;
     unsigned int indexMaxConn;

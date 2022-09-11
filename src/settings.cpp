@@ -23,7 +23,9 @@ Settings::Settings(QObject *parent) : QObject(parent),
     proxyUrl = settings.value("download/proxyUrl", "").toString();
     modeTv = (QUALITY)settings.value("download/modeTv", QUALITY_WORST).toInt();
     modeRadio = (QUALITY)settings.value("download/modeRadio", QUALITY_WORST).toInt();
-    refreshType = (PROGTYPE)settings.value("storage/refreshType", PROGTYPE_NATIONAL).toInt();
+    PROGTYPE refreshType = (PROGTYPE)settings.value("storage/refreshType", PROGTYPE_NATIONAL).toInt();
+    refreshTypeTv = (PROGTYPE)settings.value("storage/refreshTypeTv", refreshType).toInt();
+    refreshTypeRadio = (PROGTYPE)settings.value("storage/refreshTypeRadio", refreshType).toInt();
 
     settings.beginReadArray("storage/lastRefresh");
     for (int progType = 0; progType < REFRESHTYPE_NUM; progType++) {
@@ -59,16 +61,12 @@ Settings::Settings(QObject *parent) : QObject(parent),
     indexMaxConn = (unsigned int)settings.value("download/indexMaxConn", 0).toInt();
     if (indexMaxConn == 0) {
         // Select default value depending on the device
-        DEVICE device = getDevice();
-        switch (device) {
-        case DEVICE_XPERIA_X:
-        case DEVICE_XPERIA_X_DUALSIM:
-        case DEVICE_XPERIA_X_COMPACT:
-            indexMaxConn = 5;
-            break;
-        default:
+        bool early = earlyDevice();
+        if (early) {
             indexMaxConn = 2;
-            break;
+        }
+        else {
+            indexMaxConn = 5;
         }
     }
 
@@ -83,7 +81,8 @@ Settings::~Settings() {
     settings.setValue("download/modeTv", modeTv);
     settings.setValue("download/modeRadio", modeRadio);
 
-    settings.setValue("storage/refreshType", refreshType);
+    settings.setValue("storage/refreshTypeTv", refreshTypeTv);
+    settings.setValue("storage/refreshTypeRadio", refreshTypeRadio);
     settings.setValue("state/currentTab", currentTab);
 
     settings.beginWriteArray("storage/lastRefresh");
@@ -200,8 +199,12 @@ QString Settings::getProxyUrl() {
     return proxyUrl;
 }
 
-Settings::PROGTYPE Settings::getRefreshType() {
-    return refreshType;
+Settings::PROGTYPE Settings::getRefreshTypeTv() {
+    return refreshTypeTv;
+}
+
+Settings::PROGTYPE Settings::getRefreshTypeRadio() {
+    return refreshTypeRadio;
 }
 
 unsigned int Settings::getCurrentTab() {
@@ -246,10 +249,16 @@ void Settings::setProxyUrl(QString &value) {
     emit proxyUrlChanged(proxyUrl);
 }
 
-void Settings::setRefreshType(PROGTYPE value) {
-    qDebug() << "Set refresh type: " << value;
-    refreshType = value;
-    emit refreshTypeChanged(refreshType);
+void Settings::setRefreshTypeTv(PROGTYPE value) {
+    qDebug() << "Set refresh type tv: " << value;
+    refreshTypeTv = value;
+    emit refreshTypeTvChanged(refreshTypeTv);
+}
+
+void Settings::setRefreshTypeRadio(PROGTYPE value) {
+    qDebug() << "Set refresh type radio: " << value;
+    refreshTypeRadio = value;
+    emit refreshTypeRadioChanged(refreshTypeRadio);
 }
 
 void Settings::setCurrentTab(unsigned int value) {
@@ -293,6 +302,15 @@ void Settings::setModeRadio(QUALITY value) {
 bool Settings::getRebuildCache(int type) {
     bool rebuildCache;
     int typeget = qBound(0, (int)type, (int)REFRESHTYPE_NUM);
+    PROGTYPE refreshType;
+    switch (typeget) {
+    case REFRESHTYPE_RADIO:
+        refreshType = refreshTypeRadio;
+        break;
+    default:
+        refreshType = refreshTypeTv;
+        break;
+    }
 
     // If the refresh type changed since the last time we refreshed
     // we need to rebuild the cache
@@ -343,20 +361,21 @@ QString Settings::getImageUrl(const QString &id) const {
 
 // See https://github.com/kimmoli/chargemon/blob/d577d5277e97524a298bea3ff3cec9588971e06b/src/cmon.cpp#L54
 // Licence MIT
-Settings::DEVICE Settings::getDevice()
+bool Settings::earlyDevice()
 {
-    Settings::DEVICE result = DEVICE_INVALID;
+    bool result = false;
+    bool success = true;
     QDBusMessage ssuCallReply;
     QList<QVariant> outArgs;
 
-    if (result != DEVICE_FAILURE) {
+    if (success) {
         if (!QDBusConnection::systemBus().isConnected()) {
             printf("Cannot connect to the D-Bus systemBus\n%s\n", qPrintable(QDBusConnection::systemBus().lastError().message()));
-            result = DEVICE_FAILURE;
+            success = false;
         }
     }
 
-    if (result != DEVICE_FAILURE) {
+    if (success) {
         QDBusInterface ssuCall("org.nemo.ssu", "/org/nemo/ssu", "org.nemo.ssu", QDBusConnection::systemBus());
         ssuCall.setTimeout(1000);
 
@@ -367,62 +386,35 @@ Settings::DEVICE Settings::getDevice()
 
         if (ssuCallReply.type() == QDBusMessage::ErrorMessage) {
             printf("Error: %s\n", qPrintable(ssuCallReply.errorMessage()));
-            result = DEVICE_FAILURE;
+            success = false;
         }
     }
 
-    if (result != DEVICE_FAILURE) {
+    if (success) {
         outArgs = ssuCallReply.arguments();
         if (outArgs.count() == 0) {
             printf("Reply is empty\n");
-            result = DEVICE_FAILURE;
+            success = false;
         }
     }
 
-    if (result != DEVICE_FAILURE) {
-        QString deviceName = outArgs.at(0).toString();
+    if (success) {
+        QString const deviceName = outArgs.at(0).toString();
 
         printf("device name is %s\n", qPrintable(deviceName));
 
-        result = DEVICE_UNKNOWN;
-        if (outArgs.at(0).toString() == "JP-1301") {
-            // The one and only original Jolla phone
-            result = DEVICE_JOLLA_ONE;
-        }
-        else if (outArgs.at(0).toString() == "JT-1501") {
-            // The one and only original Jolla tablet
-            result = DEVICE_JOLLA_TABLET;
-        }
-        else if (outArgs.at(0).toString() == "onyx") {
-            // OneplusX
-            result = DEVICE_ONE_PLUS_X;
-        }
-        else if (outArgs.at(0).toString() == "fp2-sibon") {
-            result = DEVICE_SIBON;
-        }
-        else if (outArgs.at(0).toString() == "JP-1601") {
-             // Jolla C
-             result = DEVICE_JOLLA_C;
-        }
-        else if (outArgs.at(0).toString() == "Aqua Fish") {
-            // Aquafish
-            result = DEVICE_AQUAFISH;
-        }
-        else if (outArgs.at(0).toString() == "L500D") {
-            // This is also Aquafish
-            result = DEVICE_AQUAFISH;
-        }
-        else if (outArgs.at(0).toString() == "f5121") {
-            // Sony Xperia X
-            result = DEVICE_XPERIA_X;
-        }
-        else if (outArgs.at(0).toString() == "f5122") {
-            // Sony Xperia X dual SIM
-            result = DEVICE_XPERIA_X_DUALSIM;
-        }
-        else if (outArgs.at(0).toString() == "f5321") {
-            // Sony Xperia X Compact
-            result = DEVICE_XPERIA_X_COMPACT;
+        const QStringList earlyDevices = {
+            "JP-1301", // Jolla One
+            "JT-1501", // Jolla Tablet
+            "onyx", // One Plus X
+            "fp2-sibon", // Sibon
+            "JP-1601", // Jolla C
+            "Aqua Fish", // Aqua Fish
+            "L500D", // Aqua Fish
+        };
+
+        if (earlyDevices.contains(deviceName)) {
+            result = true;
         }
     }
 

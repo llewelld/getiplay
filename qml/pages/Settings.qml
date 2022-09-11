@@ -10,14 +10,16 @@ Page {
     property string videoFolder: Settings.videoDir
     property string audioFolder: Settings.audioDir
     property alias proxyUrl: proxyUrlEntry.text
-    property alias refreshType: refreshtypeEntry.currentIndex
+    property alias refreshTypeTv: refreshTypeTvEntry.currentIndex
+    property alias refreshTypeRadio: refreshTypeRadioEntry.currentIndex
     property alias modeTv: modeTvEntry.currentIndex
     property alias modeRadio: modeRadioEntry.currentIndex
 
     Binding { target: Settings; property: "videoDir"; value: videoFolder }
     Binding { target: Settings; property: "audioDir"; value: audioFolder }
     Binding { target: Settings; property: "proxyUrl"; value: proxyUrl }
-    Binding { target: Settings; property: "refreshType"; value: refreshType }
+    Binding { target: Settings; property: "refreshTypeTv"; value: refreshTypeTv }
+    Binding { target: Settings; property: "refreshTypeRadio"; value: refreshTypeRadio }
     Binding { target: Settings; property: "modeTv"; value: modeTv }
     Binding { target: Settings; property: "modeRadio"; value: modeRadio }
 
@@ -42,80 +44,51 @@ Page {
             }
 
             SectionHeader {
+                //% "Progamme Listings"
+                text: qsTrId("getiplay-settings_subtitle_listings")
+            }
+
+            ListingTypeComboBox {
+                id: refreshTypeTvEntry
+                //% "Television listing type"
+                label: qsTrId("getiplay-settings_listtype-tv")
+                currentIndex: Settings.refreshTypeTv
+            }
+
+            ListingTypeComboBox {
+                id: refreshTypeRadioEntry
+                //% "Radio listing type"
+                label: qsTrId("getiplay-settings_listtype-radio")
+                currentIndex: Settings.refreshTypeRadio
+            }
+
+            Label {
+                //% "Refresh lists to apply the changes"
+                text: qsTrId("getiplay-settings_listtype_description")
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
+                font.pixelSize: Theme.fontSizeExtraSmall
+                color: palette.secondaryColor
+                wrapMode: Text.Wrap
+            }
+
+            SectionHeader {
                 //% "Download"
-                text: qsTrId("getiplay-settings_subtitle_")
+                text: qsTrId("getiplay-settings_subtitle_download")
             }
 
-            ComboBox {
-                id: refreshtypeEntry
-                width: parent.width
-                //% "Programme listing type"
-                label: qsTrId("getiplay-settings_listtype")
-                currentIndex: Settings.refreshType
-
-                menu: ContextMenu {
-                    MenuItem {
-                        //% "National"
-                        text: qsTrId("getiplay-settings_listtype_national")
-                    }
-                    MenuItem {
-                        //% "Regional"
-                        text: qsTrId("getiplay-settings_listtype_regional")
-                    }
-                    MenuItem {
-                        //% "Local"
-                        text: qsTrId("getiplay-settings_listtype_local")
-                    }
-                    MenuItem {
-                        //% "All"
-                        text: qsTrId("getiplay-settings_listtype_all")
-                    }
-                }
-                //% "Programme lists must be refreshed to take effect"
-                description: qsTrId("getiplay-settings_listtype_description")
-            }
-
-            ComboBox {
+            QualityComboBox {
                 id: modeTvEntry
-                width: parent.width
                 //% "Video quality"
                 label: qsTrId("getiplay-settings_videoquality")
                 currentIndex: Settings.modeTv
-
-                menu: ContextMenu {
-                    MenuItem {
-                        //% "Best"
-                        text: qsTrId("getiplay-settings_quality_best")
-                    }
-                    MenuItem {
-                        //% "Good"
-                        text: qsTrId("getiplay-settings_quality_good")
-                    }
-                    MenuItem {
-                        //% "Worst"
-                        text: qsTrId("getiplay-settings_quality_worst")
-                    }
-                }
             }
 
-            ComboBox {
+            QualityComboBox {
                 id: modeRadioEntry
-                width: parent.width
                 //% "Audioquality"
                 label: qsTrId("getiplay-settings_autioquality")
                 currentIndex: Settings.modeTv
-
-                menu: ContextMenu {
-                    MenuItem {
-                        text: qsTrId("getiplay-settings_quality_best")
-                    }
-                    MenuItem {
-                        text: qsTrId("getiplay-settings_quality_good")
-                    }
-                    MenuItem {
-                        text: qsTrId("getiplay-settings_quality_worst")
-                    }
-                }
             }
 
             TextField {

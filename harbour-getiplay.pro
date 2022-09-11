@@ -84,6 +84,8 @@ DISTFILES += \
     icons/172x172/harbour-getiplay.png \
     icons/256x256/harbour-getiplay.png \
     icons/86x86/harbour-getiplay.png \
+    qml/component/ListingTypeComboBox.qml \
+    qml/component/QualityComboBox.qml \
     rpm/GetiPlay.changes \
     qml/pages/MainPage.qml \
     qml/pages/Queue.qml \

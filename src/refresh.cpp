@@ -111,7 +111,7 @@ const QString & Refresh::excludeTypeToString(Settings::PROGTYPE refreshType) {
 }
 
 void Refresh::collectArguments () {
-    Settings::PROGTYPE refreshType = Settings::getInstance().getRefreshType();
+    Settings::PROGTYPE refreshType = (currentRefresh == Settings::REFRESHTYPE_RADIO ? Settings::getInstance().getRefreshTypeRadio() : Settings::getInstance().getRefreshTypeTv());
     QString proxy = Settings::getInstance().getProxyUrl();
     bool rebuildCache = Settings::getInstance().getRebuildCache(currentRefresh);
     QString include = includeTypeToString(refreshType);

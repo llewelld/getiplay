@@ -329,125 +329,131 @@
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_title">
-        <location filename="../qml/pages/Settings.qml" line="41"/>
+        <location filename="../qml/pages/Settings.qml" line="43"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
-    <message id="getiplay-settings_subtitle_">
-        <location filename="../qml/pages/Settings.qml" line="46"/>
-        <source>Download</source>
-        <oldsource>Download settings</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="getiplay-settings_listtype">
-        <location filename="../qml/pages/Settings.qml" line="53"/>
-        <source>Programme listing type</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message id="getiplay-settings_listtype_national">
-        <location filename="../qml/pages/Settings.qml" line="59"/>
+        <location filename="../qml/component/ListingTypeComboBox.qml" line="10"/>
         <source>National</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype_regional">
-        <location filename="../qml/pages/Settings.qml" line="63"/>
+        <location filename="../qml/component/ListingTypeComboBox.qml" line="14"/>
         <source>Regional</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype_local">
-        <location filename="../qml/pages/Settings.qml" line="67"/>
+        <location filename="../qml/component/ListingTypeComboBox.qml" line="18"/>
         <source>Local</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype_all">
-        <location filename="../qml/pages/Settings.qml" line="71"/>
+        <location filename="../qml/component/ListingTypeComboBox.qml" line="22"/>
         <source>All</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_listtype_description">
-        <location filename="../qml/pages/Settings.qml" line="75"/>
-        <source>Programme lists must be refreshed to take effect</source>
-        <oldsource>Programme lists must be refreshed for change to take effect.</oldsource>
+        <location filename="../qml/pages/Settings.qml" line="53"/>
+        <source>Refresh lists to apply the changes</source>
+        <oldsource>Refresh list to apply</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_videoquality">
-        <location filename="../qml/pages/Settings.qml" line="82"/>
+        <location filename="../qml/pages/Settings.qml" line="83"/>
         <source>Video quality</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_quality_best">
-        <location filename="../qml/pages/Settings.qml" line="88"/>
-        <location filename="../qml/pages/Settings.qml" line="110"/>
+        <location filename="../qml/component/QualityComboBox.qml" line="10"/>
         <source>Best</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_quality_good">
-        <location filename="../qml/pages/Settings.qml" line="92"/>
-        <location filename="../qml/pages/Settings.qml" line="113"/>
+        <location filename="../qml/component/QualityComboBox.qml" line="14"/>
         <source>Good</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_quality_worst">
-        <location filename="../qml/pages/Settings.qml" line="96"/>
-        <location filename="../qml/pages/Settings.qml" line="116"/>
+        <location filename="../qml/component/QualityComboBox.qml" line="18"/>
         <source>Worst</source>
         <translation type="unfinished"></translation>
     </message>
+    <message id="getiplay-settings_subtitle_listings">
+        <location filename="../qml/pages/Settings.qml" line="48"/>
+        <source>Progamme Listings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_listtype-tv">
+        <location filename="../qml/pages/Settings.qml" line="64"/>
+        <source>Television listing type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_listtype-radio">
+        <location filename="../qml/pages/Settings.qml" line="71"/>
+        <source>Radio listing type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="getiplay-settings_subtitle_download">
+        <location filename="../qml/pages/Settings.qml" line="77"/>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message id="getiplay-settings_autioquality">
-        <location filename="../qml/pages/Settings.qml" line="105"/>
+        <location filename="../qml/pages/Settings.qml" line="90"/>
         <source>Audioquality</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_proxy">
-        <location filename="../qml/pages/Settings.qml" line="124"/>
+        <location filename="../qml/pages/Settings.qml" line="97"/>
         <source>Web proxy URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_max_connections">
-        <location filename="../qml/pages/Settings.qml" line="136"/>
+        <location filename="../qml/pages/Settings.qml" line="109"/>
         <source>Maximum connections</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_subtitle_file_storage">
-        <location filename="../qml/pages/Settings.qml" line="149"/>
+        <location filename="../qml/pages/Settings.qml" line="122"/>
         <source>File storage</source>
         <oldsource>File storage settings</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_video_folder">
-        <location filename="../qml/pages/Settings.qml" line="154"/>
+        <location filename="../qml/pages/Settings.qml" line="127"/>
         <source>Video folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_select_video_folder">
-        <location filename="../qml/pages/Settings.qml" line="165"/>
+        <location filename="../qml/pages/Settings.qml" line="138"/>
         <source>Select video folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_audio_folder">
-        <location filename="../qml/pages/Settings.qml" line="176"/>
+        <location filename="../qml/pages/Settings.qml" line="149"/>
         <source>Audio folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_select_audio_folder">
-        <location filename="../qml/pages/Settings.qml" line="187"/>
+        <location filename="../qml/pages/Settings.qml" line="160"/>
         <source>Select audio folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_subtitle_playback">
-        <location filename="../qml/pages/Settings.qml" line="198"/>
+        <location filename="../qml/pages/Settings.qml" line="171"/>
         <source>Playback</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_skip_time_short">
-        <location filename="../qml/pages/Settings.qml" line="205"/>
-        <location filename="../qml/pages/Settings.qml" line="209"/>
+        <location filename="../qml/pages/Settings.qml" line="178"/>
+        <location filename="../qml/pages/Settings.qml" line="182"/>
         <source>Short skip duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="getiplay-settings_skip_time_long">
-        <location filename="../qml/pages/Settings.qml" line="221"/>
-        <location filename="../qml/pages/Settings.qml" line="225"/>
+        <location filename="../qml/pages/Settings.qml" line="194"/>
+        <location filename="../qml/pages/Settings.qml" line="198"/>
         <source>Long skip duration</source>
         <translation type="unfinished"></translation>
     </message>
