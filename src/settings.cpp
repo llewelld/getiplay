@@ -365,18 +365,36 @@ QString Settings::millisecondsToTime (quint32 milliseconds) {
     return QString("%1:%2:%3").arg(hours).arg(minutes, 2, 'f', 0, '0').arg(seconds, 2, 'f', 0, '0');
 }
 
-QString Settings::qualityToString (QUALITY quality) {
+QString Settings::qualityToStringRadio (QUALITY quality) {
     QString result;
     switch (quality) {
     case QUALITY_BEST:
-        result = QStringLiteral("best");
+        result = QStringLiteral("high,std,med,low");
         break;
     case QUALITY_GOOD:
-        result = QStringLiteral("good");
+        result = QStringLiteral("std,med,low");
         break;
     case QUALITY_WORST:
     default:
-        result = QStringLiteral("worst");
+        result = QStringLiteral("low");
+        break;
+    }
+
+    return result;
+}
+
+QString Settings::qualityToStringTv (QUALITY quality) {
+    QString result;
+    switch (quality) {
+    case QUALITY_BEST:
+        result = QStringLiteral("fhd,hd,sd,web,mobile");
+        break;
+    case QUALITY_GOOD:
+        result = QStringLiteral("sd,web,mobile");
+        break;
+    case QUALITY_WORST:
+    default:
+        result = QStringLiteral("mobile");
         break;
     }
 

@@ -101,10 +101,10 @@ void Download::collectArguments () {
 
     if (progType == QString("radio")) {
         addArgument("output", Settings::getInstance().getAudioDir());
-        addArgument("radiomode", Settings::qualityToString((Settings::getInstance().getModeRadio())));
+        addArgument("radio-quality", Settings::qualityToStringRadio((Settings::getInstance().getModeRadio())));
     } else if (progType == QString("tv")) {
         addArgument("output", Settings::getInstance().getVideoDir());
-        addArgument("tvmode", Settings::qualityToString((Settings::getInstance().getModeTv())));
+        addArgument("tv-quality", Settings::qualityToStringTv((Settings::getInstance().getModeTv())));
     } else {
         addArgument("output", Settings::getDownloadsDir());
     }
