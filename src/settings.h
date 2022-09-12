@@ -133,9 +133,10 @@ public slots:
 
 private:
     static bool earlyDevice();
+    static bool migrate();
 
     static Settings * instance;
-    QSettings settings;
+    QSettings *settings;
     double pixelRatio;
     QString imageDir;
 

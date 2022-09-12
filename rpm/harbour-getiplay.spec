@@ -49,6 +49,9 @@ desktop-file-install --delete-original       \
   --dir %{buildroot}%{_datadir}/applications             \
    %{buildroot}%{_datadir}/applications/*.desktop
 
+install -Dm 644 %{_sourcedir}/../harbour-getiplay.profile \
+  %{buildroot}%{_sysconfdir}/sailjail/permissions/harbour-getiplay.profile
+
 %files
 %defattr(-,root,root,-)
 %{_bindir}
@@ -57,5 +60,6 @@ desktop-file-install --delete-original       \
 %{_datadir}/%{name}/translations
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_sysconfdir}/sailjail/permissions/harbour-getiplay.profile
 %attr(755,root,root) %{_datadir}/%{name}/bin/get_iplayer
 %attr(755,root,root) %{_datadir}/%{name}/bin/AtomicParsley

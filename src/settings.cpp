@@ -5,6 +5,7 @@
 #include <mlite5/MGConfItem>
 #include <QDBusConnection>
 #include <QDBusInterface>
+#include <QCoreApplication>
 
 #include "settings.h"
 #include "refresh.h"
@@ -15,26 +16,56 @@
 
 Settings * Settings::instance = nullptr;
 
-Settings::Settings(QObject *parent) : QObject(parent),
-  settings(this)
-{
-    audioDir = settings.value("storage/audioDir", QString(QStandardPaths::writableLocation(QStandardPaths::MusicLocation) + "/" APP_NAME)).toString();
-    videoDir = settings.value("storage/videoDir", QString(QStandardPaths::writableLocation(QStandardPaths::MoviesLocation) + "/" APP_NAME)).toString();
-    proxyUrl = settings.value("download/proxyUrl", "").toString();
-    modeTv = (QUALITY)settings.value("download/modeTv", QUALITY_WORST).toInt();
-    modeRadio = (QUALITY)settings.value("download/modeRadio", QUALITY_WORST).toInt();
-    PROGTYPE refreshType = (PROGTYPE)settings.value("storage/refreshType", PROGTYPE_NATIONAL).toInt();
-    refreshTypeTv = (PROGTYPE)settings.value("storage/refreshTypeTv", refreshType).toInt();
-    refreshTypeRadio = (PROGTYPE)settings.value("storage/refreshTypeRadio", refreshType).toInt();
+bool Settings::migrate() {
+    QString const basePath = getConfigDir() + "/";
+    QString const oldBasePath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/" + QCoreApplication::applicationName() + "/";
 
-    settings.beginReadArray("storage/lastRefresh");
-    for (int progType = 0; progType < REFRESHTYPE_NUM; progType++) {
-        settings.setArrayIndex(progType);
-        lastRefreshType[progType] = static_cast<PROGTYPE>(settings.value("type", PROGTYPE_INVALID).toInt());
+    QString const settingsPath = basePath + QCoreApplication::applicationName() + ".conf";
+    QString const oldSettingsPath = oldBasePath + QCoreApplication::applicationName() + ".conf";
+    bool const migrate = !QFile(settingsPath).exists() && QFile(oldSettingsPath).exists();
+
+    if (migrate) {
+        qDebug() << "Migrating settings";
+        qDebug() << "Migrating from : " << basePath;
+        qDebug() << "Migrating to: " << oldBasePath;
+
+        QDir dir;
+        dir.rename(oldSettingsPath, settingsPath);
+
+        QString const oldSubPath = oldBasePath + QCoreApplication::applicationName() + "/";
+        QStringList const leafNames = {"queue.txt", "radio.txt", "tv.txt"};
+        for (QString const &leafName : leafNames) {
+            qDebug() << "Moving from: " << (oldSubPath + leafName) << ", to: " << (basePath + leafName);
+            dir.rename(oldSubPath + leafName, basePath + leafName);
+        }
     }
-    settings.endArray();
+    return migrate;
+}
 
-    currentTab = settings.value("state/currentTab", 0).toInt();
+Settings::Settings(QObject *parent) : QObject(parent) {
+    migrate();
+
+    QString const settingsPath = getConfigDir() + "/" + QCoreApplication::applicationName() + ".conf";
+    qDebug() << "Settings file: " << settingsPath;
+    settings = new QSettings(settingsPath, QSettings::NativeFormat, this);
+
+    audioDir = settings->value("storage/audioDir", QString(QStandardPaths::writableLocation(QStandardPaths::MusicLocation) + "/" APP_NAME)).toString();
+    videoDir = settings->value("storage/videoDir", QString(QStandardPaths::writableLocation(QStandardPaths::MoviesLocation) + "/" APP_NAME)).toString();
+    proxyUrl = settings->value("download/proxyUrl", "").toString();
+    modeTv = (QUALITY)settings->value("download/modeTv", QUALITY_WORST).toInt();
+    modeRadio = (QUALITY)settings->value("download/modeRadio", QUALITY_WORST).toInt();
+    PROGTYPE refreshType = (PROGTYPE)settings->value("storage/refreshType", PROGTYPE_NATIONAL).toInt();
+    refreshTypeTv = (PROGTYPE)settings->value("storage/refreshTypeTv", refreshType).toInt();
+    refreshTypeRadio = (PROGTYPE)settings->value("storage/refreshTypeRadio", refreshType).toInt();
+
+    settings->beginReadArray("storage/lastRefresh");
+    for (int progType = 0; progType < REFRESHTYPE_NUM; progType++) {
+        settings->setArrayIndex(progType);
+        lastRefreshType[progType] = static_cast<PROGTYPE>(settings->value("type", PROGTYPE_INVALID).toInt());
+    }
+    settings->endArray();
+
+    currentTab = settings->value("state/currentTab", 0).toInt();
 
     QScopedPointer<MGConfItem> ratioItem(new MGConfItem("/desktop/sailfish/silica/theme_pixel_ratio"));
     pixelRatio = ratioItem->value(1.0).toDouble();
@@ -58,7 +89,7 @@ Settings::Settings(QObject *parent) : QObject(parent),
     imageDir = SailfishApp::pathTo("qml/images/z" + dir).toString(QUrl::RemoveScheme) + "/";
     qDebug() << "Image folder: " << imageDir;
 
-    indexMaxConn = (unsigned int)settings.value("download/indexMaxConn", 0).toInt();
+    indexMaxConn = (unsigned int)settings->value("download/indexMaxConn", 0).toInt();
     if (indexMaxConn == 0) {
         // Select default value depending on the device
         bool early = earlyDevice();
@@ -70,31 +101,31 @@ Settings::Settings(QObject *parent) : QObject(parent),
         }
     }
 
-    skipTimeShort = settings.value("player/skipTimeShort", 10).toInt();
-    skipTimeLong = settings.value("player/skipTimeLong", 5 * 60).toInt();
+    skipTimeShort = settings->value("player/skipTimeShort", 10).toInt();
+    skipTimeLong = settings->value("player/skipTimeLong", 5 * 60).toInt();
 }
 
 Settings::~Settings() {
-    settings.setValue("storage/audioDir", audioDir);
-    settings.setValue("storage/videoDir", videoDir);
-    settings.setValue("download/proxyUrl", proxyUrl);
-    settings.setValue("download/modeTv", modeTv);
-    settings.setValue("download/modeRadio", modeRadio);
+    settings->setValue("storage/audioDir", audioDir);
+    settings->setValue("storage/videoDir", videoDir);
+    settings->setValue("download/proxyUrl", proxyUrl);
+    settings->setValue("download/modeTv", modeTv);
+    settings->setValue("download/modeRadio", modeRadio);
 
-    settings.setValue("storage/refreshTypeTv", refreshTypeTv);
-    settings.setValue("storage/refreshTypeRadio", refreshTypeRadio);
-    settings.setValue("state/currentTab", currentTab);
+    settings->setValue("storage/refreshTypeTv", refreshTypeTv);
+    settings->setValue("storage/refreshTypeRadio", refreshTypeRadio);
+    settings->setValue("state/currentTab", currentTab);
 
-    settings.beginWriteArray("storage/lastRefresh");
+    settings->beginWriteArray("storage/lastRefresh");
     for (int progType = 0; progType < REFRESHTYPE_NUM; progType++) {
-        settings.setArrayIndex(progType);
-        settings.setValue("type", static_cast<int>(lastRefreshType[progType]));
+        settings->setArrayIndex(progType);
+        settings->setValue("type", static_cast<int>(lastRefreshType[progType]));
     }
-    settings.endArray();
+    settings->endArray();
 
-    settings.setValue("download/indexMaxConn", indexMaxConn);
-    settings.setValue("player/skipTimeShort", skipTimeShort);
-    settings.setValue("player/skipTimeLong", skipTimeLong);
+    settings->setValue("download/indexMaxConn", indexMaxConn);
+    settings->setValue("player/skipTimeShort", skipTimeShort);
+    settings->setValue("player/skipTimeLong", skipTimeLong);
 
     qDebug() << "Settings deleted";
 }
@@ -370,7 +401,7 @@ bool Settings::earlyDevice()
 
     if (success) {
         if (!QDBusConnection::systemBus().isConnected()) {
-            printf("Cannot connect to the D-Bus systemBus\n%s\n", qPrintable(QDBusConnection::systemBus().lastError().message()));
+            qWarning() << "Cannot connect to the D-Bus systemBus:" << qPrintable(QDBusConnection::systemBus().lastError().message());
             success = false;
         }
     }
@@ -385,7 +416,7 @@ bool Settings::earlyDevice()
         ssuCallReply = ssuCall.callWithArgumentList(QDBus::Block, "displayName", args);
 
         if (ssuCallReply.type() == QDBusMessage::ErrorMessage) {
-            printf("Error: %s\n", qPrintable(ssuCallReply.errorMessage()));
+            qWarning() <<  "DBus Error: " << qPrintable(ssuCallReply.errorMessage());
             success = false;
         }
     }
@@ -393,15 +424,14 @@ bool Settings::earlyDevice()
     if (success) {
         outArgs = ssuCallReply.arguments();
         if (outArgs.count() == 0) {
-            printf("Reply is empty\n");
+            qWarning() << "Device ssu dbus reply is empty";
             success = false;
         }
     }
 
     if (success) {
         QString const deviceName = outArgs.at(0).toString();
-
-        printf("device name is %s\n", qPrintable(deviceName));
+        qDebug() << "Device name: " << qPrintable(deviceName);
 
         const QStringList earlyDevices = {
             "JP-1301", // Jolla One

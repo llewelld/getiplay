@@ -41,7 +41,7 @@ void Metaget::startDownload(QString progId, int progType) {
     }
     else {
         process = new QProcess();
-        QString program = DIR_BIN "/get_iplayer";
+        QString program = "perl";
         process->setWorkingDirectory(DIR_BIN);
         setupEnvironment();
         collectArguments ();
@@ -73,6 +73,8 @@ void Metaget::collectArguments () {
     arguments.clear();
 
     // get-iplayer --type=tv --output temp --metadata-only --thumbnail-size 640 7850 --file-prefix "tempn.txt"
+
+    addValue(DIR_BIN "/get_iplayer");
 
     if (progType == 0) {
         addArgument("type=radio");

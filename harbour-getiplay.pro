@@ -37,6 +37,7 @@ OTHER_FILES += \
     README.md \
     generate.sh \
     harbour-getiplay.desktop \
+    harbour-getiplay.profile \
     atomicparsley/*
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172 256x256

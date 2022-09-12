@@ -11,4 +11,6 @@ Name=GetiPlay
 # a different app name in German locale (de).
 Name[de]=GetiPlay
 [X-Sailjail]
-Sandboxing=Disabled
+Permissions=Audio;Downloads;Internet;RemovableMedia;UserDirs
+OrganizationName=uk.co.flypig
+ApplicationName=harbour-getiplay

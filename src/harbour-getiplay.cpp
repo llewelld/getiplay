@@ -40,32 +40,25 @@
 #include "settings.h"
 #include "imageprovider.h"
 
+#include <unistd.h>
+
 #include "harbour-getiplay.h"
 
 int main(int argc, char *argv[])
 {
     int result;
-    // SailfishApp::main() will display "qml/template.qml", if you need more
-    // control over initialization, you can use:
-    //
-    //   - SailfishApp::application(int, char *[]) to get the QGuiApplication *
-    //   - SailfishApp::createView() to get a new QQuickView * instance
-    //   - SailfishApp::pathTo(QString) to get a QUrl to a resource file
-    //
-    // To display the view, call "show()" (will show fullscreen on device).
-
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+
+    // These values are used to access the default application folders
+    // ~/.local/share/uk.co.flypig/harbour-getiplay/
+    // ~/.config/uk.co.flypig/harbour-getiplay/
+    // ~/.cache/uk.co.flypig/harbour-getiplay/
+    QCoreApplication::setOrganizationName("uk.co.flypig");
+    QCoreApplication::setApplicationName(APP_NAME);
+
     Settings::instantiate();
     qmlRegisterType<Queue>("harbour.getiplay.progqueue", 1, 0, "ProgQueue");
     qmlRegisterSingletonType<Settings>("harbour.getiplay.settings", 1, 0, "Settings", Settings::provider);
-
-    // These values are used by QSettings to access the config file in
-    // ~/.local/share/flypig/GetiPlay.conf
-    //QCoreApplication::setOrganizationName("flypig");
-    QCoreApplication::setOrganizationDomain("www.flypig.co.uk");
-    QCoreApplication::setApplicationName(APP_NAME);
-
-    //logfile logs;
 
     QList<ProgModel*> models;
     ProgModel modelradio(Settings::getConfigDir() + "/radio.txt");
@@ -139,18 +132,6 @@ int main(int argc, char *argv[])
     QDir dir;
     result = dir.mkpath(Settings::getConfigDir());
 
-    //delete metaget;
-    //delete queue;
-    //delete download;
-    //delete refresh;
-    //delete log;
-    //delete proxyModelQueue;
-    //delete proxyModelTV;
-    //delete proxyModelRadio;
-
     return result;
-    /*
-    return SailfishApp::main(argc, argv);
-    */
 }
 

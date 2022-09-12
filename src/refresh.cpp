@@ -59,13 +59,13 @@ void Refresh::startRefresh(int type) {
         if ((type > Settings::REFRESHTYPE_INVALID) && (type < Settings::REFRESHTYPE_NUM)) {
             currentRefresh = (Settings::REFRESHTYPE)type;
             process = new QProcess();
-            QString program = DIR_BIN "/get_iplayer";
+            QString program = "perl";
             process->setWorkingDirectory(DIR_BIN);
             setupEnvironment();
             collectArguments ();
             process->setProcessChannelMode(QProcess::MergedChannels);
             process->setReadChannel(QProcess::StandardOutput);
-            connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(readError(QProcess::ProcessError)));
+            connect(process, SIGNAL(errorOccurred(QProcess::ProcessError)), this, SLOT(readError(QProcess::ProcessError)));
             connect(process, SIGNAL(readyRead()), this, SLOT(readData()));
             connect(process, SIGNAL(started()), this, SLOT(started()));
             connect(process, SIGNAL(finished(int)), this, SLOT(finished(int)));
@@ -118,6 +118,7 @@ void Refresh::collectArguments () {
     QString exclude = excludeTypeToString(refreshType);
     arguments.clear();
 
+    addValue(DIR_BIN "/get_iplayer");
     addArgument("type=" + typeString[currentRefresh]);
     addArgument("refresh");
     addArgument("force");
@@ -361,7 +362,7 @@ void Refresh::overflow() {
 
 void Refresh::readError(QProcess::ProcessError error)
 {
-    LOGAPPEND("Error: " + error);
+    LOGAPPEND("Error: " + QString::number(error));
     if (process != NULL) {
         QByteArray dataOut = process->readAllStandardOutput();
         QByteArray errorOut = process->readAllStandardError();

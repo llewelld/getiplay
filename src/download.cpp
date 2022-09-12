@@ -44,7 +44,7 @@ void Download::startDownload(QString progId, QString progType) {
     }
     else {
         process = new QProcess();
-        QString program = DIR_BIN "/get_iplayer";
+        QString program = "perl";
         process->setWorkingDirectory(DIR_BIN);
         setupEnvironment();
         collectArguments ();
@@ -78,6 +78,8 @@ void Download::setupEnvironment() {
 void Download::collectArguments () {
     QString proxy = Settings::getInstance().getProxyUrl();
     arguments.clear();
+
+    addValue(DIR_BIN "/get_iplayer");
 
     if (progType == QString("radio")) {
         addArgument("type=radio");
