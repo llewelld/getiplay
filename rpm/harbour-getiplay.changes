@@ -8,6 +8,15 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Mon Sep 12 2022 David Llewellyn-Jones <david@flypig.co.uk> 1.1-1
+- Allow tv and radio listing types to be set independently.
+- Update get_iplayer to version 3.30.
+- Update radio/tv mode arguments to use quality instead.
+- Switch to use the system folder picker.
+- Support Sandboxing, including settings migration.
+- The AtomicParsley binary is now stripped of debug symbols.
+- Switch from org.nemomobile.mpris to Amber.Mpris
+
 * Sat Jul 03 2021 David Llewellyn-Jones <david@flypig.co.uk> 1.0-1
 - Download latest get_player as part of the build process.
 - Include AtomicParsley as a submodule.
