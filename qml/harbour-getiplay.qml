@@ -34,7 +34,7 @@ import QtMultimedia 5.0
 import "pages"
 import "component"
 import harbour.getiplay.settings 1.0
-import org.nemomobile.mpris 1.0
+import Amber.Mpris 1.0
 
 ApplicationWindow
 {
@@ -214,11 +214,9 @@ ApplicationWindow
         canPlay: true
         canSeek: true
         loopStatus: Mpris.None
-        function updateMetadata (title, channel) {
-            var update = {}
-            update[Mpris.metadataToString(Mpris.Artist)] = channel
-            update[Mpris.metadataToString(Mpris.Title)] = title
-            metadata = update
+        function updateMetadata(title, channel) {
+            metaData.albumArtist = channel
+            metaData.albumTitle = title
         }
         playbackStatus: mediaplayerdefined && mediaplayer.playbackState == MediaPlayer.PlayingState ? Mpris.Playing : Mpris.Paused
         position: mediaplayerdefined ? mediaplayer.position * 1000 : 0
