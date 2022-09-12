@@ -113,6 +113,7 @@ atomicparsley_bin.commands += && mkdir -p atomicparsley-build
 atomicparsley_bin.commands += && cd atomicparsley-build
 atomicparsley_bin.commands += && cmake -S $$PWD/atomicparsley -B .
 atomicparsley_bin.commands += && make
+atomicparsley_bin.commands += && strip --strip-unneeded AtomicParsley
 atomicparsley_bin.commands += && mv AtomicParsley ../bin/
 atomicparsley_bin.commands += && cd ..
 atomicparsley_bin.depends = $$PWD/atomicparsley
